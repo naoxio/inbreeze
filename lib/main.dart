@@ -96,11 +96,18 @@ class MainPage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: TabBar(
-          tabs: [
-            Tab(text: 'Today'),
-            Tab(text: 'Progress'),
-          ],
+        appBar: AppBar(
+          title: Center(
+            child: Text(
+              'Time to breathe'.toUpperCase(),
+            ),
+          ),
+          bottom: TabBar(
+            tabs: [
+              Tab(text: 'Today'),
+              Tab(text: 'Progress'),
+            ],
+          ),
         ),
         body: TabBarView(
           children: [
@@ -138,41 +145,37 @@ class ProgressView extends StatelessWidget {
 }
 
 class TodayView extends StatelessWidget {
-  const TodayView({
+  TodayView({
     super.key,
   });
+  var roundsCompleted = 0;
+  var averageRoundDuration = 0;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
         width: 300,
-        child: ListView.builder(
-          itemCount: 3,
-          itemBuilder: (context, index) {
-            switch (index) {
-              case 0:
-                var roundsCompleted = 0;
-                return Text(
-                  'Rounds completed: $roundsCompleted',
-                  style: TextStyle(fontSize: 24.0),
-                );
-              case 1:
-                var averageRoundDuration = 0;
-                return Text(
-                  'Average round duration: ${averageRoundDuration.toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 24.0),
-                );
-              case 2:
-                return TableCalendar(
-                  firstDay: DateTime.utc(2010, 10, 16),
-                  lastDay: DateTime.utc(2030, 3, 14),
-                  focusedDay: DateTime.now(),
-                );
-              default:
-                return Container();
-            }
-          },
+        child: ListView(
+          children: [
+            Text(
+              'Today'.toUpperCase(),
+              style: TextStyle(fontSize: 32),
+            ),
+            Text(
+              '$roundsCompleted rounds completed',
+              style: TextStyle(fontSize: 24.0),
+            ),
+            Text(
+              '${averageRoundDuration.toStringAsFixed(2)} average round duration',
+              style: TextStyle(fontSize: 24.0),
+            ),
+            TableCalendar(
+              firstDay: DateTime.utc(2010, 10, 16),
+              lastDay: DateTime.utc(2030, 3, 14),
+              focusedDay: DateTime.now(),
+            ),
+          ],
         ),
       ),
     );
