@@ -3,33 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-ThemeData darkGreenishBlueTheme() {
-  return ThemeData(
-    primaryColor: Color(0xFF0097A7),
-    primaryColorDark: Color(0xFF00738D),
-    hintColor: Color(0xFFF4FFAF),
-    textTheme: TextTheme(
-      bodyMedium: TextStyle(
-        color: Colors.white,
-      ),
-    ),
-    colorScheme: ColorScheme(
-      primary: Color(0xFF0097A7),
-      onPrimary: Colors.black,
-      secondary: Colors.tealAccent,
-      onSecondary: Colors.black12,
-      error: Colors.red,
-      onError: Colors.redAccent,
-      onBackground: Colors.black12,
-      surface: Colors.teal,
-      onSurface: Colors.tealAccent,
-      brightness: Brightness.dark,
-      background: Color(0xFF212933),
-      tertiary: Color(0xFF3B4353),
-    ),
-  );
-}
-
 void main() {
   runApp(MyApp());
 }
@@ -42,9 +15,22 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-          title: 'Inner Breeze',
-          home: MyHomePage(),
-          theme: darkGreenishBlueTheme()),
+        title: 'Inner Breeze',
+        home: MyHomePage(),
+        theme: ThemeData.from(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.teal,
+            brightness: Brightness.light,
+          ),
+        ),
+        darkTheme: ThemeData.from(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.teal,
+            brightness: Brightness.dark,
+          ),
+        ),
+        themeMode: ThemeMode.dark,
+      ),
     );
   }
 }
@@ -97,6 +83,10 @@ class MainPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          leading: Image.asset(
+            'assets/logo.png',
+            fit: BoxFit.contain,
+          ),
           title: Center(
             child: Text(
               'Time to breathe'.toUpperCase(),
@@ -116,6 +106,10 @@ class MainPage extends StatelessWidget {
             // Progress tab
             ProgressView(appState: appState),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () => {},
         ),
       ),
     );
@@ -172,7 +166,7 @@ class TodayView extends StatelessWidget {
             ),
             TableCalendar(
               firstDay: DateTime.utc(2010, 10, 16),
-              lastDay: DateTime.utc(2030, 3, 14),
+              lastDay: DateTime.now(),
               focusedDay: DateTime.now(),
             ),
           ],
