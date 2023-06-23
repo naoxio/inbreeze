@@ -1,9 +1,8 @@
-import 'dart:math' as math;
-
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'timer.dart';
+import 'app_state.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,33 +34,6 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.dark,
       ),
     );
-  }
-}
-
-class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
-  var favorites = <WordPair>[];
-  var progress = <DateTime>[];
-
-  void getNext() {
-    current = WordPair.random();
-    notifyListeners();
-  }
-
-  var selectedIndex = 0;
-
-  void changeIndex(int i) {
-    selectedIndex = i;
-    notifyListeners();
-  }
-
-  void toggleFavorite() {
-    if (favorites.contains(current)) {
-      favorites.remove(current);
-    } else {
-      favorites.add(current);
-    }
-    notifyListeners();
   }
 }
 
@@ -97,168 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
               pageToDisplay, // Render the appropriate page based on the selectedIndex
         );
       },
-    );
-  }
-}
-
-class CustomTimerPainter extends CustomPainter {
-  final Animation<double> animation;
-  final Color backgroundColor;
-  final Color color;
-
-  CustomTimerPainter({
-    required this.animation,
-    this.backgroundColor = Colors.red,
-    this.color = Colors.black,
-  }) : super(repaint: animation);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = backgroundColor
-      ..strokeWidth = 10.0
-      ..strokeCap = StrokeCap.butt
-      ..style = PaintingStyle.stroke;
-
-    canvas.drawCircle(size.center(Offset.zero), size.width / 2.0, paint);
-    paint.color = color;
-    double progress = (1.0 - animation.value) * 2 * math.pi;
-    canvas.drawArc(Offset.zero & size, math.pi * 1.5, -progress, false, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomTimerPainter oldDelegate) {
-    return animation.value != oldDelegate.animation.value ||
-        color != oldDelegate.color ||
-        backgroundColor != oldDelegate.backgroundColor;
-  }
-}
-
-class CountDownTimer extends StatefulWidget {
-  @override
-  _CountDownTimerState createState() => _CountDownTimerState();
-}
-
-class _CountDownTimerState extends State<CountDownTimer>
-    with TickerProviderStateMixin {
-  late AnimationController controller;
-
-  String get timerString {
-    Duration duration = controller.duration! * controller.value;
-    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 50),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-
-    ThemeData themeData = Theme.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(
-          onPressed: () => {appState.changeIndex(0)},
-        ),
-      ),
-      body: AnimatedBuilder(
-          animation: controller,
-          builder: (context, child) {
-            return Stack(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Expanded(
-                        child: Align(
-                          alignment: FractionalOffset.center,
-                          child: AspectRatio(
-                            aspectRatio: 1.0,
-                            child: Stack(
-                              children: <Widget>[
-                                Positioned.fill(
-                                  child: CustomPaint(
-                                    painter: CustomTimerPainter(
-                                      animation: controller,
-                                      backgroundColor: Colors.white,
-                                      color: themeData.indicatorColor,
-                                    ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: FractionalOffset.center,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Count Down Timer",
-                                        style: TextStyle(
-                                            fontSize: 20.0,
-                                            color: Colors.white),
-                                      ),
-                                      Text(
-                                        timerString,
-                                        style: TextStyle(
-                                            fontSize: 112.0,
-                                            color: Colors.white),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      AnimatedBuilder(
-                          animation: controller,
-                          builder: (context, child) {
-                            return FloatingActionButton.extended(
-                                onPressed: () {
-                                  if (controller.isAnimating)
-                                    controller.stop();
-                                  else {
-                                    controller.reverse(
-                                        from: controller.value == 0.0
-                                            ? 1.0
-                                            : controller.value);
-                                  }
-                                },
-                                icon: Icon(controller.isAnimating
-                                    ? Icons.pause
-                                    : Icons.play_arrow),
-                                label: Text(
-                                    controller.isAnimating ? "Pause" : "Play"));
-                          }),
-                    ],
-                  ),
-                ),
-              ],
-            );
-          }),
-    );
-  }
-}
-
-class TimestopPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    return DefaultTabController(
-      length: 2,
-      child: CountDownTimer(),
     );
   }
 }
