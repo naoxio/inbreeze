@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
         pageToDisplay = MainPage();
         break;
       case 1:
-        pageToDisplay = TimestopPage();
+        pageToDisplay = TimerPage();
         break;
       default:
         pageToDisplay =

@@ -37,12 +37,12 @@ class CustomTimerPainter extends CustomPainter {
   }
 }
 
-class Timer extends StatefulWidget {
+class TimerPage extends StatefulWidget {
   @override
-  _TimerState createState() => _TimerState();
+  State<TimerPage> createState() => _TimerPageState();
 }
 
-class _TimerState extends State<Timer> with TickerProviderStateMixin {
+class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
   late AnimationController controller;
 
   String get timerString {
@@ -71,91 +71,67 @@ class _TimerState extends State<Timer> with TickerProviderStateMixin {
           onPressed: () => {appState.changeIndex(0)},
         ),
       ),
-      body: AnimatedBuilder(
-          animation: controller,
-          builder: (context, child) {
-            return Stack(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Expanded(
-                        child: Align(
-                          alignment: FractionalOffset.center,
-                          child: AspectRatio(
-                            aspectRatio: 1.0,
-                            child: Stack(
-                              children: <Widget>[
-                                Positioned.fill(
-                                  child: CustomPaint(
-                                    painter: CustomTimerPainter(
-                                      animation: controller,
-                                      backgroundColor: Colors.cyan,
-                                      color: themeData.indicatorColor,
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => {
+          controller.forward(
+              from: controller.value == 1.0 ? 0.0 : controller.value)
+        },
+        child: AnimatedBuilder(
+            animation: controller,
+            builder: (context, child) {
+              return Stack(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Expanded(
+                          child: Align(
+                            alignment: FractionalOffset.center,
+                            child: AspectRatio(
+                              aspectRatio: 1.0,
+                              child: Stack(
+                                children: <Widget>[
+                                  Positioned.fill(
+                                    child: CustomPaint(
+                                      painter: CustomTimerPainter(
+                                        animation: controller,
+                                        backgroundColor: Colors.cyan,
+                                        color: themeData.indicatorColor,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Align(
-                                  alignment: FractionalOffset.center,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        timerString,
-                                        style: TextStyle(
-                                            fontSize: 112.0,
-                                            color: Colors.white),
-                                      ),
-                                    ],
+                                  Align(
+                                    alignment: FractionalOffset.center,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          timerString,
+                                          style: TextStyle(
+                                              fontSize: 112.0,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      AnimatedBuilder(
-                          animation: controller,
-                          builder: (context, child) {
-                            return FloatingActionButton.extended(
-                              onPressed: () {
-                                if (controller.isAnimating)
-                                  controller.stop();
-                                else {
-                                  controller.forward(
-                                      from: controller.value == 1.0
-                                          ? 0.0
-                                          : controller.value);
-                                }
-                              },
-                              icon: Icon(controller.isAnimating
-                                  ? Icons.pause
-                                  : Icons.play_arrow),
-                              label: Text(
-                                  controller.isAnimating ? "Pause" : "Play"),
-                            );
-                          }),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            );
-          }),
-    );
-  }
-}
-
-class TimestopPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Timer(),
+                ],
+              );
+            }),
+      ),
     );
   }
 }
