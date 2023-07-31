@@ -26,12 +26,14 @@ class TutorialPage extends StatelessWidget {
   }
 }
 
-class NextButton extends StatelessWidget {
+class PageLayout extends StatelessWidget {
   final String buttonText;
   final String nextRoute;
   final VoidCallback onPressed;
+  final Widget column;
 
-  NextButton({
+  PageLayout({
+    required this.column,
     required this.buttonText,
     required this.nextRoute,
     required this.onPressed,
@@ -39,17 +41,30 @@ class NextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomAppBar(
-      color: Colors.transparent,
-      child: SizedBox(
-        height: 64,
-        width: double.infinity,
-        child: TextButton(
-          onPressed: onPressed,
-          child: Text(
-            buttonText,
-            style: TextStyle(
-              fontSize: 24.0,
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SizedBox(
+              width: 420,
+              child: column
+            ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: SizedBox(
+          height: 64,
+          width: double.infinity,
+          child: TextButton(
+            onPressed: onPressed,
+            child: Text(
+              buttonText,
+              style: TextStyle(
+                fontSize: 24.0,
+              ),
             ),
           ),
         ),
@@ -61,59 +76,48 @@ class NextButton extends StatelessWidget {
 class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SizedBox(
-              width: 420,
-              child: Column(
-                children: [
-                  Text(
-                    'Namaste',
-                    style: TextStyle(
-                      fontSize: 48.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  SizedBox(
-                    width: 320,
-                    child: Image.asset(
-                      'assets/tuto-01-dark.png',
-                      width: double.infinity,
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  Text(
-                    "This easy yet potent breathing technique promises profound inner peace, offering a sanctuary of serenity amidst life's hectic pace.",
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      height: 1.5,
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  Text(
-                    'To ensure your safety, practice either lying down or sitting in a comfortable position.',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
-                      height: 1.5,
-                    ),
-                  ),
-                ],
-              ),
+    return  PageLayout(
+      buttonText: 'Next',
+      nextRoute: '/guide/method',
+      onPressed: () {
+        context.go('/guide/method');
+      },
+      column: Column(
+        children: [
+          Text(
+            'Namaste',
+            style: TextStyle(
+              fontSize: 48.0,
+              fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-      ),
-      bottomNavigationBar: NextButton(
-        buttonText: 'Next',
-        nextRoute: '/guide/method',
-        onPressed: () {
-          context.go('/guide/method');
-        },
+          SizedBox(height: 20),
+          SizedBox(
+            width: 320,
+            child: Image.asset(
+              'assets/tuto-01-dark.png',
+              width: double.infinity,
+            ),
+          ),
+          SizedBox(height: 15),
+          Text(
+            "This easy yet potent breathing technique promises profound inner peace, offering a sanctuary of serenity amidst life's hectic pace.",
+            style: TextStyle(
+              fontSize: 16.0,
+              height: 1.5,
+            ),
+          ),
+          SizedBox(height: 15),
+          Text(
+            'To ensure your safety, practice either lying down or sitting in a comfortable position.',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16.0,
+              height: 1.5,
+            ),
+          ),
+          
+        ],
       ),
     );
   }
@@ -122,66 +126,54 @@ class WelcomePage extends StatelessWidget {
 class MethodPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SizedBox(
-              width: 420,
-              child: Column(
-                children: [
-                  Text(
-                    'Method',
-                    style: TextStyle(
-                      fontSize: 48.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Simply follow 4 steps:',
-                    style: TextStyle(
-                      fontSize: 22.0,
-                      height: 1.5,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    '''
-1. Inhale and exhale rhythmically for 30 breaths.
-2. Exhale and hold your breath.
-3. Inhale deeply and hold for 15 seconds.
-4. Exhale and repeat step 1
-
-Do 3-10 rounds of the process.
-                    ''',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      height: 1.5,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Remember not to force any breaths during the practice',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
-                      height: 1.5,
-                    ),
-                  ),
-                ],
-              ),
+    return  PageLayout(
+      buttonText: 'Next',
+      nextRoute: '/guide/step1',
+      onPressed: () {
+        context.go('/guide/step1');
+      },
+      column: Column(
+        children: [
+          Text(
+            'Method',
+            style: TextStyle(
+              fontSize: 48.0,
+              fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-      ),
-      bottomNavigationBar: NextButton(
-        buttonText: 'Next',
-        nextRoute: '/guide/step1',
-        onPressed: () {
-          context.go('/guide/step1');
-        },
+          SizedBox(height: 20),
+          Text(
+            'Simply follow 4 steps:',
+            style: TextStyle(
+              fontSize: 22.0,
+              height: 1.5,
+            ),
+          ),
+          SizedBox(height: 20),
+          Text(
+            '''
+  1. Inhale and exhale rhythmically for 30 breaths.
+  2. Exhale and hold your breath.
+  3. Inhale deeply and hold for 15 seconds.
+  4. Exhale and repeat step 1
+
+  Do 3-10 rounds of the process.
+            ''',
+            style: TextStyle(
+              fontSize: 16.0,
+              height: 1.5,
+            ),
+          ),
+          SizedBox(height: 15),
+          Text(
+            'The next pages will let you personalize your experience.',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16.0,
+              height: 1.5,
+            ),
+          ),
+        ],
       ),
     );
   }
