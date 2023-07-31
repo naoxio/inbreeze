@@ -95,7 +95,7 @@ class WelcomePage extends StatelessWidget {
                   ),
                   SizedBox(height: 15),
                   Text(
-                    'To ensure your safety, practice either lying down or sitting in a comfortable position',
+                    'To ensure your safety, practice either lying down or sitting in a comfortable position.',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16.0,
@@ -140,7 +140,30 @@ class MethodPage extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   Text(
-                    'habababbabaa',
+                    'Simply follow 4 steps:',
+                    style: TextStyle(
+                      fontSize: 22.0,
+                      height: 1.5,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    '''
+1. Inhale and exhale rhythmically for 30 breaths.
+2. Exhale and hold your breath.
+3. Inhale deeply and hold for 15 seconds.
+4. Exhale and repeat step 1
+
+Do 3-10 rounds of the process.
+                    ''',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      height: 1.5,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Remember not to force any breaths during the practice',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16.0,
