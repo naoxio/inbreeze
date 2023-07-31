@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../app_state.dart';
+import 'package:go_router/go_router.dart';
 
 
 class TitlePage extends StatelessWidget {
+  const TitlePage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
     final List<bool> isSelected = <bool>[false, true];
     return Scaffold(
       appBar: AppBar(
@@ -33,31 +32,38 @@ class TitlePage extends StatelessWidget {
         ],
         
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/logo.png',
-              fit: BoxFit.contain,
-            ),
-            Text(
-              'InX: Inner Breeze',
-              style: TextStyle(fontSize: 32.0),
-            ),
-            SizedBox(height: 32),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                minimumSize: Size(180, 60),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(
+                width: 256,
+                child: Image.asset(
+                  'assets/logo.png',
+                  fit: BoxFit.cover,
+                ),
               ),
-              child: Text(
-                "Start",
-                style: TextStyle(fontSize: 24.0),
+              Text(
+                'InX: Inner Breeze',
+                style: TextStyle(fontSize: 32.0),
               ),
-              onPressed: () {
-                appState.changeIndex(1);
-              },
-            )
-          ],
+              SizedBox(height: 32),
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  minimumSize: Size(180, 60),
+                ),
+                child: Text(
+                  "Start",
+                  style: TextStyle(fontSize: 24.0),
+                ),
+                onPressed: () {
+                  context.go('/guide/welcome');
+                },
+              ),
+              SizedBox(height: 32),
+
+            ],
+          ),
         ),
       ),
     );
