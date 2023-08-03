@@ -16,6 +16,7 @@ dependencies:
   table_calendar: ^3.0.9
   provider: ^6.0.0
   go_router: ^10.0.0
+  syncfusion_flutter_sliders: ^22.2.7 
 
 dev_dependencies:
   flutter_test:
