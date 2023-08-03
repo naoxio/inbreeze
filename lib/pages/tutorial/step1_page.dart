@@ -49,9 +49,7 @@ class _Step1PageState extends State<Step1Page> {
             ),
           ),
           Center(
-            child: CustomPaint(
-              painter: BreathingCircle(),
-            ),
+            child: AnimatedBreathingCircle(),
           ),
           SizedBox(height: 180),
           Text(
