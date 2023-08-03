@@ -8,11 +8,13 @@ class Step1Page extends StatefulWidget {
   State<Step1Page> createState() => _Step1PageState();
 }
 
+enum BreathingTempo {slow, normal, fast, rapid}
+
 class _Step1PageState extends State<Step1Page> {
   List<bool> breathSpeed = [false, true, false];
   List<bool> breathAudio = [false, true];
-  double _breathingTempo = 0;
-  double _breathingVolume = 0;
+  double tempo = 2;
+  double volume = 90;
   @override
   Widget build(BuildContext context) {
     return  PageLayout(
@@ -39,7 +41,6 @@ class _Step1PageState extends State<Step1Page> {
             ),
           ),
           SizedBox(height: 20),
-
           Text(
             'Breathing Circle',
             style: TextStyle(
@@ -47,7 +48,6 @@ class _Step1PageState extends State<Step1Page> {
               fontWeight: FontWeight.bold,
             ),
           ),
-
           Center(
             child: CustomPaint(
               painter: BreathingCircle(),
@@ -64,13 +64,13 @@ class _Step1PageState extends State<Step1Page> {
           SizedBox(height: 20),
           Slider(
             min: 0.0,
-            max: 4.0,
-            label: '${_breathingTempo.round()}',
-            divisions: 4,
-            value: _breathingTempo,
+            max: 3.0,
+            label: BreathingTempo.values[tempo.round()].toString(),
+            divisions: 3,
+            value: tempo,
             onChanged: (dynamic value){
               setState(() {
-                _breathingTempo = value;
+                tempo = value;
               });
             },
           ),
@@ -85,12 +85,12 @@ class _Step1PageState extends State<Step1Page> {
           Slider(
             min: 0.0,
             max: 100.0,
-            label: '${_breathingVolume.round()}',
+            label: '${volume.round()}%',
             divisions: 10,
-            value: _breathingVolume,
+            value: volume,
             onChanged: (dynamic value){
               setState(() {
-                _breathingVolume = value;
+                volume = value;
               });
             },
           ),
