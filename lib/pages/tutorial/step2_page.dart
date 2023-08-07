@@ -21,98 +21,24 @@ class _Step2PageState extends State<Step2Page> {
       column: Column(
         children: [
           Text(
-            'Step 2: Exhale and hold',
+            'Step 2: Exhale, hold your breath',
             style: TextStyle(
               fontSize: 32.0,
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 20),
-          Text(
-            'Exhale normally and hold',
+          Text('''
+Exhale normally and hold your breath.
+The time of your hold will increase with more practice and with each round.
+The circle in the middle indicates how long you have held your breath and the last breath hold length.
+
+Release when you sense the urge to breathe, avoid overextending.
+Your body signals when it is time to breathe.''',
             style: TextStyle(
               fontSize: 16.0,
               height: 1.5,
             ),
-          ),
-          SizedBox(height: 20),
-          Text(
-            'Tempo',
-            style: TextStyle(
-              fontSize: 28.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 20),
-          ToggleButtons(
-            isSelected: breathSpeed,
-            onPressed: (int index) {
-              breathSpeed[index] = !breathSpeed[index];
-            },
-            children: const <Widget>[
-              Padding(
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: Text(
-                  'Slow',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: Text(
-                  'Normal',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: Text(
-                  'Custom',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 180),
-          Text(
-            'Audio',
-            style: TextStyle(
-              fontSize: 28.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 20),
-          ToggleButtons(
-            isSelected: breathAudio,
-            onPressed: (int index) {
-              breathAudio[index] = !breathAudio[index];
-            },
-            children: const <Widget>[
-              Padding(
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: Text(
-                  'None',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: Text(
-                  'Breath',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                  ),
-                ),
-              ),
-            ],
           ),
         ],
       ),

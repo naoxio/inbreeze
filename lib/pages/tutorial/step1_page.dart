@@ -33,8 +33,11 @@ class _Step1PageState extends State<Step1Page> {
             ),
           ),
           SizedBox(height: 20),
-          Text(
-            'Fill your lungs with a full breath, starting from your belly, then your chest. \n\nAllow the breath to flow out naturally without strain, repeating this process for approximately 30 breaths.',
+          Text('''
+Fill your lungs with a full breath, starting from your belly, then your chest.
+
+Allow the breath to flow out naturally without strain, repeating this process for approximately 30 breaths.
+''',
             style: TextStyle(
               fontSize: 16.0,
               height: 1.5,
@@ -63,7 +66,7 @@ class _Step1PageState extends State<Step1Page> {
           Slider(
             min: 0.0,
             max: 3.0,
-            label: BreathingTempo.values[tempo.round()].toString(),
+            label: capitalizeEnumValue(BreathingTempo.values[tempo.round()].name),
             divisions: 3,
             value: tempo,
             onChanged: (dynamic value){
@@ -95,5 +98,10 @@ class _Step1PageState extends State<Step1Page> {
         ],
       ),
     );
+  }
+
+  String capitalizeEnumValue(String enumValue) {
+
+    return enumValue[0].toUpperCase() + enumValue.substring(1, enumValue.length );
   }
 }

@@ -18,7 +18,7 @@ class _AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
       duration: Duration(seconds: 2),
     )..repeat(reverse: true);
 
-    _radiusAnimation = Tween<double>(begin: 0, end: 70).animate(_controller);
+    _radiusAnimation = Tween<double>(begin: 40, end: 70).animate(_controller);
   }
 
   @override
