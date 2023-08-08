@@ -36,8 +36,7 @@ class _Step1PageState extends State<Step1Page> {
           Text('''
 Fill your lungs with a full breath, starting from your belly, then your chest.
 
-Allow the breath to flow out naturally without strain, repeating this process for approximately 30 breaths.
-''',
+Allow the breath to flow out naturally without strain, repeating this process for approximately 30 breaths.''',
             style: TextStyle(
               fontSize: 16.0,
               height: 1.5,
@@ -54,7 +53,7 @@ Allow the breath to flow out naturally without strain, repeating this process fo
           Center(
             child: AnimatedBreathingCircle(),
           ),
-          SizedBox(height: 180),
+          SizedBox(height: 190),
           Text(
             'Tempo',
             style: TextStyle(
