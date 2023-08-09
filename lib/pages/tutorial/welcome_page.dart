@@ -24,7 +24,7 @@ class WelcomePage extends StatelessWidget {
           SizedBox(
             width: 320,
             child: Image.asset(
-              'assets/angle.png',
+              'assets/images/angle.png',
               width: double.infinity,
             ),
           ),

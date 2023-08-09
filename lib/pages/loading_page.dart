@@ -14,7 +14,7 @@ class LoadingPage extends StatelessWidget {
       child: Scaffold(
         body: Center(
           child: Image.asset(
-            'assets/logo.png',
+            'assets/images/logo.png',
             fit: BoxFit.contain,
           ),
         ),

@@ -39,7 +39,7 @@ class TitlePage extends StatelessWidget {
               SizedBox(
                 width: 256,
                 child: Image.asset(
-                  'assets/logo.png',
+                  'assets/images/logo.png',
                   fit: BoxFit.cover,
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class AnimatedBreathingCircle extends StatefulWidget {
   @override
@@ -10,6 +11,10 @@ class _AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
   late AnimationController _controller;
   late Animation<double> _radiusAnimation;
 
+  late AudioPlayer _audioPlayer;
+  bool _isPlayingInhale = false;
+  bool _isPlayingExhale = false;
+
   @override
   void initState() {
     super.initState();
@@ -19,11 +24,31 @@ class _AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
     )..repeat(reverse: true);
 
     _radiusAnimation = Tween<double>(begin: 40, end: 70).animate(_controller);
+
+    _audioPlayer = AudioPlayer();
+
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.forward && !_isPlayingInhale) {
+        _isPlayingInhale = true;
+        _isPlayingExhale = false;
+        _playAudio('sounds/breath-in.mp3');
+      } else if (status == AnimationStatus.reverse && !_isPlayingExhale) {
+        _isPlayingExhale = true;
+        _isPlayingInhale = false;
+        _playAudio('sounds/breath-out.mp3');
+      }
+    });
+  }
+
+  Future<void> _playAudio(String assetPath) async {
+    await _audioPlayer.setSource(AssetSource(assetPath));
+    await _audioPlayer.resume();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _audioPlayer.dispose();
     super.dispose();
   }
 
