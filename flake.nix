@@ -18,9 +18,23 @@
     pkgs   = import nixpkgs {
       inherit system;
     };
+    dependencies = [
+      pkgs.clang
+      pkgs.cmake
+      pkgs.ninja
+      pkgs.pkgconfig
+      pkgs.gtk3
+      pkgs.libunwind
+      pkgs.orc
+      pkgs.gst_all_1.gstreamer
+      pkgs.gst_all_1.gst-libav
+      pkgs.gst_all_1.gst-plugins-base
+      pkgs.gst_all_1.gst-plugins-good
+    ];
   in {
     devShell.${system} = pkgs.mkShell rec {
       inputsFrom = [ flutter-flake.devShell.${system} ];
+      nativeBuildInputs = dependencies;
     };
   };
 }

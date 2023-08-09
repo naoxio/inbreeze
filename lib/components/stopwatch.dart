@@ -76,6 +76,34 @@ class _CustomTimerState extends State<CustomTimer> with SingleTickerProviderStat
   }
 }
 
+class DottedCirclePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 2;
+    final paint = Paint()
+      ..color = Colors.black
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.0
+      ..strokeCap = StrokeCap.round;
+
+    // Calculate the number of dots
+    final dotCount = 36;
+    final double angleIncrement = 2 * 3.141592653589793 / dotCount;
+
+    for (var i = 0; i < dotCount; i++) {
+      final x = center.dx + radius * cos(i * angleIncrement);
+      final y = center.dy + radius * sin(i * angleIncrement);
+      canvas.drawCircle(Offset(x, y), 2, paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
+}
+
 class TimerPainter extends CustomPainter {
   final Duration duration;
   final Animation<double> outerAnimation;
@@ -99,11 +127,28 @@ class TimerPainter extends CustomPainter {
     final percentage = milliseconds / maxMilliseconds;
     final sweepAngle = 2 * pi * percentage;
 
+    // draw dotted circle
+    final paint = Paint()
+      ..color = Colors.grey
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 1.0
+      ..strokeCap = StrokeCap.round;
+
+    const dotCount = 36;
+    const double angleIncrement = 2 * pi / dotCount;
+
+    for (var i = 0; i < dotCount; i++) {
+      final x = center.dx + outerRadius * cos(i * angleIncrement);
+      final y = center.dy + outerRadius * sin(i * angleIncrement);
+      canvas.drawCircle(Offset(x, y), 1, paint);
+    }
+
+
     // Draw the outer circle arc
     final outerCirclePaint = Paint()
       ..color = Colors.teal
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0;
+      ..strokeWidth = 3.0;
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: outerRadius),
       -pi / 2,
@@ -111,7 +156,6 @@ class TimerPainter extends CustomPainter {
       false,
       outerCirclePaint,
     );
-
     if (completedCircles.isNotEmpty) {
       // Draw the inner circles that appear when the circles complete
       for (var offset in completedCircles) {
