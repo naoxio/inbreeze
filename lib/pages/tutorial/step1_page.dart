@@ -8,12 +8,10 @@ class Step1Page extends StatefulWidget {
   State<Step1Page> createState() => _Step1PageState();
 }
 
-enum BreathingTempo {slow, normal, fast, rapid}
+enum BreathingTempo {slow, medium, fast, rapid}
 
 class _Step1PageState extends State<Step1Page> {
-  List<bool> breathSpeed = [false, true, false];
-  List<bool> breathAudio = [false, true];
-  double tempo = 2;
+  double tempo = 1;
   double volume = 90;
   @override
   Widget build(BuildContext context) {
@@ -51,7 +49,7 @@ Allow the breath to flow out naturally without strain, repeating this process fo
             ),
           ),
           Center(
-            child: AnimatedBreathingCircle(),
+            child: AnimatedBreathingCircle(tempo: tempo, volume: volume),
           ),
           SizedBox(height: 190),
           Text(

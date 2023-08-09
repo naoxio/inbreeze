@@ -10,9 +10,6 @@ class Step2Page extends StatefulWidget {
 }
 
 class _Step2PageState extends State<Step2Page> {
-  List<bool> breathSpeed = [false, true, false];
-  List<bool> breathAudio = [false, true];
-
   Duration duration = Duration(seconds: 0);
   late Timer timer;
 
