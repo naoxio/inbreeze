@@ -9,7 +9,7 @@ class TitlePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<bool> isSelected = <bool>[false, true];
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         backgroundColor: Colors.transparent,
         actions: <Widget>[
           ToggleButtons(
@@ -31,11 +31,12 @@ class TitlePage extends StatelessWidget {
           ),
         ],
         
-      ),
+      ),*/
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
+              SizedBox(height: 20),
               SizedBox(
                 width: 256,
                 child: Image.asset(

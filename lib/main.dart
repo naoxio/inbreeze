@@ -3,7 +3,6 @@ import 'router.dart';
 
 void main() => runApp(App());
 
-
 final _darkTheme = ThemeData.from(
   colorScheme: ColorScheme.fromSeed(
     seedColor: Colors.teal,
@@ -35,6 +34,5 @@ class App extends StatelessWidget {
       darkTheme: _darkTheme,
       themeMode: ThemeMode.dark,
     );
-    
   }
 }

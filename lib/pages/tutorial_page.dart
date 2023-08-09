@@ -4,6 +4,7 @@ import 'tutorial/welcome_page.dart';
 import 'tutorial/method_page.dart';
 import 'tutorial/step1_page.dart';
 import 'tutorial/step2_page.dart';
+import 'tutorial/step3_page.dart';
 
 class TutorialPage extends StatelessWidget {
   // Constructs a [TutorialPage]
@@ -26,6 +27,9 @@ class TutorialPage extends StatelessWidget {
         break;
       case 'step2':
         pageToDisplay = Step2Page();
+        break;
+      case 'step3':
+        pageToDisplay = Step3Page();
         break;
       default:
         pageToDisplay = WelcomePage();

@@ -12,6 +12,7 @@ enum BreathingTempo {slow, medium, fast, rapid}
 
 class _Step1PageState extends State<Step1Page> {
   double tempo = 1;
+  double breaths = 30;
   double volume = 90;
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,9 @@ class _Step1PageState extends State<Step1Page> {
           Text('''
 Fill your lungs with a full breath, starting from your belly, then your chest.
 
-Allow the breath to flow out naturally without strain, repeating this process for approximately 30 breaths.''',
+Allow the breath to flow out naturally without strain.
+
+Repeat this for about 20-40 breaths at a steady pace.''',
             style: TextStyle(
               fontSize: 16.0,
               height: 1.5,
@@ -59,7 +62,6 @@ Allow the breath to flow out naturally without strain, repeating this process fo
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 20),
           Slider(
             min: 0.0,
             max: 3.0,
@@ -72,6 +74,7 @@ Allow the breath to flow out naturally without strain, repeating this process fo
               });
             },
           ),
+          SizedBox(height: 10),
           Text(
             'Volume',
             style: TextStyle(
@@ -79,7 +82,6 @@ Allow the breath to flow out naturally without strain, repeating this process fo
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 20),
           Slider(
             min: 0.0,
             max: 100.0,
@@ -89,6 +91,26 @@ Allow the breath to flow out naturally without strain, repeating this process fo
             onChanged: (dynamic value){
               setState(() {
                 volume = value;
+              });
+            },
+          ),
+          SizedBox(height: 10),
+          Text(
+            'Breaths',
+            style: TextStyle(
+              fontSize: 22.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Slider(
+            min: 20.0,
+            max: 40.0,
+            label: '${breaths.round()}',
+            divisions: 4,
+            value: breaths,
+            onChanged: (dynamic value){
+              setState(() {
+                breaths = value;
               });
             },
           ),

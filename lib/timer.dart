@@ -47,7 +47,6 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
 
   String get timerString {
     Duration duration = controller.duration! * controller.value;
-    print(duration);
     return '${duration.inMinutes.toString().padLeft(2, '0')}:${(duration.inSeconds).toString().padLeft(2, '0')}';
   }
 

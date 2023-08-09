@@ -36,8 +36,6 @@ class _AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
 
     _controller.addStatusListener((status) {
       var newDuration = Duration(milliseconds: 2860 - (widget.tempo * 542).toInt());
-      print(_controller.status);
-      print(_controller.isAnimating);
       
       if (_controller.duration != newDuration && _controller.status == AnimationStatus.forward) {
         _controller.stop();
