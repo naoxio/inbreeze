@@ -100,7 +100,7 @@ class _AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
   }
 
   void _navigateToNextExercise() {
-    context.go('/exercise/2');
+    context.go('/exercise/step2');
   }
 
   Future<void> _playAudio(String assetPath) async {

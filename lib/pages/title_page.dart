@@ -64,7 +64,7 @@ class _TitlePageState extends State<TitlePage> {
                   style: TextStyle(fontSize: 24.0),
                 ),
                 onPressed: () {
-                  context.go('/exercise');
+                  context.go('/exercise/step1');
                 },
               ),
               SizedBox(height: 20),

@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 
-import 'pages/tutorial_page.dart';
 import 'pages/title_page.dart';
+import 'pages/tutorial_page.dart';
 import 'pages/exercise_page.dart';
 import 'pages/settings_page.dart';
 
@@ -17,8 +17,8 @@ final router = GoRouter(
       builder: (context, state) => TutorialPage(page: state.pathParameters['page']!),
     ),
     GoRoute(
-      path: '/exercise',
-      builder: (context, state) => ExercisePage(),
+      path: '/exercise/:page',
+      builder: (context, state) => ExercisePage(page: state.pathParameters['page']!),
     ),
     GoRoute(
       path: '/settings',
