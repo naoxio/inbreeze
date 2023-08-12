@@ -9,29 +9,6 @@ class TitlePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<bool> isSelected = <bool>[false, true];
     return Scaffold(
-      /*appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        actions: <Widget>[
-          ToggleButtons(
-            isSelected: isSelected,
-            onPressed: (int index) {
-              for (int buttonIndex = 0; buttonIndex < isSelected.length; buttonIndex++) {
-                if (buttonIndex == index) {
-                  isSelected[buttonIndex] = true;
-                } else {
-                  isSelected[buttonIndex] = false;
-                }
-              }
-            },
-        
-            children: const <Widget>[
-              Icon(Icons.light_mode),
-              Icon(Icons.dark_mode),
-            ],
-          ),
-        ],
-        
-      ),*/
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -58,10 +35,22 @@ class TitlePage extends StatelessWidget {
                   style: TextStyle(fontSize: 24.0),
                 ),
                 onPressed: () {
-                  context.go('/guide/welcome');
+                  context.go('/exercise');
                 },
               ),
               SizedBox(height: 32),
+              TextButton(
+                style: OutlinedButton.styleFrom(
+                  minimumSize: Size(180, 60),
+                ),
+                child: Text(
+                  "Settings",
+                  style: TextStyle(fontSize: 24.0),
+                ),
+                onPressed: () {
+                  context.go('/settings');
+                },
+              ),
 
             ],
           ),
