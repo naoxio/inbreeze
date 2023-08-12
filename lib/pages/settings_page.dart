@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({super.key});
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
+}
+
+Future<void> resetData() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.clear();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
@@ -43,6 +49,11 @@ class _SettingsPageState extends State<SettingsPage> {
                   context.go('/guide/welcome');
                 },
               ),
+              SizedBox(height: 20),
+              OutlinedButton(
+                onPressed: resetData,
+                child: Text("Reset Data"),
+              )
             ],
           ),
         ),

@@ -4,8 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
 
 class AnimatedBreathingCircle extends StatefulWidget {
-  final double volume;
-  final double tempo; 
+  final int volume;
+  final int tempo; 
   final bool isReal; 
 
   AnimatedBreathingCircle({
@@ -15,10 +15,10 @@ class AnimatedBreathingCircle extends StatefulWidget {
   });
   
   @override
-  _AnimatedBreathingCircleState createState() => _AnimatedBreathingCircleState();
+  AnimatedBreathingCircleState createState() => AnimatedBreathingCircleState();
 }
 
-class _AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
+class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _radiusAnimation;
@@ -95,7 +95,8 @@ class _AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
   Future<void> _loadMaxBreathsFromPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      maxBreaths = prefs.getInt('breaths')?.toInt() ?? 30;
+      maxBreaths = prefs.getInt('breaths') ?? 30;
+      print(maxBreaths);
     });
   }
 

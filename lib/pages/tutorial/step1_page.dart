@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'page_layout.dart';
@@ -12,9 +14,9 @@ class Step1Page extends StatefulWidget {
 enum BreathingTempo {slow, medium, fast, rapid}
 
 class _Step1PageState extends State<Step1Page> {
-  double tempo = 1;
-  double breaths = 30;
-  double volume = 90;
+  int tempo = 1;
+  int breaths = 30;
+  int volume = 90;
 
   @override
   void initState() {
@@ -25,17 +27,17 @@ class _Step1PageState extends State<Step1Page> {
   Future<void> _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      tempo = prefs.getDouble('tempo') ?? 1;
-      breaths = prefs.getDouble('breaths') ?? 30;
-      volume = prefs.getDouble('volume') ?? 90;
+      tempo = prefs.getInt('tempo') ?? 1;
+      breaths = prefs.getInt('breaths') ?? 30;
+      volume = prefs.getInt('volume') ?? 90;
     });
   }
   
   Future<void> _savePreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setDouble('tempo', tempo);
-    prefs.setDouble('breaths', breaths);
-    prefs.setDouble('volume', volume);
+    prefs.setInt('tempo', tempo);
+    prefs.setInt('breaths', breaths);
+    prefs.setInt('volume', volume);
   }
 
   @override
@@ -90,11 +92,11 @@ Repeat this for about 20-40 breaths at a steady pace.''',
             ),
           ),
           Slider(
-            min: 0.0,
-            max: 3.0,
-            label: capitalizeEnumValue(BreathingTempo.values[tempo.round()].name),
+            min: 0,
+            max: 3,
+            label: capitalizeEnumValue(BreathingTempo.values[tempo].name),
             divisions: 3,
-            value: tempo,
+            value: tempo.toDouble(),
             onChanged: (dynamic value){
               _updateTempo(value);
             },
@@ -112,7 +114,7 @@ Repeat this for about 20-40 breaths at a steady pace.''',
             max: 100.0,
             label: '${volume.round()}%',
             divisions: 10,
-            value: volume,
+            value: volume.toDouble(),
             onChanged: (dynamic value){
               _updateVolume(value);
             },
@@ -130,7 +132,7 @@ Repeat this for about 20-40 breaths at a steady pace.''',
             max: 40.0,
             label: '${breaths.round()}',
             divisions: 4,
-            value: breaths,
+            value: breaths.toDouble(),
             onChanged: (dynamic value){
               _updateBreaths(value);
             },
@@ -140,21 +142,21 @@ Repeat this for about 20-40 breaths at a steady pace.''',
     );
   }
 
-  void _updateTempo(double newTempo) {
+  void _updateTempo(int newTempo) {
     setState(() {
       tempo = newTempo;
     });
     _savePreferences();
   }
 
-  void _updateVolume(double newVolume) {
+  void _updateVolume(int newVolume) {
     setState(() {
       volume = newVolume;
     });
     _savePreferences();
   }
 
-  void _updateBreaths(double newBreaths) {
+  void _updateBreaths(int newBreaths) {
     setState(() {
       breaths = newBreaths;
     });
