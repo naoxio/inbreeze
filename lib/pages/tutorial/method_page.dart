@@ -6,9 +6,12 @@ class MethodPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  PageLayout(
-      buttonText: 'Next',
-      nextRoute: '/guide/step1',
-      onPressed: () {
+      backButtonText: 'Back',
+      backButtonPressed: () {
+        context.go('/guide/welcome');
+      },
+      forwardButtonText: 'Next',
+      forwardButtonPressed: () {
         context.go('/guide/step1');
       },
       column: Column(

@@ -17,9 +17,12 @@ class _Step1PageState extends State<Step1Page> {
   @override
   Widget build(BuildContext context) {
     return  PageLayout(
-      buttonText: 'Continue',
-      nextRoute: '/guide/step2',
-      onPressed: () {
+      backButtonText: 'Back',
+      backButtonPressed: () {
+        context.go('/guide/method');
+      },
+      forwardButtonText: 'Continue',
+      forwardButtonPressed: () {
         context.go('/guide/step2');
       },
       column: Column(

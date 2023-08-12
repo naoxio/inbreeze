@@ -3,16 +3,18 @@
 import 'package:flutter/material.dart';
 
 class PageLayout extends StatelessWidget {
-  final String buttonText;
-  final String nextRoute;
-  final VoidCallback onPressed;
+  final String forwardButtonText;
+  final String backButtonText;
+  final VoidCallback forwardButtonPressed;
+  final VoidCallback backButtonPressed;
   final Widget column;
 
   PageLayout({
     required this.column,
-    required this.buttonText,
-    required this.nextRoute,
-    required this.onPressed,
+    required this.forwardButtonText,
+    required this.backButtonText,
+    required this.forwardButtonPressed,
+    required this.backButtonPressed,
   });
 
   @override
@@ -31,18 +33,38 @@ class PageLayout extends StatelessWidget {
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
-        child: SizedBox(
-          height: 64,
-          width: double.infinity,
-          child: TextButton(
-            onPressed: onPressed,
-            child: Text(
-              buttonText,
-              style: TextStyle(
-                fontSize: 24.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Expanded(
+              child: SizedBox(
+                height: 52,
+                child: TextButton(
+                  onPressed: backButtonPressed,
+                  child: Text(
+                    backButtonText,
+                    style: TextStyle(
+                      fontSize: 24.0,
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
+            Expanded(
+              child: SizedBox(
+                height: 52,
+                child: TextButton(
+                  onPressed: forwardButtonPressed,
+                  child: Text(
+                    forwardButtonText,
+                    style: TextStyle(
+                      fontSize: 24.0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

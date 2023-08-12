@@ -33,9 +33,12 @@ class _Step3PageState extends State<Step3Page> {
   @override
   Widget build(BuildContext context) {
     return  PageLayout(
-      buttonText: 'Begin',
-      nextRoute: '/exercise',
-      onPressed: () {
+      backButtonText: 'Back',
+      backButtonPressed: () {
+        context.go('/guide/step2');
+      },
+      forwardButtonText: 'Begin',
+      forwardButtonPressed: () {
         context.go('/exercise');
       },
       column: Column(
@@ -48,9 +51,17 @@ class _Step3PageState extends State<Step3Page> {
             ),
           ),
           SizedBox(height: 20),
+          SizedBox(
+            width: 320,
+            child: Image.asset(
+              'assets/images/begin.jpg',
+              width: double.infinity,
+            ),
+          ),
+          SizedBox(height: 20),
           Text('''
 Inhale fully and hold for 15 seconds.
-After 15 seconds exhale, completing the first round.
+Afterwards exhale, completing the first round.
 
 With every round you can hold your breath longer and go deeper.''',
             style: TextStyle(
