@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'pages/tutorial_page.dart';
 import 'pages/title_page.dart';
 import 'pages/exercise_page.dart';
+import 'pages/settings_page.dart';
 
 // GoRouter configuration
 final router = GoRouter(
@@ -18,6 +19,10 @@ final router = GoRouter(
     GoRoute(
       path: '/exercise',
       builder: (context, state) => ExercisePage(),
+    ),
+    GoRoute(
+      path: '/settings',
+      builder: (context, state) => SettingsPage(),
     ),
   ],
 );
