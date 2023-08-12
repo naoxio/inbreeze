@@ -23,13 +23,21 @@ class _SettingsPageState extends State<SettingsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Text(
+                'Settings',
+                style: TextStyle(
+                  fontSize: 32.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 20),
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                  minimumSize: Size(180, 60),
+                  minimumSize: Size(140, 50),
                 ),
                 child: Text(
                   "Tutorial",
-                  style: TextStyle(fontSize: 24.0),
+                  style: TextStyle(fontSize: 20.0),
                 ),
                 onPressed: () {
                   context.go('/guide/welcome');

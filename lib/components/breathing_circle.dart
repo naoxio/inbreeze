@@ -92,7 +92,7 @@ class BreathingCircle extends CustomPainter {
     paint2.color = Colors.tealAccent;
 
     double radius = _animation.value;
-    canvas.drawCircle(Offset(0.0, 100.0), 70, paint);
+    canvas.drawCircle(Offset(0.0, 100.0), 72, paint);
     canvas.drawCircle(Offset(0.0, 100.0), radius, paint2);
   }
 
