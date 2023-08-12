@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:go_router/go_router.dart';
 
 class AnimatedBreathingCircle extends StatefulWidget {
-  final double volume; // New parameter for audio volume
-  final double tempo;  // New parameter for animation speed
+  final double volume;
+  final double tempo; 
+  final bool isReal; 
 
-  AnimatedBreathingCircle({required this.volume, required this.tempo});
-
+  AnimatedBreathingCircle({
+    required this.volume,
+    required this.tempo,
+    this.isReal = false,
+  });
+  
   @override
   _AnimatedBreathingCircleState createState() => _AnimatedBreathingCircleState();
 }
@@ -15,10 +22,15 @@ class _AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _radiusAnimation;
-
   late AudioPlayer _audioPlayer;
   bool _isPlayingInhale = false;
   bool _isPlayingExhale = false;
+
+  int breathsDone = 0;
+  int maxBreaths = 30; // Default value
+
+  DateTime? _startTime;
+  Duration get _breathCycleDuration => Duration(milliseconds: 2860 - (widget.tempo * 542).toInt()) * 2;
 
   @override
   void initState() {
@@ -30,7 +42,7 @@ class _AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
       duration: duration, // Use the tempo parameter
     )..repeat(reverse: true);
 
-    _radiusAnimation = Tween<double>(begin: 42, end: 72).animate(_controller);
+    _radiusAnimation = Tween<double>(begin: 40, end: 72).animate(_controller);
 
     _audioPlayer = AudioPlayer();
 
@@ -54,7 +66,41 @@ class _AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
         _isPlayingInhale = false;
         _playAudio('sounds/breath-out.mp3');
       }
+
+    
     });
+    if (widget.isReal) {
+        _startTime = DateTime.now();
+      _controller.addListener(_updateBreathCount);
+    }
+    _loadMaxBreathsFromPreferences();
+  }
+
+  void _updateBreathCount() {
+    if (_startTime != null) {
+      final elapsedTime = DateTime.now().difference(_startTime!);
+      final breaths = (elapsedTime.inMilliseconds / _breathCycleDuration.inMilliseconds).floor();
+
+      if (breathsDone != breaths) {
+        setState(() {
+          breathsDone = breaths;
+        });
+
+        if (breathsDone >= maxBreaths) {
+          _navigateToNextExercise();
+        }
+      }
+    }
+  }
+  Future<void> _loadMaxBreathsFromPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      maxBreaths = prefs.getInt('breaths')?.toInt() ?? 30;
+    });
+  }
+
+  void _navigateToNextExercise() {
+    context.go('/exercise/2');
   }
 
   Future<void> _playAudio(String assetPath) async {
@@ -67,6 +113,7 @@ class _AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
   void dispose() {
     _controller.dispose();
     _audioPlayer.dispose();
+    _controller.removeListener(_updateBreathCount);
     super.dispose();
   }
 
@@ -74,7 +121,7 @@ class _AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
   Widget build(BuildContext context) {
     return Center(
       child: CustomPaint(
-        painter: BreathingCircle(_radiusAnimation),
+        painter: BreathingCircle(_radiusAnimation, breathsDone: breathsDone, isReal: widget.isReal ),
       ),
     );
   }
@@ -82,8 +129,10 @@ class _AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
 
 class BreathingCircle extends CustomPainter {
   final Animation<double> _animation;
+  final int breathsDone;
+  final bool isReal;
 
-  BreathingCircle(this._animation) : super(repaint: _animation);
+  BreathingCircle(this._animation, {required this.breathsDone, required this.isReal}) : super(repaint: _animation);
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint();
@@ -94,6 +143,16 @@ class BreathingCircle extends CustomPainter {
     double radius = _animation.value;
     canvas.drawCircle(Offset(0.0, 100.0), 72, paint);
     canvas.drawCircle(Offset(0.0, 100.0), radius, paint2);
+  
+    if (isReal) {
+      TextPainter textPainter = TextPainter(
+        text: TextSpan(text: breathsDone.toString(), style: TextStyle(color: Colors.black, fontSize: 32.0)),
+        textAlign: TextAlign.center,
+        textDirection: TextDirection.ltr,
+      );
+      textPainter.layout();
+      textPainter.paint(canvas, Offset(-textPainter.width / 2, 100.0 - textPainter.height / 2));
+    }
   }
 
   @override

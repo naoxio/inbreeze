@@ -72,17 +72,17 @@ class _ExercisePageState extends State<ExercisePage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              AnimatedBreathingCircle(tempo: tempo, volume: volume),
+              AnimatedBreathingCircle(tempo: tempo, volume: volume, isReal: true),
               SizedBox(height: 200),
               SizedBox(
-                height: 52,
-                child: TextButton(
+                height: 42,
+                child: OutlinedButton(
                   onPressed: () => _showExitConfirmationDialog(context),
                   child:
                     Text(
                       'Stop Session',
                       style: TextStyle(
-                        fontSize: 22.0,
+                        fontSize: 18.0,
                       ),
               
                     )
