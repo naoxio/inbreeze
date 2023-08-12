@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inner_breeze/components/breathing_circle.dart';
-
+import 'package:go_router/go_router.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({super.key});
@@ -24,6 +23,18 @@ class _SettingsPageState extends State<SettingsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  minimumSize: Size(180, 60),
+                ),
+                child: Text(
+                  "Tutorial",
+                  style: TextStyle(fontSize: 24.0),
+                ),
+                onPressed: () {
+                  context.go('/guide/welcome');
+                },
+              ),
             ],
           ),
         ),

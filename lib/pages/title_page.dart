@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 class TitlePage extends StatelessWidget {
   const TitlePage({super.key});
 
@@ -38,14 +37,14 @@ class TitlePage extends StatelessWidget {
                   context.go('/exercise');
                 },
               ),
-              SizedBox(height: 32),
+              SizedBox(height: 20),
               TextButton(
                 style: OutlinedButton.styleFrom(
-                  minimumSize: Size(180, 60),
+                  minimumSize: Size(120, 50),
                 ),
                 child: Text(
                   "Settings",
-                  style: TextStyle(fontSize: 24.0),
+                  style: TextStyle(fontSize: 18.0),
                 ),
                 onPressed: () {
                   context.go('/settings');

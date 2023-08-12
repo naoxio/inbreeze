@@ -6,7 +6,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  PageLayout(
-      backButtonText: 'Exit',
+      backButtonText: 'Skip',
       backButtonPressed: () {
         context.go('/');
       },
