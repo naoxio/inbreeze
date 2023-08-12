@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'page_layout.dart';
+import 'shared.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
+  @override
+  State<WelcomePage> createState() => _WelcomePageState();
+}
+void _skipTutorial(BuildContext context) async {
+  await markTutorialAsComplete();
+}
+class _WelcomePageState extends State<WelcomePage> {
+
   @override
   Widget build(BuildContext context) {
     return  PageLayout(
       backButtonText: 'Skip',
-      backButtonPressed: () {
+      backButtonPressed: () async {
+        _skipTutorial(context);
         context.go('/');
       },
       forwardButtonText: 'Next',

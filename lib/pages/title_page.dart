@@ -1,12 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class TitlePage extends StatelessWidget {
+class TitlePage extends StatefulWidget {
   const TitlePage({super.key});
 
   @override
+  State<TitlePage> createState() => _TitlePageState();
+}
+
+class _TitlePageState extends State<TitlePage> {
+  bool _shouldNavigate = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isFirstTimeOpeningApp();
+  }
+  
+  Future<void> isFirstTimeOpeningApp() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool hasCompletedTutorial = prefs.getBool('tutorialComplete') ?? false;
+
+    if (!hasCompletedTutorial) {
+      setState(() {
+        _shouldNavigate = true;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final List<bool> isSelected = <bool>[false, true];
+   if (_shouldNavigate) {
+      // Navigate and then reset the _shouldNavigate flag to prevent repeated navigation
+      _shouldNavigate = false;
+      context.go('/guide/welcome');
+    }
+    
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(

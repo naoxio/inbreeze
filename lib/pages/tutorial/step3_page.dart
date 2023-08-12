@@ -2,10 +2,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'page_layout.dart';
+import 'shared.dart';
 
 class Step3Page extends StatefulWidget {
   @override
   State<Step3Page> createState() => _Step3PageState();
+}
+
+void _finishTutorial(BuildContext context) async {
+  await markTutorialAsComplete();
 }
 
 class _Step3PageState extends State<Step3Page> {
@@ -39,6 +44,8 @@ class _Step3PageState extends State<Step3Page> {
       },
       forwardButtonText: 'Finish',
       forwardButtonPressed: () {
+        _finishTutorial(context);
+
         context.go('/');
       },
       column: Column(

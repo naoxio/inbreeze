@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'page_layout.dart';
 import '../../components/breathing_circle.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Step1Page extends StatefulWidget {
   @override
@@ -14,6 +15,29 @@ class _Step1PageState extends State<Step1Page> {
   double tempo = 1;
   double breaths = 30;
   double volume = 90;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      tempo = prefs.getDouble('tempo') ?? 1;
+      breaths = prefs.getDouble('breaths') ?? 30;
+      volume = prefs.getDouble('volume') ?? 90;
+    });
+  }
+  
+  Future<void> _savePreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setDouble('tempo', tempo);
+    prefs.setDouble('breaths', breaths);
+    prefs.setDouble('volume', volume);
+  }
+
   @override
   Widget build(BuildContext context) {
     return  PageLayout(
@@ -72,9 +96,7 @@ Repeat this for about 20-40 breaths at a steady pace.''',
             divisions: 3,
             value: tempo,
             onChanged: (dynamic value){
-              setState(() {
-                tempo = value;
-              });
+              _updateTempo(value);
             },
           ),
           SizedBox(height: 10),
@@ -92,9 +114,7 @@ Repeat this for about 20-40 breaths at a steady pace.''',
             divisions: 10,
             value: volume,
             onChanged: (dynamic value){
-              setState(() {
-                volume = value;
-              });
+              _updateVolume(value);
             },
           ),
           SizedBox(height: 10),
@@ -112,14 +132,33 @@ Repeat this for about 20-40 breaths at a steady pace.''',
             divisions: 4,
             value: breaths,
             onChanged: (dynamic value){
-              setState(() {
-                breaths = value;
-              });
+              _updateBreaths(value);
             },
           ),
         ],
       ),
     );
+  }
+
+  void _updateTempo(double newTempo) {
+    setState(() {
+      tempo = newTempo;
+    });
+    _savePreferences();
+  }
+
+  void _updateVolume(double newVolume) {
+    setState(() {
+      volume = newVolume;
+    });
+    _savePreferences();
+  }
+
+  void _updateBreaths(double newBreaths) {
+    setState(() {
+      breaths = newBreaths;
+    });
+    _savePreferences();
   }
 
   String capitalizeEnumValue(String enumValue) {
