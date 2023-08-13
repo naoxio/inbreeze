@@ -1,16 +1,12 @@
-# inner_breeze
+# Inner Breeze
 
-A new Flutter project.
+A breathing tracker for the Wim Hof breathing method.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To quickly run the project locally you can use the ```nix develop``` command to create a nix shell with all the dependencies fetched and ready to ```flutter run -d linux```
 
-A few resources to get you started if this is your first Flutter project:
+See the resources below for more information
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ - [Nix](https://nixos.org/)
+ - [Nix flakes](https://nixos.wiki/wiki/Flakes)
