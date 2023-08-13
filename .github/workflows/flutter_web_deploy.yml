@@ -22,7 +22,7 @@ jobs:
       run: flutter pub get
       
     - name: Build Web
-      run: flutter build web --release --base-href /inx/inner_breeze/
+      run: flutter build web --release --web-renderer canvaskit --base-href /inx/inner_breeze/
       
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
