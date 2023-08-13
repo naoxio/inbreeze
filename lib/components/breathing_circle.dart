@@ -60,13 +60,12 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
         _isPlayingInhale = false;
         _playAudio('sounds/breath-out.mp3');
       }
-
-    
     });
   }
 
   Future<void> _playAudio(String assetPath) async {
     if (_isDisposed) return;
+    if (_audioPlayer.state == PlayerState.playing) return;
 
     await _audioPlayer.setSource(AssetSource(assetPath));
     await _audioPlayer.setVolume(widget.volume / 100); // Use the volume parameter

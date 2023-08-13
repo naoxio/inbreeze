@@ -49,7 +49,6 @@ class _Step1PageState extends State<Step1Page> {
     breathCycleTimer = Timer.periodic(_breathCycleDuration, (timer) {
       setState(() {
         breathsDone++;
-        print(breathsDone);
       });
       if (breathsDone > 1) {
          timer.cancel();

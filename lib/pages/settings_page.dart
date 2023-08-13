@@ -22,6 +22,16 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Settings'),
+        centerTitle: true, 
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            context.go('/');
+          },
+        ),
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(25.0),
         child: Center(
@@ -29,13 +39,6 @@ class _SettingsPageState extends State<SettingsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'Settings',
-                style: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
               SizedBox(height: 20),
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
@@ -56,30 +59,6 @@ class _SettingsPageState extends State<SettingsPage> {
               )
             ],
           ),
-        ),
-      ),
-       bottomNavigationBar: BottomAppBar(
-        color: Colors.transparent,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-              child: SizedBox(
-                height: 52,
-                child: TextButton(
-                  onPressed: () => {
-                    context.go('/'),
-                  },
-                  child: Text(
-                    "Back to Menu",
-                    style: TextStyle(
-                      fontSize: 24.0,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
         ),
       ),
     );
