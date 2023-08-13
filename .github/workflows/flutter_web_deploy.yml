@@ -3,8 +3,8 @@ name: Build and Deploy Flutter Web to GitHub Pages
 on:
   push:
     branches:
-      - master # or main or the branch you want to build from
-
+      - main
+      
 jobs:
   build:
     runs-on: ubuntu-latest
