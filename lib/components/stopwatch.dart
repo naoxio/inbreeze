@@ -7,10 +7,10 @@ class CustomTimer extends StatefulWidget {
   CustomTimer({required this.duration});
 
   @override
-  _CustomTimerState createState() => _CustomTimerState();
+  CustomTimerState createState() => CustomTimerState();
 }
 
-class _CustomTimerState extends State<CustomTimer> with SingleTickerProviderStateMixin {
+class CustomTimerState extends State<CustomTimer> with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> outerAnimation;
   late Animation<double> innerAnimation;

@@ -1,7 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-void showExitConfirmationDialog(BuildContext context) {
+
+class StopSessionButton extends StatelessWidget {
+  const StopSessionButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 42,
+      child: TextButton(
+        onPressed: () => _showExitConfirmationDialog(context),
+        child: Text(
+          'Stop Session',
+          style: TextStyle(
+            fontSize: 18.0,
+            color: Colors.grey,
+
+          ),
+        ),
+      ),
+    );
+  }
+}
+void _showExitConfirmationDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {

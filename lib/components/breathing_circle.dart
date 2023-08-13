@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:go_router/go_router.dart';
 
 class AnimatedBreathingCircle extends StatefulWidget {
   final int volume;
   final int tempo; 
-  final bool isReal; 
+  final int? breathsDone; 
 
   AnimatedBreathingCircle({
     required this.volume,
     required this.tempo,
-    this.isReal = false,
+    this.breathsDone,
   });
   
   @override
@@ -25,12 +23,8 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
   late AudioPlayer _audioPlayer;
   bool _isPlayingInhale = false;
   bool _isPlayingExhale = false;
+  bool _isDisposed = false;
 
-  int breathsDone = 0;
-  int maxBreaths = 30; // Default value
-
-  DateTime? _startTime;
-  Duration get _breathCycleDuration => Duration(milliseconds: 2860 - (widget.tempo * 542).toInt()) * 2;
 
   @override
   void initState() {
@@ -69,44 +63,11 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
 
     
     });
-    if (widget.isReal) {
-        _startTime = DateTime.now();
-      _controller.addListener(_updateBreathCount);
-    }
-    _loadMaxBreathsFromPreferences();
-  }
-
-  void _updateBreathCount() {
-    if (_startTime != null) {
-      final elapsedTime = DateTime.now().difference(_startTime!);
-      final breaths = (elapsedTime.inMilliseconds / _breathCycleDuration.inMilliseconds).floor();
-
-      if (breathsDone != breaths) {
-        setState(() {
-          breathsDone = breaths;
-          print(breathsDone);
-          print(maxBreaths);
-        });
-
-        if (breathsDone >= maxBreaths) {
-          print('hello');
-          _navigateToNextExercise();
-        }
-      }
-    }
-  }
-  Future<void> _loadMaxBreathsFromPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      maxBreaths = prefs.getInt('breaths') ?? 30;
-    });
-  }
-
-  void _navigateToNextExercise() {
-    context.go('/exercise/step2');
   }
 
   Future<void> _playAudio(String assetPath) async {
+    if (_isDisposed) return;
+
     await _audioPlayer.setSource(AssetSource(assetPath));
     await _audioPlayer.setVolume(widget.volume / 100); // Use the volume parameter
     await _audioPlayer.resume();
@@ -114,17 +75,18 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
 
   @override
   void dispose() {
+    _isDisposed = true;
+
     _controller.dispose();
     _audioPlayer.dispose();
-    _controller.removeListener(_updateBreathCount);
     super.dispose();
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Center(
       child: CustomPaint(
-        painter: BreathingCircle(_radiusAnimation, breathsDone: breathsDone, isReal: widget.isReal ),
+        painter: BreathingCircle(_radiusAnimation, number: widget.breathsDone),
       ),
     );
   }
@@ -132,10 +94,10 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
 
 class BreathingCircle extends CustomPainter {
   final Animation<double> _animation;
-  final int breathsDone;
-  final bool isReal;
+  final int? number;
 
-  BreathingCircle(this._animation, {required this.breathsDone, required this.isReal}) : super(repaint: _animation);
+  BreathingCircle(this._animation, {this.number}) : super(repaint: _animation);
+
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint();
@@ -147,9 +109,9 @@ class BreathingCircle extends CustomPainter {
     canvas.drawCircle(Offset(0.0, 100.0), 72, paint);
     canvas.drawCircle(Offset(0.0, 100.0), radius, paint2);
   
-    if (isReal) {
+    if (number != null) {
       TextPainter textPainter = TextPainter(
-        text: TextSpan(text: breathsDone.toString(), style: TextStyle(color: Colors.black, fontSize: 32.0)),
+        text: TextSpan(text: number.toString(), style: TextStyle(color: Colors.black, fontSize: 32.0)),
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr,
       );

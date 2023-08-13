@@ -24,7 +24,6 @@ class _Step2PageState extends State<Step2Page> {
     });
   }
 
-
   @override
   void dispose() {
     timer.cancel(); // Cancel the timer when the widget is disposed to avoid memory leaks

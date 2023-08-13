@@ -58,6 +58,31 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ),
       ),
+       bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Expanded(
+              child: SizedBox(
+                height: 52,
+                child: TextButton(
+                  onPressed: () => {
+                    context.go('/'),
+                  },
+                  child: Text(
+                    "Back to Menu",
+                    style: TextStyle(
+                      fontSize: 24.0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
+    
   }
 }
