@@ -84,9 +84,12 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
       if (breathsDone != breaths) {
         setState(() {
           breathsDone = breaths;
+          print(breathsDone);
+          print(maxBreaths);
         });
 
         if (breathsDone >= maxBreaths) {
+          print('hello');
           _navigateToNextExercise();
         }
       }
@@ -96,7 +99,6 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       maxBreaths = prefs.getInt('breaths') ?? 30;
-      print(maxBreaths);
     });
   }
 
