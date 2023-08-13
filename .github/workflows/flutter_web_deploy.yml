@@ -25,7 +25,7 @@ jobs:
       run: flutter build web --release --web-renderer canvaskit --base-href /inx/inner_breeze/
       
     - name: Deploy to GitHub Pages
-      uses: EdricChan03/action-build-deploy-ghpages@v3
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }} 
+        github_token: ${{ github.token }}
         publish_dir: ./build/web
