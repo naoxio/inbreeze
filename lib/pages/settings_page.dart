@@ -28,7 +28,7 @@ class _SettingsPageState extends State<SettingsPage> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            context.go('/');
+            context.go('/home');
           },
         ),
       ),

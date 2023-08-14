@@ -40,7 +40,7 @@ void _showExitConfirmationDialog(BuildContext context) {
                 onPressed: () {
                   // Logic to stop the session goes here
                   Navigator.of(context).pop(); // Close the dialog
-                  context.go('/');
+                  context.go('/home');
 
                 },
                 style: OutlinedButton.styleFrom(

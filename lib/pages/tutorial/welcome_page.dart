@@ -18,7 +18,7 @@ class _WelcomePageState extends State<WelcomePage> {
       backButtonText: 'Skip',
       backButtonPressed: () async {
         _skipTutorial(context);
-        context.go('/');
+        context.go('/home');
       },
       forwardButtonText: 'Next',
       forwardButtonPressed: () {

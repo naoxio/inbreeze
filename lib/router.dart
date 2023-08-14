@@ -4,12 +4,17 @@ import 'pages/title_page.dart';
 import 'pages/tutorial_page.dart';
 import 'pages/exercise_page.dart';
 import 'pages/settings_page.dart';
+import 'pages/splash_page.dart';
 
 // GoRouter configuration
 final router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
+      builder: (context, state) => SplashPage(),
+    ),
+    GoRoute(
+      path: '/home',
       builder: (context, state) => TitlePage(),
     ),
     GoRoute(

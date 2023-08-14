@@ -46,7 +46,7 @@ class _Step3PageState extends State<Step3Page> {
       forwardButtonPressed: () {
         _finishTutorial(context);
 
-        context.go('/');
+        context.go('/home');
       },
       column: Column(
         children: [
