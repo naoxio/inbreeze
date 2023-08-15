@@ -15,7 +15,7 @@ See the resources below for more information
 ## Roadmap to 1st release
 The current goal is to make the entire process functional and become ready to publish on the play store and f-droid. 
 
-Quests to do:
+### Quests to do
 - [ ] add step3 in the exercise, breath in and hold
 - [ ] repeat processes
 - [ ] display session data when ending the session and storing it locally
