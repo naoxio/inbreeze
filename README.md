@@ -26,5 +26,5 @@ Quests to do:
 ## Community
 We welcome any participates and you should feel welcome to share your ideas.
 
-[NaoX Telegram Community](https://t.me/naoxio)
-[NaoX Twitter](https://twitter.com/naox_io)
+- [NaoX Telegram Community](https://t.me/naoxio)
+- [NaoX Twitter](https://twitter.com/naox_io)
