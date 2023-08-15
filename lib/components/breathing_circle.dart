@@ -16,13 +16,14 @@ class AnimatedBreathingCircle extends StatefulWidget {
   AnimatedBreathingCircleState createState() => AnimatedBreathingCircleState();
 }
 
+enum BreathingState { inhale, exhale }
+
 class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _radiusAnimation;
   late AudioPlayer _audioPlayer;
-  bool _isPlayingInhale = false;
-  bool _isPlayingExhale = false;
+  BreathingState _currentBreathingState = BreathingState.inhale;
   bool _isDisposed = false;
 
 
@@ -31,11 +32,12 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
     var duration = Duration(milliseconds: 2860 - (widget.tempo * 542).toInt());
 
     super.initState();
+    
     _controller = AnimationController(
       vsync: this,
       duration: duration, // Use the tempo parameter
-    )..repeat(reverse: true);
-
+    );
+    
     _radiusAnimation = Tween<double>(begin: 40, end: 72).animate(_controller);
 
     _audioPlayer = AudioPlayer();
@@ -51,18 +53,24 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
         _controller.repeat(reverse: true);
       }
 
-      if (status == AnimationStatus.forward && !_isPlayingInhale) {
-        _isPlayingInhale = true;
-        _isPlayingExhale = false;
+  
+      if (status == AnimationStatus.forward && _currentBreathingState != BreathingState.inhale) {
+        _currentBreathingState = BreathingState.inhale;
         _playAudio('sounds/breath-in.mp3');
-      } else if (status == AnimationStatus.reverse && !_isPlayingExhale) {
-        _isPlayingExhale = true;
-        _isPlayingInhale = false;
+      } else if (status == AnimationStatus.reverse && _currentBreathingState != BreathingState.exhale) {
+        _currentBreathingState = BreathingState.exhale;
         _playAudio('sounds/breath-out.mp3');
       }
     });
   }
-
+  @override
+  void didUpdateWidget(AnimatedBreathingCircle oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    
+    if (widget.breathsDone != null && widget.breathsDone! >= 0 && oldWidget.breathsDone != widget.breathsDone) {
+      _controller.repeat(reverse: true);
+    }
+  }
   Future<void> _playAudio(String assetPath) async {
     if (_isDisposed) return;
     if (_audioPlayer.state == PlayerState.playing) return;
@@ -110,7 +118,7 @@ class BreathingCircle extends CustomPainter {
   
     if (number != null) {
       TextPainter textPainter = TextPainter(
-        text: TextSpan(text: number.toString(), style: TextStyle(color: Colors.black, fontSize: 32.0)),
+        text: TextSpan(text: number?.abs().toString(), style: TextStyle(color: Colors.black, fontSize: 32.0)),
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr,
       );
@@ -120,7 +128,7 @@ class BreathingCircle extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
+  bool shouldRepaint(covariant BreathingCircle oldDelegate) {
+    return oldDelegate.number != number;
   }
 }

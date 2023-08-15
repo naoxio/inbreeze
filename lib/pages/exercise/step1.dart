@@ -18,7 +18,7 @@ class _Step1PageState extends State<Step1Page> {
   int round = 1;
   int volume = 80;
   int maxBreaths = 30;
-  int breathsDone = 1;
+  int breathsDone = -5;
 
   Timer? breathCycleTimer;
   Duration get _breathCycleDuration => Duration(milliseconds: 2860 - (tempo * 542).toInt()) * 2;
@@ -29,6 +29,11 @@ class _Step1PageState extends State<Step1Page> {
 
     // Start the breath counting timer
     _loadMaxBreathsFromPreferences();
+  
+    if (round != 1) {
+      breathsDone = 1;
+    }
+    
     startBreathCounting();
   }
 
@@ -46,22 +51,29 @@ class _Step1PageState extends State<Step1Page> {
   }
 
   void startBreathCounting() {
-    breathCycleTimer = Timer.periodic(_breathCycleDuration, (timer) {
-      setState(() {
-        breathsDone++;
+    if (breathsDone < 0) {
+      breathCycleTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+        setState(() {
+          breathsDone++;
+          if (breathsDone == 0) {
+            breathsDone = 1;
+            timer.cancel();
+            startBreathCounting();  // Restart the timer with the original duration
+          }
+        });
       });
-      if (breathsDone > 1) {
-         timer.cancel();
-        _navigateToNextExercise();
-      }
-      if (breathsDone >= maxBreaths) {
-        timer.cancel();
-        _navigateToNextExercise();
-        // Do any additional logic when maxBreaths is reached.
-      }
-    });
+    } else {
+      breathCycleTimer = Timer.periodic(_breathCycleDuration, (timer) {
+        setState(() {
+          breathsDone++;
+        });
+        if (breathsDone >= maxBreaths) {
+          timer.cancel();
+          _navigateToNextExercise();
+        }
+      });
+    }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +86,7 @@ class _Step1PageState extends State<Step1Page> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Round: $round',
+                breathsDone < 0 ? 'Get Ready' : 'Round: $round',
                 style: TextStyle(
                   fontSize: 32.0,
                   fontWeight: FontWeight.bold,

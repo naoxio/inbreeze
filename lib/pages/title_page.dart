@@ -19,7 +19,7 @@ class TitlePage extends StatelessWidget {
                 ),
               ),
               Text(
-                'InX: Inner Breeze',
+                'Inner Breeze',
                 style: TextStyle(fontSize: 32.0),
               ),
               SizedBox(height: 32),
