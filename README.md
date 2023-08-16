@@ -27,5 +27,5 @@ The current goal is to make the entire process functional and become ready to pu
 ## Community
 We welcome any participates and you should feel welcome to share your ideas.
 
-- [NaoX Telegram Community](https://t.me/naoxio)
-- [NaoX Twitter](https://twitter.com/naox_io)
+- [Telegram Community](https://t.me/naoxio)
+- [Twitter](https://twitter.com/naox_io)
