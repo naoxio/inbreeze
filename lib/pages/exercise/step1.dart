@@ -68,7 +68,7 @@ class _Step1PageState extends State<Step1Page> {
         setState(() {
           breathsDone++;
         });
-        if (breathsDone >= maxBreaths) {
+        if (breathsDone >= maxBreaths + 1) {
           timer.cancel();
           _navigateToNextExercise();
         }
@@ -96,7 +96,7 @@ class _Step1PageState extends State<Step1Page> {
               AnimatedBreathingCircle(
                 tempo: tempo,
                 volume: volume,
-                innerText: breathsDone.toString(),
+                innerText: (breathsDone > maxBreaths ? maxBreaths : breathsDone).toString(),
               ),
               SizedBox(height: 200),
               StopSessionButton(),

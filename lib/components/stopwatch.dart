@@ -49,33 +49,6 @@ class CustomTimerState extends State<CustomTimer> with SingleTickerProviderState
   }
 }
 
-class DottedCirclePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.width / 2;
-    final paint = Paint()
-      ..color = Colors.black
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0
-      ..strokeCap = StrokeCap.round;
-
-    // Calculate the number of dots
-    const dotCount = 36;
-    const double angleIncrement = 2 * pi / dotCount;
-
-    for (var i = 0; i < dotCount; i++) {
-      final x = center.dx + radius * cos(i * angleIncrement);
-      final y = center.dy + radius * sin(i * angleIncrement);
-      canvas.drawCircle(Offset(x, y), 2, paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
-}
 class TimerPainter extends CustomPainter {
   final Duration duration;
   final Animation<double> outerAnimation;
@@ -102,15 +75,15 @@ class TimerPainter extends CustomPainter {
     final tealPaint = Paint()
       ..color = Colors.teal
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 5.0;
+      ..strokeWidth = 8.0;
 
   
     // Calculate how many minutes have passed
     final passedMinutes = duration.inMinutes;
 
     for (int i = 0; i <= passedMinutes; i++) {
-      final currentRadius = maxRadius - (i * 25.0);  // 5.0 can be adjusted based on how much you want to reduce the radius for each minute
-      int dotCount = 36 - i * 2;
+      final currentRadius = maxRadius - (i * 32.0);
+      int dotCount = 25 - i * 4;
       double angleIncrement = 2 * pi / dotCount;
 
       for (var j = 0; j < dotCount; j++) {
