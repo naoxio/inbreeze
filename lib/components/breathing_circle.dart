@@ -3,13 +3,13 @@ import 'package:audioplayers/audioplayers.dart';
 
 class AnimatedBreathingCircle extends StatefulWidget {
   final int volume;
-  final int tempo; 
-  final int? breathsDone; 
+  final int? tempo; 
+  final String? innerText; 
 
   AnimatedBreathingCircle({
     required this.volume,
-    required this.tempo,
-    this.breathsDone,
+    this.tempo,
+    this.innerText,
   });
   
   @override
@@ -25,11 +25,16 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
   late AudioPlayer _audioPlayer;
   bool _isDisposed = false;
 
+  Duration _getDuration() {
+    if (widget.tempo != null) {
+      return Duration(milliseconds: 2860 - ((widget.tempo ?? 2)* 542).toInt());
+    }
+    return Duration(seconds: 1);
+  }
 
   @override
   void initState() {
-    var duration = Duration(milliseconds: 2860 - (widget.tempo * 542).toInt());
-
+    Duration duration = _getDuration();
     super.initState();
     
     _controller = AnimationController(
@@ -42,8 +47,7 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
     _audioPlayer = AudioPlayer();
 
     _controller.addStatusListener((status) {
-      var newDuration = Duration(milliseconds: 2860 - (widget.tempo * 542).toInt());
-      
+      Duration newDuration = _getDuration();
       if (_controller.duration != newDuration && _controller.status == AnimationStatus.forward) {
         _controller.stop();
         _controller.duration = newDuration;
@@ -51,7 +55,6 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
         _controller.forward();
         _controller.repeat(reverse: true);
       }
-      print(status);
   
       if (status == AnimationStatus.forward) {
         _playAudio('sounds/breath-in.ogg');
@@ -61,13 +64,27 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
     });
   }
   @override
+  
   void didUpdateWidget(AnimatedBreathingCircle oldWidget) {
     super.didUpdateWidget(oldWidget);
-    
-    if (widget.breathsDone != null && widget.breathsDone! >= 0 && oldWidget.breathsDone != widget.breathsDone) {
+
+    // Try to parse the innerText as an integer to determine if it's a number
+    int? numberValue = int.tryParse(widget.innerText ?? '');
+
+    // If innerText is a number and is non-negative, repeat the animation with reverse
+    if (numberValue != null && numberValue >= 0 && oldWidget.innerText != widget.innerText) {
       _controller.repeat(reverse: true);
+    } 
+    // If innerText is 'in', do a forward animation
+    else if (widget.innerText == 'in' && oldWidget.innerText != widget.innerText) {
+      _controller.forward();
+    } 
+    // If innerText is 'out', do a reverse animation
+    else if (widget.innerText == 'out' && oldWidget.innerText != widget.innerText) {
+      _controller.reverse();
     }
   }
+
   Future<void> _playAudio(String assetPath) async {
     if (_isDisposed) return;
     if (_audioPlayer.state == PlayerState.playing) await _audioPlayer.stop();
@@ -90,7 +107,7 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
   Widget build(BuildContext context) {
     return Center(
       child: CustomPaint(
-        painter: BreathingCircle(_radiusAnimation, number: widget.breathsDone),
+        painter: BreathingCircle(_radiusAnimation, innerText: widget.innerText),
       ),
     );
   }
@@ -98,9 +115,9 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
 
 class BreathingCircle extends CustomPainter {
   final Animation<double> _animation;
-  final int? number;
+  final String? innerText;
 
-  BreathingCircle(this._animation, {this.number}) : super(repaint: _animation);
+  BreathingCircle(this._animation, {this.innerText}) : super(repaint: _animation);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -112,10 +129,20 @@ class BreathingCircle extends CustomPainter {
     double radius = _animation.value;
     canvas.drawCircle(Offset(0.0, 100.0), 72, paint);
     canvas.drawCircle(Offset(0.0, 100.0), radius, paint2);
-  
-    if (number != null) {
+    
+    String? displayText = innerText;
+
+    // Try to parse the innerText as an integer
+    int? numberValue = int.tryParse(innerText ?? '');
+
+    // If the parsed value is a number and is less than 0, update the displayText to its absolute value
+    if (numberValue != null && numberValue < 0) {
+      displayText = numberValue.abs().toString();
+    }
+
+    if (displayText != null) {
       TextPainter textPainter = TextPainter(
-        text: TextSpan(text: number?.abs().toString(), style: TextStyle(color: Colors.black, fontSize: 32.0)),
+        text: TextSpan(text: displayText, style: TextStyle(color: Colors.black, fontSize: 32.0)),
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr,
       );
@@ -126,6 +153,6 @@ class BreathingCircle extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant BreathingCircle oldDelegate) {
-    return oldDelegate.number != number;
+    return oldDelegate.innerText != innerText;
   }
 }

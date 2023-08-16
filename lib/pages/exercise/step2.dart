@@ -2,6 +2,7 @@ import 'dart:async'; // Required for the Timer
 import 'package:flutter/material.dart';
 import 'shared.dart';
 import '../../components/stopwatch.dart';
+import 'package:go_router/go_router.dart';
 
 class Step2Page extends StatefulWidget {
   Step2Page({super.key});
@@ -54,7 +55,7 @@ class _Step2PageState extends State<Step2Page> {
                 height: 42,
                 child: OutlinedButton(
                   onPressed: () {
-                    // Add functionality for "Stop Hold" here
+                    context.go('/exercise/step3');
                   },
                   child: Text(
                     'Stop Hold',

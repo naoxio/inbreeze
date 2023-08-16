@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'exercise/step1.dart';
 import 'exercise/step2.dart';
+import 'exercise/step3.dart';
 
 class ExercisePage extends StatelessWidget {
   // Constructs a [TutorialPage]
@@ -21,6 +22,9 @@ class ExercisePage extends StatelessWidget {
         break;
       case 'step2':
         pageToDisplay = Step2Page();
+        break;
+      case 'step3':
+        pageToDisplay = Step3Page();
         break;
       default:
         pageToDisplay = Step1Page();
