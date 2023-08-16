@@ -23,7 +23,6 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
   late AnimationController _controller;
   late Animation<double> _radiusAnimation;
   late AudioPlayer _audioPlayer;
-  BreathingState _currentBreathingState = BreathingState.inhale;
   bool _isDisposed = false;
 
 
@@ -52,14 +51,12 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
         _controller.forward();
         _controller.repeat(reverse: true);
       }
-
+      print(status);
   
-      if (status == AnimationStatus.forward && _currentBreathingState != BreathingState.inhale) {
-        _currentBreathingState = BreathingState.inhale;
-        _playAudio('sounds/breath-in.mp3');
-      } else if (status == AnimationStatus.reverse && _currentBreathingState != BreathingState.exhale) {
-        _currentBreathingState = BreathingState.exhale;
-        _playAudio('sounds/breath-out.mp3');
+      if (status == AnimationStatus.forward) {
+        _playAudio('sounds/breath-in.ogg');
+      } else if (status == AnimationStatus.reverse) {
+        _playAudio('sounds/breath-out.ogg');
       }
     });
   }
@@ -73,7 +70,7 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
   }
   Future<void> _playAudio(String assetPath) async {
     if (_isDisposed) return;
-    if (_audioPlayer.state == PlayerState.playing) return;
+    if (_audioPlayer.state == PlayerState.playing) await _audioPlayer.stop();
 
     await _audioPlayer.setSource(AssetSource(assetPath));
     await _audioPlayer.setVolume(widget.volume / 100); // Use the volume parameter
