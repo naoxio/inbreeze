@@ -107,31 +107,32 @@
         ]
       },
       "locked": {
-        "lastModified": 1692242539,
-        "narHash": "sha256-eOPj2lZ2YrGtQ5UyDwEbuoDWtj1ptstTCK9BuW3Qd84=",
+        "lastModified": 1692257664,
+        "narHash": "sha256-qitPjB2vtNrO0U2RczRBcp7kYxwCskJDdKcLu5rSpIE=",
         "owner": "waotzi",
-        "repo": "flutterFlake",
-        "rev": "04e66ab7ed077a407a13dfc4614d97e82bdb75fa",
+        "repo": "flake-flutter",
+        "rev": "8b74acbf777ce797c558b015de1a25e92ac82fbe",
         "type": "github"
       },
       "original": {
         "owner": "waotzi",
-        "ref": "3.0.8",
-        "repo": "flutterFlake",
+        "ref": "3.1.0",
+        "repo": "flake-flutter",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1690703350,
-        "narHash": "sha256-hIQrDDpAy6/3M2uCGZjd8atF/XuQP/Vv5vmAEWHblu4=",
+        "lastModified": 1692134936,
+        "narHash": "sha256-Z68O969cioC6I3k/AFBxsuEwpJwt4l9fzwuAMUhCCs0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e2022dbe6f691e98396ea5fdbacd6ad3be130ba5",
+        "rev": "bfd953b2c6de4f550f75461bcc5768b6f966be10",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
+        "ref": "nixos-23.05",
         "repo": "nixpkgs",
         "type": "github"
       }
