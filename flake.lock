@@ -107,16 +107,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1690716159,
-        "narHash": "sha256-XBe2yuEZ0Y4MYtSHx3i+/sapIyRoTRG+QBT3acd2VfI=",
+        "lastModified": 1692242539,
+        "narHash": "sha256-eOPj2lZ2YrGtQ5UyDwEbuoDWtj1ptstTCK9BuW3Qd84=",
         "owner": "waotzi",
         "repo": "flutterFlake",
-        "rev": "98a240533dcec7240f99d98ebf9e1d5fa03bd714",
+        "rev": "04e66ab7ed077a407a13dfc4614d97e82bdb75fa",
         "type": "github"
       },
       "original": {
         "owner": "waotzi",
-        "ref": "3.0.7",
+        "ref": "3.0.8",
         "repo": "flutterFlake",
         "type": "github"
       }

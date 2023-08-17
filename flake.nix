@@ -1,10 +1,9 @@
 {
-  description = "Nix shell for Inbe"; ### TODO
-
+  description = "Nix shell for Inbe"; 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
     flutter-flake = {
-      url    = "github:waotzi/flutterFlake/3.0.7";
+      url    = "github:waotzi/flutterFlake/3.0.8";
       inputs.nixpkgs.follows  = "nixpkgs";
     };
 
