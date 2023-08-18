@@ -3,7 +3,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     flutter-flake = {
-      url    = "github:waotzi/flutter-flake/3.1.0";
+      url    = "github:waotzi/flutter-flake/3.2.0";
       inputs.nixpkgs.follows  = "nixpkgs";
     };
 

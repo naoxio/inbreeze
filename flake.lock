@@ -1,46 +1,16 @@
 {
   "nodes": {
-    "android-nixpkgs": {
-      "inputs": {
-        "devshell": [
-          "flutter-flake",
-          "devshell"
-        ],
-        "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "flutter-flake",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1690661919,
-        "narHash": "sha256-mbcRu1YAfFbxZDKQpKhsfS2WUS4/LPAbat+MXyEHgRY=",
-        "owner": "tadfisher",
-        "repo": "android-nixpkgs",
-        "rev": "7aefbafa936a15d62d2b757d0a5027974e1e92b0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tadfisher",
-        "ref": "stable",
-        "repo": "android-nixpkgs",
-        "type": "github"
-      }
-    },
     "devshell": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "flutter-flake",
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs",
+        "systems": "systems"
       },
       "locked": {
-        "lastModified": 1655976588,
-        "narHash": "sha256-VreHyH6ITkf/1EX/8h15UqhddJnUleb0HgbC3gMkAEQ=",
+        "lastModified": 1688380630,
+        "narHash": "sha256-8ilApWVb1mAi4439zS3iFeIT0ODlbrifm/fegWwgHjA=",
         "owner": "numtide",
         "repo": "devshell",
-        "rev": "899ca4629020592a13a46783587f6e674179d1db",
+        "rev": "f9238ec3d75cefbb2b42a44948c4e8fb1ae9a205",
         "type": "github"
       },
       "original": {
@@ -50,39 +20,6 @@
       }
     },
     "flake-utils": {
-      "inputs": {
-        "systems": "systems"
-      },
-      "locked": {
-        "lastModified": 1689068808,
-        "narHash": "sha256-6ixXo3wt24N/melDWjq70UuHQLxGV8jZvooRanIHXw0=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "919d646de7be200f3bf08cb76ae1f09402b6f9b4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "flake-utils_2": {
-      "locked": {
-        "lastModified": 1642700792,
-        "narHash": "sha256-XqHrk7hFb+zBvRg6Ghl+AZDq03ov6OshJLiSWOoX5es=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "846b2ae0fc4cc943637d3d1def4454213e203cba",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "flake-utils_3": {
       "locked": {
         "lastModified": 1656928814,
         "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
@@ -99,29 +36,44 @@
     },
     "flutter-flake": {
       "inputs": {
-        "android-nixpkgs": "android-nixpkgs",
         "devshell": "devshell",
-        "flake-utils": "flake-utils_3",
+        "flake-utils": "flake-utils",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1692257664,
-        "narHash": "sha256-qitPjB2vtNrO0U2RczRBcp7kYxwCskJDdKcLu5rSpIE=",
+        "lastModified": 1692361308,
+        "narHash": "sha256-9WnM7mBnVNkw2UMhLD74Iq2SUjooc7JNTWKyYoL0CbI=",
         "owner": "waotzi",
-        "repo": "flake-flutter",
-        "rev": "8b74acbf777ce797c558b015de1a25e92ac82fbe",
+        "repo": "flutter-flake",
+        "rev": "ec45cf6b04c290e6f2828f1d23ac96eac45f8f06",
         "type": "github"
       },
       "original": {
         "owner": "waotzi",
-        "ref": "3.1.0",
-        "repo": "flake-flutter",
+        "ref": "3.2.0",
+        "repo": "flutter-flake",
         "type": "github"
       }
     },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1677383253,
+        "narHash": "sha256-UfpzWfSxkfXHnb4boXZNaKsAcUrZT9Hw+tao1oZxd08=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9952d6bc395f5841262b006fbace8dd7e143b634",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1692134936,
         "narHash": "sha256-Z68O969cioC6I3k/AFBxsuEwpJwt4l9fzwuAMUhCCs0=",
@@ -140,7 +92,7 @@
     "root": {
       "inputs": {
         "flutter-flake": "flutter-flake",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs_2"
       }
     },
     "systems": {
