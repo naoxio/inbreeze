@@ -3,13 +3,13 @@ import 'package:audioplayers/audioplayers.dart';
 
 class AnimatedBreathingCircle extends StatefulWidget {
   final int volume;
-  final int? tempo; 
+  final Duration tempoDuration; 
   final String? innerText; 
   final Function()? controlCallback;
 
   AnimatedBreathingCircle({
     required this.volume,
-    this.tempo,
+    required this.tempoDuration,
     this.innerText,
     this.controlCallback,
   });
@@ -27,21 +27,13 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
   late AudioPlayer _audioPlayer;
   bool _isDisposed = false;
 
-  Duration _getDuration() {
-    if (widget.tempo != null) {
-      return Duration(milliseconds: 2860 - ((widget.tempo ?? 2)* 542).toInt());
-    }
-    return Duration(seconds: 1);
-  }
-
   @override
   void initState() {
-    Duration duration = _getDuration();
     super.initState();
     
     _controller = AnimationController(
       vsync: this,
-      duration: duration, // Use the tempo parameter
+      duration: widget.tempoDuration, // Use the tempo parameter
     );
     
     _radiusAnimation = Tween<double>(begin: 40, end: 72).animate(_controller);
@@ -49,12 +41,11 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
     _audioPlayer = AudioPlayer();
 
     _controller.addStatusListener((status) {
-      Duration newDuration = _getDuration();
+      Duration newDuration = widget.tempoDuration;
       if (_controller.duration != newDuration && _controller.status == AnimationStatus.forward) {
         _controller.stop();
         _controller.duration = newDuration;
         _controller.reset();
-        _controller.forward();
         _controller.repeat(reverse: true);
       }
   
@@ -73,38 +64,49 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
     
     if (widget.controlCallback != null) {
       String control = widget.controlCallback!();
+      print(_controller.status);
       switch (control) {
         case 'repeat':
           _controller.repeat(reverse: true);
           break;
         case 'forward':
-          _controller.forward();
+          if (_controller.status != AnimationStatus.forward) {
+            _controller.forward();
+          }
           break;
         case 'reverse':
-          _controller.reverse();
+          if (_controller.status != AnimationStatus.reverse) {
+            _controller.reverse();
+          }
           break;
         case 'stop':
           _controller.stop();
           break;
+        case 'reset':
+          _controller.reset();
+          _audioPlayer.dispose();
+
+          if (_controller.status == AnimationStatus.dismissed) {
+            _controller.forward();
+          }
+          break;
       }
     }
-    // Try to parse the innerText as an integer to determine if it's a number
-    int? numberValue = int.tryParse(widget.innerText ?? '');
 
-    // If innerText is a number and is non-negative, repeat the animation with reverse
-    if (numberValue != null && numberValue >= 0 && oldWidget.innerText != widget.innerText) {
-      _controller.repeat(reverse: true);
-    } 
   }
 
   Future<void> _playAudio(String assetPath) async {
-    if (_isDisposed || widget.volume == 0) return; // Add the volume check here
+    if (_isDisposed || widget.volume == 0) return; 
 
     try {
-        if (_audioPlayer.state == PlayerState.playing) await _audioPlayer.stop();
-        await _audioPlayer.play(AssetSource(assetPath));
-        await _audioPlayer.setVolume(widget.volume / 100); // Use the volume parameter
-        await _audioPlayer.resume();
+      // Check if _audioPlayer has been disposed. If yes, create a new instance.
+      if (_audioPlayer.state == PlayerState.disposed) {
+        _audioPlayer = AudioPlayer();
+      }
+      if (_audioPlayer.state == PlayerState.playing) await _audioPlayer.stop();
+      await _audioPlayer.play(AssetSource(assetPath));
+      await _audioPlayer.setVolume(widget.volume / 100); 
+      await _audioPlayer.resume();
     } catch (e) {
         print("Error playing audio: $e");
     }

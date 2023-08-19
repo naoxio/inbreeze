@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 import 'pages/title_page.dart';
-import 'pages/tutorial_page.dart';
+import 'pages/guide_page.dart';
 import 'pages/exercise_page.dart';
 import 'pages/settings_page.dart';
 import 'pages/splash_page.dart';

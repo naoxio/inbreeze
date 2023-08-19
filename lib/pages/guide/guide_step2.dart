@@ -2,18 +2,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'page_layout.dart';
-import 'shared.dart';
+import '../../components/stopwatch.dart';
 
-class Step3Page extends StatefulWidget {
+class GuideStep2Page extends StatefulWidget {
   @override
-  State<Step3Page> createState() => _Step3PageState();
+  State<GuideStep2Page> createState() => _GuideStep2PageState();
 }
 
-void _finishTutorial(BuildContext context) async {
-  await markTutorialAsComplete();
-}
-
-class _Step3PageState extends State<Step3Page> {
+class _GuideStep2PageState extends State<GuideStep2Page> {
   Duration duration = Duration(seconds: 0);
   late Timer timer;
 
@@ -28,7 +24,6 @@ class _Step3PageState extends State<Step3Page> {
     });
   }
 
-
   @override
   void dispose() {
     timer.cancel(); // Cancel the timer when the widget is disposed to avoid memory leaks
@@ -40,43 +35,45 @@ class _Step3PageState extends State<Step3Page> {
     return  PageLayout(
       backButtonText: 'Back',
       backButtonPressed: () {
-        context.go('/guide/step2');
+        context.go('/guide/step1');
       },
-      forwardButtonText: 'Finish',
+      forwardButtonText: 'Continue',
       forwardButtonPressed: () {
-        _finishTutorial(context);
-
-        context.go('/home');
+        context.go('/guide/step3');
       },
       column: Column(
         children: [
           Text(
-            'Step 3: Inhale & hold',
+            'Step 2: Exhale & hold',
             style: TextStyle(
               fontSize: 32.0,
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 20),
-          SizedBox(
-            width: 320,
-            child: Image.asset(
-              'assets/images/begin.jpg',
-              width: double.infinity,
-            ),
-          ),
-          SizedBox(height: 20),
           Text('''
-Inhale fully and hold for 15 seconds.
-Afterwards exhale, completing the first round.
+Exhale normally and hold your breath.
 
-With every round you can hold your breath longer and go deeper.''',
+The time of your hold will increase with more practice and with each round.
+
+The circle in the middle indicates how long you have held your breath and the last breath hold length.
+
+Release when you sense the urge to breathe, avoid overextending. Your body signals when it is time to breathe.''',
             style: TextStyle(
               fontSize: 16.0,
               height: 1.5,
             ),
           ),
-       
+          SizedBox(height: 40),
+
+          SizedBox(
+            width: 300,
+            height: 200,
+            child: CustomTimer(duration: duration),
+              
+          ),
+          
+          SizedBox(height: 20),
 
         ],
       ),

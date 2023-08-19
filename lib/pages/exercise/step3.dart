@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:inner_breeze/components/breathing_circle.dart';
+import 'package:inner_breeze/components/animated_circle.dart';
 import 'shared.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +15,8 @@ class Step3Page extends StatefulWidget {
 
 class _Step3PageState extends State<Step3Page> {
   int volume = 80;
-  int countdown = 16;
+  int countdown = 30;
+  Duration tempoDuration = Duration(seconds: 1);
   String innerText= 'in';
 
   Timer? breathCycleTimer;
@@ -45,15 +46,18 @@ class _Step3PageState extends State<Step3Page> {
     breathCycleTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         countdown--;
-        if (countdown == 15) {
-          innerText = 'out';        
+        if (countdown >= 25) {
+          tempoDuration = Duration(seconds: 5);
+          innerText = 'in';        
         }
-        else if (countdown == 0) {
+        else if (countdown <= 10) {
+          tempoDuration = Duration(seconds: 5);
           innerText = 'out';
           timer.cancel();
         }
         else {
-          innerText = countdown.toString();
+          tempoDuration = Duration(seconds: 1);
+          innerText = (countdown - 10).toString();
         }
       });
     });
@@ -78,7 +82,20 @@ class _Step3PageState extends State<Step3Page> {
               ),
               AnimatedBreathingCircle(
                 volume: volume,
+                tempoDuration: tempoDuration,
                 innerText: innerText,
+                controlCallback: () {
+                  if (innerText == 'in') {
+                    return 'forward';
+                  }
+                  else if (innerText == 'out') {
+                    return 'reverse';
+                  }
+                  else {
+                    return 'stop';
+                  }
+                },
+
               ),
               SizedBox(height: 200),
               StopSessionButton(),

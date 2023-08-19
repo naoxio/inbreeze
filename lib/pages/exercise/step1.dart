@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:inner_breeze/components/breathing_circle.dart';
+import 'package:inner_breeze/components/animated_circle.dart';
 import 'shared.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
@@ -21,6 +21,7 @@ class _Step1PageState extends State<Step1Page> {
   int breathsDone = -5;
 
   Timer? breathCycleTimer;
+  Duration tempoDuration = Duration(seconds: 1);
   Duration get _breathCycleDuration => Duration(milliseconds: 2860 - (tempo * 542).toInt()) * 2;
 
   @override
@@ -53,7 +54,8 @@ class _Step1PageState extends State<Step1Page> {
 
   void startBreathCounting() {
     if (breathsDone < 0) {
-      breathCycleTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      tempoDuration = Duration(seconds: 1);
+      breathCycleTimer = Timer.periodic(tempoDuration, (timer) {
         setState(() {
           breathsDone++;
           if (breathsDone == 0) {
@@ -64,7 +66,8 @@ class _Step1PageState extends State<Step1Page> {
         });
       });
     } else {
-      breathCycleTimer = Timer.periodic(_breathCycleDuration, (timer) {
+      tempoDuration = _breathCycleDuration;
+      breathCycleTimer = Timer.periodic(tempoDuration, (timer) {
         setState(() {
           breathsDone++;
         });
@@ -75,6 +78,7 @@ class _Step1PageState extends State<Step1Page> {
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +98,7 @@ class _Step1PageState extends State<Step1Page> {
                 ),
               ),
               AnimatedBreathingCircle(
-                tempo: tempo,
+                tempoDuration: tempoDuration,
                 volume: volume,
                 innerText: (breathsDone > maxBreaths ? maxBreaths : breathsDone).toString(),
                 controlCallback: () {

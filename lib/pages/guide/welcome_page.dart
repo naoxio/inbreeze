@@ -3,14 +3,14 @@ import 'package:go_router/go_router.dart';
 import 'page_layout.dart';
 import 'shared.dart';
 
-class WelcomePage extends StatefulWidget {
+class GuideWelcomePage extends StatefulWidget {
   @override
-  State<WelcomePage> createState() => _WelcomePageState();
+  State<GuideWelcomePage> createState() => _GuideWelcomePageState();
 }
 void _skipTutorial(BuildContext context) async {
   await markTutorialAsComplete();
 }
-class _WelcomePageState extends State<WelcomePage> {
+class _GuideWelcomePageState extends State<GuideWelcomePage> {
 
   @override
   Widget build(BuildContext context) {

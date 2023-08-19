@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'page_layout.dart';
-import '../../components/breathing_circle.dart';
+import '../../components/animated_circle.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Step1Page extends StatefulWidget {
+class GuideStep1Page extends StatefulWidget {
   @override
-  State<Step1Page> createState() => _Step1PageState();
+  State<GuideStep1Page> createState() => _GuideStep1PageState();
 }
 
 enum BreathingTempo {slow, medium, fast, rapid}
 
-class _Step1PageState extends State<Step1Page> {
+class _GuideStep1PageState extends State<GuideStep1Page> {
   int tempo = 1;
   int breaths = 30;
   int volume = 90;
+  Duration tempoDuration = Duration(seconds: 1);
+  String animationCommand = 'repeat';
 
   @override
   void initState() {
@@ -79,7 +81,13 @@ Repeat this for about 20-40 breaths at a steady pace.''',
             ),
           ),
           Center(
-            child: AnimatedBreathingCircle(tempo: tempo, volume: volume),
+            child: AnimatedBreathingCircle(
+              tempoDuration: tempoDuration, 
+              volume: volume,
+              controlCallback: () {
+                return animationCommand;
+              }
+            ),
           ),
           SizedBox(height: 190),
           Text(
@@ -140,23 +148,29 @@ Repeat this for about 20-40 breaths at a steady pace.''',
     );
   }
 
-  void _updateTempo(int newTempo) {
+  void _updateTempo(double newTempo) {
+    print('udpating tempo');
     setState(() {
-      tempo = newTempo;
+      tempo = newTempo.toInt();
+
+      tempoDuration = Duration(milliseconds: 2860 - (tempo* 542).toInt()) * 2;
+
+      animationCommand = 'reset';
+
     });
     _savePreferences();
   }
 
-  void _updateVolume(int newVolume) {
+  void _updateVolume(double newVolume) {
     setState(() {
-      volume = newVolume;
+      volume = newVolume.toInt();
     });
     _savePreferences();
   }
 
-  void _updateBreaths(int newBreaths) {
+  void _updateBreaths(double newBreaths) {
     setState(() {
-      breaths = newBreaths;
+      breaths = newBreaths.toInt();
     });
     _savePreferences();
   }
