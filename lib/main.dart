@@ -1,7 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:window_manager/window_manager.dart';
 import 'router.dart';
 
-void main() => runApp(App());
+const String title = 'Inner Breeze';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Must add this line.
+  await windowManager.ensureInitialized();
+
+  WindowOptions windowOptions = WindowOptions(
+    size: Size(420, 600),
+    center: true,
+    title: title,
+    backgroundColor: Colors.transparent,
+    skipTaskbar: false,
+    titleBarStyle: TitleBarStyle.normal,
+  );
+
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+    runApp(App());
+  });
+}
 
 final _darkTheme = ThemeData.from(
   colorScheme: ColorScheme.fromSeed(
@@ -20,9 +42,6 @@ final _lightTheme = ThemeData.from(
 class App extends StatelessWidget {
   // Creates an [App].
   const App({super.key});
-
-  /// The title of the app.
-  static const String title = 'Inner Breeze';
 
   @override
   Widget build(BuildContext context) {

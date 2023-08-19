@@ -5,11 +5,13 @@ class AnimatedBreathingCircle extends StatefulWidget {
   final int volume;
   final int? tempo; 
   final String? innerText; 
+  final Function()? controlCallback;
 
   AnimatedBreathingCircle({
     required this.volume,
     this.tempo,
     this.innerText,
+    this.controlCallback,
   });
   
   @override
@@ -67,7 +69,25 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
   
   void didUpdateWidget(AnimatedBreathingCircle oldWidget) {
     super.didUpdateWidget(oldWidget);
-
+    
+    
+    if (widget.controlCallback != null) {
+      String control = widget.controlCallback!();
+      switch (control) {
+        case 'repeat':
+          _controller.repeat(reverse: true);
+          break;
+        case 'forward':
+          _controller.forward();
+          break;
+        case 'reverse':
+          _controller.reverse();
+          break;
+        case 'stop':
+          _controller.stop();
+          break;
+      }
+    }
     // Try to parse the innerText as an integer to determine if it's a number
     int? numberValue = int.tryParse(widget.innerText ?? '');
 
@@ -75,23 +95,19 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
     if (numberValue != null && numberValue >= 0 && oldWidget.innerText != widget.innerText) {
       _controller.repeat(reverse: true);
     } 
-    // If innerText is 'in', do a forward animation
-    else if (widget.innerText == 'in' && oldWidget.innerText != widget.innerText) {
-      _controller.forward();
-    } 
-    // If innerText is 'out', do a reverse animation
-    else if (widget.innerText == 'out' && oldWidget.innerText != widget.innerText) {
-      _controller.reverse();
-    }
   }
 
   Future<void> _playAudio(String assetPath) async {
-    if (_isDisposed) return;
-    if (_audioPlayer.state == PlayerState.playing) await _audioPlayer.stop();
+    if (_isDisposed || widget.volume == 0) return; // Add the volume check here
 
-    await _audioPlayer.setSource(AssetSource(assetPath));
-    await _audioPlayer.setVolume(widget.volume / 100); // Use the volume parameter
-    await _audioPlayer.resume();
+    try {
+        if (_audioPlayer.state == PlayerState.playing) await _audioPlayer.stop();
+        await _audioPlayer.play(AssetSource(assetPath));
+        await _audioPlayer.setVolume(widget.volume / 100); // Use the volume parameter
+        await _audioPlayer.resume();
+    } catch (e) {
+        print("Error playing audio: $e");
+    }
   }
 
   @override
@@ -99,6 +115,7 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
     _isDisposed = true;
 
     _controller.dispose();
+    
     _audioPlayer.dispose();
     super.dispose();
   }

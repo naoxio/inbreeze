@@ -97,6 +97,15 @@ class _Step1PageState extends State<Step1Page> {
                 tempo: tempo,
                 volume: volume,
                 innerText: (breathsDone > maxBreaths ? maxBreaths : breathsDone).toString(),
+                controlCallback: () {
+                  // Your logic here to decide what control to return
+                  if (breathsDone > 0) {
+                    return 'repeat';
+                  }
+                  else {
+                    return 'stop';
+                  }
+                },
               ),
               SizedBox(height: 200),
               StopSessionButton(),

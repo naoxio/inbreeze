@@ -14,10 +14,9 @@ class Step3Page extends StatefulWidget {
 
 
 class _Step3PageState extends State<Step3Page> {
-  int round = 1;
   int volume = 80;
-  int countdown = 15;
-  var innerText= 'in';
+  int countdown = 16;
+  String innerText= 'in';
 
   Timer? breathCycleTimer;
 
@@ -46,9 +45,15 @@ class _Step3PageState extends State<Step3Page> {
     breathCycleTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         countdown--;
-        if (countdown == 0) {
+        if (countdown == 15) {
+          innerText = 'out';        
+        }
+        else if (countdown == 0) {
           innerText = 'out';
           timer.cancel();
+        }
+        else {
+          innerText = countdown.toString();
         }
       });
     });
