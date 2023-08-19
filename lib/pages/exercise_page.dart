@@ -18,7 +18,7 @@ class ExercisePage extends StatelessWidget {
         pageToDisplay = Step1Page();
         break;
       case 'step1':
-        pageToDisplay = Step3Page();
+        pageToDisplay = Step1Page();
         break;
       case 'step2':
         pageToDisplay = Step2Page();
