@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
 import 'router.dart';
-import 'dart:io';
+
+import 'platform_checker.dart';
+import 'package:window_manager/window_manager.dart';
 
 const String title = 'Inner Breeze';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+  if (isDesktop()) {
     await windowManager.ensureInitialized();
 
     WindowOptions windowOptions = WindowOptions(
