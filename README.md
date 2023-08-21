@@ -24,7 +24,7 @@ The current goal is to make the entire process functional and become ready to pu
 - [ ] add customizations directly in the settings page
 - [ ] add info section in the settings with external links
 - [ ] add loading screen
-- [ ] github action to automatically build android apks
+- [x] github action to automatically build android apks
 
 ## Community
 We welcome any participates and you should feel welcome to share your ideas.
