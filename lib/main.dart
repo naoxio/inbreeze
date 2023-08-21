@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'router.dart';
+import 'dart:io';
 
 const String title = 'Inner Breeze';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Must add this line.
-  await windowManager.ensureInitialized();
+  if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+    await windowManager.ensureInitialized();
 
-  WindowOptions windowOptions = WindowOptions(
-    size: Size(420, 600),
-    center: true,
-    title: title,
-    backgroundColor: Colors.transparent,
-    skipTaskbar: false,
-    titleBarStyle: TitleBarStyle.normal,
-  );
+    WindowOptions windowOptions = WindowOptions(
+      size: Size(420, 600),
+      center: true,
+      title: title,
+      backgroundColor: Colors.transparent,
+      skipTaskbar: false,
+      titleBarStyle: TitleBarStyle.normal,
+    );
 
-  windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.show();
-    await windowManager.focus();
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+      runApp(App());
+    });
+  }
+  else {
     runApp(App());
-  });
+  }
 }
 
 final _darkTheme = ThemeData.from(
