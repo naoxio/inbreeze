@@ -28,10 +28,7 @@ class _Step1PageState extends State<Step1Page> {
 
     // Start the breath counting timer
     _loadDataFromPreferences();
-  
-    if (rounds != 1) {
-      breathsDone = 1;
-    }
+
     startBreathCounting();
   }
 
@@ -40,7 +37,10 @@ class _Step1PageState extends State<Step1Page> {
     setState(() {
       maxBreaths = prefs.getInt('breaths') ?? 30;
       int tempo = prefs.getInt('tempo') ?? 3000;
-      rounds = prefs.getInt('rounds') ?? 1;
+      rounds = prefs.getInt('rounds') ?? 2;
+      if (rounds != 1) {
+        breathsDone = 1;
+      }
       tempoDuration = Duration(milliseconds: tempo);
       volume = prefs.getInt('volume') ?? 80;
     });
