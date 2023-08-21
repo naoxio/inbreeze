@@ -16,7 +16,8 @@ class Step3Page extends StatefulWidget {
 class _Step3PageState extends State<Step3Page> {
   int volume = 80;
   int countdown = 30;
-  Duration tempoDuration = Duration(seconds: 1);
+  int rounds = 1;
+  Duration tempoDuration = Duration(seconds: 2);
   String innerText= 'in';
 
   Timer? breathCycleTimer;
@@ -33,10 +34,14 @@ class _Step3PageState extends State<Step3Page> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       volume = prefs.getInt('volume') ?? 80;
+      rounds = prefs.getInt('rounds') ?? 1;
     });
   }
 
-  void _navigateToNextExercise() {
+  void _navigateToNextExercise() async{
+    rounds += 1;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('rounds', rounds);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.go('/exercise/step1');
     });
@@ -45,22 +50,23 @@ class _Step3PageState extends State<Step3Page> {
   void startBreathCounting() {
     breathCycleTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
-        countdown--;
-        if (countdown >= 25) {
-          tempoDuration = Duration(seconds: 5);
-          innerText = 'in';        
-        }
-        else if (countdown <= 10) {
-          tempoDuration = Duration(seconds: 5);
+        print('tickr ${timer.tick}');
+        if (timer.tick < 2) {
+          // 'in' phase
+          innerText = 'in';
+        } else if ( timer.tick < 17) {
+          // Countdown phase
+          innerText = (17 - timer.tick).toString();
+        } else if (timer.tick >= 15 && timer.tick < 18) {
+          // 'out' phase
           innerText = 'out';
+        } else {
+          // Completion
           timer.cancel();
-        }
-        else {
-          tempoDuration = Duration(seconds: 1);
-          innerText = (countdown - 10).toString();
+          _navigateToNextExercise();
         }
       });
-    });
+     });
   }
 
   @override

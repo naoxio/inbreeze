@@ -14,7 +14,7 @@ class Step1Page extends StatefulWidget {
 
 
 class _Step1PageState extends State<Step1Page> {
-  int round = 1;
+  int rounds = 1;
   int volume = 80;
   int maxBreaths = 30;
   int breathsDone = -5;
@@ -29,7 +29,7 @@ class _Step1PageState extends State<Step1Page> {
     // Start the breath counting timer
     _loadDataFromPreferences();
   
-    if (round != 1) {
+    if (rounds != 1) {
       breathsDone = 1;
     }
     startBreathCounting();
@@ -40,6 +40,7 @@ class _Step1PageState extends State<Step1Page> {
     setState(() {
       maxBreaths = prefs.getInt('breaths') ?? 30;
       int tempo = prefs.getInt('tempo') ?? 3000;
+      rounds = prefs.getInt('rounds') ?? 1;
       tempoDuration = Duration(milliseconds: tempo);
       volume = prefs.getInt('volume') ?? 80;
     });
@@ -88,7 +89,7 @@ class _Step1PageState extends State<Step1Page> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                breathsDone < 0 ? 'Get Ready' : 'Round: $round',
+                breathsDone < 0 ? 'Get Ready' : 'Round: $rounds',
                 style: TextStyle(
                   fontSize: 32.0,
                   fontWeight: FontWeight.bold,
