@@ -12,10 +12,9 @@ class GuideStep1Page extends StatefulWidget {
 enum BreathingTempo {slow, medium, fast, rapid}
 
 class _GuideStep1PageState extends State<GuideStep1Page> {
-  int tempo = 1;
   int breaths = 30;
   int volume = 90;
-  Duration tempoDuration = Duration(seconds: 1);
+  Duration tempoDuration = Duration(milliseconds: 1668); 
   String animationCommand = 'repeat';
 
   @override
@@ -27,7 +26,8 @@ class _GuideStep1PageState extends State<GuideStep1Page> {
   Future<void> _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      tempo = prefs.getInt('tempo') ?? 1;
+      int tempo = prefs.getInt('tempo') ?? 3000;
+      tempoDuration = Duration(milliseconds: tempo);
       breaths = prefs.getInt('breaths') ?? 30;
       volume = prefs.getInt('volume') ?? 90;
     });
@@ -35,13 +35,21 @@ class _GuideStep1PageState extends State<GuideStep1Page> {
   
   Future<void> _savePreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('tempo', tempo);
+    prefs.setInt('tempo', tempoDuration.inMilliseconds);
     prefs.setInt('breaths', breaths);
     prefs.setInt('volume', volume);
   }
 
+  Duration computeTempoDuration(double value) {
+    // This will map the range [0,3] to [3000ms, 1000ms] respectively
+    int millis = (3000 - value * 666).toInt().clamp(1000, 3000);
+    return Duration(milliseconds: millis);
+  }
+
   @override
   Widget build(BuildContext context) {
+    double sliderValue = 3 - (tempoDuration.inMilliseconds - 1000) / 666;
+
     return  PageLayout(
       backButtonText: 'Back',
       backButtonPressed: () {
@@ -81,7 +89,7 @@ Repeat this for about 20-40 breaths at a steady pace.''',
             ),
           ),
           Center(
-            child: AnimatedBreathingCircle(
+            child: AnimatedCircle(
               tempoDuration: tempoDuration, 
               volume: volume,
               controlCallback: () {
@@ -97,13 +105,13 @@ Repeat this for about 20-40 breaths at a steady pace.''',
               fontWeight: FontWeight.bold,
             ),
           ),
-          Slider(
+         Slider(
             min: 0,
             max: 3,
-            label: capitalizeEnumValue(BreathingTempo.values[tempo].name),
+            label: capitalizeEnumValue(BreathingTempo.values[sliderValue.round()].name),
             divisions: 3,
-            value: tempo.toDouble(),
-            onChanged: (dynamic value){
+            value: sliderValue.clamp(0.0, 3.0),
+            onChanged: (dynamic value) {
               _updateTempo(value);
             },
           ),
@@ -148,22 +156,19 @@ Repeat this for about 20-40 breaths at a steady pace.''',
     );
   }
 
-  void _updateTempo(double newTempo) {
-    print('udpating tempo');
+  void _updateTempo(double newTempo) async {
     setState(() {
-      tempo = newTempo.toInt();
-
-      tempoDuration = Duration(milliseconds: 2860 - (tempo* 542).toInt()) * 2;
-
+      tempoDuration = computeTempoDuration(newTempo);
       animationCommand = 'reset';
-
     });
+    
     _savePreferences();
   }
 
   void _updateVolume(double newVolume) {
     setState(() {
       volume = newVolume.toInt();
+      animationCommand = 'repeat';
     });
     _savePreferences();
   }
@@ -171,6 +176,8 @@ Repeat this for about 20-40 breaths at a steady pace.''',
   void _updateBreaths(double newBreaths) {
     setState(() {
       breaths = newBreaths.toInt();
+      animationCommand = 'repeat';
+
     });
     _savePreferences();
   }

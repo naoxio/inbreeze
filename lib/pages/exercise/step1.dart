@@ -97,7 +97,7 @@ class _Step1PageState extends State<Step1Page> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              AnimatedBreathingCircle(
+              AnimatedCircle(
                 tempoDuration: tempoDuration,
                 volume: volume,
                 innerText: (breathsDone > maxBreaths ? maxBreaths : breathsDone).toString(),

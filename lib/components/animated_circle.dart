@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
-class AnimatedBreathingCircle extends StatefulWidget {
+class AnimatedCircle extends StatefulWidget {
   final int volume;
   final Duration tempoDuration; 
   final String? innerText; 
   final Function()? controlCallback;
 
-  AnimatedBreathingCircle({
+  AnimatedCircle({
     required this.volume,
     required this.tempoDuration,
     this.innerText,
@@ -15,18 +15,17 @@ class AnimatedBreathingCircle extends StatefulWidget {
   });
   
   @override
-  AnimatedBreathingCircleState createState() => AnimatedBreathingCircleState();
+  AnimatedCircleState createState() => AnimatedCircleState();
 }
 
 enum BreathingState { inhale, exhale }
 
-class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
+class AnimatedCircleState extends State<AnimatedCircle>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _radiusAnimation;
   late AudioPlayer _audioPlayer;
-  bool _isDisposed = false;
-
+  
   @override
   void initState() {
     super.initState();
@@ -43,13 +42,15 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
     _controller.addStatusListener((status) {
       Duration newDuration = widget.tempoDuration;
       if (_controller.duration != newDuration && _controller.status == AnimationStatus.forward) {
+        _stopAudio();
         _controller.stop();
         _controller.duration = newDuration;
-        _controller.reset();
+        _controller.forward();
         _controller.repeat(reverse: true);
       }
   
       if (status == AnimationStatus.forward) {
+        print('about to play ${_audioPlayer.state}');
         _playAudio('sounds/breath-in.ogg');
       } else if (status == AnimationStatus.reverse) {
         _playAudio('sounds/breath-out.ogg');
@@ -58,52 +59,61 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
   }
   @override
   
-  void didUpdateWidget(AnimatedBreathingCircle oldWidget) {
+  void didUpdateWidget(AnimatedCircle oldWidget) {
     super.didUpdateWidget(oldWidget);
     
     
     if (widget.controlCallback != null) {
+      String currentStatus = _controller.status.toString().split('.').last;
       String control = widget.controlCallback!();
-      print(_controller.status);
-      switch (control) {
-        case 'repeat':
-          _controller.repeat(reverse: true);
-          break;
-        case 'forward':
-          if (_controller.status != AnimationStatus.forward) {
+      print('contol: $control');
+      if (control != currentStatus) {
+        switch (control) {
+          case 'repeat':
+            if (_controller.status == AnimationStatus.forward || _controller.status == AnimationStatus.reverse) break;
             _controller.forward();
-          }
-          break;
-        case 'reverse':
-          if (_controller.status != AnimationStatus.reverse) {
+            _controller.repeat(reverse: true);
+            break;
+          case 'forward':
+            _controller.forward();
+            break;
+          case 'reverse':
             _controller.reverse();
-          }
-          break;
-        case 'stop':
-          _controller.stop();
-          break;
-        case 'reset':
-          _controller.reset();
-          _audioPlayer.dispose();
-
-          if (_controller.status == AnimationStatus.dismissed) {
+            break;
+          case 'stop':
+            _stopAudio();
+            _controller.stop();
+            break;
+          case 'reset':
+            _stopAudio();
+            _controller.stop();
             _controller.forward();
-          }
-          break;
+            _controller.repeat(reverse: true);
+            break;
+        }
       }
     }
 
   }
+  void _stopAudio() async {
+    print('${_audioPlayer.state}  ${_controller.status}');
+    if (_audioPlayer.state == PlayerState.playing || _audioPlayer.state == PlayerState.completed) {
+      await _audioPlayer.release();
+    }
+  }
 
   Future<void> _playAudio(String assetPath) async {
-    if (_isDisposed || widget.volume == 0) return; 
+    if (widget.volume == 0) return; 
 
     try {
       // Check if _audioPlayer has been disposed. If yes, create a new instance.
       if (_audioPlayer.state == PlayerState.disposed) {
         _audioPlayer = AudioPlayer();
       }
-      if (_audioPlayer.state == PlayerState.playing) await _audioPlayer.stop();
+      
+      if (_audioPlayer.state == PlayerState.playing) {
+        await _audioPlayer.release();
+      } 
       await _audioPlayer.play(AssetSource(assetPath));
       await _audioPlayer.setVolume(widget.volume / 100); 
       await _audioPlayer.resume();
@@ -114,11 +124,10 @@ class AnimatedBreathingCircleState extends State<AnimatedBreathingCircle>
 
   @override
   void dispose() {
-    _isDisposed = true;
-
     _controller.dispose();
-    
-    _audioPlayer.dispose();
+    if (_audioPlayer.state != PlayerState.disposed) {
+      _audioPlayer.dispose();
+    }
     super.dispose();
   }
 

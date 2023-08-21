@@ -80,7 +80,7 @@ class _Step3PageState extends State<Step3Page> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              AnimatedBreathingCircle(
+              AnimatedCircle(
                 volume: volume,
                 tempoDuration: tempoDuration,
                 innerText: innerText,
