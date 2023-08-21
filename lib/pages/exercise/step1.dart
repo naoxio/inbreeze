@@ -36,8 +36,8 @@ class _Step1PageState extends State<Step1Page> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       maxBreaths = prefs.getInt('breaths') ?? 30;
-      int tempo = prefs.getInt('tempo') ?? 3000;
-      rounds = prefs.getInt('rounds') ?? 2;
+      int tempo = prefs.getInt('tempo') ?? 1668;
+      rounds = prefs.getInt('rounds') ?? 1;
       if (rounds != 1) {
         breathsDone = 1;
       }

@@ -26,7 +26,7 @@ class _GuideStep1PageState extends State<GuideStep1Page> {
   Future<void> _loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      int tempo = prefs.getInt('tempo') ?? 3000;
+      int tempo = prefs.getInt('tempo') ?? 1668;
       tempoDuration = Duration(milliseconds: tempo);
       breaths = prefs.getInt('breaths') ?? 30;
       volume = prefs.getInt('volume') ?? 90;
