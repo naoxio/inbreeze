@@ -50,7 +50,6 @@ class AnimatedCircleState extends State<AnimatedCircle>
       }
   
       if (status == AnimationStatus.forward) {
-        print('about to play ${_audioPlayer.state}');
         _playAudio('sounds/breath-in.ogg');
       } else if (status == AnimationStatus.reverse) {
         _playAudio('sounds/breath-out.ogg');
@@ -66,7 +65,6 @@ class AnimatedCircleState extends State<AnimatedCircle>
     if (widget.controlCallback != null) {
       String currentStatus = _controller.status.toString().split('.').last;
       String control = widget.controlCallback!();
-      print('contol: $control');
       if (control != currentStatus) {
         switch (control) {
           case 'repeat':
@@ -96,7 +94,6 @@ class AnimatedCircleState extends State<AnimatedCircle>
 
   }
   void _stopAudio() async {
-    print('${_audioPlayer.state}  ${_controller.status}');
     if (_audioPlayer.state == PlayerState.playing || _audioPlayer.state == PlayerState.completed) {
       await _audioPlayer.release();
     }

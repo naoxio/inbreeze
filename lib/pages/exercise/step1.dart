@@ -14,7 +14,6 @@ class Step1Page extends StatefulWidget {
 
 
 class _Step1PageState extends State<Step1Page> {
-  int tempo = 2;
   int round = 1;
   int volume = 80;
   int maxBreaths = 30;
@@ -22,7 +21,6 @@ class _Step1PageState extends State<Step1Page> {
 
   Timer? breathCycleTimer;
   Duration tempoDuration = Duration(seconds: 1);
-  Duration get _breathCycleDuration => Duration(milliseconds: 2860 - (tempo * 542).toInt()) * 2;
 
   @override
   void initState() {
@@ -41,7 +39,8 @@ class _Step1PageState extends State<Step1Page> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       maxBreaths = prefs.getInt('breaths') ?? 30;
-      tempo = prefs.getInt('tempo') ?? 2;
+      int tempo = prefs.getInt('tempo') ?? 3000;
+      tempoDuration = Duration(milliseconds: tempo);
       volume = prefs.getInt('volume') ?? 80;
     });
   }
@@ -54,8 +53,7 @@ class _Step1PageState extends State<Step1Page> {
 
   void startBreathCounting() {
     if (breathsDone < 0) {
-      tempoDuration = Duration(seconds: 1);
-      breathCycleTimer = Timer.periodic(tempoDuration, (timer) {
+      breathCycleTimer = Timer.periodic(Duration(seconds: 1), (timer) {
         setState(() {
           breathsDone++;
           if (breathsDone == 0) {
@@ -66,10 +64,9 @@ class _Step1PageState extends State<Step1Page> {
         });
       });
     } else {
-      tempoDuration = _breathCycleDuration;
       breathCycleTimer = Timer.periodic(tempoDuration, (timer) {
         setState(() {
-          breathsDone++;
+          breathsDone = timer.tick ~/ 2 + 1;
         });
         if (breathsDone >= maxBreaths + 1) {
           timer.cancel();
