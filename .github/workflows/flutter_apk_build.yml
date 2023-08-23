@@ -3,7 +3,7 @@ name: Flutter APK Build
 on:
   push:
     branches:
-      - main # or the default branch name of your repository
+      - main
 
 jobs:
   build:
@@ -29,5 +29,4 @@ jobs:
       run: |
         gh release create ${{ github.sha }} build/app/outputs/flutter-apk/app-release.apk --title "Release ${{ github.sha }}" --notes "Release of ${{ github.sha }}"
       env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
