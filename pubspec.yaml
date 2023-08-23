@@ -3,7 +3,7 @@ description: Intuitive breathing tracker
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.1.0
+version: 0.0.7
 
 environment:
   sdk: '>=2.19.4 <4.0.0'
