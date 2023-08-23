@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'page_layout.dart';
-import '../../components/animated_circle.dart';
+import '../../layouts/guide_page_layout.dart';
+import '../../widgets/animated_circle.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GuideStep1Page extends StatefulWidget {

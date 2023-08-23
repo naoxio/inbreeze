@@ -1,19 +1,19 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:inner_breeze/components/animated_circle.dart';
-import 'shared.dart';
+import 'package:inner_breeze/widgets/animated_circle.dart';
+import '../../widgets/stop_session.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
 
-class Step1Page extends StatefulWidget {
-  Step1Page({super.key});
+class ExerciseStep1 extends StatefulWidget {
+  ExerciseStep1({super.key});
 
   @override
-  State<Step1Page> createState() => _Step1PageState();
+  State<ExerciseStep1> createState() => _ExerciseStep1State();
 }
 
 
-class _Step1PageState extends State<Step1Page> {
+class _ExerciseStep1State extends State<ExerciseStep1> {
   int rounds = 1;
   int volume = 80;
   int maxBreaths = 30;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashScreen extends StatelessWidget {
   Future<bool> _checkTutorialCompletion() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool('tutorialComplete') ?? false;

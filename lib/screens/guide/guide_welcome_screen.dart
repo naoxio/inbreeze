@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'page_layout.dart';
-import 'shared.dart';
+import '../../layouts/guide_page_layout.dart';
+import '../../shared/tutorial.dart';
 
-class GuideWelcomePage extends StatefulWidget {
+class GuideWelcomeScreen extends StatefulWidget {
   @override
-  State<GuideWelcomePage> createState() => _GuideWelcomePageState();
+  State<GuideWelcomeScreen> createState() => _GuideWelcomeScreenState();
 }
 void _skipTutorial(BuildContext context) async {
   await markTutorialAsComplete();
 }
-class _GuideWelcomePageState extends State<GuideWelcomePage> {
+class _GuideWelcomeScreenState extends State<GuideWelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {

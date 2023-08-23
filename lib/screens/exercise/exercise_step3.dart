@@ -1,19 +1,18 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:inner_breeze/components/animated_circle.dart';
-import 'shared.dart';
+import 'package:inner_breeze/widgets/animated_circle.dart';
+import '../../widgets/stop_session.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
 
-class Step3Page extends StatefulWidget {
-  Step3Page({super.key});
+class ExerciseStep3 extends StatefulWidget {
+  ExerciseStep3({super.key});
 
   @override
-  State<Step3Page> createState() => _Step3PageState();
+  State<ExerciseStep3> createState() => _ExerciseStep3State();
 }
 
-
-class _Step3PageState extends State<Step3Page> {
+class _ExerciseStep3State extends State<ExerciseStep3> {
   int volume = 80;
   int countdown = 30;
   int rounds = 1;
@@ -101,7 +100,6 @@ class _Step3PageState extends State<Step3Page> {
                     return 'stop';
                   }
                 },
-
               ),
               SizedBox(height: 200),
               StopSessionButton(),

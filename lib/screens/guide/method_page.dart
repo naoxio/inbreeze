@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'page_layout.dart';
+import '../../layouts/guide_page_layout.dart';
 
 class MethodPage extends StatelessWidget {
   @override

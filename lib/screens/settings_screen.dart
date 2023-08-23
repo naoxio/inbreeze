@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SettingsPage extends StatefulWidget {
-  SettingsPage({super.key});
+class SettingsScreen extends StatefulWidget {
+  SettingsScreen({super.key});
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 Future<void> resetData() async {
@@ -14,7 +14,7 @@ Future<void> resetData() async {
   await prefs.clear();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _SettingsScreenState extends State<SettingsScreen> {
   var tempo = 2.0;
   var round = 1;
   var volume = 80.0;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'router.dart';
+import 'router/router.dart';
 
 import 'platform_checker.dart';
 import 'package:window_manager/window_manager.dart';

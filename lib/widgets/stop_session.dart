@@ -38,10 +38,8 @@ void _showExitConfirmationDialog(BuildContext context) {
             children: [
               OutlinedButton(
                 onPressed: () {
-                  // Logic to stop the session goes here
-                  Navigator.of(context).pop(); // Close the dialog
-                  context.go('/home');
-
+                  Navigator.of(context).pop();
+                  context.go('/results');
                 },
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(color: Colors.red),
@@ -53,7 +51,7 @@ void _showExitConfirmationDialog(BuildContext context) {
               ),
               OutlinedButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // Just close the dialog
+                  Navigator.of(context).pop();
                 },
                 child: Text('Continue Session'),
               ),

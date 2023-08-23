@@ -1,17 +1,17 @@
 import 'dart:async'; // Required for the Timer
 import 'package:flutter/material.dart';
-import 'shared.dart';
-import '../../components/stopwatch.dart';
+import '../../widgets/stop_session.dart';
+import '../../widgets/stopwatch.dart';
 import 'package:go_router/go_router.dart';
 
-class Step2Page extends StatefulWidget {
-  Step2Page({super.key});
+class ExerciseStep2 extends StatefulWidget {
+  ExerciseStep2({super.key});
 
   @override
-  State<Step2Page> createState() => _Step2PageState();
+  State<ExerciseStep2> createState() => _ExerciseStep2State();
 }
 
-class _Step2PageState extends State<Step2Page> {
+class _ExerciseStep2State extends State<ExerciseStep2> {
   Duration duration = Duration(seconds: 0);
   late Timer timer;
 

@@ -1,14 +1,14 @@
 
 import 'package:flutter/material.dart';
-import 'guide/welcome_page.dart';
-import 'guide/method_page.dart';
-import 'guide/guide_step1.dart';
-import 'guide/guide_step2.dart';
-import 'guide/guide_step3.dart';
+import '../screens/guide/guide_welcome_screen.dart';
+import '../screens/guide/method_page.dart';
+import '../screens/guide/guide_step1.dart';
+import '../screens/guide/guide_step2.dart';
+import '../screens/guide/guide_step3.dart';
 
-class TutorialPage extends StatelessWidget {
+class GuideRouter extends StatelessWidget {
   // Constructs a [TutorialPage]
-  const TutorialPage({required this.page, super.key});
+  const GuideRouter({required this.page, super.key});
   
   final String page;
 
@@ -17,7 +17,7 @@ class TutorialPage extends StatelessWidget {
     Widget pageToDisplay;
     switch (page) {
       case '':
-        pageToDisplay = GuideWelcomePage();
+        pageToDisplay = GuideWelcomeScreen();
         break;
       case 'method':
         pageToDisplay = MethodPage();
@@ -32,7 +32,7 @@ class TutorialPage extends StatelessWidget {
         pageToDisplay = GuideStep3Page();
         break;
       default:
-        pageToDisplay = GuideWelcomePage();
+        pageToDisplay = GuideWelcomeScreen();
     }
     return pageToDisplay;
   }
