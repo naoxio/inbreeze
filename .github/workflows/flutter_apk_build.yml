@@ -15,23 +15,6 @@ jobs:
       - name: "Checkout Repository"
         uses: actions/checkout@v3
 
-      - name: "Determine tag"
-        run: "echo \"RELEASE_TAG=${GITHUB_REF#refs/tags/}\" >> $GITHUB_ENV"
-
-      - name: "Create release"
-        uses: "actions/github-script@v6"
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-          script: |
-            const response = await github.rest.repos.createRelease({
-              draft: false,
-              name: process.env.RELEASE_TAG,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag_name: process.env.RELEASE_TAG,
-            });
-            return response.data.upload_url;
-
       - name: "Setup Flutter"
         uses: subosito/flutter-action@v1
         with:
@@ -43,10 +26,19 @@ jobs:
       - name: "Build APK"
         run: flutter build apk --release
 
-      - name: "Upload APK to Release"
-        uses: "actions/upload-release-asset@v1"
+      - name: "Create release"
+        uses: "ergebnis/.github/actions/github/release/create@1.8.0"
         with:
-          upload_url: ${{ steps.create.outputs.upload_url }}
-          asset_path: ./build/app/outputs/flutter-apk/app-release.apk
-          asset_name: app-release.apk
-          asset_content_type: application/vnd.android.package-archive
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          tag-name: "${{ github.ref_name }}"
+          name: "Release ${{ github.ref_name }}"
+
+      - name: Upload APK to release
+            uses: "actions/upload-release-asset@v1"
+            env:
+              GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+            with:
+              upload_url: "${{ steps.release.outputs.upload_url }}"
+              asset_path: "./build/app/outputs/flutter-apk/app-release.apk"
+              asset_name: "app-release.apk"
+              asset_content_type: "application/vnd.android.package-archive"
