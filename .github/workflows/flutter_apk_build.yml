@@ -30,8 +30,6 @@ jobs:
         uses: "ergebnis/.github/actions/github/release/create@1.8.0"
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
-          tag-name: "${{ github.ref_name }}"
-          name: "Release ${{ github.ref_name }}"
 
       - name: "Upload APK to release"
         uses: "actions/upload-release-asset@v1"
