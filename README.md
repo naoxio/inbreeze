@@ -32,11 +32,11 @@ We welcome any participates and you should feel welcome to share your ideas.
 - [Telegram](https://t.me/naoxio)
 - [Twitter](https://twitter.com/naox_io)
 
-## Application
+## Releases
 ### Android
-Latest apk build can be found here:
-[Github Action](https://github.com/naoxio/inbe/actions/workflows/flutter_apk_build.yml)
+Latest apk build can be found at the latest release:
+[Releases](https://github.com/naoxio/inbe/releases/tag/latest)
 
 ### Web
-Latest Web build can be found here:
-[https://naox.io/inbe/](https://naox.io/inbe/)
+Latest Web build can be found on the website:
+[naox.io/inbe/](https://naox.io/inbe/)
