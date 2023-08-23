@@ -25,8 +25,9 @@ jobs:
     - name: Build APK
       run: flutter build apk --release
 
-    - name: Upload APK
-      uses: actions/upload-artifact@v2
-      with:
-        name: app-release.apk
-        path: build/app/outputs/flutter-apk/app-release.apk
+    - name: Create Release and Upload APK
+      run: |
+        gh release create ${{ github.sha }} build/app/outputs/flutter-apk/app-release.apk --title "Release ${{ github.sha }}" --notes "Release of ${{ github.sha }}"
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        
