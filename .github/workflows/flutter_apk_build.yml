@@ -1,32 +1,52 @@
-name: Flutter APK Build
+name: "Release APK on Tag"
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "**"
 
 jobs:
-  build:
-    name: Build APK
-    runs-on: ubuntu-latest
+  release:
+    name: "Release"
+
+    runs-on: "ubuntu-latest"
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: "Checkout Repository"
+        uses: actions/checkout@v3
 
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v1
-      with:
-        flutter-version: '3.7'
+      - name: "Determine tag"
+        run: "echo \"RELEASE_TAG=${GITHUB_REF#refs/tags/}\" >> $GITHUB_ENV"
 
-    - name: Install Dependencies
-      run: flutter pub get
+      - name: "Create release"
+        uses: "actions/github-script@v6"
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          script: |
+            const response = await github.rest.repos.createRelease({
+              draft: false,
+              name: process.env.RELEASE_TAG,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: process.env.RELEASE_TAG,
+            });
+            return response.data.upload_url;
 
-    - name: Build APK
-      run: flutter build apk --release
+      - name: "Setup Flutter"
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '3.7'
 
-    - name: Create Release and Upload APK
-      run: |
-        gh release create ${{ github.sha }} build/app/outputs/flutter-apk/app-release.apk --title "Release ${{ github.sha }}" --notes "Release of ${{ github.sha }}"
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Install Dependencies"
+        run: flutter pub get
+
+      - name: "Build APK"
+        run: flutter build apk --release
+
+      - name: "Upload APK to Release"
+        uses: "actions/upload-release-asset@v1"
+        with:
+          upload_url: ${{ steps.create.outputs.upload_url }}
+          asset_path: ./build/app/outputs/flutter-apk/app-release.apk
+          asset_name: app-release.apk
+          asset_content_type: application/vnd.android.package-archive
