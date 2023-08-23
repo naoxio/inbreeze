@@ -1,42 +1,38 @@
-name: "Release APK on Tag"
+name: Flutter APK Build
 
 on:
   push:
-    tags:
-      - "**"
+    branches:
+      - main # or the default branch name of your repository
 
 jobs:
-  release:
-    name: "Release"
-
-    runs-on: "ubuntu-latest"
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
 
     steps:
-      - name: "Checkout Repository"
-        uses: actions/checkout@v3
+    - name: Checkout Repository
+      uses: actions/checkout@v3
 
-      - name: "Setup Flutter"
-        uses: subosito/flutter-action@v1
-        with:
-          flutter-version: '3.7'
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '3.7'
 
-      - name: "Install Dependencies"
-        run: flutter pub get
+    - name: Install Dependencies
+      run: flutter pub get
 
-      - name: "Build APK"
-        run: flutter build apk --release
+    - name: Build APK
+      run: flutter build apk --release
 
-      - name: "Create release"
-        uses: "ergebnis/.github/actions/github/release/create@1.8.0"
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
+    - name: Create Release and Upload APK
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Development Build"
+        files: |
+          build/app/outputs/flutter-apk/app-release.apk
 
-      - name: "Upload APK to release"
-        uses: "actions/upload-release-asset@v1"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        with:
-          upload_url: "${{ steps.release.outputs.upload_url }}"
-          asset_path: "./build/app/outputs/flutter-apk/app-release.apk"
-          asset_name: "app-release.apk"
-          asset_content_type: "application/vnd.android.package-archive"
+  
