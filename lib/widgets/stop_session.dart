@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 class StopSessionButton extends StatelessWidget {
   const StopSessionButton({
     super.key,

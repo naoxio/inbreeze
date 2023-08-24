@@ -60,16 +60,12 @@ Release when you sense the urge to breathe, avoid overextending. Your body signa
             style: BreezeStyle.body,
           ),
           SizedBox(height: 40),
-
           SizedBox(
             width: 300,
             height: 200,
-            child: CustomTimer(duration: duration),
-              
+            child: CustomTimer(duration: duration),  
           ),
-          
           SizedBox(height: 20),
-
         ],
       ),
     );

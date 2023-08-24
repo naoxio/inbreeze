@@ -1,22 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ResultsScreen extends StatelessWidget {
+class ResultsScreen extends StatefulWidget {
+  @override
+  State<ResultsScreen> createState() => _ResultsScreenState();
+}
+
+class _ResultsScreenState extends State<ResultsScreen> {
+  int rounds = 1;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Start the breath counting timer
+    _loadDataFromPreferences();
+
+  }
+
+  Future<void> _loadDataFromPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      rounds = prefs.getInt('rounds') ?? 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              SizedBox(height: 20), // Added SizedBox
-              Text(
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            Center(
+              child: Text(
                 'Results',
                 style: BreezeStyle.header,
               ),
-            ],
-          ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Rounds Completed: $rounds',
+              style: BreezeStyle.bodyBig,
+            )
+          ],
         ),
       ),
       bottomNavigationBar: BottomAppBar(
@@ -25,8 +54,6 @@ class ResultsScreen extends StatelessWidget {
           height: 52,
           child: TextButton(
             onPressed: () {
-              // Close logic or navigation logic goes here.
-              // For instance, if you want to navigate back, you can use:
               context.go('/home');
             },
             child: Text('Close'),

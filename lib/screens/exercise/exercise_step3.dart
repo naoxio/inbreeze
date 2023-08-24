@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/widgets/animated_circle.dart';
 import '../../widgets/stop_session.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -80,10 +81,7 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
             children: [
               Text(
                 'Recovery',
-                style: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: BreezeStyle.header,
               ),
               AnimatedCircle(
                 volume: volume,
