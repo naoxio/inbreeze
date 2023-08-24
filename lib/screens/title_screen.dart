@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inner_breeze/shared/breeze_style.dart';
 
 class TitleScreen extends StatelessWidget {
   @override
@@ -20,7 +21,7 @@ class TitleScreen extends StatelessWidget {
               ),
               Text(
                 'Inner Breeze',
-                style: TextStyle(fontSize: 32.0),
+                style: BreezeStyle.header,
               ),
               SizedBox(height: 32),
               OutlinedButton(
@@ -29,7 +30,7 @@ class TitleScreen extends StatelessWidget {
                 ),
                 child: Text(
                   "Start",
-                  style: TextStyle(fontSize: 24.0),
+                  style: BreezeStyle.bodyBig,
                 ),
                 onPressed: () {
                   context.go('/exercise/step1');

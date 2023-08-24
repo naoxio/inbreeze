@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../layouts/guide_page_layout.dart';
-import '../../shared/tutorial.dart';
+import 'package:inner_breeze/shared/breeze_style.dart';
+import 'package:inner_breeze/layouts/guide_page_layout.dart';
+import 'package:inner_breeze/shared/preferences.dart';
 
 class GuideWelcomeScreen extends StatefulWidget {
   @override
@@ -39,28 +40,17 @@ class _GuideWelcomeScreenState extends State<GuideWelcomeScreen> {
           SizedBox(height: 15),
           Text(
             'Namaste',
-            style: TextStyle(
-              fontSize: 32.0,
-              fontWeight: FontWeight.bold,
-            ),
+            style: BreezeStyle.header,
           ),
           SizedBox(height: 15),
-
           Text(
             "This easy yet potent breathing technique promises profound inner peace, offering a sanctuary of serenity amidst life's hectic pace.",
-            style: TextStyle(
-              fontSize: 16.0,
-              height: 1.5,
-            ),
+            style: BreezeStyle.body,
           ),
           SizedBox(height: 15),
           Text(
             'To ensure your safety, practice either lying down or sitting in a comfortable position.',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16.0,
-              height: 1.5,
-            ),
+            style: BreezeStyle.body,
           ),
           
         ],

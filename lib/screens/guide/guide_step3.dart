@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../layouts/guide_page_layout.dart';
-import '../../shared/tutorial.dart';
+import 'package:inner_breeze/shared/breeze_style.dart';
+import 'package:inner_breeze/layouts/guide_page_layout.dart';
+import 'package:inner_breeze/shared/preferences.dart';
 
 class GuideStep3Screen extends StatefulWidget {
   @override
@@ -52,10 +53,7 @@ class _GuideStep3ScreenState extends State<GuideStep3Screen> {
         children: [
           Text(
             'Step 3: Inhale & hold',
-            style: TextStyle(
-              fontSize: 32.0,
-              fontWeight: FontWeight.bold,
-            ),
+            style: BreezeStyle.header,
           ),
           SizedBox(height: 20),
           SizedBox(
@@ -71,10 +69,7 @@ Inhale fully and hold for 15 seconds.
 Afterwards exhale, completing the first round.
 
 With every round you can hold your breath longer and go deeper.''',
-            style: TextStyle(
-              fontSize: 16.0,
-              height: 1.5,
-            ),
+            style: BreezeStyle.body,
           ),
        
 

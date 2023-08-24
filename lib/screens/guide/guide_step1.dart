@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../layouts/guide_page_layout.dart';
-import '../../widgets/animated_circle.dart';
+import 'package:inner_breeze/shared/breeze_style.dart';
+import 'package:inner_breeze/layouts/guide_page_layout.dart';
+import 'package:inner_breeze/widgets/animated_circle.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GuideStep1Screen extends StatefulWidget {
@@ -63,10 +64,7 @@ class _GuideStep1ScreenState extends State<GuideStep1Screen> {
         children: [
           Text(
             'Step 1: In & Out',
-            style: TextStyle(
-              fontSize: 32.0,
-              fontWeight: FontWeight.bold,
-            ),
+            style: BreezeStyle.header
           ),
           SizedBox(height: 20),
           Text('''

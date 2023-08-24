@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../layouts/guide_page_layout.dart';
+import 'package:inner_breeze/layouts/guide_page_layout.dart';
+import 'package:inner_breeze/shared/breeze_style.dart';
 
 class GuideMethodScreen extends StatelessWidget {
   @override
@@ -18,10 +19,7 @@ class GuideMethodScreen extends StatelessWidget {
         children: [
           Text(
             'Method',
-            style: TextStyle(
-              fontSize: 32.0,
-              fontWeight: FontWeight.bold,
-            ),
+            style: BreezeStyle.header,
           ),
           SizedBox(height: 20),
           Text(
@@ -40,19 +38,12 @@ class GuideMethodScreen extends StatelessWidget {
 
 Do 3-10 rounds of the process.
             ''',
-            style: TextStyle(
-              fontSize: 16.0,
-              height: 1.5,
-            ),
+            style: BreezeStyle.body,
           ),
           SizedBox(height: 15),
           Text(
             'The next pages will let you personalize your experience.',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16.0,
-              height: 1.5,
-            ),
+            style: BreezeStyle.body,
           ),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inner_breeze/shared/breeze_style.dart';
 
 class ResultsScreen extends StatelessWidget {
   @override
@@ -11,11 +12,8 @@ class ResultsScreen extends StatelessWidget {
             children: [
               SizedBox(height: 20), // Added SizedBox
               Text(
-                'Session Summary',
-                style: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                'Results',
+                style: BreezeStyle.header,
               ),
             ],
           ),

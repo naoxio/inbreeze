@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../layouts/guide_page_layout.dart';
-import '../../widgets/stopwatch.dart';
+import 'package:inner_breeze/shared/breeze_style.dart';
+import 'package:inner_breeze/layouts/guide_page_layout.dart';
+import 'package:inner_breeze/widgets/stopwatch.dart';
 
 class GuideStep2Screen extends StatefulWidget {
   @override
@@ -45,10 +46,7 @@ class _GuideStep2ScreenState extends State<GuideStep2Screen> {
         children: [
           Text(
             'Step 2: Exhale & hold',
-            style: TextStyle(
-              fontSize: 32.0,
-              fontWeight: FontWeight.bold,
-            ),
+            style: BreezeStyle.header,
           ),
           SizedBox(height: 20),
           Text('''
@@ -59,10 +57,7 @@ The time of your hold will increase with more practice and with each round.
 The circle in the middle indicates how long you have held your breath and the last breath hold length.
 
 Release when you sense the urge to breathe, avoid overextending. Your body signals when it is time to breathe.''',
-            style: TextStyle(
-              fontSize: 16.0,
-              height: 1.5,
-            ),
+            style: BreezeStyle.body,
           ),
           SizedBox(height: 40),
 
