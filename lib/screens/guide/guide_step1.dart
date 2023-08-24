@@ -4,14 +4,14 @@ import '../../layouts/guide_page_layout.dart';
 import '../../widgets/animated_circle.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class GuideStep1Page extends StatefulWidget {
+class GuideStep1Screen extends StatefulWidget {
   @override
-  State<GuideStep1Page> createState() => _GuideStep1PageState();
+  State<GuideStep1Screen> createState() => _GuideStep1ScreenState();
 }
 
 enum BreathingTempo {slow, medium, fast, rapid}
 
-class _GuideStep1PageState extends State<GuideStep1Page> {
+class _GuideStep1ScreenState extends State<GuideStep1Screen> {
   int breaths = 30;
   int volume = 90;
   Duration tempoDuration = Duration(milliseconds: 1668); 

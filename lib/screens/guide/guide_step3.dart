@@ -4,16 +4,16 @@ import 'package:go_router/go_router.dart';
 import '../../layouts/guide_page_layout.dart';
 import '../../shared/tutorial.dart';
 
-class GuideStep3Page extends StatefulWidget {
+class GuideStep3Screen extends StatefulWidget {
   @override
-  State<GuideStep3Page> createState() => _GuideStep3PageState();
+  State<GuideStep3Screen> createState() => _GuideStep3ScreenState();
 }
 
 void _finishTutorial(BuildContext context) async {
   await markTutorialAsComplete();
 }
 
-class _GuideStep3PageState extends State<GuideStep3Page> {
+class _GuideStep3ScreenState extends State<GuideStep3Screen> {
   Duration duration = Duration(seconds: 0);
   late Timer timer;
 

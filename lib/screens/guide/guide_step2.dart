@@ -4,12 +4,12 @@ import 'package:go_router/go_router.dart';
 import '../../layouts/guide_page_layout.dart';
 import '../../widgets/stopwatch.dart';
 
-class GuideStep2Page extends StatefulWidget {
+class GuideStep2Screen extends StatefulWidget {
   @override
-  State<GuideStep2Page> createState() => _GuideStep2PageState();
+  State<GuideStep2Screen> createState() => _GuideStep2ScreenState();
 }
 
-class _GuideStep2PageState extends State<GuideStep2Page> {
+class _GuideStep2ScreenState extends State<GuideStep2Screen> {
   Duration duration = Duration(seconds: 0);
   late Timer timer;
 

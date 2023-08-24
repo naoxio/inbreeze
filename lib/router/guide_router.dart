@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import '../screens/guide/guide_welcome_screen.dart';
-import '../screens/guide/method_page.dart';
+import '../screens/guide/guide_method_screen.dart';
 import '../screens/guide/guide_step1.dart';
 import '../screens/guide/guide_step2.dart';
 import '../screens/guide/guide_step3.dart';
@@ -20,16 +20,16 @@ class GuideRouter extends StatelessWidget {
         pageToDisplay = GuideWelcomeScreen();
         break;
       case 'method':
-        pageToDisplay = MethodPage();
+        pageToDisplay = GuideMethodScreen();
         break;
       case 'step1':
-        pageToDisplay = GuideStep1Page();
+        pageToDisplay = GuideStep1Screen();
         break;
       case 'step2':
-        pageToDisplay = GuideStep2Page();
+        pageToDisplay = GuideStep2Screen();
         break;
       case 'step3':
-        pageToDisplay = GuideStep3Page();
+        pageToDisplay = GuideStep3Screen();
         break;
       default:
         pageToDisplay = GuideWelcomeScreen();
