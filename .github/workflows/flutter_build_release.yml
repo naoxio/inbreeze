@@ -52,7 +52,7 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-      
+
     - name: Install Nix
       run: |
         sudo install -d /nix -m 755
@@ -102,7 +102,7 @@ jobs:
 
   release:
     name: Release Builds
-    needs: [android, ios, linux, macos, windows] 
+    needs: [android, ios, linux, windows] 
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository
