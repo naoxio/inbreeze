@@ -56,6 +56,7 @@ jobs:
     - name: Install Nix
       run: |
         sudo install -d /nix -m 755
+        sudo chown -R $(whoami) /nix
         curl -L https://nixos.org/nix/install | sh
         source ~/.nix-profile/etc/profile.d/nix.sh
 
