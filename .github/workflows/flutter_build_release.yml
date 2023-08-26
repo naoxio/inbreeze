@@ -69,7 +69,7 @@ jobs:
         nix develop --command bash -c "flutter build linux --release"
 
     - name: Archive Linux executable
-      run: tar -czf build/linux/release/linux_app.tar.gz build/linux/x64/release/bundle
+      run: tar -czf build/linux/x64/release/linux_app.tar.gz build/linux/x64/release/bundle
 
   windows:
     name: Build Windows
