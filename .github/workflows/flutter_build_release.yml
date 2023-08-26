@@ -66,7 +66,7 @@ jobs:
     
     - name: Build Linux Executable
       run: |
-        nix develop --command "flutter build linux --release"
+        nix develop --command bash -c "flutter build linux --release"
 
     - name: Archive Linux executable
       run: tar -czf build/linux/release/linux_app.tar.gz build/linux/release/bundle
