@@ -61,8 +61,7 @@ jobs:
     - name: Install Linux build dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y cmake clang libgtk-3-dev ninja-build pkg-config libudev-dev libblkid-dev liblzma-dev
-
+        sudo apt-get install -y cmake clang libgtk-3-dev ninja-build pkg-config libudev-dev libblkid-dev liblzma-dev libgstreamer1.0-dev
     - name: Install Dependencies
       run: flutter pub get
 
