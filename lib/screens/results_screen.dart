@@ -15,7 +15,6 @@ class _ResultsScreenState extends State<ResultsScreen> {
   void initState() {
     super.initState();
 
-    // Start the breath counting timer
     _loadDataFromPreferences();
 
   }

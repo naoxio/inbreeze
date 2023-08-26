@@ -30,8 +30,6 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
 
     // Start the breath counting timer
     _loadDataFromPreferences();
-
-    startBreathCounting();
   }
 
   Future<void> _loadDataFromPreferences() async {
@@ -40,11 +38,12 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
       maxBreaths = prefs.getInt('breaths') ?? 30;
       int tempo = prefs.getInt('tempo') ?? 1668;
       rounds = prefs.getInt('rounds') ?? 0;
-      if (rounds != 0) {
-        breathsDone = 1;
-      }
+      if (rounds <= 0) breathsDone = 1;
+      
       tempoDuration = Duration(milliseconds: tempo);
       volume = prefs.getInt('volume') ?? 80;
+
+      startBreathCounting();
     });
   }
 
