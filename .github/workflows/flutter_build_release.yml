@@ -63,11 +63,6 @@ jobs:
       run: |
         nix develop
 
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v1
-      with:
-        flutter-version: '3.7'
-
     - name: Install Dependencies
       run: flutter pub get
 
