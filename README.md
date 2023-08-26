@@ -33,8 +33,9 @@ We welcome any participates and you should feel welcome to share your ideas.
 - [Twitter](https://twitter.com/naox_io)
 
 ## Releases
-### Android
-Latest apk build can be found at the latest release:
+A few releases are automatically updated through github actions.
+Only the android and linux builds have been tested.
+The iOS version is unsigned as I do not have a developer account.
 [Releases](https://github.com/naoxio/inbe/releases/tag/latest)
 
 ### Web
