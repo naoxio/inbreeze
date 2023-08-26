@@ -1,4 +1,4 @@
-name: Flutter APK Build
+name: Flutter Build Release
 
 on:
   push:
@@ -27,6 +27,18 @@ jobs:
     - name: Build AAB
       run: flutter build appbundle --release
 
+    - name: Upload APK as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: apk-artifact
+        path: build/app/outputs/flutter-apk/app-release.apk
+
+    - name: Upload AAB as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: aab-artifact
+        path: build/app/outputs/flutter-apk/app-release.aab
+
   ios:
     name: Build iOS
     runs-on: macos-latest
@@ -45,6 +57,12 @@ jobs:
 
     - name: Archive iOS app
       run: tar -czf build/ios/iphoneos/ios_unsigned.app.tar.gz build/ios/iphoneos/Runner.app
+    
+    - name: Upload iOS app as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ios-artifact
+        path: build/ios/iphoneos/ios_unsigned.app.tar.gz
 
   linux:
     name: Build Linux
@@ -71,6 +89,12 @@ jobs:
     - name: Archive Linux executable
       run: tar -czf build/linux/x64/release/linux_app.tar.gz build/linux/x64/release/bundle
 
+    - name: Upload Linux executable as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: linux-artifact
+        path: build/linux/x64/release/linux_app.tar.gz
+
   windows:
     name: Build Windows
     runs-on: windows-latest
@@ -92,7 +116,12 @@ jobs:
     - name: Archive Windows executable
       run: 7z a build/windows/runner/Release/win_app.exe.zip build/windows/runner/Release/
 
-
+    - name: Upload Windows executable as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: windows-artifact
+        path: build/windows/runner/Release/win_app.exe.zip
+        
   release:
     name: Release Builds
     needs: [android, ios, linux, windows] 
@@ -100,6 +129,36 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
+
+    - name: Download APK Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: apk-artifact
+        path: build/app/outputs/flutter-apk/
+
+    - name: Download AAB Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: aab-artifact
+        path: build/app/outputs/flutter-apk/
+    
+    - name: Download iOS Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: ios-artifact
+        path: build/ios/iphoneos/
+    
+    - name: Download Linux Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: linux-artifact
+        path: build/linux/x64/release/
+
+    - name: Download Windows Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: windows-artifact
+        path: build/windows/runner/Release/
 
     - name: Create Release and Upload Builds
       uses: "marvinpinto/action-automatic-releases@latest"
@@ -112,5 +171,5 @@ jobs:
           build/app/outputs/flutter-apk/app-release.apk
           build/app/outputs/flutter-apk/app-release.aab
           build/ios/iphoneos/ios_unsigned.app.tar.gz
-          build/linux/release/linux_app.tar.gz
+          build/linux/x64/release/linux_app.tar.gz
           build/windows/runner/Release/win_app.exe.zip
