@@ -39,8 +39,8 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
     setState(() {
       maxBreaths = prefs.getInt('breaths') ?? 30;
       int tempo = prefs.getInt('tempo') ?? 1668;
-      rounds = prefs.getInt('rounds') ?? 1;
-      if (rounds != 1) {
+      rounds = prefs.getInt('rounds') ?? 0;
+      if (rounds != 0) {
         breathsDone = 1;
       }
       tempoDuration = Duration(milliseconds: tempo);
@@ -62,7 +62,7 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
           if (breathsDone == 0) {
             breathsDone = 1;
             timer.cancel();
-            startBreathCounting();  // Restart the timer with the original duration
+            startBreathCounting();
           }
         });
       });
@@ -91,7 +91,7 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                breathsDone < 0 ? 'Get Ready' : 'Round: $rounds',
+                breathsDone < 0 ? 'Get Ready' : 'Round: ${rounds + 1}',
                 style: BreezeStyle.header
               ),
               AnimatedCircle(

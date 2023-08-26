@@ -1,8 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class TitleScreen extends StatelessWidget {
+class TitleScreen extends StatefulWidget {
+
+
+  @override
+  State<TitleScreen> createState() => _TitleScreenState();
+}
+
+class _TitleScreenState extends State<TitleScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+  
+  void _navigateToExercise() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('rounds', 0);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.go('/exercise/step1');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -33,7 +55,7 @@ class TitleScreen extends StatelessWidget {
                   style: BreezeStyle.bodyBig,
                 ),
                 onPressed: () {
-                  context.go('/exercise/step1');
+                  _navigateToExercise();
                 },
               ),
               SizedBox(height: 20),

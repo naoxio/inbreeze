@@ -28,7 +28,6 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
     super.initState();
     _loadDataFromPreferences();    
     startBreathCounting();
-
   }
   
   Future<void> _loadDataFromPreferences() async {

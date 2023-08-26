@@ -25,6 +25,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
     setState(() {
       rounds = prefs.getInt('rounds') ?? 0;
       if (rounds > 0) rounds -= 1;
+      if (rounds == 0) context.go('/home');
     });
   }
 

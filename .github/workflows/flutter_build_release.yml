@@ -126,12 +126,6 @@ jobs:
       with:
         name: apk-artifact
         path: build/app/outputs/flutter-apk/
-
-    - name: Download AAB Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: aab-artifact
-        path: build/app/outputs/flutter-apk/
     
     - name: Download iOS Artifact
       uses: actions/download-artifact@v2
