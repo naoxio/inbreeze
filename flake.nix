@@ -29,10 +29,27 @@
       pkgs.gst_all_1.gst-plugins-base
       pkgs.gst_all_1.gst-plugins-good
     ];
+    flutterBuild = pkgs.stdenv.mkDerivation rec {
+      name = "flutter-app";
+      src = ./.;
+      inputsFrom = [ flutter-flake.devShell.${system} ];
+      nativeBuildInputs = dependencies;
+      
+      buildPhase = ''
+        flutter build linux --release
+      '';
+
+
+      installPhase = ''
+        mkdir -p $out/bin
+        cp -r build/linux/x64/release/bundle/* $out/bin/
+      '';
+    };
   in {
     devShell.${system} = pkgs.mkShell rec {
       inputsFrom = [ flutter-flake.devShell.${system} ];
       nativeBuildInputs = dependencies;
     };
+    defaultPackage.${system} = flutterBuild;
   };
 }
