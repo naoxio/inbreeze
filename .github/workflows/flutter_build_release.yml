@@ -120,5 +120,4 @@ jobs:
           build/app/outputs/flutter-apk/app-release.aab
           build/ios/iphoneos/ios_unsigned.app.tar.gz
           build/linux/release/linux_app.tar.gz
-          build/macos/Build/Products/Release/mac_app.app.tar.gz
           build/windows/runner/Release/win_app.exe.zip
