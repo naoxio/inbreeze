@@ -1,4 +1,5 @@
 import 'dart:async'; // Required for the Timer
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/stop_session.dart';
 import '../../widgets/stopwatch.dart';
@@ -67,6 +68,13 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
               ),
               SizedBox(height: 20),
               StopSessionButton(),
+              if (!kReleaseMode)
+                TextButton(
+                  child: Text('Skip'),
+                  onPressed: () {
+                      context.go('/exercise/step3');
+                  },
+                )
             ],
           ),
         ),

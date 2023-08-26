@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/widgets/animated_circle.dart';
-import '../../widgets/stop_session.dart';
+import 'package:inner_breeze/widgets/stop_session.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
 
@@ -109,6 +110,13 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
               ),
               SizedBox(height: 200),
               StopSessionButton(),
+              if (!kReleaseMode)
+                TextButton(
+                  child: Text('Skip'),
+                  onPressed: () {
+                    _navigateToNextExercise();
+                  },
+                )
             ],
           ),
         ),

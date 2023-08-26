@@ -24,6 +24,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       rounds = prefs.getInt('rounds') ?? 0;
+      if (rounds > 0) rounds -= 1;
     });
   }
 
@@ -40,7 +41,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 style: BreezeStyle.header,
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             Text(
               'Rounds Completed: $rounds',
               style: BreezeStyle.bodyBig,

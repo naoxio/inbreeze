@@ -23,7 +23,8 @@ The current goal is to make the entire process functional and become ready to pu
 - [ ] display session data when ending the session and storing it locally
 - [ ] add customizations directly in the settings page
 - [ ] add info section in the settings with external links
-- [ ] add loading screen
+- [ ] add android and web build polishing
+- [x] add loading screen
 - [x] github action to automatically build android apks
 
 ## Community

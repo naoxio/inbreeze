@@ -88,7 +88,6 @@ class _AppState extends State<App> {
       if (imageExtensions.any((ext) => assetPath.endsWith(ext))) {
         await precacheImage(AssetImage(assetPath), context);
       } else if (soundExtensions.any((ext) => assetPath.endsWith(ext))) {
-        // For sounds, we're assuming they are not text files so we're using rootBundle.load instead of loadString
         await rootBundle.load(assetPath);
       }
     }
