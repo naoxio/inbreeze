@@ -59,15 +59,11 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
 
-    - name: Setup Nix Environment
+    - name: Build Linux Executable
       run: |
         nix develop
-
-    - name: Install Dependencies
-      run: flutter pub get
-
-    - name: Build Linux Executable
-      run: flutter build linux --release
+        flutter pub get
+        flutter build linux --release
 
     - name: Archive Linux executable
       run: tar -czf build/linux/release/linux_app.tar.gz build/linux/release/bundle

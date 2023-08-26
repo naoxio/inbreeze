@@ -12,7 +12,7 @@ See the resources below for more information
 
  - [Nix](https://nixos.org/)
  - [Nix flakes](https://nixos.wiki/wiki/Flakes)
-- [Flutter flake](https://github.com/waotzi/flutter-flake)
+ - [Flutter flake](https://github.com/waotzi/flutter-flake)
 
 ## Roadmap to 1st release
 The current goal is to make the entire process functional and become ready to publish on the play store and f-droid. 
