@@ -34,10 +34,15 @@ We welcome any participates and you should feel welcome to share your ideas.
 
 ## Releases
 A few releases are automatically updated through github actions.
+
 Only the android and linux builds have been tested.
+
 The iOS version is unsigned as I do not have a developer account.
+
 [Releases](https://github.com/naoxio/inbe/releases/tag/latest)
 
 ### Web
 Latest Web build can be found on the website:
+
 [naox.io/inbe/](https://naox.io/inbe/)
+
