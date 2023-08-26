@@ -54,15 +54,13 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Install Nix
-      run: |
-        sudo install -d /nix -m 755
-        sudo chown -R $(whoami) /nix
-        curl -L https://nixos.org/nix/install | sh
-        source ~/.nix-profile/etc/profile.d/nix.sh
+      uses: cachix/install-nix-action@v14
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
 
-    - name: Setup Nix Environment from flake.nix
+    - name: Setup Nix Environment
       run: |
-        source ~/.nix-profile/etc/profile.d/nix.sh
         nix develop
 
     - name: Setup Flutter
