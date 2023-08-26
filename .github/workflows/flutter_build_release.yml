@@ -49,6 +49,7 @@ jobs:
   linux:
     name: Build Linux
     runs-on: ubuntu-latest
+    environment: nix
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
@@ -56,14 +57,21 @@ jobs:
     - name: Install Nix
       uses: cachix/install-nix-action@v14
       with:
+        github_access_token: ${{ secrets.GITHUB_TOKEN }}
         extra_nix_config: |
           experimental-features = nix-command flakes
+    
+    - name: Use Cachix cache
+      uses: cachix/cachix-action@v12
+      with:
+        name: naoxio
+        authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+        extraPullNames: nix-community
 
     - name: Build Linux Executable
       run: |
-        nix develop
-        flutter pub get
-        flutter build linux --release
+        nix-develop
+        flutter run -d linux
 
     - name: Archive Linux executable
       run: tar -czf build/linux/release/linux_app.tar.gz build/linux/release/bundle
