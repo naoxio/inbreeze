@@ -58,6 +58,11 @@ jobs:
       with:
         flutter-version: '3.7'
 
+    - name: Install Linux build dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake clang libgtk-3-dev ninja-build pkg-config libudev-dev libblkid-dev liblzma-dev
+
     - name: Install Dependencies
       run: flutter pub get
 
@@ -87,7 +92,9 @@ jobs:
       run: flutter build macos --release
 
     - name: Archive macOS app
-      run: tar -czf build/macos/Build/Products/Release/mac_app.app.tar.gz build/macos/Build/Products/Release/Runner.app
+      run:
+        APP_PATH=$(find build/macos -name Runner.app)
+        tar -czf build/macos/Build/Products/Release/mac_app.app.tar.gz $APP_PATH
 
   windows:
     name: Build Windows
