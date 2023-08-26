@@ -52,17 +52,24 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
+      
+    - name: Install Nix
+      run: |
+        sudo install -d /nix -m 755
+        curl -L https://nixos.org/nix/install | sh
+        source ~/.nix-profile/etc/profile.d/nix.sh
+
+    - name: Setup Nix Environment from flake.nix
+      run: |
+        source ~/.nix-profile/etc/profile.d/nix.sh
+        nix develop
 
     - name: Setup Flutter
       uses: subosito/flutter-action@v1
       with:
         flutter-version: '3.7'
 
-    - name: Install Linux build dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y cmake clang libgtk-3-dev ninja-build pkg-config libudev-dev libblkid-dev liblzma-dev libgstreamer1.0-dev libunwind-dev
-    - name: Install Dependencies
+   - name: Install Dependencies
       run: flutter pub get
 
     - name: Build Linux Executable
