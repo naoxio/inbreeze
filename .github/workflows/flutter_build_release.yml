@@ -71,30 +71,6 @@ jobs:
     - name: Archive Linux executable
       run: tar -czf build/linux/release/linux_app.tar.gz build/linux/release/bundle
 
-
-  macos:
-    name: Build macOS
-    runs-on: macos-latest
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v1
-      with:
-        flutter-version: '3.7'
-
-    - name: Install Dependencies
-      run: flutter pub get
-
-    - name: Build macOS Executable
-      run: flutter build macos --release
-
-    - name: Archive macOS app
-      run:
-        APP_PATH=$(find build/macos -name Runner.app)
-        tar -czf build/macos/Build/Products/Release/mac_app.app.tar.gz $APP_PATH
-
   windows:
     name: Build Windows
     runs-on: windows-latest
