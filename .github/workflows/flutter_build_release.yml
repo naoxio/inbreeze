@@ -1,0 +1,135 @@
+name: Flutter APK Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  android:
+    name: Build APK & AAB
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '3.7'
+
+    - name: Install Dependencies
+      run: flutter pub get
+
+    - name: Build APK
+      run: flutter build apk --release
+  
+    - name: Build AAB
+      run: flutter build appbundle --release
+
+  ios:
+    name: Build iOS
+    runs-on: macos-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v1
+
+    - name: Install Dependencies
+      run: flutter pub get
+
+    - name: Build iOS
+      run: flutter build ios --release --no-codesign
+
+    - name: Archive iOS app
+      run: tar -czf build/ios/iphoneos/ios_unsigned.app.tar.gz build/ios/iphoneos/Runner.app
+
+  linux:
+    name: Build Linux
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '3.7'
+
+    - name: Install Dependencies
+      run: flutter pub get
+
+    - name: Build Linux Executable
+      run: flutter build linux --release
+
+    - name: Archive Linux executable
+      run: tar -czf build/linux/release/linux_app.tar.gz build/linux/release/bundle
+
+
+  macos:
+    name: Build macOS
+    runs-on: macos-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '3.7'
+
+    - name: Install Dependencies
+      run: flutter pub get
+
+    - name: Build macOS Executable
+      run: flutter build macos --release
+
+    - name: Archive macOS app
+      run: tar -czf build/macos/Build/Products/Release/mac_app.app.tar.gz build/macos/Build/Products/Release/Runner.app
+
+  windows:
+    name: Build Windows
+    runs-on: windows-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '3.7'
+
+    - name: Install Dependencies
+      run: flutter pub get
+
+    - name: Build Windows Executable
+      run: flutter build windows --release
+
+    - name: Archive Windows executable
+      run: 7z a build/windows/runner/Release/win_app.exe.zip build/windows/runner/Release/
+
+
+  release:
+    name: Release Builds
+    needs: [android, ios, linux, macos, windows] 
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Create Release and Upload Builds
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Development Build"
+        files: |
+          build/app/outputs/flutter-apk/app-release.apk
+          build/app/outputs/flutter-apk/app-release.aab
+          build/ios/iphoneos/ios_unsigned.app.tar.gz
+          build/linux/release/linux_app.tar.gz
+          build/macos/Build/Products/Release/mac_app.app.tar.gz
+          build/windows/runner/Release/win_app.exe.zip
