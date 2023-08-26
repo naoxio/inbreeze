@@ -69,7 +69,7 @@ jobs:
       with:
         flutter-version: '3.7'
 
-   - name: Install Dependencies
+    - name: Install Dependencies
       run: flutter pub get
 
     - name: Build Linux Executable
