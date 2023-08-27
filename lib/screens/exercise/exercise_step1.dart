@@ -6,6 +6,7 @@ import 'package:inner_breeze/widgets/animated_circle.dart';
 import 'package:inner_breeze/widgets/stop_session.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
+import 'package:uuid/uuid.dart';
 
 class ExerciseStep1 extends StatefulWidget {
   ExerciseStep1({super.key});
@@ -21,6 +22,7 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
   int maxBreaths = 30;
   int breathsDone = -5;
 
+  String? uniqueId;
   Timer? breathCycleTimer;
   Duration tempoDuration = Duration(seconds: 1);
 
@@ -28,7 +30,6 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
   void initState() {
     super.initState();
 
-    // Start the breath counting timer
     _loadDataFromPreferences();
   }
 
@@ -38,11 +39,16 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
       maxBreaths = prefs.getInt('breaths') ?? 30;
       int tempo = prefs.getInt('tempo') ?? 1668;
       rounds = prefs.getInt('rounds') ?? 0;
-      if (rounds <= 0) breathsDone = 1;
-      
+      if (rounds > 0) breathsDone = 1;
+
       tempoDuration = Duration(milliseconds: tempo);
       volume = prefs.getInt('volume') ?? 80;
-
+      
+      if (rounds == 0) {
+        uniqueId = Uuid().v4();
+        prefs.setString('uniqueId', uniqueId!);
+      }
+      
       startBreathCounting();
     });
   }

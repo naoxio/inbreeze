@@ -1,9 +1,11 @@
-import 'dart:async'; // Required for the Timer
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../../widgets/stop_session.dart';
-import '../../widgets/stopwatch.dart';
+import 'package:inner_breeze/widgets/stop_session.dart';
+import 'package:inner_breeze/widgets/stopwatch.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inner_breeze/shared/preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ExerciseStep2 extends StatefulWidget {
   ExerciseStep2({super.key});
@@ -16,16 +18,49 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
   Duration duration = Duration(seconds: 0);
   late Timer timer;
 
+  String? _uniqueId;
+  int _rounds = 0;
+
   @override
   void initState() {
     super.initState();
-    // Start the timer to increase the duration every second
+    checkUniqueId(context);
+
     timer = Timer.periodic(Duration(milliseconds: 1), (Timer t) {
       setState(() {
         duration = duration + Duration(milliseconds: 1);
       });
     });
+    _loadUniqueIdAndRound();
   }
+
+
+  Future<void> _loadUniqueIdAndRound() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _uniqueId = prefs.getString('uniqueId');
+    _rounds = prefs.getInt('rounds') ?? 0;
+  }
+
+  void _onStopSessionPressed() async {
+    print('navigating');
+    _rounds += 1;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('rounds', _rounds);
+    final key = '$_uniqueId/$_rounds';
+    prefs.setInt(key, duration.inMilliseconds);
+    
+    print(key);
+    print(_rounds);
+  }
+
+  void _navigateToNextExercise() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _onStopSessionPressed();
+      context.go('/exercise/step3');
+    });
+  }
+
 
   @override
   void dispose() {
@@ -56,7 +91,7 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
                 height: 42,
                 child: OutlinedButton(
                   onPressed: () {
-                    context.go('/exercise/step3');
+                    _navigateToNextExercise();
                   },
                   child: Text(
                     'Stop Hold',
@@ -67,12 +102,14 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
                 ),
               ),
               SizedBox(height: 20),
-              StopSessionButton(),
+              StopSessionButton(
+                onStopSessionPressed: _onStopSessionPressed,
+              ),
               if (!kReleaseMode)
                 TextButton(
                   child: Text('Skip'),
                   onPressed: () {
-                      context.go('/exercise/step3');
+                    _navigateToNextExercise();
                   },
                 )
             ],

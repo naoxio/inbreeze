@@ -3,9 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/widgets/animated_circle.dart';
-import '../../widgets/stop_session.dart';
+import 'package:inner_breeze/widgets/stop_session.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inner_breeze/shared/preferences.dart';
 
 class ExerciseStep3 extends StatefulWidget {
   ExerciseStep3({super.key});
@@ -17,7 +18,6 @@ class ExerciseStep3 extends StatefulWidget {
 class _ExerciseStep3State extends State<ExerciseStep3> {
   int volume = 80;
   int countdown = 30;
-  int rounds = 1;
   Duration tempoDuration = Duration(seconds: 2);
   String innerText= 'in';
 
@@ -28,20 +28,17 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
     super.initState();
     _loadDataFromPreferences();    
     startBreathCounting();
+    checkUniqueId(context);
   }
   
   Future<void> _loadDataFromPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       volume = prefs.getInt('volume') ?? 80;
-      rounds = prefs.getInt('rounds') ?? 1;
     });
   }
 
   void _navigateToNextExercise() async{
-    rounds += 1;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('rounds', rounds);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.go('/exercise/step1');
     });
@@ -52,16 +49,12 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
       setState(() {
         print('tickr ${timer.tick}');
         if (timer.tick < 2) {
-          // 'in' phase
           innerText = 'in';
         } else if ( timer.tick < 17) {
-          // Countdown phase
           innerText = (17 - timer.tick).toString();
         } else if (timer.tick >= 15 && timer.tick < 18) {
-          // 'out' phase
           innerText = 'out';
         } else {
-          // Completion
           timer.cancel();
           _navigateToNextExercise();
         }
