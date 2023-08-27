@@ -20,7 +20,7 @@ The current goal is to make the entire process functional and become ready to pu
 ### Quests to do
 - [x] add step3 in the exercise, breath in and hold
 - [x] repeat processes
-- [ ] display session data when ending the session and storing it locally
+- [x] display session data when ending the session and storing it locally
 - [ ] add customizations directly in the settings page
 - [ ] add info section in the settings with external links
 - [ ] add android and web build polishing
