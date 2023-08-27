@@ -16,8 +16,6 @@ class _ResultsScreenState extends State<ResultsScreen> {
   @override
   void initState() {
     super.initState();
-
-    print('results');
     _loadDataFromPreferences();
   }
 
@@ -34,11 +32,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
         if (durationInMillis != null) {
           roundDurations[i] = Duration(milliseconds: durationInMillis);
         }
-        print(key);
-        print(durationInMillis);
       }
-
-      print(rounds);
     });
   }
 
@@ -60,15 +54,28 @@ class _ResultsScreenState extends State<ResultsScreen> {
               'Rounds Completed: $rounds',
               style: BreezeStyle.bodyBig,
             ),
+            SizedBox(height: 20),
             ListView.builder(
-              shrinkWrap: true, // required as ListView is inside a Column
+              shrinkWrap: true, 
               itemCount: roundDurations.length,
               itemBuilder: (context, index) {
                 int roundNumber = index + 1;
                 Duration duration = roundDurations[roundNumber]!;
-                return ListTile(
-                  title: Text('Round $roundNumber'),
-                  subtitle: Text('${duration.inMinutes}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}'),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        '$roundNumber',
+                        style: BreezeStyle.body,
+                      ),
+                      Text(
+                        '${duration.inMinutes}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}',
+                        style: BreezeStyle.body,
+                      ),
+                    ],
+                  ),
                 );
               },
             ),

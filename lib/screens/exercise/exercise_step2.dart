@@ -42,16 +42,12 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
   }
 
   void _onStopSessionPressed() async {
-    print('navigating');
     _rounds += 1;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('rounds', _rounds);
     final key = '$_uniqueId/$_rounds';
     prefs.setInt(key, duration.inMilliseconds);
-    
-    print(key);
-    print(_rounds);
   }
 
   void _navigateToNextExercise() async {

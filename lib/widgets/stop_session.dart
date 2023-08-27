@@ -32,7 +32,6 @@ class _StopSessionButtonState extends State<StopSessionButton> {
 
   void _navigateToResults() {
       Navigator.of(context).pop();
-      print(_rounds);
 
       if (widget.onStopSessionPressed != null) {
         widget.onStopSessionPressed!();

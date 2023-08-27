@@ -47,7 +47,6 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
   void startBreathCounting() {
     breathCycleTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
-        print('tickr ${timer.tick}');
         if (timer.tick < 2) {
           innerText = 'in';
         } else if ( timer.tick < 17) {
