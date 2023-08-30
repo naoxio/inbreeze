@@ -45,5 +45,5 @@ The iOS version is unsigned as I do not have a developer account.
 ### Web
 Latest Web build can be found on the website:
 
-[naox.io/inbe/](https://naox.io/inbe/)
+[naox.io/inbe/#/](https://naox.io/inbe/#/)
 
