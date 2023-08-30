@@ -38,7 +38,7 @@ A few releases are automatically updated through github actions.
 
 Only the android and linux builds have been tested.
 
-The iOS version is unsigned as I do not have a developer account.
+The iOS version is unsigned and untested as I do not have a developer account or own any apple devices.
 
 [Releases](https://github.com/naoxio/inbe/releases/tag/latest)
 
