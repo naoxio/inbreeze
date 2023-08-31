@@ -24,6 +24,7 @@ The current goal is to make the entire process functional and become ready to pu
 - [ ] add customizations directly in the settings page
 - [ ] add info section in the settings with external links
 - [ ] add android and web build polishing
+- [ ] option to add relaxing music during the exercise
 - [x] add loading screen
 - [x] github action to automatically build android apks
 
