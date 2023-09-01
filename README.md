@@ -15,7 +15,7 @@ See the resources below for more information
  - [Flutter flake](https://github.com/waotzi/flutter-flake)
 
 ## Roadmap to 1st release
-The current goal is to make the entire process functional and become ready to publish on the play store and f-droid. 
+The current goal is to make the entire process functional and become ready to publish on (Cattapult)[https://catappult.io/] and F-droid.
 
 ### Quests to do
 - [x] add step3 in the exercise, breath in and hold
@@ -23,7 +23,7 @@ The current goal is to make the entire process functional and become ready to pu
 - [x] display session data when ending the session and storing it locally
 - [ ] add customizations directly in the settings page
 - [ ] add info section in the settings with external links
-- [ ] add android and web build polishing
+- [ ] android and web build polishing
 - [ ] option to add relaxing music during the exercise
 - [x] add loading screen
 - [x] github action to automatically build android apks
@@ -38,8 +38,6 @@ We welcome any participates and you should feel welcome to share your ideas.
 A few releases are automatically updated through github actions.
 
 Only the android and linux builds have been tested.
-
-The iOS version is unsigned and untested as I do not have a developer account or own any apple devices.
 
 [Releases](https://github.com/naoxio/inbe/releases/tag/latest)
 
