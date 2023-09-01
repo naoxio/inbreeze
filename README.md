@@ -15,7 +15,7 @@ See the resources below for more information
  - [Flutter flake](https://github.com/waotzi/flutter-flake)
 
 ## Roadmap to 1st release
-The current goal is to make the entire process functional and become ready to publish on (Cattapult)[https://catappult.io/] and F-droid.
+The current goal is to make the entire process functional and become ready to publish on F-droid.
 
 ### Quests to do
 - [x] add step3 in the exercise, breath in and hold
