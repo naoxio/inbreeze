@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/widgets/breeze_bottom_nav.dart';
+import 'package:inner_breeze/widgets/breathing_configuration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -33,6 +34,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: [
               Text('Settings', style: BreezeStyle.header),
               SizedBox(height: 20),
+              
+              // Breathing Configuration Section
+              Text('Breathing Configuration', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              SizedBox(height: 15),
+              BreathingConfiguration(),
+              SizedBox(height: 30),
+
+              // General Settings Section
+              Text('General Settings', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              SizedBox(height: 15),
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
                   minimumSize: Size(140, 50),
@@ -56,6 +67,5 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       bottomNavigationBar: BreezeBottomNav(),
     );
-    
   }
 }

@@ -22,8 +22,6 @@ class _StopSessionButtonState extends State<StopSessionButton> {
   void initState() {
     super.initState();
     _loadDataFromProvider();
-    print('stop session');
-    print(_rounds);
   }
 
   Future<void> _loadDataFromProvider() async {
