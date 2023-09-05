@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inner_breeze/widgets/breeze_bottom_nav.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -22,16 +23,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Settings'),
-        centerTitle: true, 
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            context.go('/home');
-          },
-        ),
-      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(25.0),
         child: Center(
@@ -61,6 +52,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: BreezeBottomNav(),
     );
     
   }

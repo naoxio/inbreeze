@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
+import 'package:inner_breeze/widgets/breeze_bottom_nav.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/models/session.dart';
@@ -70,6 +71,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: BreezeBottomNav(),
     );
   }
 }
