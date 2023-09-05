@@ -1,4 +1,4 @@
-package com.example.inner_breeze
+package io.naox.inbe
 
 import io.flutter.embedding.android.FlutterActivity
 
