@@ -17,24 +17,23 @@ class _ResultsScreenState extends State<ResultsScreen> {
   @override
   void initState() {
     super.initState();
+    _loadSessions();
+  }
+  
+  Future<void> _loadSessions() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final sessionData = await userProvider.loadSessionData(['rounds']);
+    final roundDurations = await userProvider.loadRoundDurations();
 
-    userProvider.loadSessionData(['rounds']).then((sessionData) {
-      setState(() {
-        rounds = sessionData!.rounds.length;
-        if (rounds == 0) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            context.go('/home');
-          });
-        }
-      });
-    });
-    userProvider.loadRoundDurations().then((roundDurations) {
-      setState(() {
-        allRoundDurations = roundDurations;
-        print('all round');
-        print(allRoundDurations);
-      });
+    setState(() {
+      rounds = sessionData!.rounds.length;
+      allRoundDurations = roundDurations;
+
+      if (rounds == 0) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          context.go('/home');
+        });
+      }
     });
   }
 
@@ -71,7 +70,8 @@ class _ResultsScreenState extends State<ResultsScreen> {
               itemCount: allRoundDurations.length,
               itemBuilder: (context, index) {
                 int roundNumber = index + 1;
-                Duration duration = allRoundDurations[roundNumber]!;
+                Duration? duration = allRoundDurations[roundNumber];
+                
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Row(
@@ -88,7 +88,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                       Row(
                         children: [
                           Text(
-                            '${duration.inMinutes}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}',
+                            '${duration?.inMinutes}:${duration?.inSeconds.remainder(60).toString().padLeft(2, '0')}',
                             style: BreezeStyle.body,
                           ),
                           SizedBox(width: 25),
@@ -99,7 +99,8 @@ class _ResultsScreenState extends State<ResultsScreen> {
                               final sessionData = await userProvider.loadSessionData(['rounds']);
                               setState(() {
                                   rounds = sessionData!.rounds.length;
-                                  allRoundDurations.remove(roundNumber);
+                                 _loadSessions();
+
                               });
                             }
                           )

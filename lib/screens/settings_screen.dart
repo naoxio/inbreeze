@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/widgets/breeze_bottom_nav.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,6 +31,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Text('Settings', style: BreezeStyle.header),
               SizedBox(height: 20),
               OutlinedButton(
                 style: OutlinedButton.styleFrom(
