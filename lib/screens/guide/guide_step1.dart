@@ -5,6 +5,7 @@ import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/layouts/guide_page_layout.dart';
 import 'package:inner_breeze/widgets/animated_circle.dart';
 import 'package:provider/provider.dart';
+import 'package:inner_breeze/models/preferences.dart';
 
 class GuideStep1Screen extends StatefulWidget {
   @override
@@ -28,13 +29,14 @@ class _GuideStep1ScreenState extends State<GuideStep1Screen> {
   Future<void> _loadUserPreferences() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final prefs = await userProvider.loadUserPreferences(['breaths', 'tempo', 'volume']);
+    
     setState(() {
-      tempoDuration = Duration(milliseconds: prefs['tempo'] ?? 1668);
-      breaths = prefs['breaths'] ?? 30;
-      volume = prefs['volume'] ?? 90;
+      tempoDuration = Duration(milliseconds: prefs.tempo);
+      breaths = prefs.breaths;
+      volume = prefs.volume;
     });
   }
-  
+
   Duration computeTempoDuration(double value) {
     // This will map the range [0,3] to [3000ms, 1000ms] respectively
     int millis = (3000 - value * 666).toInt().clamp(1000, 3000);
@@ -148,18 +150,21 @@ Repeat this for about 20-40 breaths at a steady pace.''',
     );
   }
   
+  void _updateUser() {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final preferences = Preferences(
+      tempo: tempoDuration.inMilliseconds,
+      breaths: breaths,
+      volume: volume,
+    );
+    userProvider.saveUserPreferences(preferences);
+  }
   void _updateTempo(double newTempo) {
     setState(() {
       tempoDuration = computeTempoDuration(newTempo);
       animationCommand = 'reset';
     });
-    
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    userProvider.saveUserPreferences({
-      'tempo': tempoDuration.inMilliseconds,
-      'breaths': breaths,
-      'volume': volume,
-    });
+    _updateUser();
   }
 
   void _updateVolume(double newVolume) {
@@ -167,13 +172,7 @@ Repeat this for about 20-40 breaths at a steady pace.''',
       volume = newVolume.toInt();
       animationCommand = 'repeat';
     });
-
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    userProvider.saveUserPreferences({
-      'tempo': tempoDuration.inMilliseconds,
-      'breaths': breaths,
-      'volume': volume,
-    });
+    _updateUser();
   }
 
   void _updateBreaths(double newBreaths) {
@@ -181,13 +180,7 @@ Repeat this for about 20-40 breaths at a steady pace.''',
       breaths = newBreaths.toInt();
       animationCommand = 'repeat';
     });
-
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    userProvider.saveUserPreferences({
-      'tempo': tempoDuration.inMilliseconds,
-      'breaths': breaths,
-      'volume': volume,
-    });
+    _updateUser();
   }
   String capitalizeEnumValue(String enumValue) {
 

@@ -38,22 +38,22 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
     final preferences = await userProvider.loadUserPreferences(['breaths', 'tempo', 'rounds', 'volume', 'sessionId']);
     final sessionData = await userProvider.loadSessionData(['rounds']); 
 
-    int localMaxBreaths = preferences['breaths'] ?? 30;
-    int localTempo = preferences['tempo'] ?? 1668;
-    int localRounds = sessionData['rounds'] ?? 0;
-    int localVolume = preferences['volume'] ?? 80;
+    int localMaxBreaths = preferences.breaths;
+    int localTempo = preferences.tempo;
+    int? localRounds = sessionData?.rounds.length;
+    int localVolume = preferences.volume;
     String? localSessionId;
 
     if (localRounds == 0) {
       localSessionId = await userProvider.startNewSession();
     } else {
-      localSessionId = preferences['sessionId'];
+      localSessionId = userProvider.user.id;
     }
 
     setState(() {
       maxBreaths = localMaxBreaths;
       tempoDuration = Duration(milliseconds: localTempo);
-      rounds = localRounds;
+      rounds = localRounds!;
       if (rounds > 0) breathsDone = 1;
       volume = localVolume;
       sessionId = localSessionId;

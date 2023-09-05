@@ -21,7 +21,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
 
     userProvider.loadSessionData(['rounds']).then((sessionData) {
       setState(() {
-        rounds = sessionData['rounds'] ?? 0;
+        rounds = sessionData!.rounds.length;
         if (rounds == 0) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             context.go('/home');
@@ -77,9 +77,13 @@ class _ResultsScreenState extends State<ResultsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(
-                        '$roundNumber',
-                        style: BreezeStyle.body,
+                      Row(
+                        children: [
+                          Text(
+                            '$roundNumber',
+                            style: BreezeStyle.body,
+                          ),
+                        ],
                       ),
                       Row(
                         children: [
@@ -87,13 +91,14 @@ class _ResultsScreenState extends State<ResultsScreen> {
                             '${duration.inMinutes}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}',
                             style: BreezeStyle.body,
                           ),
+                          SizedBox(width: 25),
                           IconButton(
                             icon: Icon(Icons.delete, color: Colors.teal),
                            onPressed: () async {
                               await userProvider.deleteRound(roundNumber);
-                              final updatedSessionData = await userProvider.loadSessionData(['rounds']);
+                              final sessionData = await userProvider.loadSessionData(['rounds']);
                               setState(() {
-                                  rounds = updatedSessionData['rounds'] ?? 0;
+                                  rounds = sessionData!.rounds.length;
                                   allRoundDurations.remove(roundNumber);
                               });
                             }

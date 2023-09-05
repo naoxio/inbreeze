@@ -36,18 +36,17 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
     final userPreferences = await userProvider.loadUserPreferences(['breaths', 'tempo', 'volume', 'sessionId']);
     final sessionData = await userProvider.loadSessionData(['rounds']); 
 
-    int tempo = userPreferences['tempo'] ?? 1668;
+    int tempo = userPreferences.tempo;
     duration = Duration(milliseconds: tempo);
 
     setState(() {
-      rounds = sessionData['rounds'] ?? 0;
+      rounds = sessionData!.rounds.length;
     });
   }
   
   void _onStopSessionPressed() {
       final userProvider = Provider.of<UserProvider>(context, listen: false);
-      userProvider.saveRoundDuration(rounds + 1, duration);
-      userProvider.saveSessionData({'rounds': rounds + 1});
+      userProvider.saveSessionData({'rounds': {rounds + 1: duration}});
   }
 
 

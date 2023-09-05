@@ -1,38 +1,60 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
+import 'package:inner_breeze/models/session.dart';
+import 'package:inner_breeze/models/preferences.dart';
+import 'package:inner_breeze/models/user.dart';
 
 class UserProvider with ChangeNotifier {
-  String? _userId;
-  String? _sessionId;
+  User user = User(id: '', preferences: Preferences(), sessions: []);
   Map<int, Duration> roundDurations = {};
 
   UserProvider() {
-    _initializeUserId();
+    _initializeUser();
   }
 
-  Future<void> _initializeUserId() async {
+Future<void> _initializeUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _userId = prefs.getString('userId');
-    if (_userId == null) {
-      _userId = Uuid().v4();
-      prefs.setString('userId', _userId!);
+    final userId = prefs.getString('userId');
+    if (userId == null) {
+      final newUser = User(
+        id: Uuid().v4(),
+        preferences: Preferences(),
+      );
+      user = newUser;
+      await _saveUser();
+    } else {
+      final userJson = prefs.getString(userId);
+      if (userJson != null) {
+        user = User.fromJson(jsonDecode(userJson));
+      } else {
+        final newUser = User(
+          id: userId,
+          preferences: Preferences(),
+        );
+        user = newUser;
+        await _saveUser();
+      }
     }
   }
 
-  String? get userId => _userId;
-  String? get sessionId => _sessionId;
+  Future<void> _saveUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(user.id, jsonEncode(user.toJson()));
+  }
 
   Future<void> markTutorialAsComplete() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    prefs.setBool('$_userId/tutorialComplete', true);
+    prefs.setBool('${user.id}/tutorialComplete', true);
   }
 
   Future<bool> hasValidSessionId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String? sessionId = prefs.getString('$_userId/currentSession');
+    String? sessionId = prefs.getString('${user.id}/currentSession');
     return sessionId != null;
   }
 
@@ -62,61 +84,68 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  Future<Map<String, dynamic>> loadUserPreferences(List<String> keys) async {
-    return await _loadData(keys, '$_userId');
+  Future<Preferences> loadUserPreferences(List<String> keys) async {
+    Map<String, dynamic> data = await _loadData(keys, user.id);
+    return Preferences.fromJson(data);
   }
 
-  Future<void> saveUserPreferences(Map<String, dynamic> preferences) async {
-    await _saveData(preferences, '$_userId');
+  Future<void> saveUserPreferences(Preferences preferences) async {
+    await _saveData(preferences.toJson(), user.id);
   }
 
-  Future<Map<String, dynamic>> loadSessionData(List<String> keys) async {
-    return await _loadData(keys, '$_userId/sessions/$_sessionId');
+  Future<Session?> loadSessionData(List<String> keys) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? sessionJson = prefs.getString('${user.id}/sessions/${user.currentSessionId}');
+    if (sessionJson == null) return null;
+
+    return Session.fromJson(jsonDecode(sessionJson));  
   }
 
   Future<void> saveSessionData(Map<String, dynamic> data) async {
-    await _saveData(data, '$_userId/sessions/$_sessionId');
-  }
-
-  Future<void> saveRoundDuration(int roundNumber, Duration duration) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final key = '$_userId/sessions/$_sessionId/$roundNumber';
-    prefs.setInt(key, duration.inMilliseconds);
-  }
+    String? sessionJson = prefs.getString('${user.id}/sessions/${user.currentSessionId}');
+    if (sessionJson == null) return;
 
+    Session session = Session.fromJson(jsonDecode(sessionJson));
+    
+    if (data.containsKey('dateTime')) {
+      session.dateTime = DateTime.parse(data['dateTime']);
+    }
+    if (data.containsKey('rounds')) {
+      Map<int, Duration> roundsData = data['rounds'];
+      roundsData.forEach((key, value) {
+        session.rounds[key] = value;
+      });
+    }
+
+    String updatedSessionJson = jsonEncode(session.toJson());
+    prefs.setString('${user.id}/sessions/${user.currentSessionId}', updatedSessionJson);
+  }
 
   Future<String?> startNewSession() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    _sessionId = Uuid().v4();
-    prefs.setInt('$_userId/sessions/$_sessionId/rounds', 0);
-    prefs.setString('$_userId/currentSession', _sessionId!);
-    return _sessionId;
+    user.currentSessionId = Uuid().v4();
+    Session session = Session(dateTime: DateTime.now(), rounds: {});
+    String sessionJson = jsonEncode(session.toJson());
+    prefs.setString('${user.id}/sessions/${user.currentSessionId}', sessionJson);
+
+    return user.currentSessionId;
   }
 
   Future<Map<int, Duration>> loadRoundDurations() async {
-    Map<String, dynamic> sessionData = await loadSessionData(['rounds']);
-    int rounds = sessionData['rounds'] ?? 0;
+    final prefs = await SharedPreferences.getInstance();
+    final sessionJson = prefs.getString('${user.id}/sessions/${user.currentSessionId}');
+    if (sessionJson == null) return {};
 
-    Map<int, Duration> roundDurations = {};
-    
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    
-    for (int i = 1; i <= rounds; i++) {
-      final key = '$_userId/sessions/$_sessionId/$i';
-      int? durationInMillis = prefs.getInt(key);
-      if (durationInMillis != null) {
-        roundDurations[i] = Duration(milliseconds: durationInMillis);
-      }
-    }
+    final sessionData = Session.fromJson(jsonDecode(sessionJson));
 
-    return roundDurations;
+    return sessionData.rounds;
   }
-
 
   Future<void> clearCurrentSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('$_userId/currentSession');
+    prefs.remove('${user.id}/currentSession');
   }
 
   Future<void> deleteSessionData() async {
@@ -124,7 +153,7 @@ class UserProvider with ChangeNotifier {
     
     Set<String> allKeys = prefs.getKeys();
 
-    Iterable<String> sessionKeys = allKeys.where((key) => key.startsWith('$_userId/sessions/$_sessionId/'));
+    Iterable<String> sessionKeys = allKeys.where((key) => key.startsWith('${user.id}/sessions/${user.currentSessionId}/'));
 
     for (String key in sessionKeys) {
       prefs.remove(key);
@@ -132,33 +161,33 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> deleteRound(int roundNumber) async {
-    Map<String, dynamic> sessionData = await loadSessionData(['rounds']);
-    int rounds = sessionData['rounds'] ?? 0;
+    final prefs = await SharedPreferences.getInstance();
+    Session? sessionData = await loadSessionData(['rounds']);
+    if (sessionData == null) return;
 
+    sessionData.rounds.remove(roundNumber);
+
+    String updatedSessionJson = jsonEncode(sessionData.toJson());
+    prefs.setString('${user.id}/sessions/${user.currentSessionId}', updatedSessionJson);
+
+  }
+
+  Future<List<Session>> getAllSessions() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final key = '$_userId/sessions/$_sessionId/$roundNumber';
-    prefs.remove(key);
+    final allKeys = prefs.getKeys();
 
-    for (int i = roundNumber + 1; i <= rounds; i++) {
-        final oldKey = '$_userId/sessions/$_sessionId/$i';
-        final newKey = '$_userId/sessions/$_sessionId/${i - 1}';
+    List<Session> sessions = [];
 
-        final durationInMillis = prefs.getInt(oldKey);
-        if (durationInMillis != null) {
-            prefs.setInt(newKey, durationInMillis);
-            prefs.remove(oldKey);
-        }
+    for (String key in allKeys) {
+      if (key.startsWith('${user.id}/sessions/')) {
+        Map<String, dynamic> sessionData = jsonDecode(prefs.getString(key)!);
+        sessions.add(Session.fromJson(sessionData));
+      }
     }
 
-    rounds -= 1;
-    prefs.setInt('$_userId/sessions/$_sessionId/rounds', rounds);
+    sessions.sort((a, b) => b.dateTime.compareTo(a.dateTime));
 
-    roundDurations.remove(roundNumber);
-    for (int i = roundNumber + 1; i <= rounds + 1; i++) {
-        roundDurations[i - 1] = roundDurations.remove(i) ?? Duration();
-    }
-
-    notifyListeners();
+    return sessions;
   }
 
 }

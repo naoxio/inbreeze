@@ -6,6 +6,7 @@ import 'exercise_router.dart';
 import '../screens/settings_screen.dart';
 import '../screens/splash_screen.dart';
 import '../screens/results_screen.dart';
+import '../screens/progress_screen.dart';
 
 // GoRouter configuration
 final router = GoRouter(
@@ -17,6 +18,10 @@ final router = GoRouter(
     GoRoute(
       path: '/home',
       builder: (context, state) => TitleScreen(),
+    ),
+    GoRoute(
+      path: '/progress',
+      builder: (context, state) => ProgressScreen(),
     ),
     GoRoute(
       path: '/guide/:page',

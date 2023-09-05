@@ -36,7 +36,7 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
     final preferences = await userProvider.loadUserPreferences(['volume']);
 
     setState(() {
-      volume = preferences['volume'] ?? 80;
+      volume = preferences.volume;
     });
   }
 

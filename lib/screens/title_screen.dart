@@ -10,13 +10,32 @@ class TitleScreen extends StatefulWidget {
 }
 
 class _TitleScreenState extends State<TitleScreen> {
-  
+  int _selectedIndex = 1; // Default index for the sun icon
+
   void _navigateToExercise() {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     userProvider.startNewSession();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.go('/exercise/step1');
     });
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        context.go('/progress');
+        break;
+      case 1:
+        // We are already on the title screen
+        break;
+      case 2:
+        context.go('/settings');
+        break;
+    }
   }
 
   @override
@@ -51,22 +70,30 @@ class _TitleScreenState extends State<TitleScreen> {
                   _navigateToExercise();
                 },
               ),
-              SizedBox(height: 20),
-              TextButton(
-                style: OutlinedButton.styleFrom(
-                  minimumSize: Size(120, 50),
-                ),
-                child: Text(
-                  "Settings",
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                onPressed: () {
-                  context.go('/settings');
-                },
-              ),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.show_chart),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.wb_sunny),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings), 
+            label: '',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.teal,
+        onTap: _onItemTapped,
+        showSelectedLabels: false,
+       showUnselectedLabels: false,
       ),
     );
   }
