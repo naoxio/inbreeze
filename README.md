@@ -23,7 +23,7 @@ The current goal is to make the entire process functional and become ready to pu
 - [x] display session data when ending the session and storing it locally
 - [x] add progress view
 - [x] add breathing configuration to settings page
-- [ ] add info section in the settings with external links
+- [x] add info section in the settings with external links
 - [ ] android and web build polishing
 - [ ] option to add relaxing music during the exercise
 - [x] add loading screen

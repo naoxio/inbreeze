@@ -1,11 +1,11 @@
 {
-    "name": "inner_breeze",
-    "short_name": "inner_breeze",
+    "name": "Inner Breeze",
+    "short_name": "Inner Breeze",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#2E2E2E",
+    "theme_color": "#008080",
+    "description": "a Simple Breathing Tracker for the Wim Hof Breathing Method",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
