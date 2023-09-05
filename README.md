@@ -21,7 +21,8 @@ The current goal is to make the entire process functional and become ready to pu
 - [x] add step3 in the exercise, breath in and hold
 - [x] repeat processes
 - [x] display session data when ending the session and storing it locally
-- [ ] add customizations directly in the settings page
+- [x] add progress view
+- [x] add breathing configuration to settings page
 - [ ] add info section in the settings with external links
 - [ ] android and web build polishing
 - [ ] option to add relaxing music during the exercise
