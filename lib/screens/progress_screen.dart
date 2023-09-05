@@ -25,6 +25,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
 
     // Grouping sessions by date
     for (var session in allSessions) {
+      print(session);
       final date = DateTime(session.dateTime.year, session.dateTime.month, session.dateTime.day);
       if (!sessionsByDate.containsKey(date)) {
         sessionsByDate[date] = [];
@@ -53,19 +54,27 @@ class _ProgressScreenState extends State<ProgressScreen> {
               final date = entry.key;
               final sessions = entry.value;
               return Column(
-                children: sessions.map((session) {
-                  return ExpansionTile(
-                    title: Text('${date.toLocal()} - ${session.rounds.length} rounds'),
-                    children: session.rounds.entries.map((roundEntry) {
-                      final roundNumber = roundEntry.key;
-                      final roundDuration = roundEntry.value;
-                      return ListTile(
-                        title: Text('Round $roundNumber'),
-                        subtitle: Text('${roundDuration.inMinutes}:${roundDuration.inSeconds.remainder(60).toString().padLeft(2, '0')}'),
-                      );
-                    }).toList(),
-                  );
-                }).toList(),
+                children: [
+                  ExpansionTile(
+                    title: Text('${date.year}-${date.month}-${date.day} - ${sessions.length} Sessions'),
+                    children: [Column(
+                      children: sessions.map((session) {
+                        return ExpansionTile(
+                          title: Text('${session.rounds.length} round(s)'),
+                          children: session.rounds.entries.map((roundEntry) {
+                            final roundNumber = roundEntry.key;
+                            final roundDuration = roundEntry.value;
+                            return ListTile(
+                              title: Text('Round $roundNumber'),
+                              subtitle: Text('${roundDuration.inMinutes}:${roundDuration.inSeconds.remainder(60).toString().padLeft(2, '0')}'),
+                            );
+                          }).toList(),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                  ),
+                ],
               );
             }).toList(),
           ],

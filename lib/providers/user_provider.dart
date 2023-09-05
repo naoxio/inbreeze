@@ -180,8 +180,13 @@ Future<void> _initializeUser() async {
 
     for (String key in allKeys) {
       if (key.startsWith('${user.id}/sessions/')) {
-        Map<String, dynamic> sessionData = jsonDecode(prefs.getString(key)!);
-        sessions.add(Session.fromJson(sessionData));
+        print('beoreoeeoreoreo');
+        var sessionData = jsonDecode(prefs.get(key)!.toString());
+        //Map<String, dynamic> sessionData = jsonDecode(prefs.get(key)!.toString());
+        print('errororrororo');
+        if (sessionData is Map<String, dynamic> && sessionData.containsKey('dateTime') && sessionData['rounds'].length > 0) {
+          sessions.add(Session.fromJson(sessionData));
+        }
       }
     }
 
