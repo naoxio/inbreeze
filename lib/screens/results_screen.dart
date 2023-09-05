@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:inner_breeze/providers/user_provider.dart';
 
 class ResultsScreen extends StatefulWidget {
   @override
@@ -9,35 +10,45 @@ class ResultsScreen extends StatefulWidget {
 }
 
 class _ResultsScreenState extends State<ResultsScreen> {
-  int rounds = 1;
-  Map<int, Duration> roundDurations = {}; 
-  String? _uniqueId;
-
+  bool saveProgress = true;
+  int rounds = 0;
+  Map<int, Duration> allRoundDurations = {};
+  
   @override
   void initState() {
     super.initState();
-    _loadDataFromPreferences();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    userProvider.loadSessionData(['rounds']).then((sessionData) {
+      setState(() {
+        rounds = sessionData['rounds'] ?? 0;
+        if (rounds == 0) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            context.go('/home');
+          });
+        }
+      });
+    });
+    userProvider.loadRoundDurations().then((roundDurations) {
+      setState(() {
+        allRoundDurations = roundDurations;
+        print('all round');
+        print(allRoundDurations);
+      });
+    });
   }
 
-
-  Future<void> _loadDataFromPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _uniqueId = prefs.getString('uniqueId');
-      rounds = prefs.getInt('rounds') ?? 0;
-
-      for (int i = 1; i <= rounds; i++) {
-        final key = '$_uniqueId/$i';
-        final durationInMillis = prefs.getInt(key);
-        if (durationInMillis != null) {
-          roundDurations[i] = Duration(milliseconds: durationInMillis);
-        }
-      }
-    });
+  Future<void> _handleClose() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    if (!saveProgress) {
+      await userProvider.clearCurrentSession();
+      await userProvider.deleteSessionData();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -56,11 +67,11 @@ class _ResultsScreenState extends State<ResultsScreen> {
             ),
             SizedBox(height: 20),
             ListView.builder(
-              shrinkWrap: true, 
-              itemCount: roundDurations.length,
+              shrinkWrap: true,
+              itemCount: allRoundDurations.length,
               itemBuilder: (context, index) {
                 int roundNumber = index + 1;
-                Duration duration = roundDurations[roundNumber]!;
+                Duration duration = allRoundDurations[roundNumber]!;
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Row(
@@ -70,10 +81,25 @@ class _ResultsScreenState extends State<ResultsScreen> {
                         '$roundNumber',
                         style: BreezeStyle.body,
                       ),
-                      Text(
-                        '${duration.inMinutes}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}',
-                        style: BreezeStyle.body,
-                      ),
+                      Row(
+                        children: [
+                          Text(
+                            '${duration.inMinutes}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}',
+                            style: BreezeStyle.body,
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete, color: Colors.teal),
+                           onPressed: () async {
+                              await userProvider.deleteRound(roundNumber);
+                              final updatedSessionData = await userProvider.loadSessionData(['rounds']);
+                              setState(() {
+                                  rounds = updatedSessionData['rounds'] ?? 0;
+                                  allRoundDurations.remove(roundNumber);
+                              });
+                            }
+                          )
+                        ],
+                      )
                     ],
                   ),
                 );
@@ -81,17 +107,39 @@ class _ResultsScreenState extends State<ResultsScreen> {
             ),
           ],
         ),
-      ),
+      ),     
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
-        child: SizedBox(
-          height: 52,
-          child: TextButton(
-            onPressed: () {
-              context.go('/home');
-            },
-            child: Text('Close'),
-          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SwitchListTile(
+              title: Text("Save Progress"),
+              value: saveProgress,
+              onChanged: (rounds > 0)
+                  ? (bool value) {
+                      setState(() {
+                        saveProgress = value;
+                      });
+                    }
+                  : null,
+              activeColor: Colors.teal,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 52,
+              child: TextButton(
+                onPressed: () {
+                  _handleClose();
+                  context.go('/home');
+                },
+                child: Text(
+                  'Close',
+                  style: BreezeStyle.bodyBig
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

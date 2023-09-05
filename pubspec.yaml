@@ -19,6 +19,7 @@ dependencies:
   syncfusion_flutter_sliders: ^22.2.7 
   audioplayers: ^4.1.0
   window_manager: ^0.3.5
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:

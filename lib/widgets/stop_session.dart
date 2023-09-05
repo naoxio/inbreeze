@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 class StopSessionButton extends StatefulWidget {
   final VoidCallback? onStopSessionPressed;
 
   const StopSessionButton({
     this.onStopSessionPressed,
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<StopSessionButton> createState() => _StopSessionButtonState();
@@ -20,13 +21,16 @@ class _StopSessionButtonState extends State<StopSessionButton> {
   @override
   void initState() {
     super.initState();
-    _loadDataFromPreferences();
+    _loadDataFromProvider();
+    print('stop session');
+    print(_rounds);
   }
 
-  Future<void> _loadDataFromPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  Future<void> _loadDataFromProvider() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final sessionData = await userProvider.loadSessionData(['rounds']);
     setState(() {
-      _rounds = prefs.getInt('rounds') ?? 0;
+      _rounds = sessionData['rounds'] ?? 0;
     });
   }
 
@@ -41,7 +45,6 @@ class _StopSessionButtonState extends State<StopSessionButton> {
         return;
       }
       context.go('/results');
-
   }
 
   void _showExitConfirmationDialog(BuildContext context) {

@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/widgets/animated_circle.dart';
 import 'package:inner_breeze/widgets/stop_session.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
-import 'package:inner_breeze/shared/preferences.dart';
+import 'package:provider/provider.dart';
 
 class ExerciseStep3 extends StatefulWidget {
   ExerciseStep3({super.key});
@@ -26,15 +26,17 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
   @override
   void initState() {
     super.initState();
-    _loadDataFromPreferences();    
-    startBreathCounting();
-    checkUniqueId(context);
+    _loadDataFromPreferences().then((_) {
+      startBreathCounting();
+    });
   }
   
   Future<void> _loadDataFromPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final preferences = await userProvider.loadUserPreferences(['volume']);
+
     setState(() {
-      volume = prefs.getInt('volume') ?? 80;
+      volume = preferences['volume'] ?? 80;
     });
   }
 

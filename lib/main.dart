@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:inner_breeze/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'router/router.dart';
 import 'utils/platform_checker.dart';
 import 'package:flutter/services.dart';
 
 const String title = 'Inner Breeze';
+
+void run() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+      child: App(),
+    ),
+  );
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,11 +35,11 @@ void main() async {
       await windowManager.show();
       await windowManager.focus();
       
-      runApp(App());
+      run();
     });
   }
   else {
-    runApp(App());
+    run();
   }
 }
 

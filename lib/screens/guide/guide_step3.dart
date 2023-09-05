@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/layouts/guide_page_layout.dart';
-import 'package:inner_breeze/shared/preferences.dart';
+import 'package:inner_breeze/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class GuideStep3Screen extends StatefulWidget {
   @override
@@ -11,7 +12,8 @@ class GuideStep3Screen extends StatefulWidget {
 }
 
 void _finishTutorial(BuildContext context) async {
-  await markTutorialAsComplete();
+  final userProvider = Provider.of<UserProvider>(context, listen: false);
+  await userProvider.markTutorialAsComplete();
 }
 
 class _GuideStep3ScreenState extends State<GuideStep3Screen> {

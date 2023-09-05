@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:inner_breeze/providers/user_provider.dart';
 
 class TitleScreen extends StatefulWidget {
-
-
   @override
   State<TitleScreen> createState() => _TitleScreenState();
 }
 
 class _TitleScreenState extends State<TitleScreen> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
   
-  void _navigateToExercise() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('rounds', 0);
+  void _navigateToExercise() {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    userProvider.startNewSession();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.go('/exercise/step1');
     });
@@ -27,7 +21,6 @@ class _TitleScreenState extends State<TitleScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -71,7 +64,6 @@ class _TitleScreenState extends State<TitleScreen> {
                   context.go('/settings');
                 },
               ),
-
             ],
           ),
         ),

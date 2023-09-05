@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/widgets/stop_session.dart';
 import 'package:inner_breeze/widgets/stopwatch.dart';
 import 'package:go_router/go_router.dart';
-import 'package:inner_breeze/shared/preferences.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 class ExerciseStep2 extends StatefulWidget {
   ExerciseStep2({super.key});
@@ -17,38 +17,39 @@ class ExerciseStep2 extends StatefulWidget {
 class _ExerciseStep2State extends State<ExerciseStep2> {
   Duration duration = Duration(seconds: 0);
   late Timer timer;
-
-  String? _uniqueId;
-  int _rounds = 0;
+  int rounds = 1;
 
   @override
   void initState() {
     super.initState();
-    checkUniqueId(context);
 
     timer = Timer.periodic(Duration(milliseconds: 1), (Timer t) {
       setState(() {
         duration = duration + Duration(milliseconds: 1);
       });
     });
-    _loadUniqueIdAndRound();
+    _loadDataFromPreferences();
   }
 
+  Future<void> _loadDataFromPreferences() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final userPreferences = await userProvider.loadUserPreferences(['breaths', 'tempo', 'volume', 'sessionId']);
+    final sessionData = await userProvider.loadSessionData(['rounds']); 
 
-  Future<void> _loadUniqueIdAndRound() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _uniqueId = prefs.getString('uniqueId');
-    _rounds = prefs.getInt('rounds') ?? 0;
+    int tempo = userPreferences['tempo'] ?? 1668;
+    duration = Duration(milliseconds: tempo);
+
+    setState(() {
+      rounds = sessionData['rounds'] ?? 0;
+    });
+  }
+  
+  void _onStopSessionPressed() {
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      userProvider.saveRoundDuration(rounds + 1, duration);
+      userProvider.saveSessionData({'rounds': rounds + 1});
   }
 
-  void _onStopSessionPressed() async {
-    _rounds += 1;
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('rounds', _rounds);
-    final key = '$_uniqueId/$_rounds';
-    prefs.setInt(key, duration.inMilliseconds);
-  }
 
   void _navigateToNextExercise() async {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -60,7 +61,7 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
 
   @override
   void dispose() {
-    timer.cancel(); // Dispose the timer when the widget is removed from the tree
+    timer.cancel(); 
     super.dispose();
   }
 
