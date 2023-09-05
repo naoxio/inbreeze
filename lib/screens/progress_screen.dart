@@ -56,7 +56,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
               return Column(
                 children: [
                   ExpansionTile(
-                    title: Text('${date.year}-${date.month}-${date.day} - ${sessions.length} Sessions'),
+                    title: Text('${date.year}-${date.month}-${date.day} - ${sessions.length} Session(s)'),
                     children: [Column(
                       children: sessions.map((session) {
                         return ExpansionTile(
