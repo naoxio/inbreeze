@@ -24,7 +24,7 @@ The current goal is to make the entire process functional and become ready to pu
 - [x] add progress view
 - [x] add breathing configuration to settings page
 - [x] add info section in the settings with external links
-- [ ] android and web build polishing
+- [x] android and web build polishing
 - [ ] option to add relaxing music during the exercise
 - [x] add loading screen
 - [x] github action to automatically build android apks
