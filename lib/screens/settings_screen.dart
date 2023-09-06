@@ -29,50 +29,53 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: SingleChildScrollView(
         padding: EdgeInsets.all(25.0),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text('Settings', style: BreezeStyle.header),
-              SizedBox(height: 20),
-              
-              // Breathing Configuration Section
-              Text('Breathing Configuration', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-              SizedBox(height: 15),
-              BreathingConfiguration(),
-              SizedBox(height: 30),
-
-              // General Settings Section
-              Text('General Settings', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-              SizedBox(height: 15),
-              OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  minimumSize: Size(140, 50),
+          child: SizedBox(
+            width: 480,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Settings', style: BreezeStyle.header),
+                SizedBox(height: 20),
+                
+                // Breathing Configuration Section
+                Text('Breathing Configuration', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                SizedBox(height: 15),
+                BreathingConfiguration(),
+                SizedBox(height: 30),
+          
+                // General Settings Section
+                Text('General Settings', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                SizedBox(height: 15),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: Size(140, 50),
+                  ),
+                  child: Text(
+                    "Tutorial",
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  onPressed: () {
+                    context.go('/guide/welcome');
+                  },
                 ),
-                child: Text(
-                  "Tutorial",
-                  style: TextStyle(fontSize: 20.0),
+                SizedBox(height: 20),
+                OutlinedButton(
+                  onPressed: resetData,
+                  child: Text("Reset Data"),
                 ),
-                onPressed: () {
-                  context.go('/guide/welcome');
-                },
-              ),
-              SizedBox(height: 20),
-              OutlinedButton(
-                onPressed: resetData,
-                child: Text("Reset Data"),
-              ),
-              // Links Section
-              SizedBox(height: 40),
-              Text('Connect & Support', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-              SizedBox(height: 15),
-              _buildLink('Organization Website', 'https://naox.io/'),
-              _buildLink('Telegram Community', 'https://t.me/naoxio'),
-              _buildLink('GitHub Page', 'https://github.com/naoxio'),
-              _buildLink('Gitea Page', 'https://git.naox.io/NaoX'),
-              _buildLink('Twitter Page', 'https://x.com/naox_io'),
-              _buildLink('Coindrop for Donations', 'https://coindrop.to/naox'),
-            ],
+                // Links Section
+                SizedBox(height: 40),
+                Text('Connect & Support', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                SizedBox(height: 15),
+                _buildLink('Organization Website', 'https://naox.io/'),
+                _buildLink('Telegram Community', 'https://t.me/naoxio'),
+                _buildLink('GitHub Page', 'https://github.com/naoxio'),
+                _buildLink('Gitea Page', 'https://git.naox.io/NaoX'),
+                _buildLink('Twitter Page', 'https://x.com/naox_io'),
+                _buildLink('Coindrop for Donations', 'https://coindrop.to/naox'),
+              ],
+            ),
           ),
         ),
       ),
