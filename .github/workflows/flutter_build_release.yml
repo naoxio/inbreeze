@@ -79,6 +79,9 @@ jobs:
     
     - name: Create AppImage
       run: |
+        sudo apt-get update
+        sudo apt-get install -y libfuse2
+  
         # Download appimagetool from GitHub
         wget "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
         chmod a+x appimagetool-x86_64.AppImage
