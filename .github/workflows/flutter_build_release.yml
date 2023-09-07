@@ -121,7 +121,7 @@ jobs:
         name: linux-artifacts
         path: |
           build/linux_x64.tar.gz
-          InnerBreeze.AppImage
+          InnerBreeze-x86_64.AppImage
         
   windows:
     name: Build Windows
@@ -197,7 +197,7 @@ jobs:
         files: |
           build/app/outputs/flutter-apk/app-release.apk
           build/ios/iphoneos/ios_unsigned.app.tar.gz
-          build/linux/linux_x64.tar.gz
-          build/linux/InnerBreeze.AppImage
-          build/windows/runner/Release/win_app.exe.zip
+          build/linux_x64.tar.gz
+          build/InnerBreeze.AppImage
+          build/windows_app.zip
         
