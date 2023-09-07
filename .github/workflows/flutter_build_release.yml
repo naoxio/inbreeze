@@ -99,7 +99,7 @@ jobs:
         cp -r build/linux/x64/release/bundle InnerBreeze.AppDir
 
         # Add the AppRun script
-        echo -e '#!/bin/bash\ndirname "$(readlink -f "$0")"\n./inner_breeze' > InnerBreeze.AppDir/AppRun
+        echo -e '#!/bin/bash\ncurrent_dir="$(dirname "$(readlink -f "$0")")"\n"$current_dir/inner_breeze"' > InnerBreeze.AppDir/AppRun
         chmod +x InnerBreeze.AppDir/AppRun
 
         cat > InnerBreeze.AppDir/InnerBreeze.desktop <<EOF
