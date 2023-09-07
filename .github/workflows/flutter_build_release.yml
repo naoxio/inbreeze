@@ -194,7 +194,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: windows-artifact
-        path: build/windows/runner/Release/
+        path: build/windows/
   
     - name: Create Release and Upload Builds
       uses: "marvinpinto/action-automatic-releases@latest"
@@ -206,7 +206,8 @@ jobs:
         files: |
           build/app/outputs/flutter-apk/app-release.apk
           build/ios/iphoneos/ios_unsigned.app.tar.gz
-          build/linux_x64.tar.gz
-          build/InnerBreeze.AppImage
-          build/windows_app.zip
+          build/linux/build/linux_x64.tar.gz
+          build/linux/InnerBreeze-x86_64.AppImage
+          build/windows/windows_app.zip
+          
         
