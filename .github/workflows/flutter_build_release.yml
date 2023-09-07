@@ -62,30 +62,45 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-
+  
     - name: Install Nix
       uses: cachix/install-nix-action@v20
       with:
         github_access_token: ${{ secrets.GITHUB_TOKEN }}
         extra_nix_config: |
           experimental-features = nix-command flakes
-
+  
     - name: Nix magic
       uses: DeterminateSystems/magic-nix-cache-action@v2
     
     - name: Build Linux Executable
       run: |
         nix develop --command bash -c "flutter build linux --release"
-
+    
+    - name: Create AppImage
+      run: |
+        # Install appimagetool
+        sudo apt-get update
+        sudo apt-get install appimagetool
+      
+        appimagetool build/linux/x64/release/bundle/ InnerBreeze.AppImage
+    
+    - name: Reorganize Linux Directory
+      run: |
+        mkdir -p organized_output/linux_x64/
+        mv build/linux/x64/release/bundle/* organized_output/linux_x64/
+    
     - name: Archive Linux executable
-      run: tar -czf build/linux/x64/release/linux_app.tar.gz build/linux/x64/release/bundle
-
-    - name: Upload Linux executable as Artifact
+      run: tar -czf build/linux_x64.tar.gz -C organized_output/linux_x64/ .
+    
+    - name: Upload Linux Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: linux-artifact
-        path: build/linux/x64/release/linux_app.tar.gz
-
+        name: linux-artifacts
+        path: |
+          build/linux_x64.tar.gz
+          InnerBreeze.AppImage
+        
   windows:
     name: Build Windows
     runs-on: windows-latest
@@ -103,15 +118,20 @@ jobs:
 
     - name: Build Windows Executable
       run: flutter build windows --release
+    
+    - name: Reorganize Windows Directory
+      run: |
+        mkdir -p organized_output/windows/
+        cp -r build/windows/runner/Release/* organized_output/windows/
 
     - name: Archive Windows executable
-      run: 7z a build/windows/runner/Release/win_app.exe.zip build/windows/runner/Release/
+      run: 7z a build/windows_app.zip organized_output/windows/
 
     - name: Upload Windows executable as Artifact
       uses: actions/upload-artifact@v2
       with:
         name: windows-artifact
-        path: build/windows/runner/Release/win_app.exe.zip
+        path: build/windows_app.zip
 
   release:
     name: Release Builds
@@ -120,7 +140,7 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-
+  
     - name: Download APK Artifact
       uses: actions/download-artifact@v2
       with:
@@ -133,18 +153,18 @@ jobs:
         name: ios-artifact
         path: build/ios/iphoneos/
     
-    - name: Download Linux Artifact
+    - name: Download Linux Artifacts
       uses: actions/download-artifact@v2
       with:
-        name: linux-artifact
-        path: build/linux/x64/release/
-
+        name: linux-artifacts
+        path: build/linux/
+    
     - name: Download Windows Artifact
       uses: actions/download-artifact@v2
       with:
         name: windows-artifact
         path: build/windows/runner/Release/
-
+  
     - name: Create Release and Upload Builds
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
@@ -155,5 +175,7 @@ jobs:
         files: |
           build/app/outputs/flutter-apk/app-release.apk
           build/ios/iphoneos/ios_unsigned.app.tar.gz
-          build/linux/x64/release/linux_app.tar.gz
+          build/linux/linux_x64.tar.gz
+          build/linux/InnerBreeze.AppImage
           build/windows/runner/Release/win_app.exe.zip
+        
