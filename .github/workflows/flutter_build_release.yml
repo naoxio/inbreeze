@@ -7,7 +7,7 @@ on:
 
 jobs:
   android:
-    name: Build APK & AAB
+    name: Build APK
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository
@@ -21,8 +21,17 @@ jobs:
     - name: Install Dependencies
       run: flutter pub get
 
+    - name: Decode Keystore
+      run: echo "${{ secrets.KEYSTORE }}" | base64 -d > release-key.jks
+    
     - name: Build APK
-      run: flutter build apk --release
+      run: |
+        flutter build apk --release \
+          --dart-define=android-signing-keystore=release-key.jks \
+          --dart-define=android-signing-key-alias=${{ secrets.KEY_ALIAS }} \
+          --dart-define=android-signing-key-password=${{ secrets.KEY_PASSWORD }} \
+          --dart-define=android-signing-keystore-password=${{ secrets.KEYSTORE_PASSWORD }}
+    
 
     - name: Upload APK as Artifact
       uses: actions/upload-artifact@v2
