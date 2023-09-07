@@ -106,9 +106,14 @@ jobs:
         [Desktop Entry]
         Type=Application
         Name=InnerBreeze
+        Comment=Guided breathing meditation app to help you relax and focus.
         Exec=AppRun
-        Icon=InnerBreeze.png
-        Categories=Utility;
+        Icon=InnerBreeze
+        Terminal=false
+        Version=1.0
+        Categories=Utility;Education;
+        Keywords=Meditation;Breathing;Relaxation;Focus;Wellness;
+        StartupNotify=true
         EOF
 
         cp InnerBreeze.AppDir/data/flutter_assets/assets/images/logo.png InnerBreeze.AppDir/InnerBreeze.png
