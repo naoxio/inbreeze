@@ -85,9 +85,27 @@ jobs:
         # Download appimagetool from GitHub
         wget "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
         chmod a+x appimagetool-x86_64.AppImage
-        
-        # Use appimagetool to create the AppImage
-        ./appimagetool-x86_64.AppImage build/linux/x64/release/bundle/InnerBreeze
+       
+        # Make Appdir
+        cp -r build/linux/x64/release/bundle InnerBreeze.AppDir
+
+        # Add the AppRun script
+        echo -e '#!/bin/bash\ndirname "$(readlink -f "$0")"\n./InnerBreeze' > InnerBreeze.AppDir/AppRun
+        chmod +x InnerBreeze.AppDir/AppRun
+
+        cat > InnerBreeze.AppDir/InnerBreeze.desktop <<EOF
+        [Desktop Entry]
+        Type=Application
+        Name=InnerBreeze
+        Exec=AppRun
+        Icon=InnerBreeze
+        Categories=Utility;
+        EOF
+
+        cp InnerBreeze.AppDir/data/flutter_assets/assets/images/logo.png InnerBreeze.AppDir/
+
+        ./appimagetool-x86_64.AppImage InnerBreeze.AppDir
+
     
     - name: Reorganize Linux Directory
       run: |
