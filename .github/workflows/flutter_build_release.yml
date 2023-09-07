@@ -102,7 +102,7 @@ jobs:
         Categories=Utility;
         EOF
 
-        cp InnerBreeze.AppDir/data/flutter_assets/assets/images/logo.png InnerBreeze.AppDir/
+        cp InnerBreeze.AppDir/data/flutter_assets/assets/images/logo.png InnerBreeze.AppDir/InnerBreeze.png
 
         ./appimagetool-x86_64.AppImage InnerBreeze.AppDir
 
