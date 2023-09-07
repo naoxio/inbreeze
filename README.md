@@ -1,5 +1,5 @@
 # Inner Breeze
-A breathing tracker for the Wim Hof breathing method.
+Guided breathing meditation based on the Wim Hof Breathing Method
 
 ## Getting Started
 To quickly run the project locally you can use the ```nix develop``` command to create a nix shell with all the dependencies fetched and ready to ```flutter run -d linux```.
