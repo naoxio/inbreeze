@@ -79,11 +79,12 @@ jobs:
     
     - name: Create AppImage
       run: |
-        # Install appimagetool
-        sudo apt-get update
-        sudo apt-get install appimagetool
-      
-        appimagetool build/linux/x64/release/bundle/ InnerBreeze.AppImage
+        # Download appimagetool from GitHub
+        wget "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+        chmod a+x appimagetool-x86_64.AppImage
+        
+        # Use appimagetool to create the AppImage
+        ./appimagetool-x86_64.AppImage build/linux/x64/release/bundle/InnerBreeze
     
     - name: Reorganize Linux Directory
       run: |
