@@ -7,6 +7,7 @@ import '../screens/settings_screen.dart';
 import '../screens/splash_screen.dart';
 import '../screens/results_screen.dart';
 import '../screens/progress_screen.dart';
+import '../screens/privacy_screen.dart';
 
 // GoRouter configuration
 final router = GoRouter(
@@ -38,6 +39,10 @@ final router = GoRouter(
     GoRoute(
       path: '/settings',
       builder: (context, state) => SettingsScreen(),
+    ),
+    GoRoute(
+      path: '/privacy',
+      builder: (context, state) => PrivacyScreen(),
     ),
   ],
 );
