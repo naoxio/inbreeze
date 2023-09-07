@@ -107,7 +107,7 @@ jobs:
         Type=Application
         Name=InnerBreeze
         Exec=AppRun
-        Icon=InnerBreeze
+        Icon=InnerBreeze.png
         Categories=Utility;
         EOF
 
