@@ -19,6 +19,13 @@
 
     <launchable type="desktop-id">io.naox.InnerBreeze.desktop</launchable>
 
+    <screenshots>
+        <screenshot type="default">
+            <caption>A screenshot of the Inner Breeze Tutorial</caption>
+            <image>https://raw.githubusercontent.com/naoxio/inbe/main/linux/extra/screenshot1.png</image>
+        </screenshot>
+    </screenshots>
+
     <url type="homepage">https://github.com/naoxio/inbe</url>
     <url type="bugtracker">https://github.com/naoxio/inbe/issues</url>
 
