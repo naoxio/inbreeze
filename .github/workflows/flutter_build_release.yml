@@ -165,27 +165,7 @@ jobs:
       with:
         name: flatpak-artifact
         path: InnerBreeze.flatpak
-        
-  snap:
-    name: Build Snap
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
 
-    - name: Install Snapcraft
-      run: |
-        sudo snap install snapcraft --classic
-
-    - name: Build Snap
-      run: snapcraft --destructive-mode
-
-    - name: Upload Snap as Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: snap-artifact
-        path: InnerBreeze.snap
-      
   windows:
     name: Build Windows
     runs-on: windows-latest
@@ -256,12 +236,6 @@ jobs:
         name: flatpak-artifact
         path: build/flatpak/
     
-    - name: Download Snap Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: snap-artifact
-        path: build/snap/
-
     - name: Create Release and Upload Builds
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
@@ -276,6 +250,5 @@ jobs:
           build/linux/InnerBreeze-x86_64.AppImage
           build/windows/windows_app.zip
           build/flatpak/InnerBreeze.flatpak
-          build/snap/InnerBreeze.snap
           
         
