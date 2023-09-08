@@ -134,40 +134,7 @@ jobs:
         name: linux-artifacts
         path: |
           build/linux_x64.tar.gz
-          InnerBreeze-x86_64.AppImage
-        
-  flatpak:
-    name: Build Flatpak
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-      with:
-        submodules: 'recursive'
-  
-    - name: Install Flatpak and Flatpak-builder
-      run: |
-        sudo apt install -y flatpak flatpak-builder
-        sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-    - name: Install GNOME Platform
-      run: |
-        sudo flatpak install flathub org.gnome.Platform/x86_64/3.38 -y
-    
-    - name: Build Flatpak
-      run: |
-        flatpak-builder --repo=repo --force-clean build-dir io.naox.InnerBreeze.json
-        flatpak build-export repo app
-
-    - name: Create Flatpak bundle
-      run: |
-        flatpak build-bundle repo InnerBreeze.flatpak io.naox.InnerBreeze
-
-    - name: Upload Flatpak as Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: flatpak-artifact
-        path: InnerBreeze.flatpak
+          InnerBreeze-x86_64.AppImage   
 
   windows:
     name: Build Windows
@@ -232,12 +199,6 @@ jobs:
       with:
         name: windows-artifact
         path: build/windows/
-
-    - name: Download Flatpak Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: flatpak-artifact
-        path: build/flatpak/
     
     - name: Create Release and Upload Builds
       uses: "marvinpinto/action-automatic-releases@latest"
@@ -252,6 +213,5 @@ jobs:
           build/linux/build/linux_x64.tar.gz
           build/linux/InnerBreeze-x86_64.AppImage
           build/windows/windows_app.zip
-          build/flatpak/InnerBreeze.flatpak
           
         
