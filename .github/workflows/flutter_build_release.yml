@@ -135,7 +135,7 @@ jobs:
         path: |
           build/linux_x64.tar.gz
           InnerBreeze-x86_64.AppImage
-
+        
   flatpak:
     name: Build Flatpak
     runs-on: ubuntu-latest
@@ -143,11 +143,13 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
       with:
-        submodules: 'recursive' # Ensure the Flutter submodule is checked out
+        submodules: 'recursive'
 
     - name: Install Flatpak and Flatpak-builder
       run: |
         sudo apt install -y flatpak flatpak-builder
+        sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+        sudo flatpak install flathub org.gnome.Sdk/x86_64/3.38 -y
 
     - name: Build Flatpak
       run: |
@@ -163,7 +165,7 @@ jobs:
       with:
         name: flatpak-artifact
         path: InnerBreeze.flatpak
-
+        
   snap:
     name: Build Snap
     runs-on: ubuntu-latest
@@ -176,7 +178,7 @@ jobs:
         sudo snap install snapcraft --classic
 
     - name: Build Snap
-      run: snapcraft
+      run: snapcraft --destructive-mode
 
     - name: Upload Snap as Artifact
       uses: actions/upload-artifact@v2
