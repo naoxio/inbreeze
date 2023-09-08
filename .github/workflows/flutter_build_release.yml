@@ -124,10 +124,11 @@ jobs:
       run: |
         mkdir -p organized_output/linux_x64/
         mv build/linux/x64/release/bundle/* organized_output/linux_x64/
-    
+        cp -r linux/extra organized_output/linux_x64/
+
     - name: Archive Linux executable
       run: tar -czf build/linux_x64.tar.gz -C organized_output/linux_x64/ .
-    
+  
     - name: Upload Linux Artifacts
       uses: actions/upload-artifact@v2
       with:
