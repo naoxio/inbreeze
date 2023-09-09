@@ -26,7 +26,7 @@ jobs:
       run: flutter pub get
       
     - name: Build Web
-      run: flutter build web --release --web-renderer canvaskit --base-href /inbe/
+      run: flutter build web --release --web-renderer canvaskit --base-href /
       
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3

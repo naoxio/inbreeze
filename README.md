@@ -31,5 +31,5 @@ Only the android and linux builds have been tested.
 ### Web
 Latest Web build can be found on the website:
 
-[naox.io/inbe/#/](https://naox.io/inbe/#/)
+[inner-breeze.app/#/](https://inner-breeze.app/#/)
 
