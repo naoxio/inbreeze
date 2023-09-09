@@ -26,7 +26,7 @@ A few releases are automatically updated through github actions.
 
 Only the android and linux builds have been tested.
 
-[Releases](https://github.com/naoxio/inbe/releases/tag/latest)
+[Releases](https://github.com/naoxio/inner_breeze/releases/tag/latest)
 
 ### Web
 Latest Web build can be found on the website:
