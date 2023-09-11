@@ -163,7 +163,9 @@ jobs:
 
         ./appimagetool-x86_64.AppImage InnerBreeze.AppDir
   
+        chmod +x InnerBreeze-x86_64.AppImage
     - name: Archive Linux executable
+
       run: |
         mkdir -p organized_output/linux_x64/
         mv build/linux/x64/release/bundle/* organized_output/linux_x64/
@@ -171,7 +173,7 @@ jobs:
     
         cd organized_output
     
-        tar -czf ../InnerBreeze-x86_64.tar.gz linux_x64/
+        tar -czf InnerBreeze-x86_64.tar.gz linux_x64/
       
     - name: Upload Linux Artifacts
       uses: actions/upload-artifact@v2
@@ -263,7 +265,7 @@ jobs:
         files: |
           build/app/outputs/flutter-apk/app-release.apk
           build/ios/iphoneos/ios_unsigned.app.tar.gz
-          build/linux/build/linux_x64.tar.gz
+          build/linux/build/InnerBreeze-x86_64.tar.gz
           build/linux/InnerBreeze-x86_64.AppImage
           build/windows/windows_app.zip
           
