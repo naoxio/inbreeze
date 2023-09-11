@@ -45,7 +45,6 @@ jobs:
           --dart-define=android-signing-key-alias=${{ secrets.KEY_ALIAS }} \
           --dart-define=android-signing-key-password=${{ secrets.KEY_PASSWORD }} \
           --dart-define=android-signing-keystore-password=${{ secrets.KEYSTORE_PASSWORD }}
-    
 
     - name: Upload APK as Artifact
       uses: actions/upload-artifact@v2
