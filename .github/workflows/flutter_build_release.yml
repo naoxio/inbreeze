@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+
+env:
+  FLUTTER_VERSION: '3.7'
+
 jobs:
   android:
     name: Build APK
@@ -12,19 +16,21 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-      
-    - name: Cache Flutter dependencies
-      uses: actions/cache@v3
+   
+    - name: Cache Flutter SDK
+      uses: actions/cache@v2
       with:
-        path: ~/.pub-cache
-        key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+        path: |
+          ~/.pub-cache
+          ~/.flutter
+        key: ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-${{ hashFiles('**/pubspec.yaml') }}
         restore-keys: |
-          ${{ runner.os }}-pub-
+          ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-
 
     - name: Setup Flutter
       uses: subosito/flutter-action@v1
       with:
-        flutter-version: '3.7'
+        flutter-version: ${{ env.FLUTTER_VERSION }}
 
     - name: Install Dependencies
       run: flutter pub get
@@ -53,16 +59,22 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-      
-    - name: Cache Flutter dependencies
-      uses: actions/cache@v3
+
+    - name: Cache Flutter SDK and dependencies
+      uses: actions/cache@v2
       with:
-        path: ~/.pub-cache
-        key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+        path: |
+          ~/.pub-cache
+          ~/Library/Caches/com.google.dart.tools.sdk
+          ~/.flutter
+        key: ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-${{ hashFiles('**/pubspec.yaml') }}
         restore-keys: |
-          ${{ runner.os }}-pub-
+          ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-
+    
     - name: Setup Flutter
       uses: subosito/flutter-action@v1
+      with:
+        flutter-version: ${{ env.FLUTTER_VERSION }}
 
     - name: Install Dependencies
       run: flutter pub get
@@ -85,15 +97,17 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-      
-    - name: Cache Flutter dependencies
-      uses: actions/cache@v3
+    
+    - name: Cache Flutter SDK
+      uses: actions/cache@v2
       with:
-        path: ~/.pub-cache
-        key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+        path: |
+          ~/.pub-cache
+          ~/.flutter
+        key: ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-${{ hashFiles('**/pubspec.yaml') }}
         restore-keys: |
-          ${{ runner.os }}-pub-
-      
+          ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-
+
     - name: Install Dependencies
       run: |
         sudo apt-get update
@@ -122,6 +136,8 @@ jobs:
   
     - name: Setup Flutter
       uses: subosito/flutter-action@v1
+      with:
+        flutter-version: ${{ env.FLUTTER_VERSION }}
 
     - name: Install Dependencies
       run: flutter pub get
@@ -189,19 +205,21 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-      
-    - name: Cache Flutter dependencies
-      uses: actions/cache@v3
+    
+    - name: Cache Flutter SDK
+      uses: actions/cache@v2
       with:
-        path: ~/.pub-cache
-        key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+        path: |
+          ~\AppData\Local\Pub\Cache
+          ~\AppData\Local\Flutter
+        key: ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-${{ hashFiles('**/pubspec.yaml') }}
         restore-keys: |
-          ${{ runner.os }}-pub-
+          ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-
         
     - name: Setup Flutter
       uses: subosito/flutter-action@v1
       with:
-        flutter-version: '3.7'
+        flutter-version: ${{ env.FLUTTER_VERSION }}
 
     - name: Install Dependencies
       run: flutter pub get
