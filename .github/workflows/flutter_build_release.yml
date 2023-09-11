@@ -12,6 +12,14 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
+      
+    - name: Cache Flutter dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.pub-cache
+        key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pub-
 
     - name: Setup Flutter
       uses: subosito/flutter-action@v1
@@ -45,7 +53,14 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-
+      
+    - name: Cache Flutter dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.pub-cache
+        key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pub-
     - name: Setup Flutter
       uses: subosito/flutter-action@v1
 
@@ -70,7 +85,15 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-
+      
+    - name: Cache Flutter dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.pub-cache
+        key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pub-
+      
     - name: Install Dependencies
       run: |
         sudo apt-get update
@@ -164,7 +187,15 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-
+      
+    - name: Cache Flutter dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.pub-cache
+        key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pub-
+        
     - name: Setup Flutter
       uses: subosito/flutter-action@v1
       with:
