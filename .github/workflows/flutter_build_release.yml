@@ -76,6 +76,11 @@ jobs:
         sudo apt-get update
         sudo apt-get install ninja-build -y
 
+    - name: Setup Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+
     - name: Setup Flutter
       uses: subosito/flutter-action@v1
 
