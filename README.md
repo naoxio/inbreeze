@@ -22,11 +22,9 @@ We welcome any participates and you should feel welcome to share your ideas.
 - [Dicord](https://discord.gg/WWKtAJQtv5)
 
 ## Releases
-A few releases are automatically updated through github actions.
+Releases are automatically updated through github actions.
 
-Only the android and linux builds have been tested.
-
-[Releases](https://github.com/naoxio/inner_breeze/releases/tag/latest)
+[Releases](https://github.com/naoxio/inner_breeze/releases)
 
 ### Web
 Latest Web build can be found on the website:
