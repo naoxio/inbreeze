@@ -119,6 +119,7 @@ jobs:
           libatk1.0-0 \
           libcairo-gobject2 \
           libcairo2
+  
     - name: Setup Flutter
       uses: subosito/flutter-action@v1
 
@@ -166,20 +167,20 @@ jobs:
     - name: Archive Linux executable
 
       run: |
-        mkdir -p organized_output/linux_x64/
+        mkdir -p organized_output/InnerBreeze-x86_64/
         mv build/linux/x64/release/bundle/* organized_output/linux_x64/
-        cp -r linux/extra organized_output/linux_x64/
+        cp -r linux/extra organized_output/InnerBreeze-x86_64/
     
         cd organized_output
     
-        tar -czf ../InnerBreeze-x86_64.tar.gz linux_x64/
+        tar -czf ../InnerBreeze-Linux-x86_64.tar.gz InnerBreeze-x86_64/
       
     - name: Upload Linux Artifacts
       uses: actions/upload-artifact@v2
       with:
         name: linux-artifacts
         path: |
-          InnerBreeze-x86_64.tar.gz 
+          InnerBreeze-Linux-x86_64.tar.gz 
           InnerBreeze-x86_64.AppImage   
 
   windows:
@@ -214,13 +215,13 @@ jobs:
         cp -r build/windows/runner/Release/* organized_output/windows/
 
     - name: Archive Windows executable
-      run: 7z a build/windows_app.zip organized_output/windows/
+      run: 7z a build/InnerBreeze-Windows-x86_64.zip organized_output/windows/
 
     - name: Upload Windows executable as Artifact
       uses: actions/upload-artifact@v2
       with:
         name: windows-artifact
-        path: build/windows_app.zip
+        path: build/InnerBreeze-Windows-x86_64.zip
 
   release:
     name: Release Builds
@@ -264,8 +265,8 @@ jobs:
         files: |
           build/app/outputs/flutter-apk/app-release.apk
           build/ios/iphoneos/ios_unsigned.app.tar.gz
-          build/linux/InnerBreeze-x86_64.tar.gz
+          build/linux/InnerBreeze-Linux-x86_64.tar.gz
           build/linux/InnerBreeze-x86_64.AppImage
-          build/windows/windows_app.zip
+          build/windows/InnerBreeze-Windows-x86_64.zip
           
         
