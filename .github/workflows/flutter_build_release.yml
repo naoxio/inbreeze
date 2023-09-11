@@ -71,6 +71,11 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
+    - name: Install Ninja
+      run: |
+        sudo apt-get update
+        sudo apt-get install ninja-build -y
+
     - name: Setup Flutter
       uses: subosito/flutter-action@v1
 
@@ -114,7 +119,7 @@ jobs:
         cp InnerBreeze.AppDir/data/flutter_assets/assets/images/logo.png InnerBreeze.AppDir/InnerBreeze.png
 
         ./appimagetool-x86_64.AppImage InnerBreeze.AppDir
-    
+        
     - name: Reorganize Linux Directory
       run: |
         mkdir -p organized_output/linux_x64/
