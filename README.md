@@ -31,3 +31,4 @@ Latest Web build can be found on the website:
 
 [inner-breeze.app/#/](https://inner-breeze.app/#/)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9fe7d682-4647-42d3-8d29-53737c9ffe05/deploy-status)](https://app.netlify.com/sites/inbe/deploys)
