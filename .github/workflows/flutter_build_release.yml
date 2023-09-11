@@ -82,6 +82,7 @@ jobs:
           libgtk-3-dev \
           libunwind-dev \
           liborc-dev \
+          liblzma-dev \
           gstreamer1.0-plugins-base \
           gstreamer1.0-libav \
           gstreamer1.0-plugins-good \
