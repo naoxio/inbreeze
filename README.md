@@ -26,6 +26,14 @@ Releases are automatically updated through github actions.
 
 [Releases](https://github.com/naoxio/inner_breeze/releases)
 
+### Flatpak
+[Flahbub](https://flathub.org/apps/io.naox.InnerBreeze)
+
+```
+flatpak install flathub io.naox.InnerBreeze
+flatpak run io.naox.InnerBreeze
+```
+
 ### Web
 Latest Web build can be found on the website:
 
