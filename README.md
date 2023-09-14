@@ -21,6 +21,12 @@ We welcome any participates and you should feel welcome to share your ideas.
 - [Twitter](https://twitter.com/naox_io)
 - [Dicord](https://discord.gg/WWKtAJQtv5)
 
+## Todos
+- [ ] add option to play background music during hold
+- [ ] fix timing at breath out, step 3 in exercise
+- [ ] improve padding in all pages
+- [ ] add graph view of progress
+
 ## Releases
 Releases are automatically updated through github actions.
 
