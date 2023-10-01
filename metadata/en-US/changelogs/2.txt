@@ -1,0 +1,2 @@
+* Adjusted the padding for a better UI experience.
+* Introduced icons for social links.
