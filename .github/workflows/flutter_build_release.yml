@@ -281,7 +281,7 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "${{ env.RELEASE_TAG }}"
         prerelease: "${{ env.IS_PRERELEASE }}"
-        title: "Release ${{ env.RELEASE_TAG }}"
+        title: "${{ env.RELEASE_TAG }}"
         files: |
           build/app/outputs/flutter-apk/app-release.apk
           build/ios/iphoneos/ios_unsigned.app.tar.gz
