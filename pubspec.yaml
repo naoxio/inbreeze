@@ -16,9 +16,9 @@ dependencies:
   shared_preferences: ^2.2.0
   table_calendar: ^3.0.9
   provider: ^6.0.0
-  go_router: ^10.0.0
-  syncfusion_flutter_sliders: ^22.2.7 
-  audioplayers: ^4.1.0
+  go_router: ^11.1.2
+  syncfusion_flutter_sliders: ^23.1.38 
+  audioplayers: ^5.1.0
   window_manager: ^0.3.5
   uuid: ^3.0.7
   intl: ^0.18.0
