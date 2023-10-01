@@ -26,7 +26,7 @@ class _TitleScreenState extends State<TitleScreen> {
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 20),
+              SizedBox(height: 40),
               SizedBox(
                 width: 256,
                 child: Image.asset(

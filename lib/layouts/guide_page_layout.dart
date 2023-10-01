@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:inner_breeze/widgets/breeze_app_bar.dart';
 
 class PageLayout extends StatelessWidget {
+  final String titleText;
   final String forwardButtonText;
   final String backButtonText;
   final VoidCallback forwardButtonPressed;
@@ -8,6 +10,7 @@ class PageLayout extends StatelessWidget {
   final Widget column;
 
   PageLayout({
+    required this.titleText,
     required this.column,
     required this.forwardButtonText,
     required this.backButtonText,
@@ -18,6 +21,7 @@ class PageLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: BreezeAppBar(title: titleText),
       body: SingleChildScrollView(
         child: Center(
           child: Padding(

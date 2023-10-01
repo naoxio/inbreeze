@@ -18,6 +18,7 @@ class _GuideWelcomeScreenState extends State<GuideWelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return  PageLayout(
+      titleText: 'Namaste',
       backButtonText: 'Skip',
       backButtonPressed: () async {
         _skipTutorial(context);
@@ -29,7 +30,6 @@ class _GuideWelcomeScreenState extends State<GuideWelcomeScreen> {
       },
       column: Column(
         children: [
-          SizedBox(height: 20),
           SizedBox(
             width: 320,
             child: ClipOval(
@@ -39,12 +39,7 @@ class _GuideWelcomeScreenState extends State<GuideWelcomeScreen> {
               ),
             ),
           ),
-          SizedBox(height: 15),
-          Text(
-            'Namaste',
-            style: BreezeStyle.header,
-          ),
-          SizedBox(height: 15),
+          SizedBox(height: 20),
           Text(
             "This easy yet potent breathing technique promises profound inner peace, offering a sanctuary of serenity amidst life's hectic pace.",
             style: BreezeStyle.body,

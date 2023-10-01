@@ -7,6 +7,7 @@ class GuideMethodScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  PageLayout(
+      titleText: 'Method',
       backButtonText: 'Back',
       backButtonPressed: () {
         context.go('/guide/welcome');
@@ -17,11 +18,6 @@ class GuideMethodScreen extends StatelessWidget {
       },
       column: Column(
         children: [
-          Text(
-            'Method',
-            style: BreezeStyle.header,
-          ),
-          SizedBox(height: 20),
           Text(
             'Simply follow 4 steps:',
             style: TextStyle(

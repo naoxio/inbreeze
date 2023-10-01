@@ -34,6 +34,8 @@ class _GuideStep2ScreenState extends State<GuideStep2Screen> {
   @override
   Widget build(BuildContext context) {
     return  PageLayout(
+      titleText: 'Step 2: Exhale & hold',
+
       backButtonText: 'Back',
       backButtonPressed: () {
         context.go('/guide/step1');
@@ -44,11 +46,6 @@ class _GuideStep2ScreenState extends State<GuideStep2Screen> {
       },
       column: Column(
         children: [
-          Text(
-            'Step 2: Exhale & hold',
-            style: BreezeStyle.header,
-          ),
-          SizedBox(height: 20),
           Text('''
 Exhale normally and hold your breath.
 

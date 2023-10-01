@@ -41,6 +41,7 @@ class _GuideStep3ScreenState extends State<GuideStep3Screen> {
   @override
   Widget build(BuildContext context) {
     return  PageLayout(
+      titleText: 'Step 3: Inhale & hold',
       backButtonText: 'Back',
       backButtonPressed: () {
         context.go('/guide/step2');
@@ -53,11 +54,6 @@ class _GuideStep3ScreenState extends State<GuideStep3Screen> {
       },
       column: Column(
         children: [
-          Text(
-            'Step 3: Inhale & hold',
-            style: BreezeStyle.header,
-          ),
-          SizedBox(height: 20),
           SizedBox(
             width: 320,
             child: Image.asset(

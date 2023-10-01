@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class BreezeStyle {
   static const header = TextStyle(
-    fontSize: 32.0,
+    fontSize: 28.0,
     fontWeight: FontWeight.bold,
+    height: 1.5
   );
 
   // Add more styles as needed

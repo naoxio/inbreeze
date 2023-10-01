@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/layouts/guide_page_layout.dart';
 import 'package:inner_breeze/widgets/breathing_configuration.dart';
 
@@ -8,6 +7,7 @@ class GuideStep1Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageLayout(
+      titleText: 'Step 1: In & Out',
       backButtonText: 'Back',
       backButtonPressed: () {
         context.go('/guide/method');
@@ -18,11 +18,6 @@ class GuideStep1Screen extends StatelessWidget {
       },
       column: Column(
         children: [
-          Text(
-            'Step 1: In & Out',
-            style: BreezeStyle.header
-          ),
-          SizedBox(height: 20),
           Text('''
 Fill your lungs with a full breath, starting from your belly, then your chest.
 

@@ -21,19 +21,13 @@ We welcome any participates and you should feel welcome to share your ideas.
 - [Twitter](https://twitter.com/naox_io)
 - [Dicord](https://discord.gg/WWKtAJQtv5)
 
-## Quests
-- [ ] add option to play background music during hold
-- [ ] fix timing at breath out, step 3 in exercise
-- [ ] improve padding in all pages
-- [ ] add graph view of progress
-
 ## Releases
 Releases are automatically updated through github actions.
 
 [Releases](https://github.com/naoxio/inner_breeze/releases)
 
 ### Flatpak
-[Flatbub](https://flathub.org/apps/io.naox.InnerBreeze)
+[Flathub](https://flathub.org/apps/io.naox.InnerBreeze)
 
 ```
 flatpak install flathub io.naox.InnerBreeze

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
+import 'package:inner_breeze/widgets/breeze_app_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 
@@ -49,16 +50,10 @@ class _ResultsScreenState extends State<ResultsScreen> {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
+      appBar: BreezeAppBar(title: 'Results'),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 20),
-            Center(
-              child: Text(
-                'Results',
-                style: BreezeStyle.header,
-              ),
-            ),
             SizedBox(height: 20),
             Text(
               'Rounds Completed: $rounds',
