@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - main
+    tags:
+      - '*'
 
 env:
   FLUTTER_VERSION: '3.7'
+  IS_PRERELEASE: ${{ startsWith(github.ref, 'refs/tags/') && 'false' || 'true' }}
+  RELEASE_TAG: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'latest' }}
 
 jobs:
   android:
@@ -275,9 +279,9 @@ jobs:
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
-        prerelease: true
-        title: "Development Build"
+        automatic_release_tag: "${{ env.RELEASE_TAG }}"
+        prerelease: "${{ env.IS_PRERELEASE }}"
+        title: "Release ${{ env.RELEASE_TAG }}"
         files: |
           build/app/outputs/flutter-apk/app-release.apk
           build/ios/iphoneos/ios_unsigned.app.tar.gz
