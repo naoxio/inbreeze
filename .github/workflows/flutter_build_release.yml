@@ -32,16 +32,15 @@ jobs:
 
     - name: Set up Flutter & PUB_CACHE
       run: |
-        echo "${GITHUB_WORKSPACE}/.flutter/bin" >> $GITHUB_PATH
         echo "PUB_CACHE=${GITHUB_WORKSPACE}/.pub-cache" >> $GITHUB_ENV
-        flutter config --no-analytics
+        ${GITHUB_WORKSPACE}/.flutter/bin/flutter config --no-analytics
       
     - name: Install Dependencies
-      run: flutter pub get
+      run: ${GITHUB_WORKSPACE}/.flutter/bin/flutter pub get
     
     - name: Build Unsigned APK
       run: |
-        flutter build apk --release
+        ${GITHUB_WORKSPACE}/.flutter/bin/flutter build apk --release
         mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-unsigned.apk
 
     - name: Decode Keystore
@@ -49,7 +48,7 @@ jobs:
     
     - name: Build APK
       run: |
-        flutter build apk --release \
+        ${GITHUB_WORKSPACE}/.flutter/bin/flutter build apk --release \
           --dart-define=android-signing-keystore=release-key.jks \
           --dart-define=android-signing-key-alias=${{ secrets.KEY_ALIAS }} \
           --dart-define=android-signing-key-password=${{ secrets.KEY_PASSWORD }} \
