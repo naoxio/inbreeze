@@ -276,7 +276,7 @@ jobs:
     - name: Download APK Artifact
       uses: actions/download-artifact@v2
       with:
-        name: apk-artifact
+        name: apk-artifacts
         path: build/app/outputs/flutter-apk/
     
     - name: Download iOS Artifact
