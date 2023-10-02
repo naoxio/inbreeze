@@ -19,7 +19,9 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
-   
+      with:
+        submodules: recursive 
+      
     - name: Cache Flutter SDK
       uses: actions/cache@v2
       with:
@@ -30,13 +32,18 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-
 
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: ${{ env.FLUTTER_VERSION }}
+    - name: Use Flutter from submodule
+      run: |
+        echo "${GITHUB_WORKSPACE}/.flutter/bin" >> $GITHUB_PATH
+        flutter doctor
 
     - name: Install Dependencies
       run: flutter pub get
+    
+    - name: Build Unsigned APK
+      run: |
+        flutter build apk --release
+        mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-unsigned.apk
 
     - name: Decode Keystore
       run: echo "${{ secrets.KEYSTORE }}" | base64 -d > release-key.jks
@@ -48,12 +55,15 @@ jobs:
           --dart-define=android-signing-key-alias=${{ secrets.KEY_ALIAS }} \
           --dart-define=android-signing-key-password=${{ secrets.KEY_PASSWORD }} \
           --dart-define=android-signing-keystore-password=${{ secrets.KEYSTORE_PASSWORD }}
+        mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-signed.apk
 
-    - name: Upload APK as Artifact
+    - name: Upload APKs as Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: apk-artifact
-        path: build/app/outputs/flutter-apk/app-release.apk
+        name: apk-artifacts
+        path: |
+          build/app/outputs/flutter-apk/app-unsigned.apk
+          build/app/outputs/flutter-apk/app-signed.apk
 
   ios:
     name: Build iOS
@@ -283,7 +293,8 @@ jobs:
         prerelease: "${{ env.IS_PRERELEASE }}"
         title: "${{ env.RELEASE_TAG }}"
         files: |
-          build/app/outputs/flutter-apk/app-release.apk
+          build/app/outputs/flutter-apk/app-unsigned.apk
+          build/app/outputs/flutter-apk/app-signed.apk
           build/ios/iphoneos/ios_unsigned.app.tar.gz
           build/linux/InnerBreeze-Linux-x86_64.tar.gz
           build/linux/InnerBreeze-x86_64.AppImage
