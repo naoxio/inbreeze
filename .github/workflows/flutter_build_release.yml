@@ -21,16 +21,25 @@ jobs:
       uses: actions/checkout@v3
       with:
         submodules: recursive 
-      
-    - name: Cache Flutter SDK
+
+
+    - name: Cache Flutter Dependencies
       uses: actions/cache@v2
       with:
-        path: |
-          ~/.pub-cache
-          ~/.flutter
-        key: ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-${{ hashFiles('**/pubspec.yaml') }}
+        path: ${{ github.workspace }}/.pub-cache
+        key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.yaml') }}
         restore-keys: |
-          ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-
+          ${{ runner.os }}-pub-cache-
+
+    - name: Set up PUB_CACHE
+      run: echo "PUB_CACHE=${GITHUB_WORKSPACE}/.pub-cache" >> $GITHUB_ENV
+    
+    - name: Flutter Config
+      run: ${GITHUB_WORKSPACE}/.flutter/bin/flutter config --no-analytics
+
+    - name: Install Dependencies
+      run: ${GITHUB_WORKSPACE}/.flutter/bin/flutter pub get
+
 
     - name: Use Flutter from submodule
       run: |
