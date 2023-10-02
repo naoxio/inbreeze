@@ -20,6 +20,7 @@ jobs:
     - uses: styfle/cancel-workflow-action@0.9.1
       with:
         access_token: ${{ github.token }}
+        
   android:
     needs: cancel
     name: Build APK
@@ -29,23 +30,25 @@ jobs:
       uses: actions/checkout@v3
       with:
         submodules: recursive 
-
-    - name: Cache Flutter Dependencies
+        
+    - name: Cache Flutter SDK and dependencies
       uses: actions/cache@v2
       with:
-        path: ${{ github.workspace }}/.pub-cache
-        key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.yaml') }}
+        path: |
+          ~/.pub-cache
+          ~/.flutter
+        key: ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-${{ hashFiles('**/pubspec.yaml') }}
         restore-keys: |
-          ${{ runner.os }}-pub-cache-
+          ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-
+            
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ env.FLUTTER_VERSION }}
 
-    - name: Set up Flutter & PUB_CACHE
-      run: |
-        echo "PUB_CACHE=${GITHUB_WORKSPACE}/.pub-cache" >> $GITHUB_ENV
-        ${GITHUB_WORKSPACE}/.flutter/bin/flutter config --no-analytics
-      
     - name: Install Dependencies
-      run: ${GITHUB_WORKSPACE}/.flutter/bin/flutter pub get
-    
+      run: flutter pub get
+      
     - name: Build Unsigned APK
       run: |
         ${GITHUB_WORKSPACE}/.flutter/bin/flutter build apk --release
