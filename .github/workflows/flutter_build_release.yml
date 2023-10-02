@@ -22,7 +22,6 @@ jobs:
       with:
         submodules: recursive 
 
-
     - name: Cache Flutter Dependencies
       uses: actions/cache@v2
       with:
@@ -31,21 +30,12 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pub-cache-
 
-    - name: Set up PUB_CACHE
-      run: echo "PUB_CACHE=${GITHUB_WORKSPACE}/.pub-cache" >> $GITHUB_ENV
-    
-    - name: Flutter Config
-      run: ${GITHUB_WORKSPACE}/.flutter/bin/flutter config --no-analytics
-
-    - name: Install Dependencies
-      run: ${GITHUB_WORKSPACE}/.flutter/bin/flutter pub get
-
-
-    - name: Use Flutter from submodule
+    - name: Set up Flutter & PUB_CACHE
       run: |
         echo "${GITHUB_WORKSPACE}/.flutter/bin" >> $GITHUB_PATH
-        flutter doctor
-
+        echo "PUB_CACHE=${GITHUB_WORKSPACE}/.pub-cache" >> $GITHUB_ENV
+        flutter config --no-analytics
+      
     - name: Install Dependencies
       run: flutter pub get
     
