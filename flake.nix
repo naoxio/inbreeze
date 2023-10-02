@@ -20,7 +20,7 @@
       pkgs.clang
       pkgs.cmake
       pkgs.ninja
-      pkgs.pkgconfig
+      pkgs.pkg-config
       pkgs.gtk3
       pkgs.libunwind
       pkgs.orc

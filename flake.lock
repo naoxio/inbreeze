@@ -43,16 +43,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1692361308,
-        "narHash": "sha256-9WnM7mBnVNkw2UMhLD74Iq2SUjooc7JNTWKyYoL0CbI=",
+        "lastModified": 1696145655,
+        "narHash": "sha256-KBtb156HueCbFPDqp12DtIraTL1lT1UjdcoOAK3vnQI=",
         "owner": "waotzi",
         "repo": "flutter-flake",
-        "rev": "ec45cf6b04c290e6f2828f1d23ac96eac45f8f06",
+        "rev": "3a4298ca8d0d80c764bf7a9a9c669bfee3e7d786",
         "type": "github"
       },
       "original": {
         "owner": "waotzi",
-        "ref": "3.2.0",
+        "ref": "3.2.1",
         "repo": "flutter-flake",
         "type": "github"
       }
@@ -75,16 +75,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1692134936,
-        "narHash": "sha256-Z68O969cioC6I3k/AFBxsuEwpJwt4l9fzwuAMUhCCs0=",
+        "lastModified": 1696019113,
+        "narHash": "sha256-X3+DKYWJm93DRSdC5M6K5hLqzSya9BjibtBsuARoPco=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "bfd953b2c6de4f550f75461bcc5768b6f966be10",
+        "rev": "f5892ddac112a1e9b3612c39af1b72987ee5783a",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-23.05",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
