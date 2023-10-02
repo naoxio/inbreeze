@@ -51,7 +51,7 @@ jobs:
       
     - name: Build Unsigned APK
       run: |
-        ${GITHUB_WORKSPACE}/.flutter/bin/flutter build apk --release
+        flutter build apk --release
         mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-unsigned.apk
 
     - name: Decode Keystore
@@ -59,7 +59,7 @@ jobs:
     
     - name: Build APK
       run: |
-        ${GITHUB_WORKSPACE}/.flutter/bin/flutter build apk --release \
+        flutter build apk --release \
           --dart-define=android-signing-keystore=release-key.jks \
           --dart-define=android-signing-key-alias=${{ secrets.KEY_ALIAS }} \
           --dart-define=android-signing-key-password=${{ secrets.KEY_PASSWORD }} \
