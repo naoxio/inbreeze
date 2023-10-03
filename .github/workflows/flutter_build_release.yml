@@ -56,7 +56,7 @@ jobs:
     - name: Install Dependencies
       run: flutter pub get
       
-    - name: Build Unsigned APK
+    - name: Build APK
       run: |
         flutter build apk --release
        
