@@ -48,7 +48,7 @@ android {
         release {
             keyAlias System.getenv('FLUTTER_KEY_ALIAS') ?: ""
             keyPassword System.getenv('FLUTTER_KEY_PASSWORD') ?: ""
-            storeFile file(System.getenv('FLUTTER_STORE_FILE') ?: "")
+            storeFile "release-key.jks"
             storePassword System.getenv('FLUTTER_STORE_PASSWORD') ?: ""
         }
     }

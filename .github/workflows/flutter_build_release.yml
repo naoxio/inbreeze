@@ -29,7 +29,6 @@ jobs:
       FLUTTER_KEY_ALIAS: ${{ secrets.FLUTTER_KEY_ALIAS }}
       FLUTTER_KEY_PASSWORD: ${{ secrets.FLUTTER_KEY_PASSWORD }}
       FLUTTER_STORE_PASSWORD: ${{ secrets.FLUTTER_STORE_PASSWORD }}
-      FLUTTER_STORE_FILE: ${{ secrets.FLUTTER_STORE_FILE }}
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
@@ -51,6 +50,9 @@ jobs:
       with:
         flutter-version: ${{ env.FLUTTER_VERSION }}
 
+    - name: Decode Keystore
+      run: echo "${{ secrets.FLUTTER_STORE_FILE }}" | base64 -d > android/app/release-key.jks
+      
     - name: Install Dependencies
       run: flutter pub get
       
