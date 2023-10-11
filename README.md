@@ -22,9 +22,10 @@ We welcome any participates and you should feel welcome to share your ideas.
 - [Dicord](https://discord.gg/WWKtAJQtv5)
 
 ## Releases
-Releases are automatically updated through github actions.
+Releases are automatically updated through github actions. Alternatively, you can dowload the app from F-Droid.
 
-[Releases](https://github.com/naoxio/inner_breeze/releases)
+- [Releases](https://github.com/naoxio/inner_breeze/releases)
+- [F-Droid](https://f-droid.org/packages/io.naox.inbe/)
 
 ### Flatpak
 [Flathub](https://flathub.org/apps/io.naox.InnerBreeze)
