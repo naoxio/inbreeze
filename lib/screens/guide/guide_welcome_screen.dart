@@ -34,7 +34,7 @@ class _GuideWelcomeScreenState extends State<GuideWelcomeScreen> {
             width: 320,
             child: ClipOval(
               child: Image.asset(
-                'assets/images/angel.png',
+                'assets/images/angel.jpg',
                 width: double.infinity,
               ),
             ),

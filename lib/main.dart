@@ -79,9 +79,9 @@ class _AppState extends State<App> {
     final soundExtensions = ['.mp3', '.wav', '.ogg'];
 
     final imageAssetFilenames = [
-      'angel.png',
+      'angel.jpg',
       'begin.jpg',
-      'logo.jpg',
+      'logo.png',
     ];
 
     final soundAssetFilenames = [
