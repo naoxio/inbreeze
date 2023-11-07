@@ -60,8 +60,19 @@ class AnimatedCircleState extends State<AnimatedCircle>
   
   void didUpdateWidget(AnimatedCircle oldWidget) {
     super.didUpdateWidget(oldWidget);
-    
-    
+  
+    if (widget.tempoDuration != oldWidget.tempoDuration) {
+      _controller.duration = widget.tempoDuration;
+      if (widget.controlCallback != null) {
+        String control = widget.controlCallback!();
+        if (control == 'reset') {
+          _controller.reset(); // This ensures the animation starts from the beginning
+          _stopAudio();
+          _controller.forward();
+          _controller.repeat(reverse: true);
+        }
+      }
+    }
     if (widget.controlCallback != null) {
       String currentStatus = _controller.status.toString().split('.').last;
       String control = widget.controlCallback!();

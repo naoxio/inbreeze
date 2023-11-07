@@ -1,13 +1,14 @@
 import 'package:go_router/go_router.dart';
 
-import '../screens/title_screen.dart';
 import 'guide_router.dart';
 import 'exercise_router.dart';
-import '../screens/settings_screen.dart';
-import '../screens/splash_screen.dart';
-import '../screens/results_screen.dart';
-import '../screens/progress_screen.dart';
-import '../screens/privacy_screen.dart';
+import 'package:inner_breeze/screens/title_screen.dart';
+import 'package:inner_breeze/screens/settings_screen.dart';
+import 'package:inner_breeze/screens/splash_screen.dart';
+import 'package:inner_breeze/screens/results_screen.dart';
+import 'package:inner_breeze/screens/progress_screen.dart';
+import 'package:inner_breeze/screens/privacy_screen.dart';
+import 'package:inner_breeze/screens/breathing_settings_screen.dart';
 
 // GoRouter configuration
 final router = GoRouter(
@@ -39,6 +40,10 @@ final router = GoRouter(
     GoRoute(
       path: '/settings',
       builder: (context, state) => SettingsScreen(),
+    ),
+    GoRoute(
+      path: '/breathing',
+      builder: (context, state) => BreathingSettingsScreen(),
     ),
     GoRoute(
       path: '/privacy',
