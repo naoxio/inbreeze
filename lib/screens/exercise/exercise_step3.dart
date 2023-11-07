@@ -53,7 +53,7 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
           innerText = 'in';
         } else if ( timer.tick < 17) {
           innerText = (17 - timer.tick).toString();
-        } else if (timer.tick >= 15 && timer.tick < 18) {
+        } else if (timer.tick >= 17 && timer.tick <= 18) {
           innerText = 'out';
         } else {
           timer.cancel();
