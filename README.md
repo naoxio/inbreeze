@@ -19,14 +19,13 @@ We welcome any participates and you should feel welcome to share your ideas.
 
 - [Telegram](https://t.me/naoxio)
 - [Twitter](https://twitter.com/naox_io)
-- [Dicord](https://discord.gg/WWKtAJQtv5)
 
 ## Releases
 Releases are automatically updated through github actions.
 
 [Releases](https://github.com/naoxio/inner_breeze/releases)
-
-### Flatpak
+### Linux
+#### Flatpak
 [Flathub](https://flathub.org/apps/io.naox.InnerBreeze)
 
 ```
@@ -40,3 +39,9 @@ Latest Web build can be found on the website:
 [inner-breeze.app/#/](https://inner-breeze.app/#/)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9fe7d682-4647-42d3-8d29-53737c9ffe05/deploy-status)](https://app.netlify.com/sites/inbe/deploys)
+
+### Android
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+    alt="Get it on F-Droid"
+    height="80">](https://f-droid.org/packages/io.naox.inbe)
+
