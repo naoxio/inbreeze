@@ -24,12 +24,19 @@ We welcome any participates and you should feel welcome to share your ideas.
 Automatically updated via GitHub Actions.
 
 ### Get the App
-**Linux (Flatpak):**
-![Download on Flathub](https://dl.flathub.org/assets/badges/flathub-badge-en.png)(https://flathub.org/apps/io.naox.InnerBreeze)
+<p align="center">
+ <a href="https://flathub.org/apps/io.naox.InnerBreeze">
+  <img src="https://dl.flathub.org/assets/badges/flathub-badge-en.png"
+    alt="Download on Flathub"
+    height="60"></a>
+ 
+ <a href="https://f-droid.org/packages/io.naox.inbe">
+  <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+    alt="Get it on F-Droid"
+    height="80">
+ </a>
+</p>
 
-**Android (F-Droid):**
-![Get it on F-Droid](https://fdroid.gitlab.io/artwork/badge/get-it-on.png)(https://f-droid.org/packages/io.naox.inbe)
+[Web App](https://inner-breeze.app/#/)
 
-**Web:**
-[Latest Build](https://inner-breeze.app/#/)
-![Netlify Status](https://api.netlify.com/api/v1/badges/9fe7d682-4647-42d3-8d29-53737c9ffe05/deploy-status)(https://app.netlify.com/sites/inbe/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9fe7d682-4647-42d3-8d29-53737c9ffe05/deploy-status)](https://app.netlify.com/sites/inbe/deploys)
