@@ -1,4 +1,8 @@
  # Changelog
+ ## [1.0.3] - 2023-11-07
+ ### Updated
+ - Improve App icons
+
  ## [1.0.2] - 2023-11-07
  ### Fixed
  - Breathing timing at the end of a round
