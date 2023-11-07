@@ -89,13 +89,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildIconLink(dynamic iconOrImagePath, String tooltip, String url) {
     return IconButton(
       icon: (iconOrImagePath is IconData) 
-         ? Icon(iconOrImagePath, color: Colors.teal)
+        ? Icon(iconOrImagePath, color: Colors.teal)
         : (iconOrImagePath.endsWith('.svg')
             ? SvgPicture.asset(iconOrImagePath, color: Colors.teal, width: 24, height: 24)
             : Image.asset(iconOrImagePath, color: Colors.teal, width: 24, height: 24)),
       tooltip: tooltip,
-      onPressed: () => launchUrl(url as Uri),
+      onPressed: () => launchUrl(Uri.parse(url)),
     );
   }
+
 
 }
