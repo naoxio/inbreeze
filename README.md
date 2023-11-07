@@ -21,27 +21,15 @@ We welcome any participates and you should feel welcome to share your ideas.
 - [Twitter](https://twitter.com/naox_io)
 
 ## Releases
-Releases are automatically updated through github actions.
+Automatically updated via GitHub Actions.
 
-[Releases](https://github.com/naoxio/inner_breeze/releases)
-### Linux
-#### Flatpak
-[Flathub](https://flathub.org/apps/io.naox.InnerBreeze)
+### Get the App
+**Linux (Flatpak):**
+![Download on Flathub](https://dl.flathub.org/assets/badges/flathub-badge-en.png)(https://flathub.org/apps/io.naox.InnerBreeze)
 
-```
-flatpak install flathub io.naox.InnerBreeze
-flatpak run io.naox.InnerBreeze
-```
+**Android (F-Droid):**
+![Get it on F-Droid](https://fdroid.gitlab.io/artwork/badge/get-it-on.png)(https://f-droid.org/packages/io.naox.inbe)
 
-### Web
-Latest Web build can be found on the website:
-
-[inner-breeze.app/#/](https://inner-breeze.app/#/)
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/9fe7d682-4647-42d3-8d29-53737c9ffe05/deploy-status)](https://app.netlify.com/sites/inbe/deploys)
-
-### Android
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-    alt="Get it on F-Droid"
-    height="80">](https://f-droid.org/packages/io.naox.inbe)
-
+**Web:**
+[Latest Build](https://inner-breeze.app/#/)
+![Netlify Status](https://api.netlify.com/api/v1/badges/9fe7d682-4647-42d3-8d29-53737c9ffe05/deploy-status)(https://app.netlify.com/sites/inbe/deploys)
