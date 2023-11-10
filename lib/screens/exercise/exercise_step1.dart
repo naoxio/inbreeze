@@ -7,6 +7,7 @@ import 'package:inner_breeze/widgets/animated_circle.dart';
 import 'package:inner_breeze/widgets/stop_session.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:wakelock/wakelock.dart';
 
 class ExerciseStep1 extends StatefulWidget {
   ExerciseStep1({super.key});
@@ -35,8 +36,15 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
     
   Future<void> _loadDataFromPreferences() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final preferences = await userProvider.loadUserPreferences(['breaths', 'tempo', 'rounds', 'volume', 'sessionId']);
+    final preferences = await userProvider.loadUserPreferences(['breaths', 'tempo', 'rounds', 'volume', 'sessionId', 'screenAlwaysOn']);
     final sessionData = await userProvider.loadSessionData(['rounds']); 
+
+    bool screenAlwaysOn = preferences.screenAlwaysOn;
+    if (screenAlwaysOn) {
+      Wakelock.enable();
+    } else {
+      Wakelock.disable();
+    }
 
     int localMaxBreaths = preferences.breaths;
     int localTempo = preferences.tempo;

@@ -23,6 +23,7 @@ dependencies:
   uuid: ^3.0.7
   intl: ^0.18.0
   url_launcher: ^6.0.0
+  wakelock: ^0.6.2
 
 dev_dependencies:
   flutter_test:

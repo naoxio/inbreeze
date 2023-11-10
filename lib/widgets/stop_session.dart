@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:wakelock/wakelock.dart';
+
 
 class StopSessionButton extends StatefulWidget {
   final VoidCallback? onStopSessionPressed;
@@ -24,9 +26,13 @@ class _StopSessionButtonState extends State<StopSessionButton> {
     _loadDataFromProvider();
   }
 
+
   Future<void> _loadDataFromProvider() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final sessionData = await userProvider.loadSessionData(['rounds']);
+
+    Wakelock.disable();
+    
     setState(() {
       _rounds = sessionData!.rounds.length;
     });

@@ -13,7 +13,7 @@ class User {
     this.tutorialComplete = false,
     required this.preferences,
     this.currentSessionId,
-    this.sessions = const [],
+    this.sessions = const []
   });
   
   Map<String, dynamic> toJson() {
@@ -22,7 +22,7 @@ class User {
       'tutorialComplete': tutorialComplete,
       'preferences': preferences.toJson(),
       'currentSessionId': currentSessionId,
-      'sessions': sessions.map((session) => session.toJson()).toList(),
+      'sessions': sessions.map((session) => session.toJson()).toList()
     };
   }
 

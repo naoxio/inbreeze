@@ -13,15 +13,67 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-Future<void> resetData() async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.clear();
-}
 
 class _SettingsScreenState extends State<SettingsScreen> {
   var tempo = 2.0;
   var round = 1;
   var volume = 80.0;
+  bool _screenAlwaysOn = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadScreenAlwaysOnPreference();
+  }
+
+  Future<void> _loadScreenAlwaysOnPreference() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _screenAlwaysOn = prefs.getBool('screenAlwaysOn') ?? true;
+    });
+  }
+
+  Future<void> _updateScreenAlwaysOnPreference(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('screenAlwaysOn', value);
+    setState(() {
+      _screenAlwaysOn = value;
+    });
+  }
+
+  Future<void> _resetData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
+
+  void _showResetConfirmation() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Confirm Reset"),
+          content: Text("Are you sure you want to reset all data? This action cannot be undone."),
+          actions: <Widget>[
+            TextButton(
+              child: Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text("Reset Data", style: TextStyle(color: Colors.red)),
+              onPressed: () {
+                _resetData();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +111,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                 ),
                 SizedBox(height: 20),
-                OutlinedButton(
-                  onPressed: resetData,
-                  child: Text("Reset Data"),
+                SwitchListTile(
+                  title: Text('Keep Screen On During Exercise'),
+                  value: _screenAlwaysOn,
+                  onChanged: (bool value) {
+                    _updateScreenAlwaysOnPreference(value);
+                  },
+                ),
+                SizedBox(height: 20),
+                TextButton(
+                  onPressed: _showResetConfirmation,
+                  child: Text("Reset Data", style: TextStyle(color: Colors.red)),
                 ),
                 // Links Section
                 SizedBox(height: 40),
