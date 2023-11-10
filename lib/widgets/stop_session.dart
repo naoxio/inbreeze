@@ -3,7 +3,7 @@ import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
-
+import 'package:flutter/services.dart';
 
 class StopSessionButton extends StatefulWidget {
   final VoidCallback? onStopSessionPressed;
@@ -30,8 +30,6 @@ class _StopSessionButtonState extends State<StopSessionButton> {
   Future<void> _loadDataFromProvider() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final sessionData = await userProvider.loadSessionData(['rounds']);
-
-    Wakelock.disable();
     
     setState(() {
       _rounds = sessionData!.rounds.length;
@@ -39,6 +37,10 @@ class _StopSessionButtonState extends State<StopSessionButton> {
   }
 
   void _navigateToResults() {
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+
+      Wakelock.disable();
+
       Navigator.of(context).pop();
 
       if (widget.onStopSessionPressed != null) {

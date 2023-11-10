@@ -5,6 +5,10 @@ import 'package:inner_breeze/widgets/breeze_app_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:inner_breeze/providers/user_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:inner_breeze/models/preferences.dart';
+
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({super.key});
@@ -15,9 +19,6 @@ class SettingsScreen extends StatefulWidget {
 
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  var tempo = 2.0;
-  var round = 1;
-  var volume = 80.0;
   bool _screenAlwaysOn = true;
 
   @override
@@ -27,15 +28,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _loadScreenAlwaysOnPreference() async {
-    final prefs = await SharedPreferences.getInstance();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final preferences = await userProvider.loadUserPreferences(['screenAlwaysOn']);
     setState(() {
-      _screenAlwaysOn = prefs.getBool('screenAlwaysOn') ?? true;
+      _screenAlwaysOn = preferences.screenAlwaysOn;
     });
   }
 
   Future<void> _updateScreenAlwaysOnPreference(bool value) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('screenAlwaysOn', value);
+
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final preferences = Preferences(
+      screenAlwaysOn: value,
+    );
+    userProvider.saveUserPreferences(preferences);
+
     setState(() {
       _screenAlwaysOn = value;
     });
