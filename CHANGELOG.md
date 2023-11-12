@@ -1,4 +1,8 @@
  # Changelog
+ ## [1.0.5] - 2023-11-12
+ ### Fixed
+ - Fix save data
+
  ## [1.0.4] - 2023-11-07
  ### Added
  - Wakelock
