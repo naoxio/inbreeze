@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -8,13 +8,12 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  
-
+    
   Future<bool> _checkTutorialCompletion() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('tutorialComplete') ?? false;
+    final userId = prefs.getString('userId');
+    return prefs.getBool('$userId/tutorialComplete') ?? false;
   }
-
   @override
   void initState() {
     super.initState();

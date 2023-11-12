@@ -15,34 +15,17 @@ class UserProvider with ChangeNotifier {
     _initializeUser();
   }
 
-Future<void> _initializeUser() async {
+  Future<void> _initializeUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final userId = prefs.getString('userId');
     if (userId == null) {
-      final newUser = User(
-        id: Uuid().v4(),
-        preferences: Preferences(),
-      );
-      user = newUser;
-      await _saveUser();
+      user = User(id: Uuid().v4(), preferences: Preferences());
     } else {
       final userJson = prefs.getString(userId);
-      if (userJson != null) {
-        user = User.fromJson(jsonDecode(userJson));
-      } else {
-        final newUser = User(
-          id: userId,
-          preferences: Preferences(),
-        );
-        user = newUser;
-        await _saveUser();
-      }
+      user = userJson != null ? User.fromJson(jsonDecode(userJson)) : User(id: userId, preferences: Preferences());
     }
-  }
-
-  Future<void> _saveUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(user.id, jsonEncode(user.toJson()));
+    prefs.setString('userId', user.id);
   }
 
   Future<void> markTutorialAsComplete() async {
@@ -148,14 +131,10 @@ Future<void> _initializeUser() async {
     return sessionData.rounds;
   }
 
-  Future<void> clearCurrentSession() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('${user.id}/currentSession');
-  }
-
   Future<void> deleteSessionData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    
+    prefs.remove('${user.id}/currentSession');
+
     Set<String> allKeys = prefs.getKeys();
 
     Iterable<String> sessionKeys = allKeys.where((key) => key.startsWith('${user.id}/sessions/${user.currentSessionId}/'));

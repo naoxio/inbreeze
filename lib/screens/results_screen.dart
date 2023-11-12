@@ -41,7 +41,6 @@ class _ResultsScreenState extends State<ResultsScreen> {
   Future<void> _handleClose() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     if (!saveProgress) {
-      await userProvider.clearCurrentSession();
       await userProvider.deleteSessionData();
     }
   }
