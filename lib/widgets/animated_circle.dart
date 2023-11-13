@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:audio_session/audio_session.dart';
 
 class AnimatedCircle extends StatefulWidget {
   final int volume;
@@ -25,39 +26,76 @@ class AnimatedCircleState extends State<AnimatedCircle>
   late AnimationController _controller;
   late Animation<double> _radiusAnimation;
   late AudioPlayer _audioPlayer;
+  late AudioSession _audioSession;
   
+Future<AudioSession> _configureAudioSession() async {
+  final session = await AudioSession.instance;
+  await session.configure(AudioSessionConfiguration(
+    avAudioSessionCategory: AVAudioSessionCategory.playback,
+    avAudioSessionCategoryOptions: AVAudioSessionCategoryOptions.mixWithOthers,
+    avAudioSessionMode: AVAudioSessionMode.defaultMode,
+    androidAudioAttributes: const AndroidAudioAttributes(
+      contentType: AndroidAudioContentType.music,
+      flags: AndroidAudioFlags.none,
+      usage: AndroidAudioUsage.media,
+    ),
+    androidAudioFocusGainType: AndroidAudioFocusGainType.gainTransientMayDuck,
+  ));
+  return session;
+}
+
+
   @override
   void initState() {
     super.initState();
     
-    _controller = AnimationController(
-      vsync: this,
-      duration: widget.tempoDuration, // Use the tempo parameter
-    );
-    
-    _radiusAnimation = Tween<double>(begin: 40, end: 72).animate(_controller);
+    _configureAudioSession().then((session) {
+      _audioSession = session;
 
-    _audioPlayer = AudioPlayer();
+      _controller = AnimationController(
+        vsync: this,
+        duration: widget.tempoDuration,
+      );
 
-    _controller.addStatusListener((status) {
-      Duration newDuration = widget.tempoDuration;
-      if (_controller.duration != newDuration && _controller.status == AnimationStatus.forward) {
-        _stopAudio();
-        _controller.stop();
-        _controller.duration = newDuration;
-        _controller.forward();
-        _controller.repeat(reverse: true);
-      }
-  
-      if (status == AnimationStatus.forward) {
-        _playAudio('sounds/breath-in.ogg');
-      } else if (status == AnimationStatus.reverse) {
-        _playAudio('sounds/breath-out.ogg');
-      }
+      _radiusAnimation = Tween<double>(begin: 40, end: 72).animate(_controller);
+
+      _audioPlayer = AudioPlayer();
+      
+      _audioSession.interruptionEventStream.listen((event) {
+        if (event.begin) {
+          if (event.type == AudioInterruptionType.pause || event.type == AudioInterruptionType.unknown) {
+            _audioPlayer.pause();
+          }
+        } else {
+          if (event.type != AudioInterruptionType.unknown) {
+            _audioPlayer.play();
+          }
+        }
+      });
+
+      _controller.addStatusListener((status) {
+        Duration newDuration = widget.tempoDuration;
+        if (_controller.duration != newDuration &&
+            _controller.status == AnimationStatus.forward) {
+          _stopAudio();
+          _controller.stop();
+          _controller.duration = newDuration;
+          _controller.forward();
+          _controller.repeat(reverse: true);
+        }
+
+        if (status == AnimationStatus.forward) {
+          _playAudio('assets/sounds/breath-in.ogg');
+        } else if (status == AnimationStatus.reverse) {
+          _playAudio('assets/sounds/breath-out.ogg');
+        }
+      });
+    }).catchError((error) {
+      print('Failed to configure audio session: $error');
     });
-  }
+  }    
+
   @override
-  
   void didUpdateWidget(AnimatedCircle oldWidget) {
     super.didUpdateWidget(oldWidget);
   
@@ -66,7 +104,7 @@ class AnimatedCircleState extends State<AnimatedCircle>
       if (widget.controlCallback != null) {
         String control = widget.controlCallback!();
         if (control == 'reset') {
-          _controller.reset(); // This ensures the animation starts from the beginning
+          _controller.reset();
           _stopAudio();
           _controller.forward();
           _controller.repeat(reverse: true);
@@ -103,39 +141,33 @@ class AnimatedCircleState extends State<AnimatedCircle>
       }
     }
 
-  }
-  void _stopAudio() async {
-    if (_audioPlayer.state == PlayerState.playing || _audioPlayer.state == PlayerState.completed) {
-      await _audioPlayer.release();
     }
+  void _stopAudio() async {
+    await _audioPlayer.stop();
   }
 
   Future<void> _playAudio(String assetPath) async {
     if (widget.volume == 0) return; 
 
-    try {
-      // Check if _audioPlayer has been disposed. If yes, create a new instance.
-      if (_audioPlayer.state == PlayerState.disposed) {
-        _audioPlayer = AudioPlayer();
-      }
-      
-      if (_audioPlayer.state == PlayerState.playing) {
-        await _audioPlayer.release();
-      } 
-      await _audioPlayer.play(AssetSource(assetPath));
-      await _audioPlayer.setVolume(widget.volume / 100); 
-      await _audioPlayer.resume();
-    } catch (e) {
+    final session = await AudioSession.instance;
+    if (await session.setActive(true)) {
+      try {
+        await _audioPlayer.setAsset(assetPath);
+        await _audioPlayer.setVolume(widget.volume / 100);
+        await _audioPlayer.play();
+      } catch (e) {
         print("Error playing audio: $e");
+      }
+    } else {
+      print("Failed to activate audio session");
     }
   }
+
 
   @override
   void dispose() {
     _controller.dispose();
-    if (_audioPlayer.state != PlayerState.disposed) {
-      _audioPlayer.dispose();
-    }
+    _audioPlayer.dispose();
     super.dispose();
   }
 

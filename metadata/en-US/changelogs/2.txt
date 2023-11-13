@@ -1,2 +1,3 @@
-* Adjusted the padding for a better UI experience.
-* Introduced icons for social links.
+* UI padding adjusted for better user experience.
+* New icons for social media links.
+

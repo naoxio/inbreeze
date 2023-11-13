@@ -1,1 +1,2 @@
-* initial release
+* First release of the application.
+

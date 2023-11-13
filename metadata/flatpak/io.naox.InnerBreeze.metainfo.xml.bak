@@ -21,22 +21,62 @@
     <screenshots>
         <screenshot type="default">
             <caption>A screenshot of the Inner Breeze Tutorial</caption>
-            <image>https://raw.githubusercontent.com/naoxio/inner_breeze/main/linux/extra/screenshot1.png</image>
+            <image>https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/flatpak/screenshot1.png</image>
         </screenshot>
+        
     </screenshots>
 
     <url type="homepage">https://github.com/naoxio/inner_breeze</url>
     <url type="bugtracker">https://github.com/naoxio/inner_breeze/issues</url>
 
-    <releases>
-        <release version="1.0.0" date="2023-09-05">
-            <description>
-                <ul>
-                    <li>Initial release of InnerBreeze.</li>
-                </ul>
-            </description>
-        </release>
-    </releases>
+<releases>
+<release version="1.0.0" date="2023-09-07">
+<description><ul>
+<li>First release of the application.</li>
+
+</ul></description>
+</release>
+<release version="1.0.1" date="2023-10-01">
+<description><ul>
+<li>UI padding adjusted for better user experience.</li>
+<li>New icons for social media links.</li>
+
+</ul></description>
+</release>
+<release version="1.0.2" date="2023-11-07">
+<description><ul>
+<li>Breathing timing issue at the end of a round.</li>
+<li>Introduced a new logo and images for branding.</li>
+<li>Improved configuration options for the breathing circle.</li>
+
+</ul></description>
+</release>
+<release version="1.0.3" date="2023-11-07">
+<description><ul>
+<li>App icons for a more modern and cohesive look.</li>
+
+</ul></description>
+</release>
+<release version="1.0.4" date="2023-11-07">
+<description><ul>
+<li>Wakelock feature to prevent the screen from turning off automatically.</li>
+<li>Metadata for enhanced app description and indexing.</li>
+
+</ul></description>
+</release>
+<release version="1.0.5" date="2023-11-12">
+<description><ul>
+<li>Issue with saving data not persisting properly.</li>
+
+</ul></description>
+</release>
+<release version="1.0.6" date="2023-11-13">
+<description><ul>
+<li>Background music play issue to allow simultaneous playback with other audio sources.</li>
+
+</ul></description>
+</release>
+</releases>
 
     <icon type="remote" height="72" width="72">https://raw.githubusercontent.com/naoxio/inner_breeze/main/android/app/src/main/res/mipmap-hdpi/ic_launcher.png</icon>
     <icon type="remote" height="144" width="144">https://raw.githubusercontent.com/naoxio/inner_breeze/main/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png</icon>

@@ -1,2 +1,3 @@
-* update description
-* keep screen on
+* Wakelock feature to prevent the screen from turning off automatically.
+* Metadata for enhanced app description and indexing.
+

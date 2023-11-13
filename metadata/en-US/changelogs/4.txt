@@ -1,1 +1,2 @@
-* Improve app icon
+* App icons for a more modern and cohesive look.
+

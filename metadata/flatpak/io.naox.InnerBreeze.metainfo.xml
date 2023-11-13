@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>io.naox.InnerBreeze</id>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>MIT</project_license>
+    <content_rating type="oars-1.1" />
+    <developer_name>NaoX</developer_name>
+    <categories>
+        <category>Health</category>
+        <category>Wellness</category>
+    </categories>
+    <name>InnerBreeze</name>
+    <summary>A dedicated meditation app to guide and track your Wim Hof Breathing practice</summary> 
+    <description>
+        <p>Find serenity in every breath with Inner Breeze. Tailored for all levels, this app guides you through the Wim Hof Breathing Method with ease.</p>
+        <p>Experience mindful breathing with personalized settings and track your journey towards tranquility and rejuvenation. Inner Breeze is more than an app; it's your daily retreat into calm.</p>
+    </description>
+
+    <launchable type="desktop-id">io.naox.InnerBreeze.desktop</launchable>
+
+    <screenshots>
+        <screenshot type="default">
+            <caption>Title Screen</caption>
+            <image>https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/flatpak/screen1.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Tutorial Page</caption>
+            <image>https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/flatpak/screen2.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Starting the Breathing Exercise</caption>
+            <image>https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/flatpak/screen3.png</image>
+        </screenshot>
+        
+    </screenshots>
+
+    <url type="homepage">https://github.com/naoxio/inner_breeze</url>
+    <url type="bugtracker">https://github.com/naoxio/inner_breeze/issues</url>
+
+<releases>
+<release version="1.0.0" date="2023-09-07">
+<description><ul>
+<li>First release of the application.</li>
+
+</ul></description>
+</release>
+<release version="1.0.1" date="2023-10-01">
+<description><ul>
+<li>UI padding adjusted for better user experience.</li>
+<li>New icons for social media links.</li>
+
+</ul></description>
+</release>
+<release version="1.0.2" date="2023-11-07">
+<description><ul>
+<li>Breathing timing issue at the end of a round.</li>
+<li>Introduced a new logo and images for branding.</li>
+<li>Improved configuration options for the breathing circle.</li>
+
+</ul></description>
+</release>
+<release version="1.0.3" date="2023-11-07">
+<description><ul>
+<li>App icons for a more modern and cohesive look.</li>
+
+</ul></description>
+</release>
+<release version="1.0.4" date="2023-11-07">
+<description><ul>
+<li>Wakelock feature to prevent the screen from turning off automatically.</li>
+<li>Metadata for enhanced app description and indexing.</li>
+
+</ul></description>
+</release>
+<release version="1.0.5" date="2023-11-12">
+<description><ul>
+<li>Issue with saving data not persisting properly.</li>
+
+</ul></description>
+</release>
+<release version="1.0.6" date="2023-11-13">
+<description><ul>
+<li>Background music play issue to allow simultaneous playback with other audio sources.</li>
+
+</ul></description>
+</release>
+</releases>
+    <icon type="remote" height="72" width="72">https://raw.githubusercontent.com/naoxio/inner_breeze/main/android/app/src/main/res/mipmap-hdpi/ic_launcher.png</icon>
+    <icon type="remote" height="144" width="144">https://raw.githubusercontent.com/naoxio/inner_breeze/main/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png</icon>
+    <update_contact>contact@naox.io</update_contact>
+</component>

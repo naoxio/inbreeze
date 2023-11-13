@@ -19,6 +19,7 @@ void run() {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   if (isDesktop()) {
     await windowManager.ensureInitialized();
 
@@ -73,10 +74,8 @@ class _AppState extends State<App> {
       _preloadAssets(context);
     }
   }
-
   Future<void> _preloadAssets(BuildContext context) async {
     final imageExtensions = ['.png', '.jpg', '.jpeg'];
-    final soundExtensions = ['.mp3', '.wav', '.ogg'];
 
     final imageAssetFilenames = [
       'angel.jpg',
@@ -84,25 +83,16 @@ class _AppState extends State<App> {
       'logo.png',
     ];
 
-    final soundAssetFilenames = [
-      'breath-in.ogg',
-      'breath-out.ogg',
-    ];
-
-    // Construct full paths
+    // Construct full paths for image assets
     final imageAssetPaths = imageAssetFilenames.map((filename) => 'assets/images/$filename').toList();
-    final soundAssetPaths = soundAssetFilenames.map((filename) => 'assets/sounds/$filename').toList();
 
-    final allAssets = [...imageAssetPaths, ...soundAssetPaths];
-
-    for (final assetPath in allAssets) {
+    for (final assetPath in imageAssetPaths) {
       if (imageExtensions.any((ext) => assetPath.endsWith(ext))) {
         await precacheImage(AssetImage(assetPath), context);
-      } else if (soundExtensions.any((ext) => assetPath.endsWith(ext))) {
-        await rootBundle.load(assetPath);
       }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
