@@ -207,18 +207,17 @@ jobs:
         cp InnerBreeze.AppDir/data/flutter_assets/assets/images/logo.png InnerBreeze.AppDir/InnerBreeze.png
 
         ./appimagetool-x86_64.AppImage InnerBreeze.AppDir
-  
+      
     - name: Archive Linux executable
-
       run: |
         mkdir -p organized_output/InnerBreeze-x86_64/
         mv build/linux/x64/release/bundle/* organized_output/InnerBreeze-x86_64/
-        cp -r linux/extra organized_output/InnerBreeze-x86_64/
-    
+        cp -r metadata organized_output/InnerBreeze-x86_64/
+        
         cd organized_output
     
         tar -czf ../InnerBreeze-Linux-x86_64.tar.gz InnerBreeze-x86_64/
-      
+  
     - name: Upload Linux Artifacts
       uses: actions/upload-artifact@v2
       with:
