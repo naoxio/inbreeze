@@ -23,8 +23,8 @@ do
         if [[ $inside_version -eq 1 ]]; then
             version_number=$((version_number+1))
             echo -e "$output" > "$temp_dir/$version_number.txt"
-            # Prepend to XML releases
-            xml_releases="<release version=\"$version\" date=\"$date\">\n<description><ul>\n$xml_output\n</ul></description>\n</release>\n$xml_releases"
+            # Append to XML releases
+            xml_releases="$xml_releases<release version=\"$version\" date=\"$date\">\n<description><ul>\n$xml_output\n</ul></description>\n</release>\n"
             output=""
             xml_output=""
         fi
@@ -46,8 +46,8 @@ done < "$changelog_file"
 if [[ -n $output ]]; then
     version_number=$((version_number+1))
     echo -e "$output" > "$temp_dir/$version_number.txt"
-    # Prepend the last release to XML
-    xml_releases="<release version=\"$version\" date=\"$date\">\n<description><ul>\n$xml_output\n</ul></description>\n</release>\n$xml_releases"
+    # Append the last release to XML
+    xml_releases="$xml_releases<release version=\"$version\" date=\"$date\">\n<description><ul>\n$xml_output\n</ul></description>\n</release>\n"
 fi
 
 # Reverse the order of text files to match version order

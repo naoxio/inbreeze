@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.7] - 2023-11-13
+### Fixed
+- Update Flatpak metadata
+
 ## [1.0.6] - 2023-11-13
 ### Fixed
 - Background music play issue to allow simultaneous playback with other audio sources.
