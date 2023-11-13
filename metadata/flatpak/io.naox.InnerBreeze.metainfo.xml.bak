@@ -38,16 +38,34 @@
     <url type="bugtracker">https://github.com/naoxio/inner_breeze/issues</url>
 
 <releases>
-<release version="1.0.0" date="2023-09-07">
+<release version="1.0.7" date="2023-11-13">
 <description><ul>
-<li>First release of the application.</li>
+<li>Update Flatpak metadata</li>
 
 </ul></description>
 </release>
-<release version="1.0.1" date="2023-10-01">
+<release version="1.0.6" date="2023-11-13">
 <description><ul>
-<li>UI padding adjusted for better user experience.</li>
-<li>New icons for social media links.</li>
+<li>Background music play issue to allow simultaneous playback with other audio sources.</li>
+
+</ul></description>
+</release>
+<release version="1.0.5" date="2023-11-12">
+<description><ul>
+<li>Issue with saving data not persisting properly.</li>
+
+</ul></description>
+</release>
+<release version="1.0.4" date="2023-11-07">
+<description><ul>
+<li>Wakelock feature to prevent the screen from turning off automatically.</li>
+<li>Metadata for enhanced app description and indexing.</li>
+
+</ul></description>
+</release>
+<release version="1.0.3" date="2023-11-07">
+<description><ul>
+<li>App icons for a more modern and cohesive look.</li>
 
 </ul></description>
 </release>
@@ -59,34 +77,16 @@
 
 </ul></description>
 </release>
-<release version="1.0.3" date="2023-11-07">
+<release version="1.0.1" date="2023-10-01">
 <description><ul>
-<li>App icons for a more modern and cohesive look.</li>
+<li>UI padding adjusted for better user experience.</li>
+<li>New icons for social media links.</li>
 
 </ul></description>
 </release>
-<release version="1.0.4" date="2023-11-07">
+<release version="1.0.0" date="2023-09-07">
 <description><ul>
-<li>Wakelock feature to prevent the screen from turning off automatically.</li>
-<li>Metadata for enhanced app description and indexing.</li>
-
-</ul></description>
-</release>
-<release version="1.0.5" date="2023-11-12">
-<description><ul>
-<li>Issue with saving data not persisting properly.</li>
-
-</ul></description>
-</release>
-<release version="1.0.6" date="2023-11-13">
-<description><ul>
-<li>Background music play issue to allow simultaneous playback with other audio sources.</li>
-
-</ul></description>
-</release>
-<release version="1.0.7" date="2023-11-13">
-<description><ul>
-<li>Update Flatpak metadata</li>
+<li>First release of the application.</li>
 
 </ul></description>
 </release>

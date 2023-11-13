@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.8] - 2023-11-13
+### Updated
+- Add themeable icon for android
+
 ## [1.0.7] - 2023-11-13
 ### Fixed
 - Update Flatpak metadata
