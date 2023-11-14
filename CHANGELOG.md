@@ -1,4 +1,7 @@
 # Changelog
+## [1.0.9] - 2023-11-14
+### Fixed
+- Fix audio issue on desktop
 
 ## [1.0.8] - 2023-11-13
 ### Updated

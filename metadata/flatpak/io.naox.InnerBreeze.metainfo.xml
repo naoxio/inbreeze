@@ -38,6 +38,12 @@
     <url type="bugtracker">https://github.com/naoxio/inner_breeze/issues</url>
 
 <releases>
+<release version="1.0.9" date="2023-11-14">
+<description><ul>
+<li>Fix audio issue on desktop</li>
+
+</ul></description>
+</release>
 <release version="1.0.8" date="2023-11-13">
 <description><ul>
 <li>Add themeable icon for android</li>
