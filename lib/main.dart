@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'router/router.dart';
 import 'utils/platform_checker.dart';
-import 'package:flutter/services.dart';
 
 const String title = 'Inner Breeze';
 

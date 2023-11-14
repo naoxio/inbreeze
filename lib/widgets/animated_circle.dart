@@ -27,23 +27,24 @@ class AnimatedCircleState extends State<AnimatedCircle>
   late Animation<double> _radiusAnimation;
   late AudioPlayer _audioPlayer;
   late AudioSession _audioSession;
-  
-Future<AudioSession> _configureAudioSession() async {
-  final session = await AudioSession.instance;
-  await session.configure(AudioSessionConfiguration(
-    avAudioSessionCategory: AVAudioSessionCategory.playback,
-    avAudioSessionCategoryOptions: AVAudioSessionCategoryOptions.mixWithOthers,
-    avAudioSessionMode: AVAudioSessionMode.defaultMode,
-    androidAudioAttributes: const AndroidAudioAttributes(
-      contentType: AndroidAudioContentType.music,
-      flags: AndroidAudioFlags.none,
-      usage: AndroidAudioUsage.media,
-    ),
-    androidAudioFocusGainType: AndroidAudioFocusGainType.gainTransientMayDuck,
-  ));
-  return session;
-}
+    
+  bool _isInitialized = false;
 
+  Future<AudioSession> _configureAudioSession() async {
+    final session = await AudioSession.instance;
+    await session.configure(AudioSessionConfiguration(
+      avAudioSessionCategory: AVAudioSessionCategory.playback,
+      avAudioSessionCategoryOptions: AVAudioSessionCategoryOptions.mixWithOthers,
+      avAudioSessionMode: AVAudioSessionMode.defaultMode,
+      androidAudioAttributes: const AndroidAudioAttributes(
+        contentType: AndroidAudioContentType.music,
+        flags: AndroidAudioFlags.none,
+        usage: AndroidAudioUsage.media,
+      ),
+      androidAudioFocusGainType: AndroidAudioFocusGainType.gainTransientMayDuck,
+    ));
+    return session;
+  }
 
   @override
   void initState() {
@@ -89,6 +90,10 @@ Future<AudioSession> _configureAudioSession() async {
         } else if (status == AnimationStatus.reverse) {
           _playAudio('assets/sounds/breath-out.ogg');
         }
+      });
+      
+      setState(() {
+        _isInitialized = true;
       });
     }).catchError((error) {
       print('Failed to configure audio session: $error');
@@ -173,6 +178,9 @@ Future<AudioSession> _configureAudioSession() async {
 
  @override
   Widget build(BuildContext context) {
+    if (!_isInitialized) {
+      return Center(child: CircularProgressIndicator());
+    }
     return Center(
       child: CustomPaint(
         painter: BreathingCircle(_radiusAnimation, innerText: widget.innerText),
