@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
@@ -95,13 +94,12 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
               ),
               SizedBox(height: 200),
               StopSessionButton(),
-              if (!kReleaseMode)
-                TextButton(
-                  child: Text('Skip'),
-                  onPressed: () {
-                    _navigateToNextExercise();
-                  },
-                ),
+              TextButton(
+                child: Text('Skip'),
+                onPressed: () {
+                  _navigateToNextExercise();
+                },
+              ),
             ],
           ),
         ),

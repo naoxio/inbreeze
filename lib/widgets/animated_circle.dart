@@ -27,7 +27,6 @@ class AnimatedCircleState extends State<AnimatedCircle>
   late Animation<double> _radiusAnimation;
   late AudioPlayer _audioPlayer;
   late AudioSession _audioSession;
-    
   bool _isInitialized = false;
 
   Future<AudioSession> _configureAudioSession() async {
@@ -50,18 +49,15 @@ class AnimatedCircleState extends State<AnimatedCircle>
   void initState() {
     super.initState();
     
+    _audioPlayer = AudioPlayer();
+     _controller = AnimationController(
+      vsync: this,
+      duration: widget.tempoDuration,
+    );
+    _radiusAnimation = Tween<double>(begin: 40, end: 72).animate(_controller);
+
     _configureAudioSession().then((session) {
       _audioSession = session;
-
-      _controller = AnimationController(
-        vsync: this,
-        duration: widget.tempoDuration,
-      );
-
-      _radiusAnimation = Tween<double>(begin: 40, end: 72).animate(_controller);
-
-      _audioPlayer = AudioPlayer();
-      
       _audioSession.interruptionEventStream.listen((event) {
         if (event.begin) {
           if (event.type == AudioInterruptionType.pause || event.type == AudioInterruptionType.unknown) {
@@ -208,10 +204,8 @@ class BreathingCircle extends CustomPainter {
     
     String? displayText = innerText;
 
-    // Try to parse the innerText as an integer
     int? numberValue = int.tryParse(innerText ?? '');
 
-    // If the parsed value is a number and is less than 0, update the displayText to its absolute value
     if (numberValue != null && numberValue < 0) {
       displayText = numberValue.abs().toString();
     }

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
@@ -136,13 +135,12 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
               ),
               SizedBox(height: 200),
               StopSessionButton(),
-              if (!kReleaseMode)
-                TextButton(
-                  child: Text('Skip'),
-                  onPressed: () {
-                    _navigateToNextExercise();
-                  },
-                )
+              TextButton(
+                child: Text('Skip'),
+                onPressed: () {
+                  skipCountdown();
+                },
+              ),
             ],
           ),
         ),
@@ -155,5 +153,18 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
     breathCycleTimer?.cancel();
 
     super.dispose();
+  }
+
+
+  void skipCountdown() {
+    if (breathsDone < 0) {
+      breathCycleTimer?.cancel();
+      setState(() {
+        breathsDone = 1;
+      });
+      startBreathCounting();
+    } else {
+      _navigateToNextExercise();
+    }
   }
 }

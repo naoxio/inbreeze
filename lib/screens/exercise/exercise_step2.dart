@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/widgets/stop_session.dart';
@@ -90,7 +89,7 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
                     _navigateToNextExercise();
                   },
                   child: Text(
-                    'Stop Hold',
+                    'Finish Hold',
                     style: TextStyle(
                       fontSize: 18.0,
                     ),
@@ -101,13 +100,6 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
               StopSessionButton(
                 onStopSessionPressed: _onStopSessionPressed,
               ),
-              if (!kReleaseMode)
-                TextButton(
-                  child: Text('Skip'),
-                  onPressed: () {
-                    _navigateToNextExercise();
-                  },
-                )
             ],
           ),
         ),
