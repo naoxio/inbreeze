@@ -1,0 +1,4 @@
+* Skip button
+* Wakelock only for mobile and web
+* Desktop bug with breathing circle
+

@@ -4,6 +4,8 @@
 - Skip button
 ### Changed
 - Wakelock only for mobile and web
+### Fixed
+- Desktop bug with breathing circle
 
 ## [1.0.9] - 2023-11-14
 ### Fixed
