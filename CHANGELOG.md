@@ -1,4 +1,10 @@
 # Changelog
+## [1.0.10] - 2023-11-18
+### Added
+- Skip button
+### Changed
+- Wakelock only for mobile and web
+
 ## [1.0.9] - 2023-11-14
 ### Fixed
 - Fix audio issue on desktop

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inner_breeze/utils/platform_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:flutter/services.dart';
@@ -38,8 +39,9 @@ class _StopSessionButtonState extends State<StopSessionButton> {
 
   void _navigateToResults() {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
-
-      Wakelock.disable();
+      if (isMobile() || isWeb()) {
+        Wakelock.disable();
+      }
 
       Navigator.of(context).pop();
 
