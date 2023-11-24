@@ -113,21 +113,24 @@ class _ResultsScreenState extends State<ResultsScreen> {
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
         child: SizedBox(
-          height: 120,
+          height: 84,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SwitchListTile(
-                title: Text("Save Progress"),
-                value: saveProgress,
-                onChanged: (rounds > 0)
-                    ? (bool value) {
-                        setState(() {
-                          saveProgress = value;
-                        });
-                      }
-                    : null,
-                activeColor: Colors.teal,
+              SizedBox(
+                height: 42,
+                child: SwitchListTile(
+                  title: Text("Save Progress"),
+                  value: saveProgress,
+                  onChanged: (rounds > 0)
+                      ? (bool value) {
+                          setState(() {
+                            saveProgress = value;
+                          });
+                        }
+                      : null,
+                  activeColor: Colors.teal,
+                ),
               ),
               SizedBox(
                 width: double.infinity,
