@@ -94,9 +94,8 @@ class _ResultsScreenState extends State<ResultsScreen> {
                               await userProvider.deleteRound(roundNumber);
                               final sessionData = await userProvider.loadSessionData(['rounds']);
                               setState(() {
-                                  rounds = sessionData!.rounds.length;
-                                 _loadSessions();
-
+                                rounds = sessionData!.rounds.length;
+                                _loadSessions();
                               });
                             }
                           )
@@ -112,41 +111,44 @@ class _ResultsScreenState extends State<ResultsScreen> {
       ),     
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
-        child: SizedBox(
-          height: 84,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 42,
-                child: SwitchListTile(
-                  title: Text("Save Progress"),
-                  value: saveProgress,
-                  onChanged: (rounds > 0)
-                      ? (bool value) {
-                          setState(() {
-                            saveProgress = value;
-                          });
-                        }
-                      : null,
-                  activeColor: Colors.teal,
-                ),
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 42,
-                child: TextButton(
-                  onPressed: () {
-                    _handleClose();
-                    context.go('/home');
-                  },
-                  child: Text(
-                    'Close',
-                    style: BreezeStyle.bodyBig
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 16.0),
+          child: SizedBox(
+            height: 84,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 42,
+                  child: SwitchListTile(
+                    title: Text("Save Progress"),
+                    value: saveProgress,
+                    onChanged: (rounds > 0)
+                        ? (bool value) {
+                            setState(() {
+                              saveProgress = value;
+                            });
+                          }
+                        : null,
+                    activeColor: Colors.teal,
                   ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: double.infinity,
+                  height: 42,
+                  child: TextButton(
+                    onPressed: () {
+                      _handleClose();
+                      context.go('/home');
+                    },
+                    child: Text(
+                      'Close',
+                      style: BreezeStyle.bodyBig
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
