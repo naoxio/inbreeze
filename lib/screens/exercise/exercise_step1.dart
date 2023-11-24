@@ -40,7 +40,6 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final preferences = await userProvider.loadUserPreferences(['breaths', 'tempo', 'rounds', 'volume', 'sessionId', 'screenAlwaysOn']);
     final sessionData = await userProvider.loadSessionData(['rounds']); 
-    print(preferences.screenAlwaysOn);
     if (isMobile() || isWeb()) {
       if (preferences.screenAlwaysOn) {
         Wakelock.enable();
