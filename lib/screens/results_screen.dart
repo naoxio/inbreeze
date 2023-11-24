@@ -108,11 +108,11 @@ class _ResultsScreenState extends State<ResultsScreen> {
             ),
           ],
         ),
-      ),    
+      ),     
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
         child: SizedBox(
-          height: 104, // Increase the height to create padding under the 'Close' button
+          height: 84,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -145,7 +145,6 @@ class _ResultsScreenState extends State<ResultsScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 20), // Additional padding under the 'Close' button
             ],
           ),
         ),
