@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
-import 'package:inner_breeze/utils/platform_checker.dart';
 import 'package:inner_breeze/widgets/animated_circle.dart';
 import 'package:inner_breeze/widgets/stop_session.dart';
 import 'package:go_router/go_router.dart';
@@ -40,13 +39,15 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final preferences = await userProvider.loadUserPreferences(['breaths', 'tempo', 'rounds', 'volume', 'sessionId', 'screenAlwaysOn']);
     final sessionData = await userProvider.loadSessionData(['rounds']); 
-    if (isMobile() || isWeb()) {
+    try {
       if (preferences.screenAlwaysOn) {
         Wakelock.enable();
       } else {
         Wakelock.disable();
-      }
-    }
+      } 
+    // ignore: empty_catches
+    } catch (e) {}
+  
 
     int localMaxBreaths = preferences.breaths;
     int localTempo = preferences.tempo;
