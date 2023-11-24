@@ -17,22 +17,19 @@ class CustomTimerState extends State<CustomTimer> with SingleTickerProviderState
   @override
   void initState() {
     super.initState();
-    // Create an animation controller
     controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 1),
     );
-
-    // Create an animation for the outer circle (progress animation)
     outerAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(controller)
       ..addListener(() {
-        setState(() {}); // Trigger a rebuild when the animation updates
+        setState(() {});
       });
   }
 
   @override
   void dispose() {
-    controller.dispose(); // Dispose the animation controller
+    controller.dispose();
     super.dispose();
   }
 
@@ -64,21 +61,17 @@ class TimerPainter extends CustomPainter {
     final milliseconds = duration.inMilliseconds % maxMilliseconds;
     final percentage = milliseconds / maxMilliseconds;
     final sweepAngle = 2 * pi * percentage;
-    // Dotted circle paint
     final dottedPaint = Paint()
       ..color = Colors.grey
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.0
       ..strokeCap = StrokeCap.round;
 
-    // Teal arc paint
     final tealPaint = Paint()
       ..color = Colors.teal
       ..style = PaintingStyle.stroke
       ..strokeWidth = 8.0;
 
-  
-    // Calculate how many minutes have passed
     final passedMinutes = duration.inMinutes;
 
     for (int i = 0; i <= passedMinutes; i++) {
@@ -91,7 +84,7 @@ class TimerPainter extends CustomPainter {
         final y = center.dy + currentRadius * sin(j * angleIncrement);
         canvas.drawCircle(Offset(x, y), 1, dottedPaint);
       }
-      // If it's a completed minute, draw a full teal circle
+
       if (i < passedMinutes) {
         canvas.drawArc(
           Rect.fromCircle(center: center, radius: currentRadius),
@@ -101,7 +94,6 @@ class TimerPainter extends CustomPainter {
           tealPaint,
         );
       } else if (i == passedMinutes) {
-        // Only draw the teal arc for the current minute
         canvas.drawArc(
           Rect.fromCircle(center: center, radius: currentRadius),
           -pi / 2,

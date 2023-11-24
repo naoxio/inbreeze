@@ -27,7 +27,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
     final roundDurations = await userProvider.loadRoundDurations();
 
     setState(() {
-      rounds = sessionData!.rounds.length;
+      rounds = sessionData?.rounds.length ?? 0;
       allRoundDurations = roundDurations;
 
       if (rounds == 0) {
@@ -82,7 +82,9 @@ class _ResultsScreenState extends State<ResultsScreen> {
                       Row(
                         children: [
                           Text(
-                            '${duration?.inMinutes}:${duration?.inSeconds.remainder(60).toString().padLeft(2, '0')}',
+                            duration != null 
+                              ? '${duration.inMinutes}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}'
+                              : 'No data',
                             style: BreezeStyle.body,
                           ),
                           SizedBox(width: 25),

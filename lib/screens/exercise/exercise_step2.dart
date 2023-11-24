@@ -21,10 +21,10 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
   @override
   void initState() {
     super.initState();
-
-    timer = Timer.periodic(Duration(milliseconds: 1), (Timer t) {
+    timer = Timer.periodic(Duration(milliseconds: 10), (Timer t) {
       setState(() {
-        duration = duration + Duration(milliseconds: 1);
+        duration = duration + Duration(milliseconds: 10);
+        print(duration);
       });
     });
     _loadDataFromPreferences();
