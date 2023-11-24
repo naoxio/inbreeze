@@ -112,36 +112,40 @@ class _ResultsScreenState extends State<ResultsScreen> {
       ),     
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SwitchListTile(
-              title: Text("Save Progress"),
-              value: saveProgress,
-              onChanged: (rounds > 0)
-                  ? (bool value) {
-                      setState(() {
-                        saveProgress = value;
-                      });
-                    }
-                  : null,
-              activeColor: Colors.teal,
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: 52,
-              child: TextButton(
-                onPressed: () {
-                  _handleClose();
-                  context.go('/home');
-                },
-                child: Text(
-                  'Close',
-                  style: BreezeStyle.bodyBig
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SwitchListTile(
+                  title: Text("Save Progress"),
+                  value: saveProgress,
+                  onChanged: (rounds > 0)
+                      ? (bool value) {
+                          setState(() {
+                            saveProgress = value;
+                          });
+                        }
+                      : null,
+                  activeColor: Colors.teal,
                 ),
-              ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 52,
+                  child: TextButton(
+                    onPressed: () {
+                      _handleClose();
+                      context.go('/home');
+                    },
+                    child: Text(
+                      'Close',
+                      style: BreezeStyle.bodyBig
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
