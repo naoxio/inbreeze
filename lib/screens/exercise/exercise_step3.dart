@@ -65,42 +65,44 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(25.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Recovery',
-                style: BreezeStyle.header,
-              ),
-              AnimatedCircle(
-                volume: volume,
-                tempoDuration: tempoDuration,
-                innerText: innerText,
-                controlCallback: () {
-                  if (innerText == 'in') {
-                    return 'forward';
-                  }
-                  else if (innerText == 'out') {
-                    return 'reverse';
-                  }
-                  else {
-                    return 'stop';
-                  }
-                },
-              ),
-              SizedBox(height: 200),
-              StopSessionButton(),
-              TextButton(
-                child: Text('Skip'),
-                onPressed: () {
-                  _navigateToNextExercise();
-                },
-              ),
-            ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.all(25.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Recovery',
+                  style: BreezeStyle.header,
+                ),
+                AnimatedCircle(
+                  volume: volume,
+                  tempoDuration: tempoDuration,
+                  innerText: innerText,
+                  controlCallback: () {
+                    if (innerText == 'in') {
+                      return 'forward';
+                    }
+                    else if (innerText == 'out') {
+                      return 'reverse';
+                    }
+                    else {
+                      return 'stop';
+                    }
+                  },
+                ),
+                SizedBox(height: 200),
+                StopSessionButton(),
+                TextButton(
+                  child: Text('Skip'),
+                  onPressed: () {
+                    _navigateToNextExercise();
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

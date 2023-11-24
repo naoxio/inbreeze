@@ -65,41 +65,43 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(25.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            
-            children: [
-              SizedBox(
-                width: 300,
-                height: 300,
-                child: CustomTimer(duration: duration),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              SizedBox(
-                height: 42,
-                child: OutlinedButton(
-                  onPressed: () {
-                    _navigateToNextExercise();
-                  },
-                  child: Text(
-                    'Finish Hold',
-                    style: TextStyle(
-                      fontSize: 18.0,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.all(25.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              
+              children: [
+                SizedBox(
+                  width: 300,
+                  height: 300,
+                  child: CustomTimer(duration: duration),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                SizedBox(
+                  height: 42,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      _navigateToNextExercise();
+                    },
+                    child: Text(
+                      'Finish Hold',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 20),
-              StopSessionButton(
-                onStopSessionPressed: _onStopSessionPressed,
-              ),
-            ],
+                SizedBox(height: 20),
+                StopSessionButton(
+                  onStopSessionPressed: _onStopSessionPressed,
+                ),
+              ],
+            ),
           ),
         ),
       ),

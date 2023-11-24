@@ -108,40 +108,42 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(25.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                breathsDone < 0 ? 'Get Ready' : 'Round: ${rounds + 1}',
-                style: BreezeStyle.header
-              ),
-              AnimatedCircle(
-                tempoDuration: tempoDuration,
-                volume: volume,
-                innerText: (breathsDone > maxBreaths ? maxBreaths : breathsDone).toString(),
-                controlCallback: () {
-                  // Your logic here to decide what control to return
-                  if (breathsDone > 0) {
-                    return 'repeat';
-                  }
-                  else {
-                    return 'stop';
-                  }
-                },
-              ),
-              SizedBox(height: 200),
-              StopSessionButton(),
-              TextButton(
-                child: Text('Skip'),
-                onPressed: () {
-                  skipCountdown();
-                },
-              ),
-            ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.all(25.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  breathsDone < 0 ? 'Get Ready' : 'Round: ${rounds + 1}',
+                  style: BreezeStyle.header
+                ),
+                AnimatedCircle(
+                  tempoDuration: tempoDuration,
+                  volume: volume,
+                  innerText: (breathsDone > maxBreaths ? maxBreaths : breathsDone).toString(),
+                  controlCallback: () {
+                    // Your logic here to decide what control to return
+                    if (breathsDone > 0) {
+                      return 'repeat';
+                    }
+                    else {
+                      return 'stop';
+                    }
+                  },
+                ),
+                SizedBox(height: 200),
+                StopSessionButton(),
+                TextButton(
+                  child: Text('Skip'),
+                  onPressed: () {
+                    skipCountdown();
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
