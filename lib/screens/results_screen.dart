@@ -108,47 +108,45 @@ class _ResultsScreenState extends State<ResultsScreen> {
             ),
           ],
         ),
-      ),     
+      ),    
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
-        child: Padding(
-          padding: EdgeInsets.only(bottom: 16.0),
-          child: SizedBox(
-            height: 84,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  height: 42,
-                  child: SwitchListTile(
-                    title: Text("Save Progress"),
-                    value: saveProgress,
-                    onChanged: (rounds > 0)
-                        ? (bool value) {
-                            setState(() {
-                              saveProgress = value;
-                            });
-                          }
-                        : null,
-                    activeColor: Colors.teal,
+        child: SizedBox(
+          height: 104, // Increase the height to create padding under the 'Close' button
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 42,
+                child: SwitchListTile(
+                  title: Text("Save Progress"),
+                  value: saveProgress,
+                  onChanged: (rounds > 0)
+                      ? (bool value) {
+                          setState(() {
+                            saveProgress = value;
+                          });
+                        }
+                      : null,
+                  activeColor: Colors.teal,
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 42,
+                child: TextButton(
+                  onPressed: () {
+                    _handleClose();
+                    context.go('/home');
+                  },
+                  child: Text(
+                    'Close',
+                    style: BreezeStyle.bodyBig
                   ),
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  height: 42,
-                  child: TextButton(
-                    onPressed: () {
-                      _handleClose();
-                      context.go('/home');
-                    },
-                    child: Text(
-                      'Close',
-                      style: BreezeStyle.bodyBig
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+              SizedBox(height: 20), // Additional padding under the 'Close' button
+            ],
           ),
         ),
       ),
