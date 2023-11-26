@@ -106,6 +106,48 @@ class UserProvider with ChangeNotifier {
       prefs.setString('${user.id}/sessions/$effectiveSessionId', updatedSessionJson);
   }
 
+  Future<Map<String, dynamic>> getAllData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map<String, dynamic> allData = {};
+
+    allData['preferences'] = user.preferences.toJson();
+
+    List<Map<String, dynamic>> sessionList = [];
+    final allKeys = prefs.getKeys();
+    for (String key in allKeys) {
+      if (key.startsWith('${user.id}/sessions/')) {
+        var sessionJson = prefs.getString(key);
+        if (sessionJson != null) {
+          sessionList.add(jsonDecode(sessionJson));
+        }
+      }
+    }
+    allData['sessions'] = sessionList;
+
+    return allData;
+  }
+  Future<void> importData(Map<String, dynamic> importedData) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if (importedData.containsKey('preferences')) {
+      var preferencesJson = importedData['preferences'] as Map<String, dynamic>;
+      Preferences importedPreferences = Preferences.fromJson(preferencesJson);
+      saveUserPreferences(importedPreferences);
+    }
+
+    if (importedData.containsKey('sessions')) {
+      var sessionsList = importedData['sessions'] as List;
+      for (var sessionJson in sessionsList) {
+        if (sessionJson is Map<String, dynamic>) {
+          Session importedSession = Session.fromJson(sessionJson);
+          String sessionKey = '${user.id}/sessions/${importedSession.id}';
+          prefs.setString(sessionKey, jsonEncode(importedSession.toJson()));
+        }
+      }
+    }
+
+    notifyListeners();
+  }
 
   Future<String?> startNewSession() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();

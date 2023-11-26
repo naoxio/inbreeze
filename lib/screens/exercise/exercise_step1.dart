@@ -6,7 +6,7 @@ import 'package:inner_breeze/widgets/animated_circle.dart';
 import 'package:inner_breeze/widgets/stop_session.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:flutter/services.dart';
 
 class ExerciseStep1 extends StatefulWidget {
@@ -41,9 +41,9 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
     final sessionData = await userProvider.loadSessionData(['rounds']); 
     try {
       if (preferences.screenAlwaysOn) {
-        Wakelock.enable();
+        WakelockPlus.enable();
       } else {
-        Wakelock.disable();
+        WakelockPlus.disable();
       } 
     // ignore: empty_catches
     } catch (e) {}

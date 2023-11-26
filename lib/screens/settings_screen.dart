@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/widgets/breeze_bottom_nav.dart';
@@ -8,7 +12,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/models/preferences.dart';
-
+import 'package:intl/intl.dart';
+import 'package:document_file_save_plus/document_file_save_plus.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({super.key});
@@ -80,10 +85,63 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  Future<void> _importData() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    final result = await FilePicker.platform.pickFiles();
+    if (result != null && result.files.single.path != null) {
+      try {
+        final file = File(result.files.single.path!);
+        final jsonString = await file.readAsString();
+        final data = jsonDecode(jsonString);
+
+        await userProvider.importData(data);
+
+        _showSnackBar("Data imported successfully!");
+      } catch (e) {
+        _showSnackBar("Error importing data: $e");
+      }
+    } else {
+      _showSnackBar("Import cancelled");
+    }
+  }
+  Future<void> _exportData() async {
+    final DocumentFileSavePlus fileSaver = DocumentFileSavePlus();
+
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final data = await userProvider.getAllData();
+    final jsonString = jsonEncode(data);
+
+    try {
+      // Generate a timestamped filename
+      String formattedDate = DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
+      String fileName = 'InnerBreeze_$formattedDate.json';
+
+      // Convert jsonString to Uint8List
+      Uint8List textBytes = Uint8List.fromList(jsonString.codeUnits);
+
+      // Use document_file_saver_pro to save the file
+      await fileSaver.saveFile(textBytes, fileName, "application/json");
+
+      _showSnackBar("Data exported successfully as $fileName");
+    } catch (e) {
+      _showSnackBar("Error exporting data: $e");
+    }
+  }
+
+
+  void _showSnackBar(String message) {
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message)),
+      );
+    }
+  }
 
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: BreezeAppBar(title: 'Settings'),
       body: SingleChildScrollView(
@@ -124,6 +182,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onChanged: (bool value) {
                     _updateScreenAlwaysOnPreference(value);
                   },
+                ),
+                SizedBox(height: 20),
+                OutlinedButton(
+                  onPressed: _exportData,
+                  child: const Text("Export Data"),
+                ),
+                SizedBox(height: 20),
+                OutlinedButton(
+                  onPressed: _importData,
+                  child: const Text("Import Data"),
                 ),
                 SizedBox(height: 20),
                 TextButton(
