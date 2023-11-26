@@ -1,4 +1,8 @@
 # Changelog
+## [1.0.11] - 2023-11-26
+### Added
+- Import and export data
+
 ## [1.0.10] - 2023-11-18
 ### Added
 - Skip button
