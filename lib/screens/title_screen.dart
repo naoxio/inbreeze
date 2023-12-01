@@ -11,6 +11,7 @@ class TitleScreen extends StatefulWidget {
 }
 
 class _TitleScreenState extends State<TitleScreen> {
+
   void _navigateToExercise() {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     userProvider.startNewSession();
@@ -18,6 +19,12 @@ class _TitleScreenState extends State<TitleScreen> {
       context.go('/exercise/step1');
     });
   }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {

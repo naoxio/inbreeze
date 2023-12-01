@@ -1,4 +1,9 @@
 # Changelog
+## [1.0.12] - 2023-12-01
+### Added
+- Version number in the settings page
+- Check for updates in the settings page
+
 ## [1.0.11] - 2023-11-26
 ### Added
 - Import and export data

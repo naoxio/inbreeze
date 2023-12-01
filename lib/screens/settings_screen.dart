@@ -14,6 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:inner_breeze/models/preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:document_file_save_plus/document_file_save_plus.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:http/http.dart' as http;
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({super.key});
@@ -26,10 +28,57 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _screenAlwaysOn = true;
 
+  String _latestVersionTag = '';
+  bool _isNewVersionAvailable = false;
+
   @override
   void initState() {
     super.initState();
     _loadScreenAlwaysOnPreference();
+    _checkForUpdates();
+  }
+
+  Future<String> _fetchLatestVersion() async {
+    const String url = 'https://api.github.com/repos/naoxio/inner_breeze/releases/latest';
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(response.body);
+      _latestVersionTag = jsonResponse['tag_name']; // Store the latest version tag
+      return jsonResponse['tag_name'];
+    } else {
+      throw Exception('Failed to fetch latest version from GitHub');
+    }
+  }
+
+  int _compareVersion(String v1, String v2) {
+    List<int> v1Parts = v1.split('.').map(int.parse).toList();
+    List<int> v2Parts = v2.split('.').map(int.parse).toList();
+
+    for (int i = 0; i < v1Parts.length; i++) {
+      if (i >= v2Parts.length || v1Parts[i] > v2Parts[i]) {
+        return 1;
+      } else if (v1Parts[i] < v2Parts[i]) {
+        return -1;
+      }
+    }
+    return 0;
+  }
+
+  Future<void> _checkForUpdates() async {
+    try {
+      final currentVersion = await _getAppVersion();
+      final latestVersion = await _fetchLatestVersion();
+
+      if (_compareVersion(latestVersion, currentVersion) > 0) {
+        setState(() {
+          _isNewVersionAvailable = true;
+          _latestVersionTag = latestVersion;
+        });
+      }
+    } catch (e) {
+      // Handle errors or show error notification
+    }
   }
 
   Future<void> _loadScreenAlwaysOnPreference() async {
@@ -129,6 +178,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  Future<String> _getAppVersion() async {
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    return info.version;
+  }
 
   void _showSnackBar(String message) {
     if (mounted) {
@@ -137,7 +190,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -212,6 +264,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     _buildIconLink('assets/icons/twitter.svg', 'X Page', 'https://x.com/naox_io'),
                     _buildIconLink(Icons.monetization_on, 'Coindrop', 'https://coindrop.to/naox'),
                   ],
+                ),
+                SizedBox(height: 40),
+                FutureBuilder<String>(
+                  future: _getAppVersion(),
+                  builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                    List<Widget> versionWidgets = [];
+                    if (snapshot.hasData) {
+                      versionWidgets.add(Text('App Version: ${snapshot.data}'));
+                      if (_isNewVersionAvailable) {
+                        versionWidgets.add(Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text('New version available: $_latestVersionTag'),
+                        ));
+                        versionWidgets.add(TextButton(
+                          onPressed: () {
+                            launchUrl(Uri.parse('https://github.com/naoxio/inner_breeze/releases/tag/$_latestVersionTag'));
+                          },
+                          child: Text('Update'),
+                        ));
+                      }
+                    } else if (snapshot.hasError) {
+                      versionWidgets.add(Text('Error: ${snapshot.error}'));
+                    } else {
+                      versionWidgets.add(CircularProgressIndicator());
+                    }
+                    return Column(children: versionWidgets);
+                  },
                 ),
               ],
             ),
