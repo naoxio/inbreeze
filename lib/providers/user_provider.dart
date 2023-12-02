@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -126,6 +127,7 @@ class UserProvider with ChangeNotifier {
 
     return allData;
   }
+
   Future<void> importData(Map<String, dynamic> importedData) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -149,18 +151,76 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String?> startNewSession() async{
+  Future<String> startNewSession([DateTime? dateTime]) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    DateTime sessionDateTime = dateTime ?? DateTime.now();
     String newSessionId = Uuid().v4();
-    
-    Session session = Session(id: newSessionId, dateTime: DateTime.now(), rounds: {});
+
+    Session session = Session(id: newSessionId, dateTime: sessionDateTime, rounds: {});
     String sessionJson = jsonEncode(session.toJson());
     prefs.setString('${user.id}/sessions/$newSessionId', sessionJson);
 
     user.currentSessionId = newSessionId;
+    notifyListeners();
 
     return newSessionId;
+  }
+
+Future<void> moveRoundToSession(String oldSessionId, int roundNumber, DateTime newDateTime) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? oldSessionJson = prefs.getString('${user.id}/sessions/$oldSessionId');
+    if (oldSessionJson == null) return;
+    Session oldSession = Session.fromJson(jsonDecode(oldSessionJson));
+
+    String newSessionId = '';
+    Session? matchedSession;
+    final allKeys = prefs.getKeys();
+    for (String key in allKeys) {
+      if (key.startsWith('${user.id}/sessions/')) {
+        var sessionData = jsonDecode(prefs.getString(key)!);
+        Session session = Session.fromJson(sessionData);
+        if (session.dateTime.isAtSameMomentAs(newDateTime)) {
+          matchedSession = session;
+          newSessionId = session.id;
+          break;
+        }
+      }
+    }
+
+    if (matchedSession == null) {
+      newSessionId = Uuid().v4();
+      matchedSession = Session(id: newSessionId, dateTime: newDateTime, rounds: {});
+    }
+
+    int newRoundNumber = matchedSession.rounds.isNotEmpty 
+        ? matchedSession.rounds.keys.reduce(max) + 1 
+        : 1;
+    
+    if (oldSession.rounds.containsKey(roundNumber)) {
+      matchedSession.rounds[newRoundNumber] = oldSession.rounds[roundNumber]!;
+      oldSession.rounds.remove(roundNumber);
+    }
+
+    prefs.setString('${user.id}/sessions/$oldSessionId', jsonEncode(oldSession.toJson()));
+    prefs.setString('${user.id}/sessions/$newSessionId', jsonEncode(matchedSession.toJson()));
+
+    notifyListeners();
+  }
+
+  Future<void> updateRoundDuration(String sessionId, int roundNumber, Duration newDuration) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? sessionJson = prefs.getString('${user.id}/sessions/$sessionId');
+    if (sessionJson == null) return;
+
+    Session session = Session.fromJson(jsonDecode(sessionJson));
+    if (session.rounds.containsKey(roundNumber)) {
+      session.rounds[roundNumber] = newDuration;
+    }
+
+    prefs.setString('${user.id}/sessions/$sessionId', jsonEncode(session.toJson()));
+    notifyListeners();
   }
 
   Future<Map<int, Duration>> loadRoundDurations() async {

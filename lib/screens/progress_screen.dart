@@ -63,6 +63,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    
     DateTime today = DateTime.now();
     String? year;
     if (sessionsByDate.keys.isNotEmpty) {
@@ -96,6 +97,119 @@ class _ProgressScreenState extends State<ProgressScreen> {
           ),
         ),
         bottomNavigationBar: BreezeBottomNav(),
+      );
+    }
+
+    Future<void> showEditRoundDialog(Session session, int roundNumber, Duration duration) async {
+      DateTime selectedDate = session.dateTime;
+      TimeOfDay selectedTime = TimeOfDay.fromDateTime(session.dateTime);
+      TextEditingController minutesController = TextEditingController(text: duration.inMinutes.toString());
+      TextEditingController secondsController = TextEditingController(text: (duration.inSeconds % 60).toString());
+
+      return showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          final NavigatorState navigator = Navigator.of(dialogContext);
+
+          return AlertDialog(
+            title: Text('Edit Round $roundNumber'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Date Picker
+                ListTile(
+                  title: Text('Select Date'),
+                  subtitle: Text(DateFormat.yMd().format(selectedDate)),
+                  onTap: () async {
+                    final DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: selectedDate,
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2025),
+                    );
+                    if (pickedDate != null && pickedDate != selectedDate) {
+                      setState(() {
+                        selectedDate = pickedDate;
+                      });
+                    }
+                  },
+                ),
+                // Time Picker
+                ListTile(
+                  title: Text('Select Time'),
+                  subtitle: Text(selectedTime.format(context)),
+                  onTap: () async {
+                    final TimeOfDay? pickedTime = await showTimePicker(
+                      context: context,
+                      initialTime: selectedTime,
+                    );
+                    if (pickedTime != null && pickedTime != selectedTime) {
+                      setState(() {
+                        selectedTime = pickedTime;
+                      });
+                    }
+                  },
+                ),
+                // Duration Field
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: minutesController,
+                        decoration: InputDecoration(
+                          labelText: 'Minutes',
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: TextField(
+                        controller: secondsController,
+                        decoration: InputDecoration(
+                          labelText: 'Seconds',
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Cancel'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              TextButton(
+                child: Text('Save'),
+                onPressed: () async {
+                  DateTime newDateTime = DateTime(
+                    selectedDate.year,
+                    selectedDate.month,
+                    selectedDate.day,
+                    selectedTime.hour,
+                    selectedTime.minute,
+                  );
+
+                  int newMinutes = int.tryParse(minutesController.text) ?? duration.inMinutes;
+                  int newSeconds = int.tryParse(secondsController.text) ?? (duration.inSeconds % 60);
+                  Duration newDuration = Duration(minutes: newMinutes, seconds: newSeconds);
+                  final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+                  if (session.dateTime != newDateTime) {
+                    await userProvider.moveRoundToSession(session.id, roundNumber, newDateTime);
+                  } else {
+                    await userProvider.updateRoundDuration(session.id, roundNumber, newDuration);
+                  }
+
+                  await _loadSessions();
+                  navigator.pop();
+                },
+              ),
+            ],
+          );
+        },
       );
     }
 
@@ -149,12 +263,24 @@ class _ProgressScreenState extends State<ProgressScreen> {
                                     final roundNumber = roundEntry.key;
                                     final roundDuration = roundEntry.value;
                                     return ListTile(
-                                      title: Text(
-                                        'Round $roundNumber: ${roundDuration.inMinutes}:${roundDuration.inSeconds.remainder(60).toString().padLeft(2, '0')}',
-                                        textAlign: TextAlign.left
+                                      title: Row(
+                                        children: [
+                                          Text(
+                                            'Round $roundNumber: ${roundDuration.inMinutes}:${roundDuration.inSeconds.remainder(60).toString().padLeft(2, '0')}',
+                                            textAlign: TextAlign.left
+                                          ),
+                                          IconButton(
+                                            icon: Icon(Icons.edit, color: Colors.teal),
+                                            onPressed: () async {
+                                              await showEditRoundDialog(session, roundNumber, roundDuration);
+                                              await _loadSessions();
+                                            },
+                                          ),
+                                        ],
                                       ),
+                                  
                                       trailing: IconButton(
-                                        icon: Icon(Icons.delete, color: Colors.teal),
+                                        icon: Icon(Icons.delete, color: Colors.red),
                                         onPressed: () async {
                                           await userProvider.deleteRound(roundNumber, session.id);
                                           await _loadSessions();  // Reload the sessions after deletion.

@@ -1,4 +1,8 @@
 # Changelog
+## [1.1.0] - 2023-12-02
+### Added
+- Ability to edit progress results
+
 ## [1.0.12] - 2023-12-01
 ### Added
 - Version number in the settings page
