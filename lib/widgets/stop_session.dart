@@ -31,9 +31,11 @@ class _StopSessionButtonState extends State<StopSessionButton> {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final sessionData = await userProvider.loadSessionData(['rounds']);
     
-    setState(() {
-      _rounds = sessionData!.rounds.length;
-    });
+    if (sessionData != null) { 
+      setState(() {
+        _rounds = sessionData.rounds.length;
+      });
+    }
   }
 
   void _navigateToResults() {

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/models/session.dart';
 import 'package:intl/intl.dart';
+import 'package:go_router/go_router.dart';
 
 class ProgressScreen extends StatefulWidget {
   @override
@@ -53,6 +54,13 @@ class _ProgressScreenState extends State<ProgressScreen> {
     String suffix = day.endsWith('1') ? 'st' : (day.endsWith('2') ? 'nd' : (day.endsWith('3') ? 'rd' : 'th'));
     return '$day$suffix';
   }
+  void _navigateToExercise() {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    userProvider.startNewSession();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.go('/exercise/step1');
+    });
+  }
   @override
   Widget build(BuildContext context) {
     DateTime today = DateTime.now();
@@ -66,7 +74,26 @@ class _ProgressScreenState extends State<ProgressScreen> {
     if (sessionsByDate.isEmpty) {
       return Scaffold(
         body: Center(
-          child: Text('Start meditating now', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Start Your Journey!',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Your progress records will appear here.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _navigateToExercise,
+                child: Text('Begin a Session'),
+              ),
+            ],
+          ),
         ),
         bottomNavigationBar: BreezeBottomNav(),
       );

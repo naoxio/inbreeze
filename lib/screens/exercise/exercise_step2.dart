@@ -34,6 +34,8 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
     final userPreferences = await userProvider.loadUserPreferences(['breaths', 'tempo', 'volume', 'sessionId']);
     final sessionData = await userProvider.loadSessionData(['rounds']); 
 
+    if (!mounted) return;
+
     int tempo = userPreferences.tempo;
     duration = Duration(milliseconds: tempo);
 
@@ -54,7 +56,6 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
       context.go('/exercise/step3');
     });
   }
-
 
   @override
   void dispose() {

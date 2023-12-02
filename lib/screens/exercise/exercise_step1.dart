@@ -72,14 +72,22 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
     });
   }
 
+  void _cancelBreathCycleTimer() {
+    if (breathCycleTimer != null && breathCycleTimer!.isActive) {
+      breathCycleTimer!.cancel();
+    }
+  }
 
   void _navigateToNextExercise() {
+    _cancelBreathCycleTimer();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.go('/exercise/step2');
     });
   }
 
   void startBreathCounting() {
+    _cancelBreathCycleTimer();
     if (breathsDone < 0) {
       breathCycleTimer = Timer.periodic(Duration(seconds: 1), (timer) {
         setState(() {
@@ -152,15 +160,16 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
 
   @override
   void dispose() {
-    breathCycleTimer?.cancel();
+    _cancelBreathCycleTimer();
 
     super.dispose();
   }
 
 
   void skipCountdown() {
+    _cancelBreathCycleTimer();
+
     if (breathsDone < 0) {
-      breathCycleTimer?.cancel();
       setState(() {
         breathsDone = 1;
       });
