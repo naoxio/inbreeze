@@ -1,4 +1,10 @@
 # Changelog
+## [1.1.1] - 2023-12-02
+### Changed
+- Improved progress view
+### Fixed
+- Fixed importing data from a file
+
 ## [1.1.0] - 2023-12-02
 ### Added
 - Ability to edit progress results

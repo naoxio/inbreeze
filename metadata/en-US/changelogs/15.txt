@@ -1,0 +1,3 @@
+* Improved progress view
+* Fixed importing data from a file
+
