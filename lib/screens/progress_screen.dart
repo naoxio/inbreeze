@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:inner_breeze/widgets/breeze_bottom_nav.dart';
-import 'package:inner_breeze/widgets/breeze_app_bar.dart';
-import 'package:provider/provider.dart';
-import 'package:inner_breeze/providers/user_provider.dart';
-import 'package:inner_breeze/models/session.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:inner_breeze/models/session.dart';
+import 'package:inner_breeze/providers/user_provider.dart';
+import 'package:inner_breeze/widgets/breeze_app_bar.dart';
+import 'package:inner_breeze/widgets/breeze_bottom_nav.dart';
 import 'package:go_router/go_router.dart';
 
 class ProgressScreen extends StatefulWidget {
   @override
   State<ProgressScreen> createState() => _ProgressScreenState();
 }
+
 class _ProgressScreenState extends State<ProgressScreen> {
-  Map<DateTime, List<Session>> sessionsByDate = {};
+  Map<String, Map<String, List<Session>>> sessionsByMonthAndDay = {};
+  String? latestMonthKey;
+  String? latestDayKey;
 
   @override
   void initState() {
@@ -20,86 +23,166 @@ class _ProgressScreenState extends State<ProgressScreen> {
     _loadSessions();
   }
 
-  Future<void> _loadSessions() async {
+ Future<void> _loadSessions() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-
     final allSessions = await userProvider.getAllSessions();
 
-    Map<DateTime, List<Session>> newSessionsByDate = {};
+    Map<String, Map<String, List<Session>>> tempSessionsByMonthAndDay = {};
+    DateTime? latestDate;
 
     for (var session in allSessions) {
-      DateTime sessionDateTime = DateTime.fromMillisecondsSinceEpoch(int.parse(session.id));
-      final date = DateTime(sessionDateTime.year, sessionDateTime.month, sessionDateTime.day);
+      DateTime sessionDate = DateTime.fromMillisecondsSinceEpoch(int.parse(session.id));
+      String monthYearKey = DateFormat('yyyy-MM').format(sessionDate);
+      String dayKey = DateFormat('yyyy-MM-dd').format(sessionDate);
 
-      if (!newSessionsByDate.containsKey(date)) {
-        newSessionsByDate[date] = [];
+      if (!tempSessionsByMonthAndDay.containsKey(monthYearKey)) {
+        tempSessionsByMonthAndDay[monthYearKey] = {};
       }
-      newSessionsByDate[date]!.add(session);
+      if (!tempSessionsByMonthAndDay[monthYearKey]!.containsKey(dayKey)) {
+        tempSessionsByMonthAndDay[monthYearKey]![dayKey] = [];
+      }
+      tempSessionsByMonthAndDay[monthYearKey]![dayKey]!.add(session);
+
+      if (latestDate == null || sessionDate.isAfter(latestDate)) {
+        latestDate = sessionDate;
+        latestMonthKey = monthYearKey;
+        latestDayKey = dayKey;
+      }
     }
 
     setState(() {
-      sessionsByDate = newSessionsByDate;
-    });
-  }
-
-  String formatYear(DateTime date) {
-    return date.year.toString();
-  }
-
-  String formatMonth(DateTime date) {
-    return DateFormat.MMM().format(date);
-  }
-
-  String formatDay(DateTime date) {
-    String day = DateFormat.d().format(date);
-    String suffix = day.endsWith('1') ? 'st' : (day.endsWith('2') ? 'nd' : (day.endsWith('3') ? 'rd' : 'th'));
-    return '$day$suffix';
-  }
-  void _navigateToExercise() {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    userProvider.startNewSession();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.go('/exercise/step1');
+      sessionsByMonthAndDay = tempSessionsByMonthAndDay;
     });
   }
   @override
   Widget build(BuildContext context) {
-    
-    DateTime today = DateTime.now();
-    String? year;
-    if (sessionsByDate.keys.isNotEmpty) {
-      year = formatYear(sessionsByDate.keys.first);
-    }
+    return Scaffold(
+      appBar: BreezeAppBar(title: 'Progress View'),
+      body: sessionsByMonthAndDay.isEmpty
+          ? _buildEmptyState()
+          : _buildSessionList(),
+      bottomNavigationBar: BreezeBottomNav(),
+    );
+  }
 
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-
-    if (sessionsByDate.isEmpty) {
-      return Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Start Your Journey!',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Your progress records will appear here.',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _navigateToExercise,
-                child: Text('Begin a Session'),
-              ),
-            ],
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Start Your Journey!',
+            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           ),
+          SizedBox(height: 20),
+          Text(
+            'Your progress records will appear here.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Provider.of<UserProvider>(context, listen: false).startNewSession();
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                context.go('/exercise/step1');
+              });
+            },
+            child: Text('Begin a Session'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  
+  Widget _buildSessionList() {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: sessionsByMonthAndDay.entries.map((monthEntry) {
+          return _buildMonthSection(monthEntry.key, monthEntry.value);
+        }).toList(),
+      ),
+    );
+  }
+  Widget _buildMonthSection(String monthYearKey, Map<String, List<Session>> sessionsByDay) {
+    DateTime monthYear = DateFormat('yyyy-MM').parse(monthYearKey);
+    String monthName = DateFormat.yMMMM().format(monthYear);
+
+    List<String> sortedDays = sessionsByDay.keys.toList();
+    sortedDays.sort((a, b) => b.compareTo(a));
+    sortedDays = sortedDays.reversed.toList(); 
+
+    return ExpansionTile(
+      initiallyExpanded: monthYearKey == latestMonthKey,
+      title: Text(
+        monthName,
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+      children: sortedDays.map((dayKey) {
+        return _buildDaySection(dayKey, sessionsByDay[dayKey]!);
+      }).toList(),
+    );
+  }
+
+  Widget _buildDaySection(String dayKey, List<Session> sessions) {
+    DateTime dayDate = DateFormat('yyyy-MM-dd').parse(dayKey);
+    String dayName = DateFormat.MMMd().format(dayDate);
+
+    sessions.sort((a, b) => int.parse(b.id).compareTo(int.parse(a.id)));
+    List<Session> reversedSessions = sessions.reversed.toList();
+
+    return ExpansionTile(
+      initiallyExpanded: dayKey == latestDayKey,
+      title: Text(dayName, style: TextStyle(fontSize: 18)),
+      children: reversedSessions.map((session) => _buildSessionTile(session)).toList(),
+    );
+  }
+
+  Widget _buildSessionTile(Session session) {
+    DateTime sessionDate = DateTime.fromMillisecondsSinceEpoch(int.parse(session.id));
+    String sessionTime = DateFormat.jm().format(sessionDate);
+
+    return ExpansionTile(
+      leading: Icon(Icons.access_time),
+      title: Text(sessionTime),
+      subtitle: Text('Rounds: ${session.rounds.length}'),
+      children: session.rounds.entries.map((roundEntry) {
+        return ListTile(
+          title: Text('Round ${roundEntry.key}: ${_formatDuration(roundEntry.value)}'),
+          trailing: _buildEditDeleteButtons(session, roundEntry.key, roundEntry.value),
+        );
+      }).toList(),
+    );
+  }
+
+  String _formatDuration(Duration duration) {
+    return '${duration.inMinutes} mins, ${duration.inSeconds % 60} secs';
+  }
+
+  Row _buildEditDeleteButtons(Session session, int roundNumber, Duration roundDuration) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        IconButton(
+          icon: Icon(Icons.edit, color: Colors.teal),
+          onPressed: () async {
+            await showEditRoundDialog(session, roundNumber, roundDuration);
+            await _loadSessions();
+          },
         ),
-        bottomNavigationBar: BreezeBottomNav(),
-      );
-    }
+        IconButton(
+          icon: Icon(Icons.delete, color: Colors.red),
+          onPressed: () async {
+            await Provider.of<UserProvider>(context, listen: false).deleteRound(roundNumber, session.id);
+            await _loadSessions();
+          },
+        ),
+      ],
+    );
+  }
+
 
     Future<void> showEditRoundDialog(Session session, int roundNumber, Duration duration) async {
       DateTime sessionDateTime = DateTime.fromMillisecondsSinceEpoch(int.parse(session.id));
@@ -217,97 +300,4 @@ class _ProgressScreenState extends State<ProgressScreen> {
         },
       );
     }
-
-    return Scaffold(
-      appBar: BreezeAppBar(title: 'Progress View'),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (year != null)
-              ExpansionTile(
-                initiallyExpanded: true,
-                title: Text(
-                  year,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.left,
-                ),
-                children: [
-                  ...sessionsByDate.entries.fold<List<Widget>>([], (previousValue, entry) {
-                    final date = entry.key;
-                    final sessions = entry.value;
-                    List<Widget> widgets = [];
-
-                    widgets.add(
-                      ExpansionTile(
-                        initiallyExpanded: date.isBefore(today) || date.isAtSameMomentAs(today),
-                        title: Text(
-                          formatMonth(date),
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.left,
-                        ),
-                        children: [
-                          ExpansionTile(
-                            initiallyExpanded: date.isAtSameMomentAs(today) || sessionsByDate.keys.first.isAtSameMomentAs(date),
-                            title: Text(
-                              formatDay(date),
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.left,
-                            ),
-                            subtitle: Text('${sessions.length} ${sessions.length == 1 ? 'session' : 'sessions'}'),
-                            children: [
-                              for (var session in sessions.reversed)
-                                ExpansionTile(
-                                  initiallyExpanded: sessions.indexOf(session) == 0, 
-                                  title: Text(
-                                    DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(int.parse(session.id))),
-                                    textAlign: TextAlign.left,
-                                  ),
-
-                                  subtitle: Text('${session.rounds.length} ${session.rounds.length == 1 ? 'round' : 'rounds'}'),
-                                  children: session.rounds.entries.map((roundEntry) {
-                                    final roundNumber = roundEntry.key;
-                                    final roundDuration = roundEntry.value;
-                                    return ListTile(
-                                      title: Row(
-                                        children: [
-                                          Text(
-                                            'Round $roundNumber: ${roundDuration.inMinutes}:${roundDuration.inSeconds.remainder(60).toString().padLeft(2, '0')}',
-                                            textAlign: TextAlign.left
-                                          ),
-                                          IconButton(
-                                            icon: Icon(Icons.edit, color: Colors.teal),
-                                            onPressed: () async {
-                                              await showEditRoundDialog(session, roundNumber, roundDuration);
-                                              await _loadSessions();
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                  
-                                      trailing: IconButton(
-                                        icon: Icon(Icons.delete, color: Colors.red),
-                                        onPressed: () async {
-                                          await userProvider.deleteRound(roundNumber, session.id);
-                                          await _loadSessions();
-                                        },
-                                      ),
-                                    );
-                                  }).toList(),
-                                ),
-                            ]
-                          )
-                        ],
-                      ),
-                    );
-                    return widgets;
-                  }),
-                ],
-              ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BreezeBottomNav(),
-    );
-  }
 }

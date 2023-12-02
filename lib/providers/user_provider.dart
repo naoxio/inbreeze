@@ -192,6 +192,7 @@ class UserProvider with ChangeNotifier {
           }
 
           Session importedSession = Session.fromJson(sessionJson);
+          print(importedSession.id);
           prefs.setString('${user.id}/sessions/${importedSession.id}', jsonEncode(importedSession.toJson()));
         }
       }
@@ -280,7 +281,6 @@ class UserProvider with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final allKeys = prefs.getKeys();
     List<Session> sessions = [];
-    
     for (String key in allKeys) {
       if (key.startsWith('${user.id}/sessions/')) {
         var sessionJson = prefs.getString(key);
@@ -292,7 +292,6 @@ class UserProvider with ChangeNotifier {
         }
       }
     }
-
     sessions.sort((a, b) {
       int timestampA = int.tryParse(a.id) ?? 0;
       int timestampB = int.tryParse(b.id) ?? 0;
