@@ -23,7 +23,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
   
   Future<void> _loadSessions() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final sessionData = await userProvider.loadSessionData(['rounds']);
+    final sessionData = await userProvider.loadSessionData();
     final roundDurations = await userProvider.loadRoundDurations();
 
     setState(() {
@@ -92,7 +92,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                             icon: Icon(Icons.delete, color: Colors.teal),
                            onPressed: () async {
                               await userProvider.deleteRound(roundNumber);
-                              final sessionData = await userProvider.loadSessionData(['rounds']);
+                              final sessionData = await userProvider.loadSessionData();
                               setState(() {
                                 rounds = sessionData!.rounds.length;
                                 _loadSessions();

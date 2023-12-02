@@ -162,16 +162,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final jsonString = jsonEncode(data);
 
     try {
-      // Generate a timestamped filename
       String formattedDate = DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
       String fileName = 'InnerBreeze_$formattedDate.json';
-
-      // Convert jsonString to Uint8List
       Uint8List textBytes = Uint8List.fromList(jsonString.codeUnits);
-
-      // Use document_file_saver_pro to save the file
       await fileSaver.saveFile(textBytes, fileName, "application/json");
-
       _showSnackBar("Data exported successfully as $fileName");
     } catch (e) {
       _showSnackBar("Error exporting data: $e");

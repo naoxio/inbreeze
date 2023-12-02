@@ -5,6 +5,8 @@ import 'package:inner_breeze/widgets/stop_session.dart';
 import 'package:inner_breeze/widgets/stopwatch.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:inner_breeze/models/session.dart';
+
 
 class ExerciseStep2 extends StatefulWidget {
   ExerciseStep2({super.key});
@@ -32,7 +34,7 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
   Future<void> _loadDataFromPreferences() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final userPreferences = await userProvider.loadUserPreferences(['breaths', 'tempo', 'volume', 'sessionId']);
-    final sessionData = await userProvider.loadSessionData(['rounds']); 
+    final sessionData = await userProvider.loadSessionData(); 
 
     if (!mounted) return;
 
@@ -43,11 +45,16 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
       rounds = sessionData!.rounds.length;
     });
   }
-  
-  void _onStopSessionPressed() {
-      final userProvider = Provider.of<UserProvider>(context, listen: false);
-      userProvider.saveSessionData({'rounds': {rounds + 1: duration}});
+  void _onStopSessionPressed() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    Session? currentSession = await userProvider.loadSessionData();
+
+    if (currentSession != null) {
+      currentSession.rounds[rounds + 1] = duration;
+      userProvider.saveSessionData(currentSession);
+    }
   }
+
 
 
   void _navigateToNextExercise() async {

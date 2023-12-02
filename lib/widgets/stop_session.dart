@@ -29,7 +29,7 @@ class _StopSessionButtonState extends State<StopSessionButton> {
 
   Future<void> _loadDataFromProvider() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final sessionData = await userProvider.loadSessionData(['rounds']);
+    final sessionData = await userProvider.loadSessionData();
     
     if (sessionData != null) { 
       setState(() {

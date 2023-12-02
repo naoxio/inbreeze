@@ -8,6 +8,16 @@ import 'package:inner_breeze/models/session.dart';
 import 'package:inner_breeze/models/preferences.dart';
 import 'package:inner_breeze/models/user.dart';
 
+extension DateTimeRounding on DateTime {
+  DateTime roundToNearestMinute() {
+    int roundMinutes = minute;
+    if (second >= 30) {
+      roundMinutes++;
+    }
+    return DateTime(year, month, day, hour, roundMinutes, 0);
+  }
+}
+
 class UserProvider with ChangeNotifier {
   User user = User(id: '', preferences: Preferences(), sessions: []);
   Map<int, Duration> roundDurations = {};
@@ -40,6 +50,16 @@ class UserProvider with ChangeNotifier {
 
     String? sessionId = prefs.getString('${user.id}/currentSession');
     return sessionId != null;
+  }
+
+  Future<Session?> loadSessionData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? sessionJson = prefs.getString('${user.id}/sessions/${user.currentSessionId}');
+    if (sessionJson != null) {
+      Session session = Session.fromJson(jsonDecode(sessionJson));
+      return session;
+    }
+    return null;
   }
 
   Future<Map<String, dynamic>> _loadData(List<String> keys, String prefix) async {
@@ -76,35 +96,46 @@ class UserProvider with ChangeNotifier {
   Future<void> saveUserPreferences(Preferences preferences) async {
     await _saveData(preferences.toJson(), user.id);
   }
-  Future<Session?> loadSessionData(List<String> keys, [String? sessionId]) async {
+  Future<String> startNewSession([DateTime? dateTime]) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? effectiveSessionId = sessionId ?? user.currentSessionId;
-    String? sessionJson = prefs.getString('${user.id}/sessions/$effectiveSessionId');
-    if (sessionJson == null) return null;
-
-    return Session.fromJson(jsonDecode(sessionJson));  
+    DateTime sessionDateTime = dateTime?.roundToNearestMinute() ?? DateTime.now().roundToNearestMinute();
+    int timestamp = sessionDateTime.millisecondsSinceEpoch; // Convert to timestamp
+    String sessionId = timestamp.toString();
+    Session session = Session(id: sessionId, rounds: {});
+    prefs.setString('${user.id}/sessions/$sessionId', jsonEncode(session.toJson()));
+    user.currentSessionId = sessionId;
+    notifyListeners();
+    return sessionId;
   }
 
-  Future<void> saveSessionData(Map<String, dynamic> data, [String? sessionId]) async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? effectiveSessionId = sessionId ?? user.currentSessionId;
-      String? sessionJson = prefs.getString('${user.id}/sessions/$effectiveSessionId');
-      if (sessionJson == null) return;
+  Future<void> saveSessionData(Session session) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('${user.id}/sessions/${session.id}', jsonEncode(session.toJson()));
+  }
 
-      Session session = Session.fromJson(jsonDecode(sessionJson));
-      
-      if (data.containsKey('dateTime')) {
-        session.dateTime = DateTime.parse(data['dateTime']);
-      }
-      if (data.containsKey('rounds')) {
-        Map<int, Duration> roundsData = data['rounds'];
-        roundsData.forEach((key, value) {
-          session.rounds[key] = value;
-        });
-      }
+  Future<void> convertOldSessions() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final allKeys = prefs.getKeys();
+    for (String key in allKeys) {
+  
+      if (key.startsWith('${user.id}/sessions/')) {
+        var sessionJson = prefs.getString(key);
+        if (sessionJson != null) {
+          var sessionData = jsonDecode(sessionJson);
+          if (sessionData.containsKey('dateTime')) {
+            DateTime oldDateTime = DateTime.parse(sessionData['dateTime']);
+            DateTime roundedDateTime = oldDateTime.roundToNearestMinute();
+            String newSessionId = roundedDateTime.toIso8601String();
 
-      String updatedSessionJson = jsonEncode(session.toJson());
-      prefs.setString('${user.id}/sessions/$effectiveSessionId', updatedSessionJson);
+            if (!RegExp(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$').hasMatch(sessionData['id'])) {
+              sessionData['id'] = newSessionId;
+              prefs.remove(key);
+              prefs.setString('${user.id}/sessions/$newSessionId', jsonEncode(sessionData));
+            }
+          }
+        }
+      }
+    }
   }
 
   Future<Map<String, dynamic>> getAllData() async {
@@ -119,7 +150,11 @@ class UserProvider with ChangeNotifier {
       if (key.startsWith('${user.id}/sessions/')) {
         var sessionJson = prefs.getString(key);
         if (sessionJson != null) {
-          sessionList.add(jsonDecode(sessionJson));
+          Map<String, dynamic> sessionData = jsonDecode(sessionJson);
+
+          sessionData.remove('userId');
+
+          sessionList.add(sessionData);
         }
       }
     }
@@ -127,7 +162,6 @@ class UserProvider with ChangeNotifier {
 
     return allData;
   }
-
   Future<void> importData(Map<String, dynamic> importedData) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -141,70 +175,53 @@ class UserProvider with ChangeNotifier {
       var sessionsList = importedData['sessions'] as List;
       for (var sessionJson in sessionsList) {
         if (sessionJson is Map<String, dynamic>) {
+          if (sessionJson.containsKey('dateTime')) {
+            DateTime oldDateTime = DateTime.parse(sessionJson['dateTime']);
+            DateTime roundedDateTime = oldDateTime.roundToNearestMinute();
+            int timestamp = roundedDateTime.millisecondsSinceEpoch;
+            String sessionId = timestamp.toString();
+
+            sessionJson['id'] = sessionId;
+          } else {
+            String sessionKey = sessionJson['id'];
+
+            if (!RegExp(r'^\d+$').hasMatch(sessionKey)) {
+              sessionKey = '${user.id}/$sessionKey';
+              sessionJson['id'] = sessionKey;
+            }
+          }
+
           Session importedSession = Session.fromJson(sessionJson);
-          String sessionKey = '${user.id}/sessions/${importedSession.id}';
-          prefs.setString(sessionKey, jsonEncode(importedSession.toJson()));
+          prefs.setString('${user.id}/sessions/${importedSession.id}', jsonEncode(importedSession.toJson()));
         }
       }
     }
 
     notifyListeners();
   }
-
-  Future<String> startNewSession([DateTime? dateTime]) async {
+  Future<void> moveRoundToSession(String oldSessionId, int roundNumber, int newTimestamp) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    DateTime sessionDateTime = dateTime ?? DateTime.now();
-    String newSessionId = Uuid().v4();
+    // Retrieve the old session
+    Session? oldSession = (prefs.getString('${user.id}/sessions/$oldSessionId') != null) 
+        ? Session.fromJson(jsonDecode(prefs.getString('${user.id}/sessions/$oldSessionId')!)) 
+        : null;
 
-    Session session = Session(id: newSessionId, dateTime: sessionDateTime, rounds: {});
-    String sessionJson = jsonEncode(session.toJson());
-    prefs.setString('${user.id}/sessions/$newSessionId', sessionJson);
+    // Retrieve or create the new session
+    String newSessionId = newTimestamp.toString();
+    Session newSession = (prefs.getString('${user.id}/sessions/$newSessionId') != null) 
+        ? Session.fromJson(jsonDecode(prefs.getString('${user.id}/sessions/$newSessionId')!)) 
+        : Session(id: newSessionId, rounds: {});
 
-    user.currentSessionId = newSessionId;
-    notifyListeners();
-
-    return newSessionId;
-  }
-
-Future<void> moveRoundToSession(String oldSessionId, int roundNumber, DateTime newDateTime) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    String? oldSessionJson = prefs.getString('${user.id}/sessions/$oldSessionId');
-    if (oldSessionJson == null) return;
-    Session oldSession = Session.fromJson(jsonDecode(oldSessionJson));
-
-    String newSessionId = '';
-    Session? matchedSession;
-    final allKeys = prefs.getKeys();
-    for (String key in allKeys) {
-      if (key.startsWith('${user.id}/sessions/')) {
-        var sessionData = jsonDecode(prefs.getString(key)!);
-        Session session = Session.fromJson(sessionData);
-        if (session.dateTime.isAtSameMomentAs(newDateTime)) {
-          matchedSession = session;
-          newSessionId = session.id;
-          break;
-        }
-      }
-    }
-
-    if (matchedSession == null) {
-      newSessionId = Uuid().v4();
-      matchedSession = Session(id: newSessionId, dateTime: newDateTime, rounds: {});
-    }
-
-    int newRoundNumber = matchedSession.rounds.isNotEmpty 
-        ? matchedSession.rounds.keys.reduce(max) + 1 
-        : 1;
-    
-    if (oldSession.rounds.containsKey(roundNumber)) {
-      matchedSession.rounds[newRoundNumber] = oldSession.rounds[roundNumber]!;
+    if (oldSession != null && oldSession.rounds.containsKey(roundNumber)) {
+      int newRoundNumber = newSession.rounds.isEmpty ? 1 : newSession.rounds.keys.reduce(max) + 1;
+      newSession.rounds[newRoundNumber] = oldSession.rounds[roundNumber]!;
       oldSession.rounds.remove(roundNumber);
-    }
 
-    prefs.setString('${user.id}/sessions/$oldSessionId', jsonEncode(oldSession.toJson()));
-    prefs.setString('${user.id}/sessions/$newSessionId', jsonEncode(matchedSession.toJson()));
+      // Save updated sessions
+      saveSessionData(oldSession);
+      saveSessionData(newSession);
+    }
 
     notifyListeners();
   }
@@ -219,7 +236,7 @@ Future<void> moveRoundToSession(String oldSessionId, int roundNumber, DateTime n
       session.rounds[roundNumber] = newDuration;
     }
 
-    prefs.setString('${user.id}/sessions/$sessionId', jsonEncode(session.toJson()));
+    saveSessionData(session);
     notifyListeners();
   }
 
@@ -227,20 +244,15 @@ Future<void> moveRoundToSession(String oldSessionId, int roundNumber, DateTime n
     final prefs = await SharedPreferences.getInstance();
     final sessionJson = prefs.getString('${user.id}/sessions/${user.currentSessionId}');
     if (sessionJson == null) return {};
-
     final sessionData = Session.fromJson(jsonDecode(sessionJson));
-
     return sessionData.rounds;
   }
 
   Future<void> deleteSessionData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('${user.id}/currentSession');
-
     Set<String> allKeys = prefs.getKeys();
-
     Iterable<String> sessionKeys = allKeys.where((key) => key.startsWith('${user.id}/sessions/${user.currentSessionId}/'));
-
     for (String key in sessionKeys) {
       prefs.remove(key);
     }
@@ -251,43 +263,43 @@ Future<void> moveRoundToSession(String oldSessionId, int roundNumber, DateTime n
     String? finalSessionId = sessionId ?? user.currentSessionId;
     String? sessionJson = prefs.getString('${user.id}/sessions/$finalSessionId');
     if (sessionJson == null) return;
-
     Session session = Session.fromJson(jsonDecode(sessionJson));
     session.rounds.remove(roundNumber);
-
-    // Update the numbers for subsequent rounds
     Map<int, Duration> updatedRounds = {};
     for (var entry in session.rounds.entries) {
       if (entry.key > roundNumber) {
-        updatedRounds[entry.key - 1] = entry.value; // Shift up by one
+        updatedRounds[entry.key - 1] = entry.value;
       } else {
         updatedRounds[entry.key] = entry.value;
       }
     }
     session.rounds = updatedRounds;
-
-    String updatedSessionJson = jsonEncode(session.toJson());
-    prefs.setString('${user.id}/sessions/$finalSessionId', updatedSessionJson);
+    saveSessionData(session);
   }
-
-
   Future<List<Session>> getAllSessions() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final allKeys = prefs.getKeys();
-
     List<Session> sessions = [];
-
+    
     for (String key in allKeys) {
       if (key.startsWith('${user.id}/sessions/')) {
-        var sessionData = jsonDecode(prefs.get(key)!.toString());
-        if (sessionData is Map<String, dynamic> && sessionData.containsKey('dateTime') && sessionData['rounds'].length > 0) {
-          sessions.add(Session.fromJson(sessionData));
+        var sessionJson = prefs.getString(key);
+        if (sessionJson != null) {
+          var sessionData = jsonDecode(sessionJson);
+          if (sessionData['rounds'].length > 0) {
+            sessions.add(Session.fromJson(sessionData));
+          }
         }
       }
     }
 
-    sessions.sort((a, b) => b.dateTime.compareTo(a.dateTime));
+    sessions.sort((a, b) {
+      int timestampA = int.tryParse(a.id) ?? 0;
+      int timestampB = int.tryParse(b.id) ?? 0;
+      return timestampB.compareTo(timestampA);
+    });
 
     return sessions;
   }
+
 }

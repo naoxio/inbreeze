@@ -1,28 +1,35 @@
 class Session {
-  String id;  // <-- New id property
-  DateTime dateTime;
+  final String id; 
   Map<int, Duration> rounds;
 
-  Session({required this.id, required this.dateTime, required this.rounds});  // <-- Updated constructor to accept id
+  Session({required this.id, required this.rounds});
+
+  Session copyWith({String? id, Map<int, Duration>? rounds}) {
+    return Session(
+      id: id ?? this.id,
+      rounds: rounds ?? this.rounds,
+    );
+  }
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> data = {};
-    data['id'] = id;  // <-- Include id in JSON
-    data['dateTime'] = dateTime.toIso8601String();
-    data['rounds'] = rounds.map((key, value) => MapEntry(key.toString(), value.inMilliseconds));
-    return data;
+    return {
+      'id': id,
+      'rounds': rounds.map((key, value) => MapEntry(key.toString(), value.inMilliseconds)),
+    };
   }
 
   factory Session.fromJson(Map<String, dynamic> jsonData) {
-    Map<int, Duration> rounds = {};
-    Map<String, dynamic> roundsData = jsonData['rounds'] ?? {};
-    roundsData.forEach((key, value) {
-      rounds[int.parse(key)] = Duration(milliseconds: value);
-    });
+    var roundsData = jsonData['rounds'] as Map<String, dynamic>? ?? {};
+    Map<int, Duration> rounds = roundsData.map(
+      (key, value) => MapEntry(int.parse(key), Duration(milliseconds: value)),
+    );
+
     return Session(
-      id: jsonData['id'],  // <-- Extract id from JSON
-      dateTime: DateTime.parse(jsonData['dateTime']), 
-      rounds: rounds
+      id: jsonData['id'] as String,
+      rounds: rounds,
     );
   }
+
+  // Utility method to get the DateTime from the id
+  DateTime get dateTime => DateTime.parse(id);
 }

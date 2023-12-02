@@ -20,16 +20,17 @@ class _ProgressScreenState extends State<ProgressScreen> {
     _loadSessions();
   }
 
-
   Future<void> _loadSessions() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+
     final allSessions = await userProvider.getAllSessions();
 
-    Map<DateTime, List<Session>> newSessionsByDate = {}; // Declare a new map here
+    Map<DateTime, List<Session>> newSessionsByDate = {};
 
-    // Grouping sessions by date
     for (var session in allSessions) {
-      final date = DateTime(session.dateTime.year, session.dateTime.month, session.dateTime.day);
+      DateTime sessionDateTime = DateTime.fromMillisecondsSinceEpoch(int.parse(session.id));
+      final date = DateTime(sessionDateTime.year, sessionDateTime.month, sessionDateTime.day);
+
       if (!newSessionsByDate.containsKey(date)) {
         newSessionsByDate[date] = [];
       }
@@ -37,7 +38,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
     }
 
     setState(() {
-      sessionsByDate = newSessionsByDate; // Assign the newly populated map here
+      sessionsByDate = newSessionsByDate;
     });
   }
 
@@ -101,8 +102,10 @@ class _ProgressScreenState extends State<ProgressScreen> {
     }
 
     Future<void> showEditRoundDialog(Session session, int roundNumber, Duration duration) async {
-      DateTime selectedDate = session.dateTime;
-      TimeOfDay selectedTime = TimeOfDay.fromDateTime(session.dateTime);
+      DateTime sessionDateTime = DateTime.fromMillisecondsSinceEpoch(int.parse(session.id));
+      DateTime selectedDate = sessionDateTime;
+      TimeOfDay selectedTime = TimeOfDay.fromDateTime(sessionDateTime);
+
       TextEditingController minutesController = TextEditingController(text: duration.inMinutes.toString());
       TextEditingController secondsController = TextEditingController(text: (duration.inSeconds % 60).toString());
 
@@ -191,14 +194,16 @@ class _ProgressScreenState extends State<ProgressScreen> {
                     selectedTime.hour,
                     selectedTime.minute,
                   );
-
+                  int newTimestamp = newDateTime.millisecondsSinceEpoch;
+                              
                   int newMinutes = int.tryParse(minutesController.text) ?? duration.inMinutes;
                   int newSeconds = int.tryParse(secondsController.text) ?? (duration.inSeconds % 60);
                   Duration newDuration = Duration(minutes: newMinutes, seconds: newSeconds);
                   final userProvider = Provider.of<UserProvider>(context, listen: false);
 
-                  if (session.dateTime != newDateTime) {
-                    await userProvider.moveRoundToSession(session.id, roundNumber, newDateTime);
+
+                  if (int.parse(session.id) != newTimestamp) {
+                    await userProvider.moveRoundToSession(session.id, roundNumber, newTimestamp);
                   } else {
                     await userProvider.updateRoundDuration(session.id, roundNumber, newDuration);
                   }
@@ -255,9 +260,10 @@ class _ProgressScreenState extends State<ProgressScreen> {
                                 ExpansionTile(
                                   initiallyExpanded: sessions.indexOf(session) == 0, 
                                   title: Text(
-                                    DateFormat('HH:mm').format(session.dateTime),
+                                    DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(int.parse(session.id))),
                                     textAlign: TextAlign.left,
                                   ),
+
                                   subtitle: Text('${session.rounds.length} ${session.rounds.length == 1 ? 'round' : 'rounds'}'),
                                   children: session.rounds.entries.map((roundEntry) {
                                     final roundNumber = roundEntry.key;
@@ -283,7 +289,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                                         icon: Icon(Icons.delete, color: Colors.red),
                                         onPressed: () async {
                                           await userProvider.deleteRound(roundNumber, session.id);
-                                          await _loadSessions();  // Reload the sessions after deletion.
+                                          await _loadSessions();
                                         },
                                       ),
                                     );
@@ -294,7 +300,6 @@ class _ProgressScreenState extends State<ProgressScreen> {
                         ],
                       ),
                     );
-
                     return widgets;
                   }),
                 ],
@@ -304,6 +309,5 @@ class _ProgressScreenState extends State<ProgressScreen> {
       ),
       bottomNavigationBar: BreezeBottomNav(),
     );
-}
-
+  }
 }
