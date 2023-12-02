@@ -166,40 +166,43 @@ class UserProvider with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (importedData.containsKey('preferences')) {
-      var preferencesJson = importedData['preferences'] as Map<String, dynamic>;
-      Preferences importedPreferences = Preferences.fromJson(preferencesJson);
-      saveUserPreferences(importedPreferences);
+      var preferencesJson = importedData['preferences'];
+      if (preferencesJson is Map<String, dynamic>) {
+        Preferences importedPreferences = Preferences.fromJson(preferencesJson);
+        await saveUserPreferences(importedPreferences);
+      } else {
+        print('Invalid format for preferences data');
+      }
     }
 
+    // Import sessions
     if (importedData.containsKey('sessions')) {
-      var sessionsList = importedData['sessions'] as List;
-      for (var sessionJson in sessionsList) {
-        if (sessionJson is Map<String, dynamic>) {
-          if (sessionJson.containsKey('dateTime')) {
-            DateTime oldDateTime = DateTime.parse(sessionJson['dateTime']);
-            DateTime roundedDateTime = oldDateTime.roundToNearestMinute();
-            int timestamp = roundedDateTime.millisecondsSinceEpoch;
-            String sessionId = timestamp.toString();
-
-            sessionJson['id'] = sessionId;
-          } else {
-            String sessionKey = sessionJson['id'];
-
-            if (!RegExp(r'^\d+$').hasMatch(sessionKey)) {
-              sessionKey = '${user.id}/$sessionKey';
-              sessionJson['id'] = sessionKey;
+      var sessionsList = importedData['sessions'];
+      if (sessionsList is List) {
+        for (var sessionJson in sessionsList) {
+          if (sessionJson is Map<String, dynamic>) {
+            if (sessionJson.containsKey('dateTime')) {
+              DateTime oldDateTime = DateTime.tryParse(sessionJson['dateTime']) ?? DateTime.now();
+              DateTime roundedDateTime = oldDateTime.roundToNearestMinute();
+              int timestamp = roundedDateTime.millisecondsSinceEpoch;
+              String sessionId = timestamp.toString();
+              sessionJson['id'] = sessionId;
             }
-          }
 
-          Session importedSession = Session.fromJson(sessionJson);
-          print(importedSession.id);
-          prefs.setString('${user.id}/sessions/${importedSession.id}', jsonEncode(importedSession.toJson()));
+            Session importedSession = Session.fromJson(sessionJson);
+            await prefs.setString('${user.id}/sessions/${importedSession.id}', jsonEncode(importedSession.toJson()));
+          } else {
+            print('Invalid format for session data');
+          }
         }
+      } else {
+        print('Invalid format for sessions data');
       }
     }
 
     notifyListeners();
   }
+
   Future<void> moveRoundToSession(String oldSessionId, int roundNumber, int newTimestamp) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 

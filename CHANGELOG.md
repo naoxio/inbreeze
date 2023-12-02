@@ -1,4 +1,8 @@
 # Changelog
+## [1.1.2] - 2023-12-02
+### Fixed
+- Fix import older exports
+
 ## [1.1.1] - 2023-12-02
 ### Changed
 - Improved progress view

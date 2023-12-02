@@ -38,6 +38,12 @@
     <url type="bugtracker">https://github.com/naoxio/inner_breeze/issues</url>
 
 <releases>
+<release version="1.1.2" date="2023-12-02">
+<description><ul>
+<li>Fix import older exports</li>
+
+</ul></description>
+</release>
 <release version="1.1.1" date="2023-12-02">
 <description><ul>
 <li>Improved progress view</li>
