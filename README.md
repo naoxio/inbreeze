@@ -1,6 +1,12 @@
 # Inner Breeze
 Guided breathing meditation app based on the Wim Hof breathing method.
 
+## Current Goals
+- [ ] add multilungual support, add german translations
+- [ ] add gong sfx before the start of the breath hold
+- [ ] fix breath in after finishing a round
+- [ ] improve breathing speed selection
+
 ## Getting Started
 To quickly run the project locally you can use the ```nix develop``` command to create a nix shell with all the dependencies fetched and ready to ```flutter run -d linux```.
 
