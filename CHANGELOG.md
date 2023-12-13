@@ -1,4 +1,10 @@
 # Changelog
+## [1.1.3] - 2023-12-14
+### Fixed
+- Improve audio player
+### Added
+- Added gong at last breath
+
 ## [1.1.2] - 2023-12-02
 ### Fixed
 - Fix import older exports
