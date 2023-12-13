@@ -156,10 +156,10 @@ class _ProgressScreenState extends State<ProgressScreen> {
       }).toList(),
     );
   }
-
   String _formatDuration(Duration duration) {
-    return '${duration.inMinutes} mins, ${duration.inSeconds % 60} secs';
+    return '${duration.inMinutes > 0 ? "${duration.inMinutes} mins, " : ""}${duration.inSeconds % 60} secs';
   }
+
 
   Row _buildEditDeleteButtons(Session session, int roundNumber, Duration roundDuration) {
     return Row(

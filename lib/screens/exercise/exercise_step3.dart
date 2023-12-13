@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
+import 'package:inner_breeze/utils/breathing_utils.dart';
 import 'package:inner_breeze/widgets/animated_circle.dart';
 import 'package:inner_breeze/widgets/stop_session.dart';
 import 'package:go_router/go_router.dart';
@@ -40,6 +41,7 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
   }
 
   void _navigateToNextExercise() async{
+    BreathingUtils.cancelBreathCycleTimer(breathCycleTimer);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.go('/exercise/step1');
     });
@@ -55,7 +57,6 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
         } else if (timer.tick >= 17 && timer.tick <= 18) {
           innerText = 'out';
         } else {
-          timer.cancel();
           _navigateToNextExercise();
         }
       });
@@ -111,7 +112,7 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
 
   @override
   void dispose() {
-    breathCycleTimer?.cancel();
+    BreathingUtils.cancelBreathCycleTimer(breathCycleTimer);
 
     super.dispose();
   }

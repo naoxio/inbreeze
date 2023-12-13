@@ -4,10 +4,12 @@ import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/widgets/animated_circle.dart';
 import 'package:inner_breeze/widgets/stop_session.dart';
+import 'package:inner_breeze/utils/breathing_utils.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:flutter/services.dart';
+import 'package:inner_breeze/utils/audio_player_service.dart';
 
 class ExerciseStep1 extends StatefulWidget {
   ExerciseStep1({super.key});
@@ -26,11 +28,11 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
   String? sessionId;
   Timer? breathCycleTimer;
   Duration tempoDuration = Duration(seconds: 1);
-
+  AudioPlayerService audioPlayerService = AudioPlayerService();
   @override
   void initState() {
     super.initState();
-
+    audioPlayerService.initialize();
     _loadDataFromPreferences();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   }
@@ -66,20 +68,15 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
       tempoDuration = Duration(milliseconds: localTempo);
       rounds = localRounds!;
       if (rounds > 0) breathsDone = 1;
+
       volume = localVolume;
       sessionId = localSessionId;
       startBreathCounting();
     });
   }
 
-  void _cancelBreathCycleTimer() {
-    if (breathCycleTimer != null && breathCycleTimer!.isActive) {
-      breathCycleTimer!.cancel();
-    }
-  }
-
   void _navigateToNextExercise() {
-    _cancelBreathCycleTimer();
+    BreathingUtils.cancelBreathCycleTimer(breathCycleTimer);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.go('/exercise/step2');
@@ -87,7 +84,7 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
   }
 
   void startBreathCounting() {
-    _cancelBreathCycleTimer();
+    BreathingUtils.cancelBreathCycleTimer(breathCycleTimer);
     if (breathsDone < 0) {
       breathCycleTimer = Timer.periodic(Duration(seconds: 1), (timer) {
         setState(() {
@@ -104,7 +101,10 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
         setState(() {
           breathsDone = timer.tick ~/ 2 + 1;
         });
-        if (breathsDone >= maxBreaths + 1) {
+        if (breathsDone == maxBreaths && timer.tick % 2 == 0) {
+          audioPlayerService.play('assets/sounds/bell.ogg', volume * 0.8, 'bell');
+        }
+        if (breathsDone > maxBreaths) {
           timer.cancel();
           _navigateToNextExercise();
         }
@@ -133,8 +133,7 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
                   volume: volume,
                   innerText: (breathsDone > maxBreaths ? maxBreaths : breathsDone).toString(),
                   controlCallback: () {
-                    // Your logic here to decide what control to return
-                    if (breathsDone > 0) {
+                    if (breathsDone > 0 && breathsDone <= maxBreaths) {
                       return 'repeat';
                     }
                     else {
@@ -160,14 +159,15 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
 
   @override
   void dispose() {
-    _cancelBreathCycleTimer();
+    audioPlayerService.disposePlayer('bell');
+    BreathingUtils.cancelBreathCycleTimer(breathCycleTimer);
 
     super.dispose();
   }
 
 
   void skipCountdown() {
-    _cancelBreathCycleTimer();
+    BreathingUtils.cancelBreathCycleTimer(breathCycleTimer);
 
     if (breathsDone < 0) {
       setState(() {

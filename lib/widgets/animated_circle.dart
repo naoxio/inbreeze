@@ -1,100 +1,71 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:audio_session/audio_session.dart';
+import 'package:inner_breeze/utils/audio_player_service.dart';
 
 class AnimatedCircle extends StatefulWidget {
+
   final int volume;
   final Duration tempoDuration; 
   final String? innerText; 
   final Function()? controlCallback;
 
   AnimatedCircle({
+    Key? key,
     required this.volume,
     required this.tempoDuration,
     this.innerText,
-    this.controlCallback,
-  });
+    this.controlCallback
+  }) : super(key: key); 
   
   @override
   AnimatedCircleState createState() => AnimatedCircleState();
 }
 
-enum BreathingState { inhale, exhale }
-
 class AnimatedCircleState extends State<AnimatedCircle>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _radiusAnimation;
-  late AudioPlayer _audioPlayer;
-  late AudioSession _audioSession;
-  bool _isInitialized = false;
+  AudioPlayerService audioPlayerService = AudioPlayerService();
 
-  Future<AudioSession> _configureAudioSession() async {
-    final session = await AudioSession.instance;
-    await session.configure(AudioSessionConfiguration(
-      avAudioSessionCategory: AVAudioSessionCategory.playback,
-      avAudioSessionCategoryOptions: AVAudioSessionCategoryOptions.mixWithOthers,
-      avAudioSessionMode: AVAudioSessionMode.defaultMode,
-      androidAudioAttributes: const AndroidAudioAttributes(
-        contentType: AndroidAudioContentType.music,
-        flags: AndroidAudioFlags.none,
-        usage: AndroidAudioUsage.media,
-      ),
-      androidAudioFocusGainType: AndroidAudioFocusGainType.gainTransientMayDuck,
-    ));
-    return session;
-  }
+  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    
-    _audioPlayer = AudioPlayer();
-     _controller = AnimationController(
+
+    _controller = AnimationController(
       vsync: this,
       duration: widget.tempoDuration,
     );
     _radiusAnimation = Tween<double>(begin: 40, end: 72).animate(_controller);
-
-    _configureAudioSession().then((session) {
-      _audioSession = session;
-      _audioSession.interruptionEventStream.listen((event) {
-        if (event.begin) {
-          if (event.type == AudioInterruptionType.pause || event.type == AudioInterruptionType.unknown) {
-            _audioPlayer.pause();
-          }
-        } else {
-          if (event.type != AudioInterruptionType.unknown) {
-            _audioPlayer.play();
-          }
-        }
-      });
-
+    audioPlayerService.initialize().then((_) {
       _controller.addStatusListener((status) {
-        Duration newDuration = widget.tempoDuration;
-        if (_controller.duration != newDuration &&
-            _controller.status == AnimationStatus.forward) {
-          _stopAudio();
-          _controller.stop();
-          _controller.duration = newDuration;
-          _controller.forward();
-          _controller.repeat(reverse: true);
-        }
+        try {
+          Duration newDuration = widget.tempoDuration;
+          if (_controller.duration != newDuration &&
+              _controller.status == AnimationStatus.forward) {
+            _stopAudio();
+            _controller.stop();
+            _controller.duration = newDuration;
+            _controller.forward();
+            _controller.repeat(reverse: true);
+          }
 
-        if (status == AnimationStatus.forward) {
-          _playAudio('assets/sounds/breath-in.ogg');
-        } else if (status == AnimationStatus.reverse) {
-          _playAudio('assets/sounds/breath-out.ogg');
+          if (status == AnimationStatus.forward) {
+            audioPlayerService.play('assets/sounds/breath-in.ogg', widget.volume.toDouble(), 'in');
+          } else if (status == AnimationStatus.reverse) {
+            audioPlayerService.play('assets/sounds/breath-out.ogg', widget.volume.toDouble(), 'out');
+          }
+        } catch (error) {
+          print('An error occurred: $error');
         }
-      });
-      
-      setState(() {
-        _isInitialized = true;
       });
     }).catchError((error) {
-      print('Failed to configure audio session: $error');
+      print('An error occurred: $error');
     });
-  }    
+    setState(() {
+      _isInitialized = true;
+    });
+  }
 
   @override
   void didUpdateWidget(AnimatedCircle oldWidget) {
@@ -142,33 +113,18 @@ class AnimatedCircleState extends State<AnimatedCircle>
       }
     }
 
-    }
+  }
   void _stopAudio() async {
-    await _audioPlayer.stop();
+    await audioPlayerService.stop('in');
+    await audioPlayerService.stop('out');
   }
-
-  Future<void> _playAudio(String assetPath) async {
-    if (widget.volume == 0) return; 
-
-    final session = await AudioSession.instance;
-    if (await session.setActive(true)) {
-      try {
-        await _audioPlayer.setAsset(assetPath);
-        await _audioPlayer.setVolume(widget.volume / 100);
-        await _audioPlayer.play();
-      } catch (e) {
-        print("Error playing audio: $e");
-      }
-    } else {
-      print("Failed to activate audio session");
-    }
-  }
-
 
   @override
-  void dispose() {
+  void dispose() async{
     _controller.dispose();
-    _audioPlayer.dispose();
+
+    audioPlayerService.disposePlayer('in');
+    audioPlayerService.disposePlayer('out');
     super.dispose();
   }
 

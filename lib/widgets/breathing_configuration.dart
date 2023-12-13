@@ -13,7 +13,7 @@ class BreathingConfiguration extends StatefulWidget {
 
 class BreathingConfigurationState extends State<BreathingConfiguration> {
   int breaths = 30;
-  int volume = 90;
+  int volume = 100;
   Duration tempoDuration = Duration(milliseconds: 1668); 
   String animationCommand = 'repeat';
 
@@ -84,6 +84,7 @@ class BreathingConfigurationState extends State<BreathingConfiguration> {
       children: [
         Center(
           child: AnimatedCircle(
+            key: UniqueKey(),
             tempoDuration: tempoDuration,
             volume: volume,
             controlCallback: () {
