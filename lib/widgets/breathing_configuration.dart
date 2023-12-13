@@ -84,7 +84,6 @@ class BreathingConfigurationState extends State<BreathingConfiguration> {
       children: [
         Center(
           child: AnimatedCircle(
-            key: UniqueKey(),
             tempoDuration: tempoDuration,
             volume: volume,
             controlCallback: () {

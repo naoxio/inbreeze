@@ -1,4 +1,8 @@
 # Changelog
+## [1.1.4] - 2023-12-14
+### Fixed
+- Breathing configuration
+
 ## [1.1.3] - 2023-12-14
 ### Fixed
 - Improve audio player
