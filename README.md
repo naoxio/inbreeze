@@ -23,24 +23,12 @@ Helpful Resources:
 - [Understanding Nix Flakes](https://nixos.wiki/wiki/Flakes)
 - [Flutter Flake on GitHub](https://github.com/waotzi/flutter-flake)
 
-### Other Linux Distributions
+### Other Distributions
 
-For development on other Linux distributions:
+For development on other distributions, please refer to the official Flutter installation guide for the most up-to-date instructions:
 
-1. **Clone the Repository with Submodules**: 
-   Use `git submodule update --init --recursive   ` to ensure you have the `.flutter` submodule.
+- [Flutter Official Installation Guide](https://flutter.dev/docs/get-started/install)
 
-2. **Install Flutter Dependencies**:
-   Install all necessary dependencies for Flutter, including libraries for Android development (if targeting Android devices) and web browsers for web development.
-
-3. **Run `flutter doctor`**:
-   Execute `.flutter/bin/flutter doctor` from the project directory to check your environment. Address any issues it reports.
-
-4. **Check Available Devices**:
-   Run `.flutter/bin/flutter devices` to see available devices.
-
-5. **Target a Device for Development**:
-   For instance, to run on Linux, use `.flutter/bin/flutter run -d linux`.
 
 ## Community
 We welcome any participates and you should feel welcome to share your ideas.

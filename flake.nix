@@ -6,15 +6,16 @@
       url    = "github:waotzi/flutter-flake/3.2.1";
       inputs.nixpkgs.follows  = "nixpkgs";
     };
-
+    nixgl.url = "github:guibou/nixGL";
   };
 
-  outputs = { flutter-flake, nixpkgs, self }:
+  outputs = { flutter-flake, nixgl, nixpkgs, self }:
   let
     ### TODO other implement systems
     system = "x86_64-linux";
-    pkgs   = import nixpkgs {
-      inherit system;
+    pkgs = import nixpkgs {
+      system = system;
+      overlays = [ nixgl.overlay ];
     };
     dependencies = [
       pkgs.clang
@@ -38,7 +39,6 @@
       buildPhase = ''
         flutter build linux --release
       '';
-
 
       installPhase = ''
         mkdir -p $out/bin
