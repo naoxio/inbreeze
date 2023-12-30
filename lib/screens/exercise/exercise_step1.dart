@@ -40,7 +40,12 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
   Future<void> _loadDataFromPreferences() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final preferences = await userProvider.loadUserPreferences(['breaths', 'tempo', 'rounds', 'volume', 'sessionId', 'screenAlwaysOn']);
-    final sessionData = await userProvider.loadSessionData(); 
+    var sessionData = await userProvider.loadSessionData(); 
+    if (sessionData == null) {
+      userProvider.startNewSession();
+      sessionData = await userProvider.loadSessionData(); 
+    }
+
     try {
       if (preferences.screenAlwaysOn) {
         WakelockPlus.enable();

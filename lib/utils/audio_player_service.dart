@@ -43,16 +43,10 @@ class AudioPlayerService {
       await _session.setActive(true);
       var player = _players[playerId];
       player ??= _players.putIfAbsent(playerId, () => AudioPlayer());
-      print('Before assest');
       await player.setAsset(assetPath);
-      print('fatre ssste');
       await player.seek(Duration(milliseconds: 0));
-      print('sseek');
       await player.setVolume(volume / 100);
-      print(player.position);
-      print(player.playing);
-
-    
+      await player.play();
     } catch (e) {
       print('Error playing audio: $e');
     }
