@@ -254,12 +254,19 @@ class UserProvider with ChangeNotifier {
 
   Future<void> deleteSessionData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('${user.id}/currentSession');
+    String? sessionJson = prefs.getString('${user.id}/sessions/${user.currentSessionId}');
+    if (sessionJson == null) return;
+    Session session = Session.fromJson(jsonDecode(sessionJson));
     Set<String> allKeys = prefs.getKeys();
-    Iterable<String> sessionKeys = allKeys.where((key) => key.startsWith('${user.id}/sessions/${user.currentSessionId}/'));
-    for (String key in sessionKeys) {
-      prefs.remove(key);
+    for (String key in allKeys) {
+      if (key.startsWith('${user.id}/sessions/${user.currentSessionId}/rounds/')) {
+        prefs.remove(key);
+      }
     }
+    session.rounds = {};
+    saveSessionData(session);
+    notifyListeners();
+  
   }
   
   Future<void> deleteRound(int roundNumber, [String? sessionId]) async {
