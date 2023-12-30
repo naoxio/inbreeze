@@ -110,12 +110,13 @@ class _ResultsScreenState extends State<ResultsScreen> {
         ),
       ),     
       bottomNavigationBar: BottomAppBar(
+        height: 140,
         color: Colors.transparent,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: 42,
+              height: 52,
               child: SwitchListTile(
                 title: Text("Save Progress"),
                 value: saveProgress,
@@ -129,6 +130,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                 activeColor: Colors.teal,
               ),
             ),
+            SizedBox(height: 10),
             SizedBox(
               width: double.infinity,
               height: 52,
