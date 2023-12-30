@@ -3,16 +3,15 @@ body {
   color: #fff;
   background-color: #121212; /* Dark background */
   margin: 0;
-  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 .container {
   text-align: center;
   max-width: 500px;
+  padding: 1rem;
 }
 
 h1 {
