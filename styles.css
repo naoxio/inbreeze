@@ -23,6 +23,10 @@ p {
   margin: 20px 0;
 }
 
+.apps a img {
+  width: 180px;
+  padding: 0.5rem;
+}
 .button {
   background-color: #16897a; /* Darker teal color */
   color: #fff;
