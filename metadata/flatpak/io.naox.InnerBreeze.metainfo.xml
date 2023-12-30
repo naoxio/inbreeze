@@ -38,6 +38,15 @@
     <url type="bugtracker">https://github.com/naoxio/inner_breeze/issues</url>
 
 <releases>
+<release version="1.2.0" date="2023-12-30">
+<description><ul>
+<li>Privacy police</li>
+<li>Screen width on large displays</li>
+<li>Update to latest package versions and flutter version</li>
+<li>Improve breathing configuration</li>
+
+</ul></description>
+</release>
 <release version="1.2.1" date="2023-12-30">
 <description><ul>
 <li>Fix breathing bug</li>
