@@ -1,4 +1,8 @@
 # Changelog
+## [1.2.1] - 2023-12-30
+### Fixed
+- Fix breathing bug
+
 ## [1.2.0] - 2023-12-30
 ### Added
 - Privacy police
