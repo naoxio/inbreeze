@@ -258,7 +258,7 @@ jobs:
     - name: Reorganize Windows Directory
       run: |
         mkdir -p organized_output/windows/
-        cp -r build/windows/runner/Release/* organized_output/windows/
+        cp -r build/windows/x64/runner/Release/* organized_output/windows/
 
     - name: Archive Windows executable
       run: 7z a build/InnerBreeze-Windows-x86_64.zip organized_output/windows/
