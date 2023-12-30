@@ -23,21 +23,21 @@ p {
   margin: 20px 0;
 }
 
+footer {
+  padding: 1rem;
+}
+
+a {
+  color: #16897a;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
 .apps a img {
   width: 180px;
   padding: 0.5rem;
 }
-.button {
-  background-color: #16897a; /* Darker teal color */
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  text-decoration: none;
-  display: inline-block;
-  margin: 10px;
-  transition: background-color 0.3s;
-}
+
 
 .button:hover {
   background-color: #13a89e; /* Slightly lighter teal for hover */
