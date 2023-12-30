@@ -7,7 +7,6 @@ import 'package:inner_breeze/screens/settings_screen.dart';
 import 'package:inner_breeze/screens/splash_screen.dart';
 import 'package:inner_breeze/screens/results_screen.dart';
 import 'package:inner_breeze/screens/progress_screen.dart';
-import 'package:inner_breeze/screens/privacy_screen.dart';
 import 'package:inner_breeze/screens/breathing_settings_screen.dart';
 
 // GoRouter configuration
@@ -44,10 +43,6 @@ final router = GoRouter(
     GoRoute(
       path: '/breathing',
       builder: (context, state) => BreathingSettingsScreen(),
-    ),
-    GoRoute(
-      path: '/privacy',
-      builder: (context, state) => PrivacyScreen(),
     ),
   ],
 );
