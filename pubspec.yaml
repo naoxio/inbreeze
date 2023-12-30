@@ -34,6 +34,8 @@ dependencies:
   wakelock_plus: ^1.1.3
   share_plus: ^7.2.1
   document_file_save_plus: ^2.0.0
+  package_info_plus: ^5.0.1
+  http: ^1.1.2
 
 dev_dependencies:
   flutter_test:

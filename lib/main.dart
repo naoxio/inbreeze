@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
+import 'package:inner_breeze/widgets/centered_max_width_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'router/router.dart';
@@ -92,6 +93,7 @@ class _AppState extends State<App> {
     }
   }
 
+  // ... other code ...
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +104,14 @@ class _AppState extends State<App> {
       theme: _lightTheme,
       darkTheme: _darkTheme,
       themeMode: ThemeMode.dark,
+      builder: (context, child) {
+        var backgroundColor = Theme.of(context).colorScheme.background;
+
+        return Container(
+          color: backgroundColor,
+          child: CenteredMaxWidthWidget(child: child!),
+        );
+      },
     );
   }
 }
