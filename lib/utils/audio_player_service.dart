@@ -34,30 +34,53 @@ class AudioPlayerService {
         }
       }
     });
+
   }
 
+
   Future<void> play(String assetPath, double volume, String playerId) async {
-    await _session.setActive(true);
-    var player = _players.putIfAbsent(playerId, () => AudioPlayer());
-    await player.setAsset(assetPath);
-    await player.setVolume(volume / 100);
-    await player.play();
+    try {
+      await _session.setActive(true);
+      var player = _players[playerId];
+      player ??= _players.putIfAbsent(playerId, () => AudioPlayer());
+      print('Before assest');
+      await player.setAsset(assetPath);
+      print('fatre ssste');
+      await player.seek(Duration(milliseconds: 0));
+      print('sseek');
+      await player.setVolume(volume / 100);
+      print(player.position);
+      print(player.playing);
+
+    
+    } catch (e) {
+      print('Error playing audio: $e');
+    }
   }
 
   Future<void> stop(String playerId) async {
-    var player = _players[playerId];
-    if (player != null) {
-      await player.stop();
+    try {
+      var player = _players[playerId];
+      if (player != null) {
+        await player.stop();
+      }
+    } catch (e) {
+      print('Error stopping audio: $e');
     }
   }
 
   void disposePlayer(String playerId) {
-    var player = _players[playerId];
-    if (player != null) {
-      player.dispose();
-      _players.remove(playerId);
+      try {
+        var player = _players[playerId];
+        if (player != null) {
+          player.dispose();
+          _players.remove(playerId);
+        }
+      } catch (e) {
+        print('Error disposing audio player: $e');
+      }
     }
-  }
+
 
   void dispose() {
     _interruptionSubscription?.cancel();

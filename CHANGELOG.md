@@ -1,4 +1,13 @@
 # Changelog
+## [1.2.0] - 2023-12-30
+### Added
+- Privacy police
+### Fixed
+- Screen width on large displays
+### Updated
+- Update to latest package versions and flutter version
+- Improve breathing configuration
+
 ## [1.1.4] - 2023-12-14
 ### Fixed
 - Breathing configuration

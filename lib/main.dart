@@ -24,7 +24,7 @@ void main() async {
     await windowManager.ensureInitialized();
 
     WindowOptions windowOptions = WindowOptions(
-      size: Size(420, 600),
+      size: Size(420, 620),
       center: true,
       title: title,
       backgroundColor: Colors.transparent,
