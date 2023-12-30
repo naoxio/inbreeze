@@ -9,12 +9,12 @@ class AnimatedCircle extends StatefulWidget {
   final Function()? controlCallback;
 
   AnimatedCircle({
-    Key? key,
+    super.key,
     required this.volume,
     required this.tempoDuration,
     this.innerText,
     this.controlCallback
-  }) : super(key: key); 
+  }); 
   
   @override
   AnimatedCircleState createState() => AnimatedCircleState();
@@ -43,13 +43,13 @@ class AnimatedCircleState extends State<AnimatedCircle>
           Duration newDuration = widget.tempoDuration;
           if (_controller.duration != newDuration &&
               _controller.status == AnimationStatus.forward) {
-            _stopAudio();
             _controller.stop();
             _controller.duration = newDuration;
             _controller.forward();
             _controller.repeat(reverse: true);
           }
-
+          print(status);
+          print('aeooaueoau');
           if (status == AnimationStatus.forward) {
             audioPlayerService.play('assets/sounds/breath-in.ogg', widget.volume.toDouble(), 'in');
           } else if (status == AnimationStatus.reverse) {
@@ -70,17 +70,16 @@ class AnimatedCircleState extends State<AnimatedCircle>
   @override
   void didUpdateWidget(AnimatedCircle oldWidget) {
     super.didUpdateWidget(oldWidget);
-  
     if (widget.tempoDuration != oldWidget.tempoDuration) {
-      _controller.duration = widget.tempoDuration;
-      if (widget.controlCallback != null) {
-        String control = widget.controlCallback!();
-        if (control == 'reset') {
-          _controller.reset();
-          _stopAudio();
-          _controller.forward();
-          _controller.repeat(reverse: true);
-        }
+      var oldDuration = _controller.duration;
+      var newDuration = widget.tempoDuration;
+
+      _controller.duration = newDuration;
+
+      if (_controller.isAnimating) {
+        var value = (_controller.value * oldDuration!.inMilliseconds) / newDuration.inMilliseconds;
+        _controller.forward(from: value);
+        _controller.repeat(reverse: true);
       }
     }
     if (widget.controlCallback != null) {
@@ -100,11 +99,9 @@ class AnimatedCircleState extends State<AnimatedCircle>
             _controller.reverse();
             break;
           case 'stop':
-            _stopAudio();
             _controller.stop();
             break;
           case 'reset':
-            _stopAudio();
             _controller.stop();
             _controller.forward();
             _controller.repeat(reverse: true);

@@ -10,8 +10,8 @@ class StopSessionButton extends StatefulWidget {
 
   const StopSessionButton({
     this.onStopSessionPressed,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<StopSessionButton> createState() => _StopSessionButtonState();
@@ -67,7 +67,7 @@ class _StopSessionButtonState extends State<StopSessionButton> {
         actions: <Widget>[
           Wrap(
             alignment: WrapAlignment.center,
-            spacing: 8.0,
+            spacing: 6.0,
             children: [
               OutlinedButton(
                 onPressed: () {

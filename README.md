@@ -41,7 +41,7 @@ Automatically updated via GitHub Actions.
 
 ### Get the App
 <p align="center">
- <a href="https://inner-breeze.app/#/">
+ <a href="https://web.inner-breeze.app/#/">
   <img src="./docs/web-app.png"
     alt="Open Web App"
     height="60">

@@ -11,7 +11,7 @@ class Preferences {
     this.theme = 'dark',
     this.tempo = 1668,
     this.breaths = 30,
-    this.volume = 90, 
+    this.volume = 100, 
     this.screenAlwaysOn = true
 
   });

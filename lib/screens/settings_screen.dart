@@ -230,15 +230,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                 ),
                 SizedBox(height: 20),
-                OutlinedButton(
-                  onPressed: _exportData,
-                  child: const Text("Export Data"),
+                 Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Text('Data Management', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                 ),
-                SizedBox(height: 20),
-                OutlinedButton(
-                  onPressed: _importData,
-                  child: const Text("Import Data"),
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  alignment: WrapAlignment.center,
+                  children: [
+                    OutlinedButton(
+                      onPressed: _exportData,
+                      child: const Text("Export Data"),
+                    ),
+                    OutlinedButton(
+                      onPressed: _importData,
+                      child: const Text("Import Data"),
+                    ),
+                  ],
                 ),
+
                 SizedBox(height: 20),
                 TextButton(
                   onPressed: _showResetConfirmation,
@@ -252,11 +263,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   spacing: 15,
                   runSpacing: 15,
                   children: [
-                    _buildIconLink(Icons.web, 'Website', 'https://naox.io/'),
+                    _buildIconLink(Icons.web, 'Website', 'https://inner-breeze.app/'),
                     _buildIconLink('assets/icons/github.svg', 'GitHub', 'https://github.com/naoxio'),
                     _buildIconLink('assets/icons/telegram.svg', 'Telegram', 'https://t.me/naoxio'),
                     _buildIconLink('assets/icons/twitter.svg', 'X Page', 'https://x.com/naox_io'),
-                    _buildIconLink(Icons.monetization_on, 'Coindrop', 'https://coindrop.to/naox'),
+                    _buildIconLink(Icons.monetization_on, 'Donate', 'https://coindrop.to/naox'),
                   ],
                 ),
                 SizedBox(height: 40),
@@ -285,6 +296,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     }
                     return Column(children: versionWidgets);
                   },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: () => launchUrl(Uri.parse('https://naox.io')),
+                        child: Text('NaoX', style: TextStyle(color: Colors.teal)),
+                      ),
+                      Text('© 2024'),
+                      TextButton(
+                        onPressed: () => launchUrl(Uri.parse('https://inner-breeze.app/privacy-policy')),
+                        child: Text('Privacy Policy', style: TextStyle(color: Colors.teal)),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
