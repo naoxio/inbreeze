@@ -1,3 +1,7 @@
 .flutter*
 .dart_tool
 *~
+ios
+macos
+android
+build
