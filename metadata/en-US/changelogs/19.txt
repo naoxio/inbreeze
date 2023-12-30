@@ -1,0 +1,5 @@
+* Privacy police
+* Screen width on large displays
+* Update to latest package versions and flutter version
+* Improve breathing configuration
+
