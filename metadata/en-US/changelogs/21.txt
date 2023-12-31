@@ -1,0 +1,3 @@
+* Added german and spanish translations
+* Added language switcher
+
