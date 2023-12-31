@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/widgets/breeze_bottom_nav.dart';
 import 'package:inner_breeze/widgets/breeze_app_bar.dart';
+import 'package:inner_breeze/widgets/language_selector.dart';
+import 'package:localization/localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,6 +29,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _screenAlwaysOn = true;
+  bool isLoading = false; 
 
   String _latestVersionTag = '';
   bool _isNewVersionAvailable = false;
@@ -36,6 +39,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.initState();
     _loadScreenAlwaysOnPreference();
     _checkForUpdates();
+  }
+  void handleLanguageChange(String languageCode) async {
+    setState(() => isLoading = true);
+    await Future.delayed(Duration(seconds: 1)); // Wait for 1 second
+    setState(() => isLoading = false);
   }
 
   Future<String> _fetchLatestVersion() async {
@@ -106,23 +114,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
   }
-
+  
   void _showResetConfirmation() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Confirm Reset"),
-          content: Text("Are you sure you want to reset all data? This action cannot be undone."),
+          title: Text('confirm_reset'.i18n()),
+          content: Text('reset_data_warning'.i18n()),
           actions: <Widget>[
             TextButton(
-              child: Text("Cancel"),
+              child: Text('cancel'.i18n()),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text("Reset Data", style: TextStyle(color: Colors.red)),
+              child: Text('reset_data'.i18n(), style: TextStyle(color: Colors.red)),
               onPressed: () {
                 _resetData();
                 Navigator.of(context).pop();
@@ -146,14 +154,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
         await userProvider.importData(data);
 
-        _showSnackBar("Data imported successfully!");
+        _showSnackBar('data_imported_success'.i18n());
       } catch (e) {
-        _showSnackBar("Error importing data: $e");
+        _showSnackBar('error_importing_data'.i18n() + e.toString());
       }
     } else {
-      _showSnackBar("Import cancelled");
+      _showSnackBar('import_cancelled'.i18n());
     }
   }
+
   Future<void> _exportData() async {
     final DocumentFileSavePlus fileSaver = DocumentFileSavePlus();
 
@@ -166,11 +175,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       String fileName = 'InnerBreeze_$formattedDate.json';
       Uint8List textBytes = Uint8List.fromList(jsonString.codeUnits);
       await fileSaver.saveFile(textBytes, fileName, "application/json");
-      _showSnackBar("Data exported successfully as $fileName");
+      _showSnackBar('data_exported_success'.i18n() + fileName);
     } catch (e) {
-      _showSnackBar("Error exporting data: $e");
+      _showSnackBar('error_exporting_data'.i18n() + e.toString());
     }
   }
+
 
   Future<String> _getAppVersion() async {
     final PackageInfo info = await PackageInfo.fromPlatform();
@@ -187,9 +197,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
+    if (isLoading) {
+      return Center(
+        child: SizedBox(
+          width: 128.0,
+          height: 128.0,
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     return Scaffold(
-      appBar: BreezeAppBar(title: 'Settings'),
+      appBar: BreezeAppBar(title: 'settings_title'.i18n()),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Center(
@@ -204,7 +222,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     minimumSize: Size(140, 50),
                   ),
                   child: Text(
-                    "Show Tutorial",
+                    'show_tutorial_button'.i18n(),
                     style: TextStyle(fontSize: 20.0),
                   ),
                   onPressed: () {
@@ -214,16 +232,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SizedBox(height: 20),
                 OutlinedButton(
                   child: Text(
-                    "Breathing Circle",
+                    'breathing_circle_button'.i18n(),
                     style: TextStyle(fontSize: 18.0),
                   ),
                   onPressed: () {
                     context.go('/breathing');
                   },
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Column(
+                    children: [
+                      Text('language_title'.i18n(), style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                      LanguageSelector(onLanguageChanged: handleLanguageChange),
+                    ],
+                  ),
+                ),
                 SizedBox(height: 20),
                 SwitchListTile(
-                  title: Text('Keep Screen On During Exercise'),
+                  title: Text('keep_screen_on_label'.i18n()),
                   value: _screenAlwaysOn,
                   onChanged: (bool value) {
                     _updateScreenAlwaysOnPreference(value);
@@ -232,7 +259,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SizedBox(height: 20),
                  Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Text('Data Management', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                  child: Text('data_management_title'.i18n(), style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                 ),
                 Wrap(
                   spacing: 10,
@@ -241,11 +268,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   children: [
                     OutlinedButton(
                       onPressed: _exportData,
-                      child: const Text("Export Data"),
+                      child: Text("export_data_button".i18n()),
                     ),
                     OutlinedButton(
                       onPressed: _importData,
-                      child: const Text("Import Data"),
+                      child: Text("import_data_button".i18n()),
                     ),
                   ],
                 ),
@@ -253,11 +280,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SizedBox(height: 20),
                 TextButton(
                   onPressed: _showResetConfirmation,
-                  child: Text("Reset Data", style: TextStyle(color: Colors.red)),
+                  child: Text("reset_data_button".i18n(), style: TextStyle(color: Colors.red)),
                 ),
                 // Links Section
                 SizedBox(height: 40),
-                Text('Connect & Support', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                Text('connect_support_title'.i18n(), style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                 SizedBox(height: 15),
                 Wrap(
                   spacing: 15,
@@ -276,17 +303,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                     List<Widget> versionWidgets = [];
                     if (snapshot.hasData) {
-                      versionWidgets.add(Text('App Version: ${snapshot.data}'));
+                      versionWidgets.add(Text('${'app_version_text'.i18n()}: ${snapshot.data}'));
                       if (_isNewVersionAvailable) {
                         versionWidgets.add(Padding(
                           padding: const EdgeInsets.only(top: 8.0),
-                          child: Text('New version available: $_latestVersionTag'),
+                          child: Text('${'new_version_available'.i18n()}: $_latestVersionTag'),
                         ));
                         versionWidgets.add(TextButton(
                           onPressed: () {
                             launchUrl(Uri.parse('https://github.com/naoxio/inner_breeze/releases/tag/$_latestVersionTag'));
                           },
-                          child: Text('Update'),
+                          child: Text('update_button'.i18n()),
                         ));
                       }
                     } else if (snapshot.hasError) {
@@ -309,7 +336,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Text('© 2024'),
                       TextButton(
                         onPressed: () => launchUrl(Uri.parse('https://inner-breeze.app/privacy-policy')),
-                        child: Text('Privacy Policy', style: TextStyle(color: Colors.teal)),
+                        child: Text('privacy_policy'.i18n(), style: TextStyle(color: Colors.teal)),
                       ),
                     ],
                   ),

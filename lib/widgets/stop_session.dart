@@ -103,7 +103,7 @@ class _StopSessionButtonState extends State<StopSessionButton> {
       child: TextButton(
         onPressed: () => _showExitConfirmationDialog(context),
         child: Text(
-          'Stop Session',
+          'stop_session_button'.i18n(),
           style: TextStyle(
             fontSize: 18.0,
             color: Colors.grey,

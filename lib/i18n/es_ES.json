@@ -64,6 +64,30 @@
   "stop_session": "Detener sesión",
   "stop_session_confirm": "¿Estás seguro de que quieres terminar la sesión?",
   "stop_session_button": "Detener sesión",
-  "continue_session_button": "Continuar sesión"
-}
+  "continue_session_button": "Continuar sesión",
+
+  "settings_title": "Configuración",
+  "show_tutorial_button": "Mostrar Tutorial",
+  "breathing_circle_button": "Círculo de Respiración",
+  "keep_screen_on_label": "Mantener la Pantalla Encendida Durante el Ejercicio",
+  "language_title": "Idioma",
+  "data_management_title": "Gestión de Datos",
+  "export_data_button": "Exportar Datos",
+  "import_data_button": "Importar Datos",
+  "reset_data_button": "Restablecer Datos",
+  "connect_support_title": "Conectar & Apoyar",
+  "app_version_text": "Versión de la App",
+  "new_version_available": "Nueva versión disponible",
+  "update_button": "Actualizar",
+  "privacy_policy": "Política de Privacidad",
   
+  "confirm_reset": "Confirmar reinicio",
+  "reset_data_warning": "¿Estás seguro de que quieres restablecer todos los datos? Esta acción no se puede deshacer.",
+  "cancel": "Cancelar",
+  "reset_data": "Restablecer datos",
+  "data_imported_success": "Datos importados con éxito!",
+  "error_importing_data": "Error al importar datos: ",
+  "import_cancelled": "Importación cancelada",
+  "data_exported_success": "Datos exportados con éxito como ",
+  "error_exporting_data": "Error al exportar datos: "
+}

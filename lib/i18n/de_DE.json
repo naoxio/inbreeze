@@ -63,5 +63,30 @@
   "stop_session": "Sitzung beenden",
   "stop_session_confirm": "Sind Sie sicher, dass Sie die Sitzung beenden möchten?",
   "stop_session_button": "Sitzung beenden",
-  "continue_session_button": "Sitzung fortsetzen"
+  "continue_session_button": "Sitzung fortsetzen",
+
+  "settings_title": "Einstellungen",
+  "show_tutorial_button": "Tutorial anzeigen",
+  "breathing_circle_button": "Atemkreis",
+  "keep_screen_on_label": "Bildschirm während des Trainings eingeschaltet lassen",
+  "language_title": "Sprache",
+  "data_management_title": "Datenverwaltung",
+  "export_data_button": "Daten exportieren",
+  "import_data_button": "Daten importieren",
+  "reset_data_button": "Daten zurücksetzen",
+  "connect_support_title": "Verbinden & Unterstützen",
+  "app_version_text": "App-Version",
+  "new_version_available": "Neue Version verfügbar",
+  "update_button": "Aktualisieren",
+  "privacy_policy": "Datenschutz-Bestimmungen",
+
+  "confirm_reset": "Zurücksetzen bestätigen",
+  "reset_data_warning": "Sind Sie sicher, dass Sie alle Daten zurücksetzen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+  "cancel": "Abbrechen",
+  "reset_data": "Daten zurücksetzen",
+  "data_imported_success": "Daten erfolgreich importiert!",
+  "error_importing_data": "Fehler beim Importieren der Daten: ",
+  "import_cancelled": "Import abgebrochen",
+  "data_exported_success": "Daten erfolgreich exportiert als ",
+  "error_exporting_data": "Fehler beim Exportieren der Daten: "
 }
