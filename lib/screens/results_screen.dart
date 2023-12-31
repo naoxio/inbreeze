@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/widgets/breeze_app_bar.dart';
+import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 
@@ -49,13 +50,13 @@ class _ResultsScreenState extends State<ResultsScreen> {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
-      appBar: BreezeAppBar(title: 'Results'),
+      appBar: BreezeAppBar(title: 'results_title'.i18n()),
       body: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(height: 20),
             Text(
-              'Rounds Completed: $rounds',
+              '${'rounds_completed'.i18n()}$rounds',
               style: BreezeStyle.bodyBig,
             ),
             SizedBox(height: 20),
@@ -84,7 +85,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                           Text(
                             duration != null 
                               ? '${duration.inMinutes}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}'
-                              : 'No data',
+                              : 'no_data'.i18n(),
                             style: BreezeStyle.body,
                           ),
                           SizedBox(width: 25),
@@ -118,7 +119,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
             SizedBox(
               height: 52,
               child: SwitchListTile(
-                title: Text("Save Progress"),
+                title: Text("save_progress".i18n()),
                 value: saveProgress,
                 onChanged: (rounds > 0)
                     ? (bool value) {
@@ -140,7 +141,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
                   context.go('/home');
                 },
                 child: Text(
-                  'Close',
+                  'close_button'.i18n(),
                   style: BreezeStyle.bodyBig
                 ),
               ),

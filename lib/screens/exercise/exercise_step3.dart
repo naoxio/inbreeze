@@ -6,6 +6,7 @@ import 'package:inner_breeze/utils/breathing_utils.dart';
 import 'package:inner_breeze/widgets/animated_circle.dart';
 import 'package:inner_breeze/widgets/stop_session.dart';
 import 'package:go_router/go_router.dart';
+import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
 class ExerciseStep3 extends StatefulWidget {
@@ -47,6 +48,18 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
     });
   }
 
+
+  String getDisplayText() {
+    switch (innerText) {
+      case 'in':
+        return 'in_breath'.i18n();
+      case 'out':
+        return 'out_breath'.i18n();
+      default:
+        return innerText;
+    }
+  }
+  
   void startBreathCounting() {
     breathCycleTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
@@ -75,13 +88,13 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Recovery',
+                  'recovery'.i18n(),
                   style: BreezeStyle.header,
                 ),
                 AnimatedCircle(
                   volume: volume,
                   tempoDuration: tempoDuration,
-                  innerText: innerText,
+                  innerText: getDisplayText(),
                   controlCallback: () {
                     if (innerText == 'in') {
                       return 'forward';
@@ -97,7 +110,7 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
                 SizedBox(height: 200),
                 StopSessionButton(),
                 TextButton(
-                  child: Text('Skip'),
+                child: Text('skip_button'.i18n()),
                   onPressed: () {
                     _navigateToNextExercise();
                   },

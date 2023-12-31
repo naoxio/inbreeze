@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:flutter/services.dart';
@@ -62,8 +63,8 @@ class _StopSessionButtonState extends State<StopSessionButton> {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Stop Session'),
-        content: Text('Are you sure you want to end the session?'),
+          title: Text('stop_session'.i18n()),
+        content: Text('stop_session_confirm'.i18n()),
         actions: <Widget>[
           Wrap(
             alignment: WrapAlignment.center,
@@ -77,7 +78,7 @@ class _StopSessionButtonState extends State<StopSessionButton> {
                   side: BorderSide(color: Colors.red),
                 ),
                 child: Text(
-                  'Stop Session',
+                    'stop_session_button'.i18n(),
                   style: TextStyle(color: Colors.red),
                 ),
               ),
@@ -85,7 +86,7 @@ class _StopSessionButtonState extends State<StopSessionButton> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Continue Session'),
+                child: Text('continue_session_button'.i18n()),
               ),
             ],
           ),

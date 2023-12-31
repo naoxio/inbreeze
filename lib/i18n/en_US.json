@@ -26,6 +26,11 @@
   "skip_button": "Skip",
   "next_button": "Next",
   "finish_button": "Finish",
+  "save_button": "Save",
+  "cancel_button": "Cancel",
+  "close_button": "Close",
+  "start_button": "Start",
+  "stop_button": "Stop",
 
   "progress_title": "Progress View",
   "start_journey": "Start Your Journey!",
@@ -38,8 +43,26 @@
   "select_time": "Select Time",
   "minutes_label": "Minutes",
   "seconds_label": "Seconds",
-  "cancel_button": "Cancel",
-  "save_button": "Save"
 
+  "get_ready": "Get Ready",
+  "finish_hold": "Finish Hold",
+  "in_breath": "In",
+  "out_breath": "Out",
+  "recovery": "Recovery",
+
+  "results_title": "Results",
+  "rounds_completed": "Rounds Completed: ",
+  "no_data": "No data",
+  "save_progress": "Save Progress",
+
+  "tempo_label": "Tempo",
+  "volume_label": "Volume",
+  "breaths_label": "Breaths",
+
+  "stop_session": "Stop Session",
+  "stop_session_confirm": "Are you sure you want to end the session?",
+  "stop_session_button": "Stop Session",
+  "continue_session_button": "Continue Session"
+  
 }
   

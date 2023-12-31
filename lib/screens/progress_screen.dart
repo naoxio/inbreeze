@@ -148,7 +148,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
     return ExpansionTile(
       leading: Icon(Icons.access_time),
       title: Text(sessionTime),
-      subtitle: Text('rounds_label'.i18n() + session.rounds.length.toString()),
+      subtitle: Text('${'rounds_label'.i18n()}: ${session.rounds.length}'),
       children: session.rounds.entries.map((roundEntry) {
         return ListTile(
           title: Text('round_label'.i18n() + roundEntry.key.toString() + _formatDuration(roundEntry.value)),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/widgets/animated_circle.dart';
+import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/models/preferences.dart';
 
@@ -93,7 +94,7 @@ class BreathingConfigurationState extends State<BreathingConfiguration> {
         ),
         SizedBox(height: 190),
         Text(
-          'Tempo',
+          'tempo_label'.i18n(),
           style: TextStyle(
             fontSize: 22.0,
             fontWeight: FontWeight.bold,
@@ -111,7 +112,7 @@ class BreathingConfigurationState extends State<BreathingConfiguration> {
         ),
         SizedBox(height: 10),
         Text(
-          'Volume',
+          'volume_label'.i18n(),
           style: TextStyle(
             fontSize: 22.0,
             fontWeight: FontWeight.bold,
@@ -129,7 +130,7 @@ class BreathingConfigurationState extends State<BreathingConfiguration> {
         ),
         SizedBox(height: 10),
         Text(
-          'Breaths',
+          'breaths_label'.i18n(),
           style: TextStyle(
             fontSize: 22.0,
             fontWeight: FontWeight.bold,
