@@ -151,7 +151,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
       subtitle: Text('${'rounds_label'.i18n()}: ${session.rounds.length}'),
       children: session.rounds.entries.map((roundEntry) {
         return ListTile(
-          title: Text('round_label'.i18n() + roundEntry.key.toString() + _formatDuration(roundEntry.value)),
+          title: Text('${'round_label'.i18n()} ${roundEntry.key}: ${_formatDuration(roundEntry.value)}'),
           trailing: _buildEditDeleteButtons(session, roundEntry.key, roundEntry.value),
         );
       }).toList(),

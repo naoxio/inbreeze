@@ -62,7 +62,31 @@
   "stop_session": "Stop Session",
   "stop_session_confirm": "Are you sure you want to end the session?",
   "stop_session_button": "Stop Session",
-  "continue_session_button": "Continue Session"
-  
+  "continue_session_button": "Continue Session",
+ 
+  "settings_title": "Settings",
+  "show_tutorial_button": "Show Tutorial",
+  "breathing_circle_button": "Breathing Circle",
+  "keep_screen_on_label": "Keep Screen On During Exercise",
+  "language_title": "Language",
+  "data_management_title": "Data Management",
+  "export_data_button": "Export Data",
+  "import_data_button": "Import Data",
+  "reset_data_button": "Reset Data",
+  "connect_support_title": "Connect & Support",
+  "app_version_text": "App Version",
+  "new_version_available": "New version available",
+  "update_button": "Update",
+  "privacy_policy": "Privacy Policy",
+
+  "confirm_reset": "Confirm Reset",
+  "reset_data_warning": "Are you sure you want to reset all data? This action cannot be undone.",
+  "cancel": "Cancel",
+  "reset_data": "Reset Data",
+  "data_imported_success": "Data imported successfully!",
+  "error_importing_data": "Error importing data: ",
+  "import_cancelled": "Import cancelled",
+  "data_exported_success": "Data exported successfully as ",
+  "error_exporting_data": "Error exporting data: "
 }
   
