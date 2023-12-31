@@ -1,4 +1,9 @@
 # Changelog
+## [1.2.2] - 2023-12-31
+### Added
+- Added german and spanish translations
+- Added language switcher
+
 ## [1.2.1] - 2023-12-30
 ### Fixed
 - Fix breathing bug
