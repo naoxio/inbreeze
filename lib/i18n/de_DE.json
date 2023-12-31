@@ -1,0 +1,45 @@
+{
+  "language_selection_title": "Sprachauswahl",
+  "language_instruction": "Wählen Sie Ihre bevorzugte Sprache und drücken Sie auf Fortsetzen.",
+
+
+  "guide_welcome_title": "Namaste",
+  "guide_welcome_description": "Diese einfache, aber wirksame Atemtechnik verspricht tiefen inneren Frieden und bietet einen Zufluchtsort der Ruhe inmitten des hektischen Alltags.",
+  "safety_instruction": "Um Ihre Sicherheit zu gewährleisten, üben Sie entweder im Liegen oder in einer bequemen Sitzposition.",
+  
+  "guide_method_title": "Methode",
+  "guide_method_intro": "Folgen Sie einfach 4 Schritten:",
+  "guide_method_steps": "1. Atmen Sie rhythmisch 30 Atemzüge ein und aus.\n2. Atmen Sie aus und halten Sie den Atem an.\n3. Tief einatmen und 15 Sekunden halten.\n4. Ausatmen und Schritt 1 wiederholen\n\nMachen Sie 3-10 Runden des Prozesses.",
+  "guide_method_personalize": "Die nächsten Seiten ermöglichen es Ihnen, Ihre Erfahrung zu personalisieren.",
+  
+  "guide_step1_title": "Schritt 1: Ein & Aus",
+  "guide_step1_description": "Füllen Sie Ihre Lungen mit einem vollen Atemzug, beginnend mit Ihrem Bauch, dann Ihrer Brust.\n\nLassen Sie den Atem natürlich ohne Anstrengung ausfließen.\n\nWiederholen Sie dies etwa 20-40 Mal in einem gleichmäßigen Tempo.",
+  "breathing_circle": "Atemkreis",
+  
+  "guide_step2_title": "Schritt 2: Ausatmen & anhalten",
+  "guide_step2_description": "Atmen Sie normal aus und halten Sie den Atem an.\nDie Zeit Ihres Atemanhaltens wird mit mehr Übung und mit jeder Runde zunehmen.\n\nDer Kreis in der Mitte zeigt, wie lange Sie den Atem angehalten haben und die letzte Atemhaltelänge.\n\nLassen Sie los, wenn Sie den Drang zum Atmen spüren, vermeiden Sie Überanstrengung. Ihr Körper signalisiert, wann es Zeit ist zu atmen.",
+  
+  "guide_step3_title": "Schritt 3: Einatmen & anhalten",
+  "guide_step3_description": "Atmen Sie vollständig ein und halten Sie 15 Sekunden an.\nDanach ausatmen, was die erste Runde abschließt.\n\nMit jeder Runde können Sie länger den Atem anhalten und tiefer gehen.",
+  
+  "back_button": "Zurück",
+  "continue_button": "Weiter",
+  "skip_button": "Überspringen",
+  "next_button": "Weiter",
+  "finish_button": "Fertig",
+
+  "progress_title": "Fortschrittsansicht",
+  "start_journey": "Beginnen Sie Ihre Reise!",
+  "progress_records_info": "Ihre Fortschrittsaufzeichnungen werden hier erscheinen.",
+  "begin_session_button": "Eine Sitzung beginnen",
+  "rounds_label": "Runden: ",
+  "round_label": "Runden",
+  "edit_round": "Runde bearbeiten",
+  "select_date": "Datum auswählen",
+  "select_time": "Zeit auswählen",
+  "minutes_label": "Minuten",
+  "seconds_label": "Sekunden",
+  "cancel_button": "Abbrechen",
+  "save_button": "Speichern"
+  
+}

@@ -5,6 +5,7 @@ import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/layouts/guide_page_layout.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:localization/localization.dart';
 
 class GuideStep3Screen extends StatefulWidget {
   @override
@@ -23,7 +24,6 @@ class _GuideStep3ScreenState extends State<GuideStep3Screen> {
   @override
   void initState() {
     super.initState();
-    // Start the timer to increase the duration every second
     timer = Timer.periodic(Duration(milliseconds: 1), (Timer t) {
       setState(() {
         duration = duration + Duration(milliseconds: 1);
@@ -34,19 +34,19 @@ class _GuideStep3ScreenState extends State<GuideStep3Screen> {
 
   @override
   void dispose() {
-    timer.cancel(); // Cancel the timer when the widget is disposed to avoid memory leaks
+    timer.cancel(); 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return  PageLayout(
-      titleText: 'Step 3: Inhale & hold',
-      backButtonText: 'Back',
+      titleText: 'guide_step3_title'.i18n(),
+      backButtonText: 'back_button'.i18n(),
       backButtonPressed: () {
         context.go('/guide/step2');
       },
-      forwardButtonText: 'Finish',
+      forwardButtonText: 'finish_button'.i18n(),
       forwardButtonPressed: () {
         _finishTutorial(context);
 
@@ -62,11 +62,8 @@ class _GuideStep3ScreenState extends State<GuideStep3Screen> {
             ),
           ),
           SizedBox(height: 20),
-          Text('''
-Inhale fully and hold for 15 seconds.
-Afterwards exhale, completing the first round.
-
-With every round you can hold your breath longer and go deeper.''',
+          Text(
+            'guide_step3_description'.i18n(),
             style: BreezeStyle.body,
           ),
        

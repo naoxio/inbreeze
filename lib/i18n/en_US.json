@@ -1,0 +1,45 @@
+{
+  "language_selection_title": "Language Selection",
+  "language_instruction": "Select your preferred language and press continue.",
+
+  "guide_welcome_title": "Namaste",
+  "guide_welcome_description": "This easy yet potent breathing technique promises profound inner peace, offering a sanctuary of serenity amidst life's hectic pace.",
+  "safety_instruction": "To ensure your safety, practice either lying down or sitting in a comfortable position.",
+
+  "guide_method_title": "Method",
+  "guide_method_intro": "Simply follow 4 steps:",
+  "guide_method_steps": "1. Inhale and exhale rhythmically for 30 breaths.\n2. Exhale and hold your breath.\n3. Inhale deeply and hold for 15 seconds.\n4. Exhale and repeat step 1\n\nDo 3-10 rounds of the process.",
+  "guide_method_personalize": "The next pages will let you personalize your experience.",
+  
+  "guide_step1_title": "Step 1: In & Out",
+  "guide_step1_description": "Fill your lungs with a full breath, starting from your belly, then your chest.\n\nAllow the breath to flow out naturally without strain.\n\nRepeat this for about 20-40 breaths at a steady pace.",
+  "breathing_circle": "Breathing Circle",
+
+  "guide_step2_title": "Step 2: Exhale & hold",
+  "guide_step2_description": "Exhale normally and hold your breath.\nThe time of your hold will increase with more practice and with each round.\n\nThe circle in the middle indicates how long you have held your breath and the last breath hold length.\n\nRelease when you sense the urge to breathe, avoid overextending. Your body signals when it is time to breathe.",
+  
+  "guide_step3_title": "Step 3: Inhale & hold",
+  "guide_step3_description": "Inhale fully and hold for 15 seconds.\nAfterwards exhale, completing the first round.\n\nWith every round you can hold your breath longer and go deeper.",
+
+  "back_button": "Back",
+  "continue_button": "Continue",
+  "skip_button": "Skip",
+  "next_button": "Next",
+  "finish_button": "Finish",
+
+  "progress_title": "Progress View",
+  "start_journey": "Start Your Journey!",
+  "progress_records_info": "Your progress records will appear here.",
+  "begin_session_button": "Begin a Session",
+  "rounds_label": "Rounds: ",
+  "round_label": "Round",
+  "edit_round": "Edit Round",
+  "select_date": "Select Date",
+  "select_time": "Select Time",
+  "minutes_label": "Minutes",
+  "seconds_label": "Seconds",
+  "cancel_button": "Cancel",
+  "save_button": "Save"
+
+}
+  

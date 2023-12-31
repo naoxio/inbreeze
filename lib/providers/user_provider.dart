@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:inner_breeze/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'package:inner_breeze/models/session.dart';
@@ -203,15 +204,27 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<String> getLanguagePreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('languagePreference') ?? 'en'; // Default to 'en' if not set
+  }
+
+  Future<void> setLanguagePreference(String languageCode) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('languagePreference', languageCode);
+    if (appKey.currentState != null) {
+      await appKey.currentState!.initializeLocale();
+    }
+    notifyListeners();
+  }
+
   Future<void> moveRoundToSession(String oldSessionId, int roundNumber, int newTimestamp) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    // Retrieve the old session
     Session? oldSession = (prefs.getString('${user.id}/sessions/$oldSessionId') != null) 
         ? Session.fromJson(jsonDecode(prefs.getString('${user.id}/sessions/$oldSessionId')!)) 
         : null;
 
-    // Retrieve or create the new session
     String newSessionId = newTimestamp.toString();
     Session newSession = (prefs.getString('${user.id}/sessions/$newSessionId') != null) 
         ? Session.fromJson(jsonDecode(prefs.getString('${user.id}/sessions/$newSessionId')!)) 
@@ -222,7 +235,6 @@ class UserProvider with ChangeNotifier {
       newSession.rounds[newRoundNumber] = oldSession.rounds[roundNumber]!;
       oldSession.rounds.remove(roundNumber);
 
-      // Save updated sessions
       saveSessionData(oldSession);
       saveSessionData(newSession);
     }

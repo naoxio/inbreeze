@@ -6,6 +6,7 @@ import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/widgets/breeze_app_bar.dart';
 import 'package:inner_breeze/widgets/breeze_bottom_nav.dart';
 import 'package:go_router/go_router.dart';
+import 'package:localization/localization.dart';
 
 class ProgressScreen extends StatefulWidget {
   @override
@@ -57,7 +58,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BreezeAppBar(title: 'Progress View'),
+      appBar: BreezeAppBar(title: 'progress_title'.i18n()),
       body: sessionsByMonthAndDay.isEmpty
           ? _buildEmptyState()
           : _buildSessionList(),
@@ -71,12 +72,12 @@ class _ProgressScreenState extends State<ProgressScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            'Start Your Journey!',
+            'start_journey'.i18n(),
             style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 20),
           Text(
-            'Your progress records will appear here.',
+            'progress_records_info'.i18n(),
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 20),
           ),
@@ -88,7 +89,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                 context.go('/exercise/step1');
               });
             },
-            child: Text('Begin a Session'),
+            child: Text('begin_session_button'.i18n()),
           ),
         ],
       ),
@@ -147,10 +148,10 @@ class _ProgressScreenState extends State<ProgressScreen> {
     return ExpansionTile(
       leading: Icon(Icons.access_time),
       title: Text(sessionTime),
-      subtitle: Text('Rounds: ${session.rounds.length}'),
+      subtitle: Text('rounds_label'.i18n() + session.rounds.length.toString()),
       children: session.rounds.entries.map((roundEntry) {
         return ListTile(
-          title: Text('Round ${roundEntry.key}: ${_formatDuration(roundEntry.value)}'),
+          title: Text('round_label'.i18n() + roundEntry.key.toString() + _formatDuration(roundEntry.value)),
           trailing: _buildEditDeleteButtons(session, roundEntry.key, roundEntry.value),
         );
       }).toList(),
@@ -198,13 +199,13 @@ class _ProgressScreenState extends State<ProgressScreen> {
           final NavigatorState navigator = Navigator.of(dialogContext);
 
           return AlertDialog(
-            title: Text('Edit Round $roundNumber'),
+            title: Text('edit_round'.i18n() + roundNumber.toString()),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 // Date Picker
                 ListTile(
-                  title: Text('Select Date'),
+                  title: Text('select_date'.i18n()),
                   subtitle: Text(DateFormat.yMd().format(selectedDate)),
                   onTap: () async {
                     final DateTime? pickedDate = await showDatePicker(
@@ -222,7 +223,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                 ),
                 // Time Picker
                 ListTile(
-                  title: Text('Select Time'),
+                  title: Text('select_time'.i18n()),
                   subtitle: Text(selectedTime.format(context)),
                   onTap: () async {
                     final TimeOfDay? pickedTime = await showTimePicker(
@@ -243,7 +244,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                       child: TextField(
                         controller: minutesController,
                         decoration: InputDecoration(
-                          labelText: 'Minutes',
+                          labelText: 'minutes'.i18n(),
                         ),
                         keyboardType: TextInputType.number,
                       ),
@@ -253,7 +254,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                       child: TextField(
                         controller: secondsController,
                         decoration: InputDecoration(
-                          labelText: 'Seconds',
+                          labelText: 'seconds'.i18n(),
                         ),
                         keyboardType: TextInputType.number,
                       ),
@@ -264,11 +265,11 @@ class _ProgressScreenState extends State<ProgressScreen> {
             ),
             actions: <Widget>[
               TextButton(
-                child: Text('Cancel'),
+                child: Text('cancel_button'.i18n()),
                 onPressed: () => Navigator.of(context).pop(),
               ),
               TextButton(
-                child: Text('Save'),
+                child: Text('save_button'.i18n()),
                 onPressed: () async {
                   DateTime newDateTime = DateTime(
                     selectedDate.year,

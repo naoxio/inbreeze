@@ -9,6 +9,9 @@ environment:
   sdk: '>=2.19.4 <4.0.0'
 
 dependencies:
+  flutter_localizations: 
+    sdk: flutter
+  localization: ^2.1.1
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.7
@@ -46,6 +49,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - lib/i18n/
     - assets/
     - assets/sounds/
     - assets/images/

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/layouts/guide_page_layout.dart';
 import 'package:inner_breeze/widgets/stopwatch.dart';
+import 'package:localization/localization.dart'; 
 
 class GuideStep2Screen extends StatefulWidget {
   @override
@@ -17,7 +18,6 @@ class _GuideStep2ScreenState extends State<GuideStep2Screen> {
   @override
   void initState() {
     super.initState();
-    // Start the timer to increase the duration every second
     timer = Timer.periodic(Duration(milliseconds: 1), (Timer t) {
       setState(() {
         duration = duration + Duration(milliseconds: 1);
@@ -27,33 +27,26 @@ class _GuideStep2ScreenState extends State<GuideStep2Screen> {
 
   @override
   void dispose() {
-    timer.cancel(); // Cancel the timer when the widget is disposed to avoid memory leaks
+    timer.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return  PageLayout(
-      titleText: 'Step 2: Exhale & hold',
-
-      backButtonText: 'Back',
+      titleText: 'guide_step2_title'.i18n(),
+      backButtonText: 'back_button'.i18n(), 
       backButtonPressed: () {
         context.go('/guide/step1');
       },
-      forwardButtonText: 'Continue',
+      forwardButtonText: 'continue_button'.i18n(),
       forwardButtonPressed: () {
         context.go('/guide/step3');
       },
       column: Column(
         children: [
-          Text('''
-Exhale normally and hold your breath.
-
-The time of your hold will increase with more practice and with each round.
-
-The circle in the middle indicates how long you have held your breath and the last breath hold length.
-
-Release when you sense the urge to breathe, avoid overextending. Your body signals when it is time to breathe.''',
+          Text(      
+            'guide_step2_description'.i18n(),
             style: BreezeStyle.body,
           ),
           SizedBox(height: 40),

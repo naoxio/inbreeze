@@ -4,18 +4,17 @@ import 'package:inner_breeze/widgets/breeze_app_bar.dart';
 class PageLayout extends StatelessWidget {
   final String titleText;
   final String forwardButtonText;
-  final String backButtonText;
+  final String? backButtonText;
   final VoidCallback forwardButtonPressed;
-  final VoidCallback backButtonPressed;
+  final VoidCallback? backButtonPressed;
   final Widget column;
 
   PageLayout({
     required this.titleText,
     required this.column,
     required this.forwardButtonText,
-    required this.backButtonText,
-    required this.forwardButtonPressed,
-    required this.backButtonPressed,
+    this.backButtonText,
+    this.backButtonPressed, required this.forwardButtonPressed, 
   });
 
   @override
@@ -38,20 +37,21 @@ class PageLayout extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Expanded(
-              child: SizedBox(
-                height: 52,
-                child: TextButton(
-                  onPressed: backButtonPressed,
-                  child: Text(
-                    backButtonText,
-                    style: TextStyle(
-                      fontSize: 24.0,
+            if (backButtonText != null && backButtonPressed != null)
+              Expanded(
+                child: SizedBox(
+                  height: 52,
+                  child: TextButton(
+                    onPressed: backButtonPressed,
+                    child: Text(
+                      backButtonText!,
+                      style: TextStyle(
+                        fontSize: 24.0,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
             Expanded(
               child: SizedBox(
                 height: 52,
@@ -72,4 +72,3 @@ class PageLayout extends StatelessWidget {
     );
   }
 }
-

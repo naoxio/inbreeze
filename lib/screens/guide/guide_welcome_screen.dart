@@ -4,27 +4,29 @@ import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/layouts/guide_page_layout.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:localization/localization.dart';
 
 class GuideWelcomeScreen extends StatefulWidget {
   @override
   State<GuideWelcomeScreen> createState() => _GuideWelcomeScreenState();
 }
+
 void _skipTutorial(BuildContext context) async {
   final userProvider = Provider.of<UserProvider>(context, listen: false);
   await userProvider.markTutorialAsComplete();
 }
-class _GuideWelcomeScreenState extends State<GuideWelcomeScreen> {
 
+class _GuideWelcomeScreenState extends State<GuideWelcomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return  PageLayout(
-      titleText: 'Namaste',
-      backButtonText: 'Skip',
+    return PageLayout(
+      titleText: 'guide_welcome_title'.i18n(),
+      backButtonText: 'skip_button'.i18n(),
       backButtonPressed: () async {
         _skipTutorial(context);
         context.go('/home');
       },
-      forwardButtonText: 'Next',
+      forwardButtonText: 'next_button'.i18n(),
       forwardButtonPressed: () {
         context.go('/guide/method');
       },
@@ -41,15 +43,14 @@ class _GuideWelcomeScreenState extends State<GuideWelcomeScreen> {
           ),
           SizedBox(height: 20),
           Text(
-            "This easy yet potent breathing technique promises profound inner peace, offering a sanctuary of serenity amidst life's hectic pace.",
+            'guide_welcome_description'.i18n(),
             style: BreezeStyle.body,
           ),
           SizedBox(height: 15),
           Text(
-            'To ensure your safety, practice either lying down or sitting in a comfortable position.',
+            'safety_instruction'.i18n(),
             style: BreezeStyle.body,
           ),
-          
         ],
       ),
     );

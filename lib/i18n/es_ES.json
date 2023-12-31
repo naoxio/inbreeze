@@ -1,0 +1,46 @@
+{
+  "language_selection_title": "Selección de Idioma",
+  "language_instruction": "Seleccione su idioma preferido y presione continuar.",
+
+  "guide_welcome_title": "Namasté",
+  "guide_welcome_description": "Esta técnica de respiración fácil pero potente promete una profunda paz interior, ofreciendo un santuario de serenidad en medio del ajetreo de la vida.",
+  "safety_instruction": "Para garantizar tu seguridad, práctica tumbado o sentado en una posición cómoda.",
+  
+  "guide_method_title": "Método",
+  "guide_method_intro": "Simplemente sigue 4 pasos:",
+  "guide_method_steps": "1. Inhala y exhala rítmicamente durante 30 respiraciones.\n2. Exhala y aguanta la respiración.\n3. Inhala profundamente y aguanta durante 15 segundos.\n4. Exhala y repite el paso 1\n\nHaz de 3 a 10 rondas del proceso.",
+  "guide_method_personalize": "Las siguientes páginas te permitirán personalizar tu experiencia.",
+  
+  "guide_step1_title": "Paso 1: Entrar y Salir",
+  "guide_step1_description": "Llena tus pulmones con una respiración completa, empezando por tu vientre y luego tu pecho.\n\nPermite que la respiración fluya naturalmente sin esfuerzo.\n\nRepite esto unas 20-40 veces a un ritmo constante.",
+  "breathing_circle": "Círculo de Respiración",
+
+  "guide_step2_title": "Paso 2: Exhalar y aguantar",
+  "guide_step2_description": "Exhala normalmente y aguanta la respiración.\nEl tiempo de retención aumentará con más práctica y en cada ronda.\n\nEl círculo en el medio indica cuánto tiempo has aguantado la respiración y la última duración de retención de la respiración.\n\nSuelta cuando sientas la necesidad de respirar, evita excederte. Tu cuerpo señala cuándo es hora de respirar.",
+
+  "guide_step3_title": "Paso 3: Inhalar y aguantar",
+  "guide_step3_description": "Inhala completamente y aguanta durante 15 segundos.\nLuego exhala, completando la primera ronda.\n\nCon cada ronda puedes aguantar la respiración más tiempo y profundizar más.",
+  
+  "skip_button": "Saltar",
+  "next_button": "Siguiente",
+  "back_button": "Atrás",
+  "continue_button": "Continuar",
+  "finish_button": "Finalizar",
+  
+  "progress_title": "Vista de Progreso",
+  "start_journey": "¡Comienza tu viaje!",
+  "progress_records_info": "Tus registros de progreso aparecerán aquí.",
+  "begin_session_button": "Comenzar una Sesión",
+  "rounds_label": "Rondas: ",
+  "round_label": "Ronda: ",
+  "edit_round": "Editar Ronda",
+  "select_date": "Seleccionar Fecha",
+  "select_time": "Seleccionar Hora",
+  "minutes_label": "Minutos",
+  "seconds_label": "Segundos",
+  "cancel_button": "Cancelar",
+  "save_button": "Guardar"
+
+  
+}
+  

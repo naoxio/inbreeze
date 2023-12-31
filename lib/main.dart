@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/widgets/centered_max_width_widget.dart';
+import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'router/router.dart';
 import 'utils/platform_checker.dart';
 
 const String title = 'Inner Breeze';
+final GlobalKey<_AppState> appKey = GlobalKey();
 
 void run() {
   runApp(
     ChangeNotifierProvider(
       create: (context) => UserProvider(),
-      child: App(),
+      child: App(key: appKey),
     ),
   );
 }
@@ -36,7 +39,8 @@ void main() async {
       await windowManager.show();
       await windowManager.focus();
       
-      run();
+    run();
+
     });
   }
   else {
@@ -59,7 +63,6 @@ final _lightTheme = ThemeData.from(
 );
 
 class App extends StatefulWidget {
-  // Creates an [App].
   const App({super.key});
 
   @override
@@ -67,13 +70,25 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  Locale _currentLocale;
+  _AppState() : _currentLocale = Locale('en');
+
   @override
   void initState() {
     super.initState();
+    initializeLocale();
     if (!isDesktop()) {
       _preloadAssets(context);
     }
   }
+  Future<void> initializeLocale() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    String languageCode = await userProvider.getLanguagePreference();
+    setState(() {
+      _currentLocale = Locale(languageCode);
+    });
+  }
+
   Future<void> _preloadAssets(BuildContext context) async {
     final imageExtensions = ['.png', '.jpg', '.jpeg'];
 
@@ -93,13 +108,25 @@ class _AppState extends State<App> {
     }
   }
 
-  // ... other code ...
-
   @override
   Widget build(BuildContext context) {
+    LocalJsonLocalization.delegate.directories = ['lib/i18n'];
+
     return MaterialApp.router(
       routerConfig: router,
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        LocalJsonLocalization.delegate,
+      ],
+      supportedLocales: [
+        Locale('en', 'US'),
+        Locale('es', 'ES'),
+        Locale('de', 'DE'),
+      ],
+      locale: _currentLocale,
       title: title,
       theme: _lightTheme,
       darkTheme: _darkTheme,
@@ -114,4 +141,5 @@ class _AppState extends State<App> {
       },
     );
   }
+
 }

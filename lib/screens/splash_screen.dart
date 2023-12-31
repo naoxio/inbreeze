@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (isComplete) {
         context.go('/home');
       } else {
-        context.go('/guide/welcome');
+        context.go('/guide/lang');
       }
     });
 }

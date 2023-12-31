@@ -2,28 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/layouts/guide_page_layout.dart';
 import 'package:inner_breeze/widgets/breathing_configuration.dart';
+import 'package:localization/localization.dart'; // Import localization
 
 class GuideStep1Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageLayout(
-      titleText: 'Step 1: In & Out',
-      backButtonText: 'Back',
+      titleText: 'guide_step1_title'.i18n(),
+      backButtonText: 'back_button'.i18n(),
       backButtonPressed: () {
         context.go('/guide/method');
       },
-      forwardButtonText: 'Continue',
+      forwardButtonText: 'continue_button'.i18n(),
       forwardButtonPressed: () {
         context.go('/guide/step2');
       },
       column: Column(
         children: [
-          Text('''
-Fill your lungs with a full breath, starting from your belly, then your chest.
-
-Allow the breath to flow out naturally without strain.
-
-Repeat this for about 20-40 breaths at a steady pace.''',
+          Text(
+            'guide_step1_description'.i18n(),
             style: TextStyle(
               fontSize: 16.0,
               height: 1.5,
@@ -31,7 +28,7 @@ Repeat this for about 20-40 breaths at a steady pace.''',
           ),
           SizedBox(height: 20),
           Text(
-            'Breathing Circle',
+            'breathing_circle'.i18n(),
             style: TextStyle(
               fontSize: 28.0,
               fontWeight: FontWeight.bold,

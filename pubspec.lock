@@ -150,6 +150,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -272,6 +277,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  localization:
+    dependency: "direct main"
+    description:
+      name: localization
+      sha256: "9fa21644b75ca3fe844f8f115d03cd6fdc675054dd9aab6c5de5861145ea57b5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   logging:
     dependency: transitive
     description:
