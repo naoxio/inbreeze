@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/widgets/breeze_app_bar.dart';
 import 'package:inner_breeze/widgets/breathing_configuration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:localization/localization.dart'; 
 
 class BreathingSettingsScreen extends StatefulWidget {
   BreathingSettingsScreen({super.key});
@@ -24,7 +25,7 @@ class _BreathingSettingsScreenState extends State<BreathingSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BreezeAppBar(title: 'Breathing Circle'),
+      appBar: BreezeAppBar(title: 'breathing_circle'.i18n()),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Center(
@@ -39,7 +40,7 @@ class _BreathingSettingsScreenState extends State<BreathingSettingsScreen> {
                     minimumSize: Size(140, 50),
                   ),
                   child: Text(
-                    "Close",
+                    'close_button'.i18n(),
                     style: TextStyle(fontSize: 20.0),
                   ),
                   onPressed: () {
