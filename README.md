@@ -2,7 +2,7 @@
 Guided breathing meditation app based on the Wim Hof breathing method.
 
 ## Current Goals
-- [ ] add multilingual support, add german and spanish translations
+- [x] add multilingual support, add german and spanish translations
 - [x] add gong sfx before the start of the breath hold
 - [x] fix breath in after finishing a round
 
