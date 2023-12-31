@@ -6,6 +6,7 @@ import 'package:inner_breeze/widgets/animated_circle.dart';
 import 'package:inner_breeze/widgets/stop_session.dart';
 import 'package:inner_breeze/utils/breathing_utils.dart';
 import 'package:go_router/go_router.dart';
+import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:flutter/services.dart';
@@ -117,50 +118,49 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
     }
   }
 
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.all(25.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  breathsDone < 0 ? 'Get Ready' : 'Round: ${rounds + 1}',
-                  style: BreezeStyle.header
-                ),
-                AnimatedCircle(
-                  tempoDuration: tempoDuration,
-                  volume: volume,
-                  innerText: (breathsDone > maxBreaths ? maxBreaths : breathsDone).toString(),
-                  controlCallback: () {
-                    if (breathsDone > 0 && breathsDone <= maxBreaths) {
-                      return 'repeat';
-                    }
-                    else {
-                      return 'stop';
-                    }
-                  },
-                ),
-                SizedBox(height: 200),
-                StopSessionButton(),
-                TextButton(
-                  child: Text('Skip'),
-                  onPressed: () {
-                    skipCountdown();
-                  },
-                ),
-              ],
-            ),
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: SingleChildScrollView(
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(25.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                breathsDone < 0 ? 'get_ready'.i18n() : '${'round_label'.i18n()}: ${rounds + 1}',
+                style: BreezeStyle.header
+              ),
+              AnimatedCircle(
+                tempoDuration: tempoDuration,
+                volume: volume,
+                innerText: (breathsDone > maxBreaths ? maxBreaths : breathsDone).toString(),
+                controlCallback: () {
+                  if (breathsDone > 0 && breathsDone <= maxBreaths) {
+                    return 'repeat';
+                  }
+                  else {
+                    return 'stop';
+                  }
+                },
+              ),
+              SizedBox(height: 200),
+              StopSessionButton(),
+              TextButton(
+                child: Text('skip_button'.i18n()),
+                onPressed: () {
+                  skipCountdown();
+                },
+              ),
+            ],
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   @override
   void dispose() {

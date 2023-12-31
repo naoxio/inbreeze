@@ -26,21 +26,44 @@
   "back_button": "Atrás",
   "continue_button": "Continuar",
   "finish_button": "Finalizar",
-  
+  "cancel_button": "Cancelar",
+  "save_button": "Guardar",
+  "close_button": "Cerrar",
+  "start_button": "Iniciar",
+  "stop_button": "Detener",
+
   "progress_title": "Vista de Progreso",
   "start_journey": "¡Comienza tu viaje!",
   "progress_records_info": "Tus registros de progreso aparecerán aquí.",
   "begin_session_button": "Comenzar una Sesión",
-  "rounds_label": "Rondas: ",
-  "round_label": "Ronda: ",
+  "rounds_label": "Rondas",
+  "round_label": "Ronda",
   "edit_round": "Editar Ronda",
   "select_date": "Seleccionar Fecha",
   "select_time": "Seleccionar Hora",
   "minutes_label": "Minutos",
   "seconds_label": "Segundos",
-  "cancel_button": "Cancelar",
-  "save_button": "Guardar"
 
-  
+  "get_ready": "Prepárate",
+  "finish_hold": "Terminar retención",
+  "in_breath": "Inhalar",
+  "out_breath": "Exhalar",
+  "recovery": "Recuperación",
+
+
+  "results_title": "Resultados",
+  "rounds_completed": "Rondas Completadas: ",
+  "no_data": "Sin datos",
+  "save_progress": "Guardar Progreso",
+
+
+  "tempo_label": "Tempo",
+  "volume_label": "Volumen",
+  "breaths_label": "Respiraciones",
+
+  "stop_session": "Detener sesión",
+  "stop_session_confirm": "¿Estás seguro de que quieres terminar la sesión?",
+  "stop_session_button": "Detener sesión",
+  "continue_session_button": "Continuar sesión"
 }
   

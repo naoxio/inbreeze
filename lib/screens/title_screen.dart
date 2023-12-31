@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/widgets/breeze_bottom_nav.dart';
+import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 
@@ -51,7 +52,7 @@ class _TitleScreenState extends State<TitleScreen> {
                   minimumSize: Size(180, 60),
                 ),
                 child: Text(
-                  "Start",
+                  "start_button".i18n(),
                   style: BreezeStyle.bodyBig,
                 ),
                 onPressed: () {

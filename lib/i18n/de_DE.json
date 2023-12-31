@@ -27,6 +27,11 @@
   "skip_button": "Überspringen",
   "next_button": "Weiter",
   "finish_button": "Fertig",
+  "cancel_button": "Abbrechen",
+  "save_button": "Speichern",
+  "close_button": "Schließen",
+  "start_button": "Starten",
+  "stop_button": "Beenden",
 
   "progress_title": "Fortschrittsansicht",
   "start_journey": "Beginnen Sie Ihre Reise!",
@@ -39,7 +44,24 @@
   "select_time": "Zeit auswählen",
   "minutes_label": "Minuten",
   "seconds_label": "Sekunden",
-  "cancel_button": "Abbrechen",
-  "save_button": "Speichern"
-  
+
+  "get_ready": "Bereit machen",
+  "finish_hold": "Halten beenden",
+  "in_breath": "Ein",
+  "out_breath": "Aus",
+  "recovery": "Erholung",
+
+  "results_title": "Ergebnisse",
+  "rounds_completed": "Runden abgeschlossen: ",
+  "no_data": "Keine Daten",
+  "save_progress": "Fortschritt speichern",
+
+  "tempo_label": "Tempo",
+  "volume_label": "Lautstärke",
+  "breaths_label": "Atemzüge",
+
+  "stop_session": "Sitzung beenden",
+  "stop_session_confirm": "Sind Sie sicher, dass Sie die Sitzung beenden möchten?",
+  "stop_session_button": "Sitzung beenden",
+  "continue_session_button": "Sitzung fortsetzen"
 }

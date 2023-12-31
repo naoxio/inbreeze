@@ -4,6 +4,7 @@ import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/widgets/stop_session.dart';
 import 'package:inner_breeze/widgets/stopwatch.dart';
 import 'package:go_router/go_router.dart';
+import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/models/session.dart';
 
@@ -97,7 +98,7 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
                       _navigateToNextExercise();
                     },
                     child: Text(
-                      'Finish Hold',
+                      'finish_hold'.i18n(),
                       style: TextStyle(
                         fontSize: 18.0,
                       ),
