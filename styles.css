@@ -13,7 +13,7 @@ body {
 }
 
 h1 {
-  color: #16897a; /* Darker teal color */
+  color: #16897a; /* Dark cyan color */
 }
 
 p {
@@ -28,25 +28,56 @@ footer {
 a {
   color: #16897a;
   text-decoration: none;
-  transition: background-color 0.3s;
+  transition: color 0.3s;
 }
 
-.apps a img {
-  width: 180px;
-  padding: 0.5rem;
-}
-
-
-.button:hover {
-  background-color: #13a89e; /* Slightly lighter teal for hover */
+a:hover {
+  color: #13a89e; /* Slightly lighter cyan for hover */
 }
 
 .social-icons {
-  text-align: center;
-  margin-top: 20px;
+  padding-top: 5rem;
 }
-
 .social-icons img {
   width: 20px; /* Adjust size as needed */
   margin: 0 10px;
+  transition: transform 0.3s ease;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1);
+}
+
+.apps {
+  padding-top: 2rem;
+
+}
+
+.apps h2 {
+  font-size: 24px;
+  color: #16897a;
+  margin-bottom: 15px;
+}
+
+.apps section h3 {
+  font-size: 20px;
+  color: #ddd;
+  margin-bottom: 10px;
+}
+
+.apps a {
+  display: inline-block;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.apps img {
+  height: 60px; /* Adjust size as needed */
+  transition: transform 0.3s ease;
+  border-radius: 10px; /* Added for sleekness */
+}
+
+.apps img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect for sleekness */
 }
