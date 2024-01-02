@@ -12,8 +12,8 @@
     <name>InnerBreeze</name>
     <summary>A dedicated meditation app to guide and track your Wim Hof Breathing practice</summary> 
     <description>
-        <p>Find serenity in every breath with Inner Breeze. Tailored for all levels, this app guides you through the Wim Hof Breathing Method with ease.</p>
-        <p>Experience mindful breathing with personalized settings and track your journey towards tranquility and rejuvenation. Inner Breeze is more than an app; it's your daily retreat into calm.</p>
+        <p>Find serenity in every breath with Inner Breeze. This app guides you through the Wim Hof Breathing Method with ease.</p>
+        <p>Experience mindful breathing with personalized settings and track your journey towards tranquility and rejuvenation.</p>
     </description>
 
     <launchable type="desktop-id">io.naox.InnerBreeze.desktop</launchable>
