@@ -226,7 +226,7 @@ jobs:
         uses: actions/checkout@v3
   
       - name: Set up Snapcraft
-        uses: snapcore/action-snapcraft@v1
+        uses: samuelmeuli/action-snapcraft@v2
   
       - name: Set Snap Channel and Extract Version Number
         id: snap_setup
