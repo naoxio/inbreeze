@@ -2,8 +2,6 @@ name: Flutter Build Release
 
 on:
   push:
-    branches:
-      - main
     tags:
       - '*'
 
@@ -60,24 +58,15 @@ jobs:
       run: |
         flutter build apk --release
        
-    #- name: Decode Keystore
-     # run: echo "${{ secrets.KEYSTORE }}" | base64 -d > release-key.jks
-    
-   # - name: Build APK
-    #  run: |
-     #   flutter build apk --release \
-      #    --dart-define=android-signing-keystore=release-key.jks \
-       #   --dart-define=android-signing-key-alias=${{ secrets.KEY_ALIAS }} \
-        #  --dart-define=android-signing-key-password=${{ secrets.KEY_PASSWORD }} \
-        #  --dart-define=android-signing-keystore-password=${{ secrets.KEYSTORE_PASSWORD }}
-        #mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-signed.apk
+    - name: Rename APK
+      run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/InnerBreeze-${{ env.RELEASE_TAG }}.apk
 
     - name: Upload APKs as Artifact
       uses: actions/upload-artifact@v2
       with:
         name: apk-artifacts
         path: |
-          build/app/outputs/flutter-apk/app-release.apk
+          build/app/outputs/flutter-apk/InnerBreeze-${{ env.RELEASE_TAG }}.apk
 
   ios:
     needs: cancel
@@ -224,8 +213,13 @@ jobs:
         name: linux-artifacts
         path: |
           InnerBreeze-Linux-x86_64.tar.gz 
-          InnerBreeze-x86_64.AppImage   
-
+          InnerBreeze-x86_64.AppImage
+    - name: Build and Push Snap
+      run: |
+        snapcraft login --with ${{ secrets.SNAPCRAFT_LOGIN_FILE }}
+        snapcraft
+        snapcraft push --release=edge inner-breeze_${{ env.RELEASE_TAG }}_amd64.snap
+    
   windows:
     needs: cancel
     name: Build Windows
@@ -309,7 +303,7 @@ jobs:
         prerelease: "${{ env.IS_PRERELEASE }}"
         title: "${{ env.RELEASE_TAG }}"
         files: |
-          build/app/outputs/flutter-apk/app-release.apk
+          build/app/outputs/flutter-apk/InnerBreeze-${{ env.RELEASE_TAG }}.apk
           build/ios/iphoneos/ios_unsigned.app.tar.gz
           build/linux/InnerBreeze-Linux-x86_64.tar.gz
           build/linux/InnerBreeze-x86_64.AppImage

@@ -1,0 +1,30 @@
+name: inner-breeze
+version: '1.2.2'
+summary: A meditation and breathing guide app
+description: A dedicated meditation app designed to guide and track your Wim Hof Breathing practice.
+
+grade: stable
+base: core22
+confinement: strict
+
+
+slots:
+  dbus-inner-breeze:
+    interface: dbus
+    bus: session
+    name: app.inner_breeze
+ 
+apps:
+  inner-breeze:
+    command: inner_breeze
+    extensions: [gnome]
+    plugs:
+      - network
+    slots:
+      - dbus-inner-breeze
+
+parts:
+  inner-breeze:
+    source: .
+    plugin: flutter
+    flutter-target: lib/main.dart
