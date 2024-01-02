@@ -9,6 +9,12 @@
         <category>Health</category>
         <category>Wellness</category>
     </categories>
+    <keywords>
+        <keyword>Meditation</keyword>
+        <keyword>Wellness</keyword>
+        <keyword>Breathing</keyword>
+    </keywords>
+
     <name>Inner Breeze</name>
     <summary>A meditation app to guide and track your Wim Hof Breathing practice</summary> 
     <description>
@@ -36,155 +42,180 @@
 
     <url type="homepage">https://inner-breeze.app</url>
     <url type="bugtracker">https://github.com/naoxio/inner_breeze/issues</url>
+    <url type="donation">https://coindrop.to/naox</url>
 
-<releases>
-<release version="1.2.3" date="2024-01-02">
-<description><ul>
-<li>Added snap build</li>
-
-</ul></description>
-</release>
-<release version="1.2.2" date="2023-12-31">
-<description><ul>
-<li>Added german and spanish translations</li>
-<li>Added language switcher</li>
-
-</ul></description>
-</release>
-<release version="1.2.1" date="2023-12-30">
-<description><ul>
-<li>Fix breathing bug</li>
-
-</ul></description>
-</release>
-<release version="1.2.0" date="2023-12-30">
-<description><ul>
-<li>Added privacy police</li>
-<li>Fixed screen width on large displays</li>
-<li>Update to latest package versions and flutter version</li>
-<li>Improve breathing configuration</li>
-
-</ul></description>
-</release>
-<release version="1.1.4" date="2023-12-14">
-<description><ul>
-<li>Fix breathing configuration</li>
-
-</ul></description>
-</release>
-<release version="1.1.3" date="2023-12-14">
-<description><ul>
-<li>Improve audio player</li>
-<li>Added gong at last breath</li>
-
-</ul></description>
-</release>
-<release version="1.1.2" date="2023-12-02">
-<description><ul>
-<li>Fix import older exports</li>
-
-</ul></description>
-</release>
-<release version="1.1.1" date="2023-12-02">
-<description><ul>
-<li>Improved progress view</li>
-<li>Fixed importing data from a file</li>
-
-</ul></description>
-</release>
-<release version="1.1.0" date="2023-12-02">
-<description><ul>
-<li>Added ability to edit progress results</li>
-
-</ul></description>
-</release>
-<release version="1.0.12" date="2023-12-01">
-<description><ul>
-<li>Added version number in the settings page</li>
-<li>Check for updates in the settings page</li>
-
-</ul></description>
-</release>
-<release version="1.0.11" date="2023-11-26">
-<description><ul>
-<li>Import and export data</li>
-
-</ul></description>
-</release>
-<release version="1.0.10" date="2023-11-18">
-<description><ul>
-<li>Added skip button</li>
-<li>Fixed wakelock only for mobile and web</li>
-<li>Fixed desktop bug with breathing circle</li>
-
-</ul></description>
-</release>
-<release version="1.0.9" date="2023-11-14">
-<description><ul>
-<li>Fix audio issue on desktop</li>
-
-</ul></description>
-</release>
-<release version="1.0.8" date="2023-11-13">
-<description><ul>
-<li>Added themeable icon for android</li>
-
-</ul></description>
-</release>
-<release version="1.0.7" date="2023-11-13">
-<description><ul>
-<li>Update Flatpak metadata</li>
-
-</ul></description>
-</release>
-<release version="1.0.6" date="2023-11-13">
-<description><ul>
-<li>Fixed background music play issue to allow simultaneous playback with other audio sources.</li>
-
-</ul></description>
-</release>
-<release version="1.0.5" date="2023-11-12">
-<description><ul>
-<li>Fixed issue with saving data not persisting properly.</li>
-
-</ul></description>
-</release>
-<release version="1.0.4" date="2023-11-07">
-<description><ul>
-<li>Added wakelock feature to prevent the screen from turning off automatically.</li>
-<li>Updated metadata for enhanced app description and indexing.</li>
-
-</ul></description>
-</release>
-<release version="1.0.3" date="2023-11-07">
-<description><ul>
-<li>Updated app icons for a more modern and cohesive look.</li>
-
-</ul></description>
-</release>
-<release version="1.0.2" date="2023-11-07">
-<description><ul>
-<li>Fixed breathing timing issue at the end of a round.</li>
-<li>Introduced a new logo and images for branding.</li>
-<li>Improved configuration options for the breathing circle.</li>
-
-</ul></description>
-</release>
-<release version="1.0.1" date="2023-10-01">
-<description><ul>
-<li>Fixed UI padding adjusted for better user experience.</li>
-<li>Added new icons for social media links.</li>
-
-</ul></description>
-</release>
-<release version="1.0.0" date="2023-09-07">
-<description><ul>
-<li>First release of the application.</li>
-
-</ul></description>
-</release>
-</releases>
+    <icon type="remote" height="any" width="any">https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/flatpak/InnerBreeze.png</icon>
     <icon type="remote" height="72" width="72">https://raw.githubusercontent.com/naoxio/inner_breeze/main/android/app/src/main/res/mipmap-hdpi/ic_launcher.png</icon>
     <icon type="remote" height="144" width="144">https://raw.githubusercontent.com/naoxio/inner_breeze/main/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png</icon>
     <update_contact>contact@naox.io</update_contact>
+<releases>
+    <releases>
+        <release version="1.2.3" date="2024-01-02">
+            <description>
+                <ul>
+                    <li>Added snap build</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.2.2" date="2023-12-31">
+            <description>
+                <ul>
+                    <li>Added german and spanish translations</li>
+                    <li>Added language switcher</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.2.1" date="2023-12-30">
+            <description>
+                <ul>
+                    <li>Fix breathing bug</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.2.0" date="2023-12-30">
+            <description>
+                <ul>
+                    <li>Added privacy police</li>
+                    <li>Fixed screen width on large displays</li>
+                    <li>Update to latest package versions and flutter version</li>
+                    <li>Improve breathing configuration</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.1.4" date="2023-12-14">
+            <description>
+                <ul>
+                    <li>Fix breathing configuration</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.1.3" date="2023-12-14">
+            <description>
+                <ul>
+                    <li>Improve audio player</li>
+                    <li>Added gong at last breath</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.1.2" date="2023-12-02">
+            <description>
+                <ul>
+                    <li>Fix import older exports</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.1.1" date="2023-12-02">
+            <description>
+                <ul>
+                    <li>Improved progress view</li>
+                    <li>Fixed importing data from a file</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.1.0" date="2023-12-02">
+            <description>
+                <ul>
+                    <li>Added ability to edit progress results</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.0.12" date="2023-12-01">
+            <description>
+                <ul>
+                    <li>Added version number in the settings page</li>
+                    <li>Check for updates in the settings page</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.0.11" date="2023-11-26">
+            <description>
+                <ul>
+                    <li>Import and export data</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.0.10" date="2023-11-18">
+            <description>
+                <ul>
+                    <li>Added skip button</li>
+                    <li>Fixed wakelock only for mobile and web</li>
+                    <li>Fixed desktop bug with breathing circle</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.0.9" date="2023-11-14">
+            <description>
+                <ul>
+                    <li>Fix audio issue on desktop</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.0.8" date="2023-11-13">
+            <description>
+                <ul>
+                    <li>Added themeable icon for android</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.0.7" date="2023-11-13">
+            <description>
+                <ul>
+                    <li>Update Flatpak metadata</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.0.6" date="2023-11-13">
+            <description>
+                <ul>
+                    <li>Fixed background music play issue to allow simultaneous playback with other audio sources.</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.0.5" date="2023-11-12">
+            <description>
+                <ul>
+                    <li>Fixed issue with saving data not persisting properly.</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.0.4" date="2023-11-07">
+            <description>
+                <ul>
+                    <li>Added wakelock feature to prevent the screen from turning off automatically.</li>
+                    <li>Updated metadata for enhanced app description and indexing.</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.0.3" date="2023-11-07">
+            <description>
+                <ul>
+                    <li>Updated app icons for a more modern and cohesive look.</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.0.2" date="2023-11-07">
+            <description>
+                <ul>
+                    <li>Fixed breathing timing issue at the end of a round.</li>
+                    <li>Introduced a new logo and images for branding.</li>
+                    <li>Improved configuration options for the breathing circle.</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.0.1" date="2023-10-01">
+            <description>
+                <ul>
+                    <li>Fixed UI padding adjusted for better user experience.</li>
+                    <li>Added new icons for social media links.</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.0.0" date="2023-09-07">
+            <description>
+                <ul>
+                    <li>First release of the application.</li>
+                </ul>
+            </description>
+        </release>
+</releases>
 </component>
