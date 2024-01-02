@@ -237,11 +237,17 @@ jobs:
             CHANNEL="beta"
           fi
           VERSION=$(grep 'version:' snap/snapcraft.yaml | cut -d "'" -f2)
-          echo ::set-output name=CHANNEL::$CHANNEL
-          echo ::set-output name=VERSION::$VERSION
+          echo "CHANNEL: $CHANNEL"
+          echo "VERSION: $VERSION"
+          echo "name=CHANNEL::$CHANNEL" >> $GITHUB_OUTPUT
+          echo "name=VERSION::$VERSION" >> $GITHUB_OUTPUT
+
   
       - name: Build and Push Snap
         run: |
+          echo "CHANNEL from previous step: ${{ steps.snap_setup.outputs.CHANNEL }}"
+          echo "VERSION from previous step: ${{ steps.snap_setup.outputs.VERSION }}"
+          
           snapcraft login --with ${{ secrets.SNAPCRAFT_LOGIN_FILE }}
           snapcraft
           snapcraft push --release=${{ steps.snap_setup.outputs.CHANNEL }} inner-breeze_${{ steps.snap_setup.outputs.VERSION }}_amd64.snap
