@@ -1,6 +1,6 @@
 name: inner-breeze
 version: '1.2.3'
-summary: A meditation and breathing guide app
+summary: Inner Breeze
 description: A dedicated meditation app designed to guide and track your Wim Hof Breathing practice.
 
 grade: stable
@@ -10,6 +10,7 @@ confinement: strict
 apps:
   inner-breeze:
     command: inner_breeze
+    common-id: io.naox.InnerBreeze
     extensions: [gnome]
     plugs:
       - network
@@ -18,4 +19,5 @@ parts:
   inner-breeze:
     source: .
     plugin: flutter
-    flutter-target: lib/main.dart
+    flutter-target: lib/main.dart    
+    parse-info: [metadata/flatpak/io.naox.InnerBreeze.metainfo.xml]
