@@ -243,7 +243,6 @@ jobs:
           snapcraft
           snapcraft push --release=$CHANNEL inner-breeze_$VERSION_amd64.snap
           
-      
   windows:
     needs: cancel
     name: Build Windows
