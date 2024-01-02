@@ -1,0 +1,92 @@
+{
+  "language_selection_title": "Selezione della lingua",
+  "language_instruction": "Seleziona la lingua preferita e premi Continua.",
+
+  "guide_welcome_title": "Ciao",
+  "guide_welcome_description": "TQuesta tecnica di respirazione semplice ma potente promette una profonda pace interiore, offrendo un santuario di serenità in mezzo al ritmo frenetico della vita.",
+  "safety_instruction": "Per garantire la tua sicurezza, esercitati sdraiato o seduto in una posizione comoda.",
+
+  "guide_method_title": "Metodo",
+  "guide_method_intro": "Basta seguire 4 passaggi:",
+  "guide_method_steps": "1. 1. Inspira ed espira ritmicamente per 30 respiri.\n2. Espira e trattieni il respiro.\n3. Inspira profondamente e trattieni per 15 secondi.\n4. Espira e ripeti il passaggio 1\n\nEsegui 3-10 cicli del processo.",
+   "guide_method_personalize": "Le pagine successive ti permetteranno di personalizzare la tua esperienza.",
+  
+  "guide_step1_title": "Passo 1: Dentro & Fuori",
+  "guide_step1_description": "Riempi i polmoni con un respiro completo, iniziando dalla pancia, poi dal petto.\e\mLascia che il respiro esca naturalmente senza sforzo.\on\Ripeti l'operazione per circa 20-40 respiri a un ritmo costante.",
+  "breathing_circle": "Cerchio di respirazione",
+
+  "guide_step2_title": "Passo 2: Espira & trattieni",
+  "guide_step2_description": "Espira normalmente e trattieni il respiro.\nIl tempo di trattenimento aumenterà con più pratica e con ogni round.\n\nIl cerchio al centro indica per quanto tempo hai trattenuto il respiro e la durata dell'ultima trattenuta del respiro.\n\nRilascia quando senti il bisogno di respirare, evita di allungarti eccessivamente. Il tuo corpo segnala quando è il momento di respirare.",
+  
+  "guide_step3_title": "Passo 3: Inspira & trattieni",
+  "guide_step3_description": "Inspira completamente e trattieni il respiro per 15 secondi.\Dopo espira, completando il primo ciclo\Con ogni ciclo puoi trattenere il respiro più a lungo e andare più in profondità.",
+
+  "back_button": "Indietro",
+  "continue_button": "Continua",
+  "skip_button": "Salta",
+  "next_button": "Prossimo",
+  "finish_button": "Fine",
+  "save_button": "Salva",
+  "cancel_button": "Annulla",
+  "close_button": "Chiudi",
+  "start_button": "Avvia",
+  "stop_button": "Ferma",
+
+  "progress_title": "Visualizzazione stato di avanzamento",
+  "start_journey": "Inizia il tuo viaggio!",
+  "progress_records_info": "I record dei tuoi progressi verranno visualizzati qui.",
+  "begin_session_button": "Inizia una sessione",
+  "rounds_label": "Turni: ",
+  "round_label": "Turno",
+  "edit_round": "Modifica turno",
+  "select_date": "Seleziona data",
+  "select_time": "Seleziona ora",
+  "minutes_label": "Minuti",
+  "seconds_label": "Secondi",
+
+  "get_ready": "Preparati",
+  "finish_hold": "Fine attesa",
+  "in_breath": "Dentro",
+  "out_breath": "Fuori",
+  "recovery": "Recupero",
+
+  "results_title": "Risultati",
+  "rounds_completed": "Turni completati: ",
+  "no_data": "Nessun dato",
+  "save_progress": "Salva Progressi",
+
+  "tempo_label": "Tempo",
+  "volume_label": "Volume",
+  "breaths_label": "Respiri",
+
+  "stop_session": "Arresta la sessione",
+  "stop_session_confirm": "Sei sicuro di voler terminare la sessione?",
+  "stop_session_button": "Ferma Sessione",
+  "continue_session_button": "Continua Sessione",
+ 
+  "settings_title": "Impostazioni",
+  "show_tutorial_button": "Mostra Tutorial",
+  "breathing_circle_button": "Cerchio di respirazione",
+  "keep_screen_on_label": "Tieni lo schermo acceso durante l'allenamento",
+  "language_title": "Lingua",
+  "data_management_title": "Gestione dei dati",
+  "export_data_button": "Esporta Dati",
+  "import_data_button": "Importa Dati",
+  "reset_data_button": "Reset dei Dati",
+  "connect_support_title": "Collegati & Supporta",
+  "app_version_text": "Versione App",
+  "new_version_available": "Nuova versione disponibile",
+  "update_button": "Aggiorna",
+  "privacy_policy": "Privacy Policy",
+
+  "confirm_reset": "Conferma Reset",
+  "reset_data_warning": "Sei sicuro di voler reimpostare tutti i dati? Questa azione non può essere annullata.",
+  "cancel": "Annulla",
+  "reset_data": "Reset dei Dati",
+  "data_imported_success": "Dati importati correttamente!",
+  "error_importing_data": "Errore durante l'importazione dei dati:",
+  "import_cancelled": "Importazione annullata",
+  "data_exported_success": "Dati esportati correttamente come ",
+  "error_exporting_data": "Errore durante l'esportazione dei dati: "
+}
+  
