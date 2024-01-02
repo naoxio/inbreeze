@@ -227,6 +227,7 @@ jobs:
   
       - name: Set up Snapcraft
         uses: samuelmeuli/action-snapcraft@v2
+  
 
       - name: Build and Push Snap
         run: |
@@ -236,13 +237,21 @@ jobs:
             CHANNEL="beta"
           fi
           VERSION=$(grep 'version:' snap/snapcraft.yaml | cut -d "'" -f2)
+          SNAP_FILENAME="inner-breeze_$VERSION_amd64.snap"
           echo "CHANNEL: $CHANNEL"
           echo "VERSION: $VERSION"
+          echo "SNAP_FILENAME: $SNAP_FILENAME"
           
           snapcraft login --with ${{ secrets.SNAPCRAFT_LOGIN_FILE }}
-          snapcraft
-          snapcraft push --release=$CHANNEL inner-breeze_$VERSION_amd64.snap
+          echo "Logged in to Snapcraft"
           
+          snapcraft
+          echo "Snapcraft build completed"
+          
+          snapcraft push --release=$CHANNEL $SNAP_FILENAME
+          echo "Pushed $SNAP_FILENAME to $CHANNEL channel"
+      
+    
   windows:
     needs: cancel
     name: Build Windows
