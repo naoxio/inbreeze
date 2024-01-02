@@ -1,4 +1,4 @@
-* Breathing timing issue at the end of a round.
+* Fixed breathing timing issue at the end of a round.
 * Introduced a new logo and images for branding.
 * Improved configuration options for the breathing circle.
 

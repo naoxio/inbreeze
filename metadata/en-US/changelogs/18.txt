@@ -1,2 +1,2 @@
-* Breathing configuration
+* Fix breathing configuration
 

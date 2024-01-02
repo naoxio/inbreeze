@@ -66,3 +66,31 @@ cp "$metainfo_file" "$metainfo_file.bak"
 
 # Replace the <releases> section in the metainfo.xml file
 sed -i "/<releases>/,/<\/releases>/c\<releases>\n$xml_releases<\/releases>" "$metainfo_file"
+
+# Extract the latest version from the changelog
+latest_version=$(grep -m 1 '## \[' "$changelog_file" | sed -n 's/## \[\(.*\)\] - .*/\1/p')
+
+if [ -z "$latest_version" ]; then
+    echo "No version found in changelog"
+    exit 1
+fi
+
+echo "Latest version from changelog: $latest_version"
+
+# Update pubspec.yaml with the latest version and the version number as suffix
+pubspec_file="pubspec.yaml"
+if [ -f "$pubspec_file" ]; then
+    sed -i "s/^version: .*/version: $latest_version+$version_number/" "$pubspec_file"
+    echo "Updated version in $pubspec_file to $latest_version+$version_number"
+else
+    echo "$pubspec_file does not exist"
+fi
+
+# Update snapcraft.yaml with the latest version
+snapcraft_file="snap/snapcraft.yaml"
+if [ -f "$snapcraft_file" ]; then
+    sed -i "s/^version: .*/version: '$latest_version'/" "$snapcraft_file"
+    echo "Updated version in $snapcraft_file to $latest_version"
+else
+    echo "$snapcraft_file does not exist"
+fi

@@ -1,5 +1,5 @@
-* Privacy police
-* Screen width on large displays
+* Added privacy police
+* Fixed screen width on large displays
 * Update to latest package versions and flutter version
 * Improve breathing configuration
 

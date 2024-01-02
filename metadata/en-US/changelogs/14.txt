@@ -1,2 +1,2 @@
-* Ability to edit progress results
+* Added ability to edit progress results
 
