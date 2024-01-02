@@ -49,3 +49,4 @@ app.*.map.json
 android/.env
 .env
 *.jks
+*.snap
