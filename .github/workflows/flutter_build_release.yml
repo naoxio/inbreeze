@@ -216,21 +216,23 @@ jobs:
         path: |
           InnerBreeze-Linux-x86_64.tar.gz 
           InnerBreeze-x86_64.AppImage
-
+  
   snap:
     needs: cancel
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Build and Publish Snap
-        uses: snapcore/action-publish@v1
+      - uses: snapcore/action-build@v1
+        id: build
+
+      - uses: snapcore/action-publish@v1
         with:
-          store_login: ${{ secrets.SNAPCRAFT_LOGIN_FILE }}
-          snap: 'snap/snapcraft.yaml'
-          channel: ${{ github.ref == 'refs/heads/main' && 'beta' || 'stable' }}
-      
+          snap: ${{ steps.build.outputs.snap }}
+          release: ${{ github.ref == 'refs/heads/main' && 'beta' || 'stable' }}
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
+
     
   windows:
     needs: cancel
