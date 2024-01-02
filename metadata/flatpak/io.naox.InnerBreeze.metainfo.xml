@@ -38,6 +38,12 @@
     <url type="bugtracker">https://github.com/naoxio/inner_breeze/issues</url>
 
 <releases>
+<release version="1.2.3" date="2024-01-02">
+<description><ul>
+<li>Added snap build</li>
+
+</ul></description>
+</release>
 <release version="1.2.2" date="2023-12-31">
 <description><ul>
 <li>Added german and spanish translations</li>
@@ -53,8 +59,8 @@
 </release>
 <release version="1.2.0" date="2023-12-30">
 <description><ul>
-<li>Privacy police</li>
-<li>Screen width on large displays</li>
+<li>Added privacy police</li>
+<li>Fixed screen width on large displays</li>
 <li>Update to latest package versions and flutter version</li>
 <li>Improve breathing configuration</li>
 
@@ -62,7 +68,7 @@
 </release>
 <release version="1.1.4" date="2023-12-14">
 <description><ul>
-<li>Breathing configuration</li>
+<li>Fix breathing configuration</li>
 
 </ul></description>
 </release>
@@ -88,13 +94,13 @@
 </release>
 <release version="1.1.0" date="2023-12-02">
 <description><ul>
-<li>Ability to edit progress results</li>
+<li>Added ability to edit progress results</li>
 
 </ul></description>
 </release>
 <release version="1.0.12" date="2023-12-01">
 <description><ul>
-<li>Version number in the settings page</li>
+<li>Added version number in the settings page</li>
 <li>Check for updates in the settings page</li>
 
 </ul></description>
@@ -107,9 +113,9 @@
 </release>
 <release version="1.0.10" date="2023-11-18">
 <description><ul>
-<li>Skip button</li>
-<li>Wakelock only for mobile and web</li>
-<li>Desktop bug with breathing circle</li>
+<li>Added skip button</li>
+<li>Fixed wakelock only for mobile and web</li>
+<li>Fixed desktop bug with breathing circle</li>
 
 </ul></description>
 </release>
@@ -121,7 +127,7 @@
 </release>
 <release version="1.0.8" date="2023-11-13">
 <description><ul>
-<li>Add themeable icon for android</li>
+<li>Added themeable icon for android</li>
 
 </ul></description>
 </release>
@@ -133,32 +139,32 @@
 </release>
 <release version="1.0.6" date="2023-11-13">
 <description><ul>
-<li>Background music play issue to allow simultaneous playback with other audio sources.</li>
+<li>Fixed background music play issue to allow simultaneous playback with other audio sources.</li>
 
 </ul></description>
 </release>
 <release version="1.0.5" date="2023-11-12">
 <description><ul>
-<li>Issue with saving data not persisting properly.</li>
+<li>Fixed issue with saving data not persisting properly.</li>
 
 </ul></description>
 </release>
 <release version="1.0.4" date="2023-11-07">
 <description><ul>
-<li>Wakelock feature to prevent the screen from turning off automatically.</li>
-<li>Metadata for enhanced app description and indexing.</li>
+<li>Added wakelock feature to prevent the screen from turning off automatically.</li>
+<li>Updated metadata for enhanced app description and indexing.</li>
 
 </ul></description>
 </release>
 <release version="1.0.3" date="2023-11-07">
 <description><ul>
-<li>App icons for a more modern and cohesive look.</li>
+<li>Updated app icons for a more modern and cohesive look.</li>
 
 </ul></description>
 </release>
 <release version="1.0.2" date="2023-11-07">
 <description><ul>
-<li>Breathing timing issue at the end of a round.</li>
+<li>Fixed breathing timing issue at the end of a round.</li>
 <li>Introduced a new logo and images for branding.</li>
 <li>Improved configuration options for the breathing circle.</li>
 
@@ -166,8 +172,8 @@
 </release>
 <release version="1.0.1" date="2023-10-01">
 <description><ul>
-<li>UI padding adjusted for better user experience.</li>
-<li>New icons for social media links.</li>
+<li>Fixed UI padding adjusted for better user experience.</li>
+<li>Added new icons for social media links.</li>
 
 </ul></description>
 </release>

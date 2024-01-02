@@ -1,2 +1,2 @@
-* Background music play issue to allow simultaneous playback with other audio sources.
+* Fixed background music play issue to allow simultaneous playback with other audio sources.
 

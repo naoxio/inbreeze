@@ -1,2 +1,2 @@
-* Issue with saving data not persisting properly.
+* Fixed issue with saving data not persisting properly.
 

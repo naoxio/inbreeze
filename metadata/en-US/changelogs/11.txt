@@ -1,4 +1,4 @@
-* Skip button
-* Wakelock only for mobile and web
-* Desktop bug with breathing circle
+* Added skip button
+* Fixed wakelock only for mobile and web
+* Fixed desktop bug with breathing circle
 

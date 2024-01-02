@@ -1,2 +1,2 @@
-* Add themeable icon for android
+* Added themeable icon for android
 
