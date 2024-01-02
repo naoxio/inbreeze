@@ -219,36 +219,17 @@ jobs:
 
   snap:
     needs: cancel
-    name: Build and Push Snap
     runs-on: ubuntu-latest
-    env:
-      SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_LOGIN_FILE }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-  
-      - name: Set up Snapcraft
-        uses: samuelmeuli/action-snapcraft@v2
-  
 
-      - name: Build and Push Snap
-        run: |
-          if [ "${{ startsWith(github.ref, 'refs/tags/') }}" == "true" ]; then
-            CHANNEL="stable"
-          else
-            CHANNEL="beta"
-          fi
-          VERSION=$(grep 'version:' snap/snapcraft.yaml | cut -d "'" -f2)
-          SNAP_FILENAME="inner-breeze_${VERSION}_amd64.snap"
-          echo "CHANNEL: $CHANNEL"
-          echo "VERSION: $VERSION"
-          echo "SNAP_FILENAME: $SNAP_FILENAME"
-          
-          snapcraft
-          echo "Snapcraft build completed"
-          
-          snapcraft push --release=$CHANNEL $SNAP_FILENAME
-          echo "Pushed $SNAP_FILENAME to $CHANNEL channel"
+      - name: Build and Publish Snap
+        uses: snapcore/action-publish@v1
+        with:
+          store_login: ${{ secrets.SNAPCRAFT_LOGIN_FILE }}
+          snap: 'snap/snapcraft.yaml'
+          channel: ${{ github.ref == 'refs/heads/main' && 'beta' || 'stable' }}
       
     
   windows:
