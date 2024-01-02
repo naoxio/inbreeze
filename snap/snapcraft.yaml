@@ -12,7 +12,7 @@ slots:
   dbus-inner-breeze:
     interface: dbus
     bus: session
-    name: app.inner_breeze
+    name: io.naox.InnerBreeze
  
 apps:
   inner-breeze:

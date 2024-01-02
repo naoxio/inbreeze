@@ -219,6 +219,7 @@ jobs:
   
   snap:
     needs: cancel
+    name: Bulid Snap
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -227,11 +228,11 @@ jobs:
         id: build
 
       - uses: snapcore/action-publish@v1
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
         with:
           snap: ${{ steps.build.outputs.snap }}
           release: ${{ github.ref == 'refs/heads/main' && 'beta' || 'stable' }}
-        env:
-          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
 
     
   windows:
