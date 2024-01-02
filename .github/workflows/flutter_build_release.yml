@@ -227,9 +227,8 @@ jobs:
   
       - name: Set up Snapcraft
         uses: samuelmeuli/action-snapcraft@v2
-  
-      - name: Set Snap Channel and Extract Version Number
-        id: snap_setup
+
+      - name: Build and Push Snap
         run: |
           if [ "${{ startsWith(github.ref, 'refs/tags/') }}" == "true" ]; then
             CHANNEL="stable"
@@ -239,18 +238,10 @@ jobs:
           VERSION=$(grep 'version:' snap/snapcraft.yaml | cut -d "'" -f2)
           echo "CHANNEL: $CHANNEL"
           echo "VERSION: $VERSION"
-          echo "name=CHANNEL::$CHANNEL" >> $GITHUB_OUTPUT
-          echo "name=VERSION::$VERSION" >> $GITHUB_OUTPUT
-
-  
-      - name: Build and Push Snap
-        run: |
-          echo "CHANNEL from previous step: ${{ steps.snap_setup.outputs.CHANNEL }}"
-          echo "VERSION from previous step: ${{ steps.snap_setup.outputs.VERSION }}"
           
           snapcraft login --with ${{ secrets.SNAPCRAFT_LOGIN_FILE }}
           snapcraft
-          snapcraft push --release=${{ steps.snap_setup.outputs.CHANNEL }} inner-breeze_${{ steps.snap_setup.outputs.VERSION }}_amd64.snap
+          snapcraft push --release=$CHANNEL inner-breeze_$VERSION_amd64.snap
           
       
   windows:
