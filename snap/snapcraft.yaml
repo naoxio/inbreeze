@@ -7,21 +7,12 @@ grade: stable
 base: core22
 confinement: strict
 
-
-slots:
-  dbus-inner-breeze:
-    interface: dbus
-    bus: session
-    name: io.naox.InnerBreeze
- 
 apps:
   inner-breeze:
     command: inner_breeze
     extensions: [gnome]
     plugs:
       - network
-    slots:
-      - dbus-inner-breeze
 
 parts:
   inner-breeze:
