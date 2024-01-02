@@ -221,6 +221,8 @@ jobs:
     needs: cancel
     name: Build and Push Snap
     runs-on: ubuntu-latest
+    env:
+      SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_LOGIN_FILE }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -237,13 +239,10 @@ jobs:
             CHANNEL="beta"
           fi
           VERSION=$(grep 'version:' snap/snapcraft.yaml | cut -d "'" -f2)
-          SNAP_FILENAME="inner-breeze_$VERSION_amd64.snap"
+          SNAP_FILENAME="inner-breeze_${VERSION}_amd64.snap"
           echo "CHANNEL: $CHANNEL"
           echo "VERSION: $VERSION"
           echo "SNAP_FILENAME: $SNAP_FILENAME"
-          
-          snapcraft login --with ${{ secrets.SNAPCRAFT_LOGIN_FILE }}
-          echo "Logged in to Snapcraft"
           
           snapcraft
           echo "Snapcraft build completed"
