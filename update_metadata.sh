@@ -14,7 +14,7 @@ version_number=0
 inside_version=0
 output=""
 xml_output=""
-xml_releases="    <releases>\n" 
+xml_releases="" 
 
 # Read the changelog file line by line
 while IFS= read -r line
