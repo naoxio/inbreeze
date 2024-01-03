@@ -4,6 +4,7 @@ adopt-info: inner-breeze
 grade: stable
 base: core22
 confinement: strict
+icon: metadata/flatpak/InnerBreeze.png
 
 apps:
   inner-breeze:
