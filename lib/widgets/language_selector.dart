@@ -16,8 +16,9 @@ class _LanguageSelectorState extends State<LanguageSelector> {
 
   final Map<String, String> languageOptions = {
     'en': 'English',
-    'es': 'Español',
     'de': 'Deutsch',
+    'es': 'Español',
+    'it': 'Italiano',
   };
 
   @override

@@ -1,0 +1,2 @@
+* Added italian translations contributed by @albanobattistella
+

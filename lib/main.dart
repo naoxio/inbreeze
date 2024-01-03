@@ -123,8 +123,9 @@ class _AppState extends State<App> {
       ],
       supportedLocales: [
         Locale('en', 'US'),
-        Locale('es', 'ES'),
         Locale('de', 'DE'),
+        Locale('es', 'ES'),
+        Locale('it', 'IT')
       ],
       locale: _currentLocale,
       title: title,

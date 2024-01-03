@@ -1,4 +1,7 @@
 # Changelog
+## [1.2.4] - 2024-01-03
+- Added italian translations contributed by @albanobattistella
+
 ## [1.2.3] - 2024-01-02
 - Added snap build
 

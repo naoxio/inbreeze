@@ -61,14 +61,14 @@ jobs:
         flutter build apk --release
        
     - name: Rename APK
-      run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/InnerBreeze-${{ env.RELEASE_TAG }}.apk
+      run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/InnerBreeze.apk
 
     - name: Upload APKs as Artifact
       uses: actions/upload-artifact@v2
       with:
         name: apk-artifacts
         path: |
-          build/app/outputs/flutter-apk/InnerBreeze-${{ env.RELEASE_TAG }}.apk
+          build/app/outputs/flutter-apk/InnerBreeze.apk
 
   ios:
     needs: cancel
@@ -317,7 +317,7 @@ jobs:
         prerelease: "${{ env.IS_PRERELEASE }}"
         title: "${{ env.RELEASE_TAG }}"
         files: |
-          build/app/outputs/flutter-apk/InnerBreeze-${{ env.RELEASE_TAG }}.apk
+          build/app/outputs/flutter-apk/InnerBreeze.apk
           build/ios/iphoneos/ios_unsigned.app.tar.gz
           build/linux/InnerBreeze-Linux-x86_64.tar.gz
           build/linux/InnerBreeze-x86_64.AppImage

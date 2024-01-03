@@ -49,6 +49,13 @@
     <icon type="remote" height="144" width="144">https://raw.githubusercontent.com/naoxio/inner_breeze/main/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png</icon>
     <update_contact>contact@naox.io</update_contact>
 <releases>
+        <release version="1.2.4" date="2024-01-03">
+            <description>
+                <ul>
+                    <li>Added italian translations contributed by @albanobattistella</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.2.3" date="2024-01-02">
             <description>
                 <ul>
