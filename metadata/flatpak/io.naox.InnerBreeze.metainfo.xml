@@ -44,7 +44,6 @@
     <url type="bugtracker">https://github.com/naoxio/inner_breeze/issues</url>
     <url type="donation">https://coindrop.to/naox</url>
 
-    <icon type="remote" height="any" width="any">https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/flatpak/InnerBreeze.png</icon>
     <icon type="remote" height="72" width="72">https://raw.githubusercontent.com/naoxio/inner_breeze/main/android/app/src/main/res/mipmap-hdpi/ic_launcher.png</icon>
     <icon type="remote" height="144" width="144">https://raw.githubusercontent.com/naoxio/inner_breeze/main/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png</icon>
     <update_contact>contact@naox.io</update_contact>
