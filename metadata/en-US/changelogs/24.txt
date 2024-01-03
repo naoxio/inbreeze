@@ -1,2 +1,2 @@
-* Optimize metadat for desktop release
+* Optimize metadata for desktop release
 
