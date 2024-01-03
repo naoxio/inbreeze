@@ -1,5 +1,5 @@
 name: inner-breeze
-adopt-info: inner-breeze-metainfo
+adopt-info: inner-breeze
 
 version: '1.2.5'
 license: MIT
@@ -17,11 +17,9 @@ apps:
       - network
 
 parts:
+
   inner-breeze:
     source: .
     plugin: flutter
     flutter-target: lib/main.dart    
-  inner-breeze-metainfo:
-    plugin: dump
-    source: .
     parse-info: [local/io.naox.InnerBreeze.metainfo.xml]
