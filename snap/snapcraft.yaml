@@ -1,6 +1,8 @@
 name: inner-breeze
 adopt-info: inner-breeze
 
+version: '1.2.5'
+license: MIT
 grade: stable
 base: core22
 confinement: strict
@@ -19,4 +21,10 @@ parts:
     source: .
     plugin: flutter
     flutter-target: lib/main.dart    
-    parse-info: [local/io.naox.InnerBreeze.metainfo.xml]
+    parse-info: [metadata/io.naox.InnerBreeze.metainfo.xml]
+
+  metainfo:
+    source: .
+    plugin: dump
+    organize:
+      metainfo.xml: metadata/io.naox.InnerBreeze.metainfo.xml

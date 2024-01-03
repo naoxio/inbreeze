@@ -279,7 +279,7 @@ jobs:
 
   release:
     name: Release Builds
-    needs: [android, ios, linux, windows] 
+    needs: [android, ios, linux, windows, snap] 
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository
