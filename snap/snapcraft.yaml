@@ -17,9 +17,14 @@ apps:
       - network
 
 parts:
-
   inner-breeze:
     source: .
     plugin: flutter
     flutter-target: lib/main.dart    
-    parse-info: [local/io.naox.InnerBreeze.metainfo.xml]
+    parse-info: [metadata/io.naox.InnerBreeze.metainfo.xml]
+
+  metainfo:
+    source: ../metadata
+    plugin: dump
+    organize:
+      metainfo.xml: metadata/io.naox.InnerBreeze.metainfo.xml
