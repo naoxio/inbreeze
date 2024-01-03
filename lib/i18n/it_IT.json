@@ -3,12 +3,12 @@
   "language_instruction": "Seleziona la lingua preferita e premi Continua.",
 
   "guide_welcome_title": "Ciao",
-  "guide_welcome_description": "TQuesta tecnica di respirazione semplice ma potente promette una profonda pace interiore, offrendo un santuario di serenità in mezzo al ritmo frenetico della vita.",
+  "guide_welcome_description": "Questa tecnica di respirazione semplice ma potente promette una profonda pace interiore, offrendo un santuario di serenità in mezzo al ritmo frenetico della vita.",
   "safety_instruction": "Per garantire la tua sicurezza, esercitati sdraiato o seduto in una posizione comoda.",
 
   "guide_method_title": "Metodo",
   "guide_method_intro": "Basta seguire 4 passaggi:",
-  "guide_method_steps": "1. 1. Inspira ed espira ritmicamente per 30 respiri.\n2. Espira e trattieni il respiro.\n3. Inspira profondamente e trattieni per 15 secondi.\n4. Espira e ripeti il passaggio 1\n\nEsegui 3-10 cicli del processo.",
+  "guide_method_steps": "1. Inspira ed espira ritmicamente per 30 respiri.\n2. Espira e trattieni il respiro.\n3. Inspira profondamente e trattieni per 15 secondi.\n4. Espira e ripeti il passaggio 1\n\nEsegui 3-10 cicli del processo.",
    "guide_method_personalize": "Le pagine successive ti permetteranno di personalizzare la tua esperienza.",
   
   "guide_step1_title": "Passo 1: Dentro & Fuori",
@@ -36,7 +36,7 @@
   "start_journey": "Inizia il tuo viaggio!",
   "progress_records_info": "I record dei tuoi progressi verranno visualizzati qui.",
   "begin_session_button": "Inizia una sessione",
-  "rounds_label": "Turni: ",
+  "rounds_label": "Turni:",
   "round_label": "Turno",
   "edit_round": "Modifica turno",
   "select_date": "Seleziona data",
