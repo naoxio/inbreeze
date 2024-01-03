@@ -26,16 +26,28 @@
 
     <screenshots>
         <screenshot type="default">
+            <caption>Tutorial Screen 1</caption>
+            <image>https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/en-US/images/desktopScreenshots/screenshot-1.jpg</image>
+        </screenshot>
+        <screenshot>
+            <caption>Tutorial Screen 2</caption>
+            <image>https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/en-US/images/desktopScreenshots/screenshot-2.jpg</image>
+        </screenshot>
+        <screenshot>
+            <caption>Tutorial Screen 3</caption>
+            <image>https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/en-US/images/desktopScreenshots/screenshot-3.png</image>
+        </screenshot>
+        <screenshot>
             <caption>Title Screen</caption>
-            <image>https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/flatpak/screen1.png</image>
+            <image>https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/en-US/images/desktopScreenshots/screenshot-4.jpg</image>
         </screenshot>
         <screenshot>
-            <caption>Tutorial Page</caption>
-            <image>https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/flatpak/screen2.png</image>
+            <caption>Exercise Results View</caption>
+            <image>https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/en-US/images/desktopScreenshots/screenshot-5.jpg</image>
         </screenshot>
         <screenshot>
-            <caption>Starting the Breathing Exercise</caption>
-            <image>https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/flatpak/screen3.png</image>
+            <caption>Progress View</caption>
+            <image>https://raw.githubusercontent.com/naoxio/inner_breeze/main/metadata/en-US/images/desktopScreenshots/screenshot-6.jpg</image>
         </screenshot>
         
     </screenshots>
