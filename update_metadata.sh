@@ -3,7 +3,7 @@
 changelog_file="CHANGELOG.md"
 output_dir="metadata/en-US/changelogs"
 temp_dir="$output_dir/temp"
-metainfo_file="snap/io.naox.InnerBreeze.metainfo.xml"
+metainfo_file="snap/local/io.naox.InnerBreeze.metainfo.xml"
 
 # Create output and temporary directories if they don't exist
 mkdir -p "$output_dir"

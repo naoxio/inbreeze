@@ -4,7 +4,7 @@ adopt-info: inner-breeze
 grade: stable
 base: core22
 confinement: strict
-icon: io.naox.InnerBreeze.png
+icon: snap/gui/io.naox.InnerBreeze.png
 
 apps:
   inner-breeze:
@@ -19,4 +19,4 @@ parts:
     source: .
     plugin: flutter
     flutter-target: lib/main.dart    
-    parse-info: [io.naox.InnerBreeze.metainfo.xml]
+    parse-info: [local/io.naox.InnerBreeze.metainfo.xml]
