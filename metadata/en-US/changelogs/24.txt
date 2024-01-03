@@ -1,0 +1,2 @@
+* Optimize metadat for desktop release
+

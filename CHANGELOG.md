@@ -1,4 +1,7 @@
 # Changelog
+## [1.2.5] - 2024-01-03
+- Optimize metadat for desktop release
+
 ## [1.2.4] - 2024-01-03
 - Added italian translations contributed by @albanobattistella
 
