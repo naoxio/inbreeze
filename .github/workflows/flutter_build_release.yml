@@ -219,7 +219,7 @@ jobs:
   
   snap:
     needs: cancel
-    name: Bulid Snap
+    name: Build Snap
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
