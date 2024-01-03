@@ -24,7 +24,7 @@ parts:
     parse-info: [metadata/io.naox.InnerBreeze.metainfo.xml]
 
   metainfo:
-    source: ../metadata
+    source: .
     plugin: dump
     organize:
       metainfo.xml: metadata/io.naox.InnerBreeze.metainfo.xml
