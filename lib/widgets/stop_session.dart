@@ -9,8 +9,13 @@ import 'package:flutter/services.dart';
 class StopSessionButton extends StatefulWidget {
   final VoidCallback? onStopSessionPressed;
 
+  final VoidCallback? onPause;
+  final VoidCallback? onResume;
+
   const StopSessionButton({
     this.onStopSessionPressed,
+    this.onPause,
+    this.onResume,
     super.key,
   });
 
@@ -59,42 +64,46 @@ class _StopSessionButtonState extends State<StopSessionButton> {
   }
 
   void _showExitConfirmationDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-          title: Text('stop_session'.i18n()),
-        content: Text('stop_session_confirm'.i18n()),
-        actions: <Widget>[
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 6.0,
-            children: [
-              OutlinedButton(
-                onPressed: () {
-                  _navigateToResults();
-                },
-                style: OutlinedButton.styleFrom(
-                  side: BorderSide(color: Colors.red),
+    widget.onPause?.call();
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            title: Text('stop_session'.i18n()),
+          content: Text('stop_session_confirm'.i18n()),
+          actions: <Widget>[
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 6.0,
+              children: [
+                OutlinedButton(
+                  onPressed: () {
+                    _navigateToResults();
+                  },
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: Colors.red),
+                  ),
+                  child: Text(
+                      'stop_session_button'.i18n(),
+                    style: TextStyle(color: Colors.red),
+                  ),
                 ),
-                child: Text(
-                    'stop_session_button'.i18n(),
-                  style: TextStyle(color: Colors.red),
+                OutlinedButton(
+                  onPressed: () {
+                    widget.onResume?.call(); 
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('continue_session_button'.i18n()),
                 ),
-              ),
-              OutlinedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('continue_session_button'.i18n()),
-              ),
-            ],
-          ),
-        ],
-      );
-    },
-  );
-}
+              ],
+            ),
+          ],
+        );
+      },
+    ).then((_) {
+      widget.onResume?.call();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

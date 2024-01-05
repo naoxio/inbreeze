@@ -25,6 +25,7 @@ class AnimatedCircleState extends State<AnimatedCircle>
   late AnimationController _controller;
   late Animation<double> _radiusAnimation;
   AudioPlayerService audioPlayerService = AudioPlayerService();
+  double? pauseValue; 
 
   bool _isInitialized = false;
 
@@ -48,8 +49,6 @@ class AnimatedCircleState extends State<AnimatedCircle>
             _controller.forward();
             _controller.repeat(reverse: true);
           }
-          print(status);
-          print('aeooaueoau');
           if (status == AnimationStatus.forward) {
             audioPlayerService.play('assets/sounds/breath-in.ogg', widget.volume.toDouble(), 'in');
           } else if (status == AnimationStatus.reverse) {
@@ -89,6 +88,9 @@ class AnimatedCircleState extends State<AnimatedCircle>
         switch (control) {
           case 'repeat':
             if (_controller.status == AnimationStatus.forward || _controller.status == AnimationStatus.reverse) break;
+            if (_controller.status == AnimationStatus.dismissed) {
+              audioPlayerService.play('assets/sounds/breath-in.ogg', widget.volume.toDouble(), 'in');
+            }
             _controller.forward();
             _controller.repeat(reverse: true);
             break;
@@ -105,6 +107,18 @@ class AnimatedCircleState extends State<AnimatedCircle>
             _controller.stop();
             _controller.forward();
             _controller.repeat(reverse: true);
+            break;
+          case 'pause':
+            if (_controller.isAnimating) {
+              pauseValue = _controller.value; // Save current progress
+              _controller.stop();
+            }
+            break;
+          case 'resume':
+            if (pauseValue != null) {
+              _controller.forward(from: pauseValue); // Resume from saved progress
+              _controller.repeat(reverse: true);
+            }
             break;
         }
       }

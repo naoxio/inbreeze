@@ -20,12 +20,14 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
   Duration duration = Duration(seconds: 0);
   late Timer timer;
   int rounds = 1;
+  bool isPaused = false;
 
   @override
   void initState() {
     super.initState();
     timer = Timer.periodic(Duration(milliseconds: 10), (Timer t) {
       setState(() {
+        if (isPaused) return;
         duration = duration + Duration(milliseconds: 10);
       });
     });
@@ -57,6 +59,13 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
   }
 
 
+ void pauseTimer() {
+    isPaused = true;
+  }
+
+  void resumeTimer() {
+    isPaused = false;
+  }
 
   void _navigateToNextExercise() async {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -108,6 +117,8 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
                 SizedBox(height: 20),
                 StopSessionButton(
                   onStopSessionPressed: _onStopSessionPressed,
+                  onPause: pauseTimer,
+                  onResume: resumeTimer,
                 ),
               ],
             ),

@@ -37,20 +37,38 @@ class AudioPlayerService {
 
   }
 
-
-  Future<void> play(String assetPath, double volume, String playerId) async {
+ Future<void> preload(String assetPath, String playerId) async {
     try {
-      await _session.setActive(true);
       var player = _players[playerId];
       player ??= _players.putIfAbsent(playerId, () => AudioPlayer());
       await player.setAsset(assetPath);
-      await player.seek(Duration(milliseconds: 0));
-      await player.setVolume(volume / 100);
-      await player.play();
+      await player.setVolume(0);
     } catch (e) {
-      print('Error playing audio: $e');
+      print('Error preloading audio: $e');
     }
   }
+
+Future<void> play(String assetPath, double volume, String playerId) async {
+  try {
+    await _session.setActive(true);
+    var player = _players[playerId];
+    if (player == null) {
+      player = AudioPlayer();
+      await player.setAsset(assetPath);
+      _players[playerId] = player;
+    } else {
+      var currentAsset = await player.audioSource?.sequence?.first.tag;
+      if (currentAsset != assetPath) {
+        await player.setAsset(assetPath);
+      }
+    }
+    await player.seek(Duration.zero);
+    await player.setVolume(volume / 100);
+    await player.play();
+  } catch (e) {
+    print('Error playing audio: $e');
+  }
+}
 
   Future<void> stop(String playerId) async {
     try {

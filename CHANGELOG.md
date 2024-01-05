@@ -1,4 +1,8 @@
 # Changelog
+## [1.2.6] - 2024-01-05
+- Fix no breath in after step 3
+- fix stop session unwanted screen switch
+
 ## [1.2.5] - 2024-01-03
 - Optimize metadata for desktop release
 

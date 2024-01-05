@@ -17,8 +17,10 @@ class ExerciseStep3 extends StatefulWidget {
 }
 
 class _ExerciseStep3State extends State<ExerciseStep3> {
+  String animationControl = 'forward';
   int volume = 80;
   int countdown = 30;
+  int customTicker = 0;
   Duration tempoDuration = Duration(seconds: 2);
   String innerText= 'in';
 
@@ -59,22 +61,28 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
         return innerText;
     }
   }
-  
-  void startBreathCounting() {
+   void startBreathCounting() {
     breathCycleTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (animationControl == 'pause') return;  // Pause logic
+
       setState(() {
-        if (timer.tick < 2) {
+        customTicker++; 
+
+        if (customTicker < 2) {
           innerText = 'in';
-        } else if ( timer.tick < 17) {
-          innerText = (17 - timer.tick).toString();
-        } else if (timer.tick >= 17 && timer.tick <= 18) {
+        } else if (customTicker < 17) {
+          innerText = (17 - customTicker).toString();
+          animationControl = 'stop';
+        } else if (customTicker >= 17 && customTicker <= 18) {
           innerText = 'out';
+          animationControl = 'reverse';
         } else {
           _navigateToNextExercise();
         }
       });
-     });
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -95,22 +103,15 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
                   volume: volume,
                   tempoDuration: tempoDuration,
                   innerText: getDisplayText(),
-                  controlCallback: () {
-                    if (innerText == 'in') {
-                      return 'forward';
-                    }
-                    else if (innerText == 'out') {
-                      return 'reverse';
-                    }
-                    else {
-                      return 'stop';
-                    }
-                  },
+                  controlCallback: () => animationControl,
                 ),
                 SizedBox(height: 200),
-                StopSessionButton(),
+                StopSessionButton(
+                  onPause: pauseBreathCounting,
+                  onResume: resumeBreathCounting,
+                ),
                 TextButton(
-                child: Text('skip_button'.i18n()),
+                  child: Text('skip_button'.i18n()),
                   onPressed: () {
                     _navigateToNextExercise();
                   },
@@ -122,6 +123,18 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
       ),
     );
   }
+  void pauseBreathCounting() {
+    setState(() {
+      animationControl = 'pause';
+    });
+  }
+
+  void resumeBreathCounting() {
+    setState(() {
+      animationControl = 'resume';
+    });
+  }
+
 
   @override
   void dispose() {

@@ -25,6 +25,7 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
   int volume = 80;
   int maxBreaths = 30;
   int breathsDone = -5;
+  String animationControl = 'stop';
 
   String? sessionId;
   Timer? breathCycleTimer;
@@ -73,7 +74,10 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
       maxBreaths = localMaxBreaths;
       tempoDuration = Duration(milliseconds: localTempo);
       rounds = localRounds!;
-      if (rounds > 0) breathsDone = 1;
+      if (rounds > 0) {
+        breathsDone = 1;
+        animationControl = 'repeat';
+      }
 
       volume = localVolume;
       sessionId = localSessionId;
@@ -94,10 +98,14 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
     if (breathsDone < 0) {
       breathCycleTimer = Timer.periodic(Duration(seconds: 1), (timer) {
         setState(() {
+          if (animationControl == 'pause') return;
+          animationControl = 'stop';
+          
           breathsDone++;
           if (breathsDone == 0) {
             breathsDone = 1;
             timer.cancel();
+            animationControl = 'repeat';
             startBreathCounting();
           }
         });
@@ -105,12 +113,15 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
     } else {
       breathCycleTimer = Timer.periodic(tempoDuration, (timer) {
         setState(() {
+          if (animationControl == 'pause') return;
+
           breathsDone = timer.tick ~/ 2 + 1;
         });
         if (breathsDone == maxBreaths && timer.tick % 2 == 0) {
           audioPlayerService.play('assets/sounds/bell.ogg', volume * 0.8, 'bell');
         }
         if (breathsDone > maxBreaths) {
+          animationControl = 'stop';
           timer.cancel();
           _navigateToNextExercise();
         }
@@ -137,17 +148,13 @@ Widget build(BuildContext context) {
                 tempoDuration: tempoDuration,
                 volume: volume,
                 innerText: (breathsDone > maxBreaths ? maxBreaths : breathsDone).toString(),
-                controlCallback: () {
-                  if (breathsDone > 0 && breathsDone <= maxBreaths) {
-                    return 'repeat';
-                  }
-                  else {
-                    return 'stop';
-                  }
-                },
+                controlCallback: () => animationControl, 
               ),
               SizedBox(height: 200),
-              StopSessionButton(),
+              StopSessionButton(
+                onPause: pauseBreathCounting,
+                onResume: resumeBreathCounting,
+              ),
               TextButton(
                 child: Text('skip_button'.i18n()),
                 onPressed: () {
@@ -161,7 +168,17 @@ Widget build(BuildContext context) {
     ),
   );
 }
+  void pauseBreathCounting() {
+    setState(() {
+      animationControl = 'pause';
+    });
+  }
 
+  void resumeBreathCounting() {
+    setState(() {
+      animationControl = 'resume';
+    });
+  }
   @override
   void dispose() {
     audioPlayerService.disposePlayer('bell');
@@ -177,6 +194,8 @@ Widget build(BuildContext context) {
     if (breathsDone < 0) {
       setState(() {
         breathsDone = 1;
+        animationControl = 'repeat';
+
       });
       startBreathCounting();
     } else {
