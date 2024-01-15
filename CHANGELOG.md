@@ -1,4 +1,7 @@
 # Changelog
+## [1.2.7] - 2024-01-15
+- Update spanish translations thanks to @anhdres
+
 ## [1.2.6] - 2024-01-05
 - Fix no breath in after step 3
 - fix stop session unwanted screen switch

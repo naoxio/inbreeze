@@ -1,0 +1,2 @@
+* Update spanish translations thanks to @anhdres
+
