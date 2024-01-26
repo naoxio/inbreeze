@@ -113,7 +113,6 @@ class _ProgressScreenState extends State<ProgressScreen> {
 
     List<String> sortedDays = sessionsByDay.keys.toList();
     sortedDays.sort((a, b) => b.compareTo(a));
-    sortedDays = sortedDays.reversed.toList(); 
 
     return ExpansionTile(
       initiallyExpanded: monthYearKey == latestMonthKey,
@@ -129,15 +128,14 @@ class _ProgressScreenState extends State<ProgressScreen> {
 
   Widget _buildDaySection(String dayKey, List<Session> sessions) {
     DateTime dayDate = DateFormat('yyyy-MM-dd').parse(dayKey);
-    String dayName = DateFormat.MMMd().format(dayDate);
+    String dayName = DateFormat('d E').format(dayDate);
 
     sessions.sort((a, b) => int.parse(b.id).compareTo(int.parse(a.id)));
-    List<Session> reversedSessions = sessions.reversed.toList();
 
     return ExpansionTile(
       initiallyExpanded: dayKey == latestDayKey,
       title: Text(dayName, style: TextStyle(fontSize: 18)),
-      children: reversedSessions.map((session) => _buildSessionTile(session)).toList(),
+      children: sessions.map((session) => _buildSessionTile(session)).toList(),
     );
   }
 
