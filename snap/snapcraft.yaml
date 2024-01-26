@@ -1,7 +1,7 @@
 name: inner-breeze
 adopt-info: inner-breeze
 
-version: '1.2.7'
+version: '1.2.8'
 license: MIT
 grade: stable
 base: core22

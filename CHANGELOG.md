@@ -1,4 +1,7 @@
 # Changelog
+## [1.2.8] - 2024-01-26
+- Slight improvements in progress view
+
 ## [1.2.7] - 2024-01-15
 - Update spanish translations thanks to @anhdres
 

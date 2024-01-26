@@ -60,6 +60,13 @@
     <icon type="remote" height="144" width="144">https://raw.githubusercontent.com/naoxio/inner_breeze/main/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png</icon>
     <update_contact>contact@naox.io</update_contact>
 <releases>
+        <release version="1.2.8" date="2024-01-26">
+            <description>
+                <ul>
+                    <li>Slight improvements in progress view</li>
+                </ul>
+            </description>
+        </release>
         <release version="1.2.7" date="2024-01-15">
             <description>
                 <ul>
