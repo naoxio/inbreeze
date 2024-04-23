@@ -1,0 +1,95 @@
+{
+  "language_selection_title": "Pemilihan Bahasa",
+  "language_instruction": "Pilih bahasa pilihan Anda dan tekan lanjut.",
+
+  "guide_welcome_title": "Tutorial",
+  "guide_welcome_description": "Teknik pernapasan yang mudah namun efektif ini menjanjikan kedamaian batin yang mendalam, menawarkan tempat perlindungan dari kesibukan hidup.",
+  "safety_instruction": "Untuk memastikan keselamatan Anda, praktikkan baik dalam posisi berbaring atau duduk dengan nyaman.",
+
+  "guide_method_title": "Metode",
+  "guide_method_intro": "Ikuti hanya 4 langkah:",
+  "guide_method_steps": "1. Tarik nafas dan hembuskan secara ritmis selama 30 napas.\n2. Hembuskan dan tahan napas Anda.\n3. Tarik napas dalam-dalam dan tahan selama 15 detik.\n4. Hembuskan dan ulangi langkah 1\n\nLakukan 3-10 putaran dari proses ini.",
+  "guide_method_personalize": "Halaman berikutnya akan memungkinkan Anda untuk mempersonalisasi pengalaman Anda.",
+  
+  "guide_step1_title": "Langkah 1: Tarik & Hembus",
+  "guide_step1_description": "Isi paru-paru Anda dengan nafas penuh, dimulai dari perut, lalu dada Anda.\n\nBiarkan napas mengalir keluar secara alami tanpa tekanan.\n\nUlangi ini selama sekitar 20-40 napas dengan kecepatan yang stabil.",
+  "breathing_circle": "Lingkaran Pernapasan",
+
+  "guide_step2_title": "Langkah 2: Hembuskan & Tahan",
+  "guide_step2_description": "Hembuskan secara normal dan tahan napas Anda.\nWaktu tahan Anda akan bertambah dengan latihan lebih lanjut dan dengan setiap putaran.\n\nLingkaran di tengah menunjukkan berapa lama Anda menahan napas dan panjang waktu terakhir menahan napas.\n\nLepaskan ketika Anda merasakan dorongan untuk bernapas, hindari menghembuskan terlalu banyak. Tubuh Anda memberi sinyal kapan waktunya untuk bernapas.",
+  
+  "guide_step3_title": "Langkah 3: Tarik & Tahan",
+  "guide_step3_description": "Tarik napas sepenuhnya dan tahan selama 15 detik.\nSetelah itu, hembuskan, menyelesaikan putaran pertama.\n\nDengan setiap putaran Anda dapat menahan napas lebih lama dan lebih dalam.",
+
+  "back_button": "Kembali",
+  "continue_button": "Lanjutkan",
+  "skip_button": "Lewati",
+  "next_button": "Berikutnya",
+  "finish_button": "Selesai",
+  "save_button": "Simpan",
+  "cancel_button": "Batal",
+  "close_button": "Tutup",
+  "start_button": "Mulai",
+  "stop_button": "Berhenti",
+
+  "progress_title": "Tampilan Progres",
+  "start_journey": "Mulai Perjalanan Anda!",
+  "progress_records_info": "Catatan kemajuan Anda akan muncul di sini.",
+  "begin_session_button": "Mulai Sesi",
+  "rounds_label": "Putaran",
+  "round_label": "Putaran",
+  "edit_round": "Edit Putaran",
+  "select_date": "Pilih Tanggal",
+  "select_time": "Pilih Waktu",
+  "minutes_label": "Menit",
+  "seconds_label": "Detik",
+
+  "get_ready": "Siap",
+  "finish_hold": "Selesai Menahan",
+  "in_breath": "Tarik",
+  "out_breath": "Hembus",
+  "recovery": "Pemulihan",
+
+  "results_title": "Hasil",
+  "rounds_completed": "Putaran Selesai: ",
+  "no_data": "Tidak ada data",
+  "save_progress": "Simpan Kemajuan",
+
+  "tempo_label": "Tempo",
+  "volume_label": "Volume",
+  "breaths_label": "Napas",
+
+  "stop_session": "Hentikan Sesi",
+  "stop_session_confirm": "Apakah Anda yakin ingin mengakhiri sesi?",
+  "stop_session_button": "Hentikan Sesi",
+  "continue_session_button": "Lanjutkan Sesi",
+ 
+  "settings_title": "Pengaturan",
+  "show_tutorial_button": "Tampilkan Tutorial",
+  "breathing_circle_button": "Lingkaran Pernapasan",
+  "keep_screen_on_label": "Tetapkan Layar Hidup Selama Latihan",
+  "language_title": "Bahasa",
+  "data_management_title": "Manajemen Data",
+  "export_data_button": "Ekspor Data",
+  "import_data_button": "Impor Data",
+  "reset_data_button": "Atur Ulang Data",
+  "connect_support_title": "Koneksikan & Dukungan",
+  "app_version_text": "Versi Aplikasi",
+  "new_version_available": "Versi baru tersedia",
+  "update_button": "Perbarui",
+  "privacy_policy": "Kebijakan Privasi",
+
+  "confirm_reset": "Konfirmasi Atur Ulang",
+  "reset_data_warning": "Apakah Anda yakin ingin mengatur ulang semua data? Tindakan ini tidak dapat dibatalkan.",
+  "cancel": "Batal",
+  "reset_data": "Atur Ulang Data",
+  "data_imported_success": "Data berhasil diimpor!",
+  "error_importing_data": "Kesalahan dalam mengimpor data: ",
+  "import_cancelled": "Impor dibatalkan",
+  "data_exported_success": "Data berhasil diekspor sebagai ",
+  "error_exporting_data": "Kesalahan dalam mengekspor data: ",
+
+  "sessions": "Sesi",
+  "graph": "Grafik"
+}
+

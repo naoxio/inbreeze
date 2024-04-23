@@ -87,6 +87,10 @@
   "error_importing_data": "Errore durante l'importazione dei dati:",
   "import_cancelled": "Importazione annullata",
   "data_exported_success": "Dati esportati correttamente come ",
-  "error_exporting_data": "Errore durante l'esportazione dei dati: "
+  "error_exporting_data": "Errore durante l'esportazione dei dati: ",
+
+
+  "sessions": "Sessioni",
+  "graph": "Grafico"
 }
   

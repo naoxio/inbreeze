@@ -190,8 +190,10 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
                         onPressed: skipCountdown,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Theme.of(context).primaryColor,
-                          foregroundColor:
-                              Theme.of(context).primaryTextTheme.button?.color,
+                          foregroundColor: Theme.of(context)
+                              .primaryTextTheme
+                              .labelLarge
+                              ?.color,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24.0),
                           ),

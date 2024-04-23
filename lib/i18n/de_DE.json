@@ -88,5 +88,9 @@
   "error_importing_data": "Fehler beim Importieren der Daten: ",
   "import_cancelled": "Import abgebrochen",
   "data_exported_success": "Daten erfolgreich exportiert als ",
-  "error_exporting_data": "Fehler beim Exportieren der Daten: "
+  "error_exporting_data": "Fehler beim Exportieren der Daten: ",
+
+
+  "sessions": "Sitzungen",
+  "graph": "Grafik"
 }

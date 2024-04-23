@@ -128,8 +128,10 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Theme.of(context).primaryColor,
-                          foregroundColor:
-                              Theme.of(context).primaryTextTheme.button?.color,
+                          foregroundColor: Theme.of(context)
+                              .primaryTextTheme
+                              .labelLarge
+                              ?.color,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24.0),
                           ),

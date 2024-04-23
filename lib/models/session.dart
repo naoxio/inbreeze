@@ -1,5 +1,5 @@
 class Session {
-  final String id; 
+  final String id;
   Map<int, Duration> rounds;
 
   Session({required this.id, required this.rounds});
@@ -14,7 +14,8 @@ class Session {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'rounds': rounds.map((key, value) => MapEntry(key.toString(), value.inMilliseconds)),
+      'rounds': rounds
+          .map((key, value) => MapEntry(key.toString(), value.inMilliseconds)),
     };
   }
 
@@ -30,6 +31,10 @@ class Session {
     );
   }
 
-  // Utility method to get the DateTime from the id
   DateTime get dateTime => DateTime.parse(id);
+
+  int totalDurationInSeconds() {
+    return rounds.values
+        .fold(0, (int total, Duration d) => total + d.inSeconds);
+  }
 }

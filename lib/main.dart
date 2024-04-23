@@ -9,7 +9,7 @@ import 'router/router.dart';
 import 'utils/platform_checker.dart';
 
 const String title = 'Inner Breeze';
-final GlobalKey<_AppState> appKey = GlobalKey();
+final GlobalKey<AppState> appKey = GlobalKey();
 
 void run() {
   runApp(
@@ -38,12 +38,10 @@ void main() async {
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();
       await windowManager.focus();
-      
-    run();
 
+      run();
     });
-  }
-  else {
+  } else {
     run();
   }
 }
@@ -66,12 +64,12 @@ class App extends StatefulWidget {
   const App({super.key});
 
   @override
-  State<App> createState() => _AppState();
+  State<App> createState() => AppState();
 }
 
-class _AppState extends State<App> {
+class AppState extends State<App> {
   Locale _currentLocale;
-  _AppState() : _currentLocale = Locale('en');
+  AppState() : _currentLocale = Locale('en');
 
   @override
   void initState() {
@@ -81,6 +79,7 @@ class _AppState extends State<App> {
       _preloadAssets(context);
     }
   }
+
   Future<void> initializeLocale() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     String languageCode = await userProvider.getLanguagePreference();
@@ -99,7 +98,9 @@ class _AppState extends State<App> {
     ];
 
     // Construct full paths for image assets
-    final imageAssetPaths = imageAssetFilenames.map((filename) => 'assets/images/$filename').toList();
+    final imageAssetPaths = imageAssetFilenames
+        .map((filename) => 'assets/images/$filename')
+        .toList();
 
     for (final assetPath in imageAssetPaths) {
       if (imageExtensions.any((ext) => assetPath.endsWith(ext))) {
@@ -125,7 +126,8 @@ class _AppState extends State<App> {
         Locale('en', 'US'),
         Locale('de', 'DE'),
         Locale('es', 'ES'),
-        Locale('it', 'IT')
+        Locale('it', 'IT'),
+        Locale('id', 'ID')
       ],
       locale: _currentLocale,
       title: title,
@@ -142,5 +144,4 @@ class _AppState extends State<App> {
       },
     );
   }
-
 }

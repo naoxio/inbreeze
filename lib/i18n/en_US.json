@@ -87,6 +87,10 @@
   "error_importing_data": "Error importing data: ",
   "import_cancelled": "Import cancelled",
   "data_exported_success": "Data exported successfully as ",
-  "error_exporting_data": "Error exporting data: "
+  "error_exporting_data": "Error exporting data: ",
+
+
+  "sessions": "Sessions",
+  "graph": "Graph"
 }
   

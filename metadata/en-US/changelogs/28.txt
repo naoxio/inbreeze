@@ -1,0 +1,6 @@
+* Improve layout of exercises
+* Update social links
+* Add new donation link
+* Add indonesian
+* Add progress graph
+

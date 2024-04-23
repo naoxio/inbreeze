@@ -1,8 +1,10 @@
 # Changelog
-## [1.2.9] - 2024-04-23
+## [1.3.0] - 2024-04-23
 - Improve layout of exercises
 - Update social links
 - Add new donation link
+- Add indonesian
+- Add progress graph
 
 ## [1.2.8] - 2024-01-26
 - Slight improvements in progress view

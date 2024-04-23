@@ -117,8 +117,10 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
                         onPressed: _navigateToNextExercise,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Theme.of(context).primaryColor,
-                          foregroundColor:
-                              Theme.of(context).primaryTextTheme.button?.color,
+                          foregroundColor: Theme.of(context)
+                              .primaryTextTheme
+                              .labelLarge
+                              ?.color,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24.0),
                           ),
