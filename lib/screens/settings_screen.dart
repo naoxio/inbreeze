@@ -26,10 +26,9 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _screenAlwaysOn = true;
-  bool isLoading = false; 
+  bool isLoading = false;
 
   String _latestVersionTag = '';
   bool _isNewVersionAvailable = false;
@@ -40,6 +39,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _loadScreenAlwaysOnPreference();
     _checkForUpdates();
   }
+
   void handleLanguageChange(String languageCode) async {
     setState(() => isLoading = true);
     await Future.delayed(Duration(seconds: 1)); // Wait for 1 second
@@ -47,12 +47,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<String> _fetchLatestVersion() async {
-    const String url = 'https://api.github.com/repos/naoxio/inner_breeze/releases/latest';
+    const String url =
+        'https://api.github.com/repos/naoxio/inner_breeze/releases/latest';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
-      _latestVersionTag = jsonResponse['tag_name']; // Store the latest version tag
+      _latestVersionTag =
+          jsonResponse['tag_name']; // Store the latest version tag
       return jsonResponse['tag_name'];
     } else {
       throw Exception('Failed to fetch latest version from GitHub');
@@ -91,14 +93,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _loadScreenAlwaysOnPreference() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final preferences = await userProvider.loadUserPreferences(['screenAlwaysOn']);
+    final preferences =
+        await userProvider.loadUserPreferences(['screenAlwaysOn']);
     setState(() {
       _screenAlwaysOn = preferences.screenAlwaysOn;
     });
   }
 
   Future<void> _updateScreenAlwaysOnPreference(bool value) async {
-
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final preferences = Preferences(
       screenAlwaysOn: value,
@@ -114,7 +116,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
   }
-  
+
   void _showResetConfirmation() {
     showDialog(
       context: context,
@@ -130,7 +132,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             TextButton(
-              child: Text('reset_data'.i18n(), style: TextStyle(color: Colors.red)),
+              child: Text('reset_data'.i18n(),
+                  style: TextStyle(color: Colors.red)),
               onPressed: () {
                 _resetData();
                 Navigator.of(context).pop();
@@ -171,7 +174,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final jsonString = jsonEncode(data);
 
     try {
-      String formattedDate = DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
+      String formattedDate =
+          DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
       String fileName = 'InnerBreeze_$formattedDate.json';
       Uint8List textBytes = Uint8List.fromList(jsonString.codeUnits);
       await fileSaver.saveFile(textBytes, fileName, "application/json");
@@ -180,7 +184,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _showSnackBar('error_exporting_data'.i18n() + e.toString());
     }
   }
-
 
   Future<String> _getAppVersion() async {
     final PackageInfo info = await PackageInfo.fromPlatform();
@@ -216,7 +219,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [    
+              children: [
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     minimumSize: Size(140, 50),
@@ -243,7 +246,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Column(
                     children: [
-                      Text('language_title'.i18n(), style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                      Text('language_title'.i18n(),
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold)),
                       LanguageSelector(onLanguageChanged: handleLanguageChange),
                     ],
                   ),
@@ -257,9 +262,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                 ),
                 SizedBox(height: 20),
-                 Padding(
+                Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Text('data_management_title'.i18n(), style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                  child: Text('data_management_title'.i18n(),
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                 ),
                 Wrap(
                   spacing: 10,
@@ -280,38 +287,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SizedBox(height: 20),
                 TextButton(
                   onPressed: _showResetConfirmation,
-                  child: Text("reset_data_button".i18n(), style: TextStyle(color: Colors.red)),
+                  child: Text("reset_data_button".i18n(),
+                      style: TextStyle(color: Colors.red)),
                 ),
                 // Links Section
                 SizedBox(height: 40),
-                Text('connect_support_title'.i18n(), style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                SizedBox(height: 15),
-                Wrap(
-                  spacing: 15,
-                  runSpacing: 15,
-                  children: [
-                    _buildIconLink(Icons.web, 'Website', 'https://inner-breeze.app/'),
-                    _buildIconLink('assets/icons/github.svg', 'GitHub', 'https://github.com/naoxio'),
-                    _buildIconLink('assets/icons/telegram.svg', 'Telegram', 'https://t.me/naoxio'),
-                    _buildIconLink('assets/icons/twitter.svg', 'X Page', 'https://x.com/naox_io'),
-                    _buildIconLink(Icons.monetization_on, 'Donate', 'https://coindrop.to/naox'),
-                  ],
-                ),
-                SizedBox(height: 40),
                 FutureBuilder<String>(
                   future: _getAppVersion(),
-                  builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  builder:
+                      (BuildContext context, AsyncSnapshot<String> snapshot) {
                     List<Widget> versionWidgets = [];
                     if (snapshot.hasData) {
-                      versionWidgets.add(Text('${'app_version_text'.i18n()}: ${snapshot.data}'));
+                      versionWidgets.add(Text(
+                          '${'app_version_text'.i18n()}: ${snapshot.data}'));
                       if (_isNewVersionAvailable) {
                         versionWidgets.add(Padding(
                           padding: const EdgeInsets.only(top: 8.0),
-                          child: Text('${'new_version_available'.i18n()}: $_latestVersionTag'),
+                          child: Text(
+                              '${'new_version_available'.i18n()}: $_latestVersionTag'),
                         ));
                         versionWidgets.add(TextButton(
                           onPressed: () {
-                            launchUrl(Uri.parse('https://github.com/naoxio/inner_breeze/releases/tag/$_latestVersionTag'));
+                            launchUrl(Uri.parse(
+                                'https://github.com/naoxio/inner_breeze/releases/tag/$_latestVersionTag'));
                           },
                           child: Text('update_button'.i18n()),
                         ));
@@ -324,19 +322,47 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     return Column(children: versionWidgets);
                   },
                 ),
+                SizedBox(height: 40),
+
+                Text('connect_support_title'.i18n(),
+                    style:
+                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                SizedBox(height: 15),
+                Wrap(
+                  spacing: 15,
+                  runSpacing: 15,
+                  children: [
+                    _buildIconLink(
+                        Icons.web, 'Website', 'https://inner-breeze.app/'),
+                    _buildIconLink('assets/icons/github.svg', 'GitHub',
+                        'https://github.com/naoxio/inner_breeze'),
+                    _buildIconLink('assets/icons/telegram.svg', 'Telegram',
+                        'https://t.me/inner_breeze'),
+                    _buildIconLink('assets/icons/twitter.svg', 'X Page',
+                        'https://x.com/inner_breeze'),
+                    _buildIconLink(Icons.currency_bitcoin, 'Donate Crypto',
+                        'https://coindrop.to/naox'),
+                    _buildIconLink(Icons.wallet, 'Donate Fiat',
+                        'https://buy.stripe.com/28o6qA0ux2BH75e000'),
+                  ],
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextButton(
-                        onPressed: () => launchUrl(Uri.parse('https://naox.io')),
-                        child: Text('NaoX', style: TextStyle(color: Colors.teal)),
+                        onPressed: () =>
+                            launchUrl(Uri.parse('https://naox.io')),
+                        child:
+                            Text('NaoX', style: TextStyle(color: Colors.teal)),
                       ),
                       Text('© 2024'),
                       TextButton(
-                        onPressed: () => launchUrl(Uri.parse('https://inner-breeze.app/privacy-policy')),
-                        child: Text('privacy_policy'.i18n(), style: TextStyle(color: Colors.teal)),
+                        onPressed: () => launchUrl(Uri.parse(
+                            'https://inner-breeze.app/privacy-policy')),
+                        child: Text('privacy_policy'.i18n(),
+                            style: TextStyle(color: Colors.teal)),
                       ),
                     ],
                   ),
@@ -349,17 +375,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
       bottomNavigationBar: BreezeBottomNav(),
     );
   }
+
   Widget _buildIconLink(dynamic iconOrImagePath, String tooltip, String url) {
     return IconButton(
-      icon: (iconOrImagePath is IconData) 
-        ? Icon(iconOrImagePath, color: Colors.teal)
-        : (iconOrImagePath.endsWith('.svg')
-            ? SvgPicture.asset(iconOrImagePath, color: Colors.teal, width: 24, height: 24)
-            : Image.asset(iconOrImagePath, color: Colors.teal, width: 24, height: 24)),
+      icon: (iconOrImagePath is IconData)
+          ? Icon(iconOrImagePath, color: Colors.teal)
+          : (iconOrImagePath.endsWith('.svg')
+              ? SvgPicture.asset(iconOrImagePath,
+                  color: Colors.teal, width: 24, height: 24)
+              : Image.asset(iconOrImagePath,
+                  color: Colors.teal, width: 24, height: 24)),
       tooltip: tooltip,
       onPressed: () => launchUrl(Uri.parse(url)),
     );
   }
-
-
 }

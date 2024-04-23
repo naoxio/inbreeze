@@ -2,20 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:inner_breeze/utils/audio_player_service.dart';
 
 class AnimatedCircle extends StatefulWidget {
-
   final int volume;
-  final Duration tempoDuration; 
-  final String? innerText; 
+  final Duration tempoDuration;
+  final String? innerText;
   final Function()? controlCallback;
 
-  AnimatedCircle({
-    super.key,
-    required this.volume,
-    required this.tempoDuration,
-    this.innerText,
-    this.controlCallback
-  }); 
-  
+  AnimatedCircle(
+      {super.key,
+      required this.volume,
+      required this.tempoDuration,
+      this.innerText,
+      this.controlCallback});
+
   @override
   AnimatedCircleState createState() => AnimatedCircleState();
 }
@@ -25,7 +23,7 @@ class AnimatedCircleState extends State<AnimatedCircle>
   late AnimationController _controller;
   late Animation<double> _radiusAnimation;
   AudioPlayerService audioPlayerService = AudioPlayerService();
-  double? pauseValue; 
+  double? pauseValue;
 
   bool _isInitialized = false;
 
@@ -50,9 +48,11 @@ class AnimatedCircleState extends State<AnimatedCircle>
             _controller.repeat(reverse: true);
           }
           if (status == AnimationStatus.forward) {
-            audioPlayerService.play('assets/sounds/breath-in.ogg', widget.volume.toDouble(), 'in');
+            audioPlayerService.play(
+                'assets/sounds/breath-in.ogg', widget.volume.toDouble(), 'in');
           } else if (status == AnimationStatus.reverse) {
-            audioPlayerService.play('assets/sounds/breath-out.ogg', widget.volume.toDouble(), 'out');
+            audioPlayerService.play('assets/sounds/breath-out.ogg',
+                widget.volume.toDouble(), 'out');
           }
         } catch (error) {
           print('An error occurred: $error');
@@ -76,7 +76,8 @@ class AnimatedCircleState extends State<AnimatedCircle>
       _controller.duration = newDuration;
 
       if (_controller.isAnimating) {
-        var value = (_controller.value * oldDuration!.inMilliseconds) / newDuration.inMilliseconds;
+        var value = (_controller.value * oldDuration!.inMilliseconds) /
+            newDuration.inMilliseconds;
         _controller.forward(from: value);
         _controller.repeat(reverse: true);
       }
@@ -87,9 +88,11 @@ class AnimatedCircleState extends State<AnimatedCircle>
       if (control != currentStatus) {
         switch (control) {
           case 'repeat':
-            if (_controller.status == AnimationStatus.forward || _controller.status == AnimationStatus.reverse) break;
+            if (_controller.status == AnimationStatus.forward ||
+                _controller.status == AnimationStatus.reverse) break;
             if (_controller.status == AnimationStatus.dismissed) {
-              audioPlayerService.play('assets/sounds/breath-in.ogg', widget.volume.toDouble(), 'in');
+              audioPlayerService.play('assets/sounds/breath-in.ogg',
+                  widget.volume.toDouble(), 'in');
             }
             _controller.forward();
             _controller.repeat(reverse: true);
@@ -116,22 +119,23 @@ class AnimatedCircleState extends State<AnimatedCircle>
             break;
           case 'resume':
             if (pauseValue != null) {
-              _controller.forward(from: pauseValue); // Resume from saved progress
+              _controller.forward(
+                  from: pauseValue); // Resume from saved progress
               _controller.repeat(reverse: true);
             }
             break;
         }
       }
     }
-
   }
+
   void _stopAudio() async {
     await audioPlayerService.stop('in');
     await audioPlayerService.stop('out');
   }
 
   @override
-  void dispose() async{
+  void dispose() async {
     _controller.dispose();
 
     audioPlayerService.disposePlayer('in');
@@ -139,7 +143,7 @@ class AnimatedCircleState extends State<AnimatedCircle>
     super.dispose();
   }
 
- @override
+  @override
   Widget build(BuildContext context) {
     if (!_isInitialized) {
       return Center(child: CircularProgressIndicator());
@@ -156,7 +160,8 @@ class BreathingCircle extends CustomPainter {
   final Animation<double> _animation;
   final String? innerText;
 
-  BreathingCircle(this._animation, {this.innerText}) : super(repaint: _animation);
+  BreathingCircle(this._animation, {this.innerText})
+      : super(repaint: _animation);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -166,9 +171,10 @@ class BreathingCircle extends CustomPainter {
     paint2.color = Colors.tealAccent;
 
     double radius = _animation.value;
-    canvas.drawCircle(Offset(0.0, 100.0), 72, paint);
-    canvas.drawCircle(Offset(0.0, 100.0), radius, paint2);
-    
+    Offset centerOffset = Offset(size.width / 2, size.height / 2);
+    canvas.drawCircle(centerOffset, 72, paint);
+    canvas.drawCircle(centerOffset, radius, paint2);
+
     String? displayText = innerText;
 
     int? numberValue = int.tryParse(innerText ?? '');
@@ -179,12 +185,17 @@ class BreathingCircle extends CustomPainter {
 
     if (displayText != null) {
       TextPainter textPainter = TextPainter(
-        text: TextSpan(text: displayText, style: TextStyle(color: Colors.black, fontSize: 32.0)),
+        text: TextSpan(
+            text: displayText,
+            style: TextStyle(color: Colors.black, fontSize: 32.0)),
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr,
       );
       textPainter.layout();
-      textPainter.paint(canvas, Offset(-textPainter.width / 2, 100.0 - textPainter.height / 2));
+      textPainter.paint(
+          canvas,
+          Offset(centerOffset.dx - textPainter.width / 2,
+              centerOffset.dy - textPainter.height / 2));
     }
   }
 

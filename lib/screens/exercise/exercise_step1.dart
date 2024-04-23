@@ -19,7 +19,6 @@ class ExerciseStep1 extends StatefulWidget {
   State<ExerciseStep1> createState() => _ExerciseStep1State();
 }
 
-
 class _ExerciseStep1State extends State<ExerciseStep1> {
   int rounds = 1;
   int volume = 80;
@@ -38,14 +37,21 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
     _loadDataFromPreferences();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   }
-    
+
   Future<void> _loadDataFromPreferences() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final preferences = await userProvider.loadUserPreferences(['breaths', 'tempo', 'rounds', 'volume', 'sessionId', 'screenAlwaysOn']);
-    var sessionData = await userProvider.loadSessionData(); 
+    final preferences = await userProvider.loadUserPreferences([
+      'breaths',
+      'tempo',
+      'rounds',
+      'volume',
+      'sessionId',
+      'screenAlwaysOn'
+    ]);
+    var sessionData = await userProvider.loadSessionData();
     if (sessionData == null) {
       userProvider.startNewSession();
-      sessionData = await userProvider.loadSessionData(); 
+      sessionData = await userProvider.loadSessionData();
     }
 
     try {
@@ -53,10 +59,9 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
         WakelockPlus.enable();
       } else {
         WakelockPlus.disable();
-      } 
-    // ignore: empty_catches
+      }
+      // ignore: empty_catches
     } catch (e) {}
-  
 
     int localMaxBreaths = preferences.breaths;
     int localTempo = preferences.tempo;
@@ -100,7 +105,7 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
         setState(() {
           if (animationControl == 'pause') return;
           animationControl = 'stop';
-          
+
           breathsDone++;
           if (breathsDone == 0) {
             breathsDone = 1;
@@ -118,7 +123,8 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
           breathsDone = timer.tick ~/ 2 + 1;
         });
         if (breathsDone == maxBreaths && timer.tick % 2 == 0) {
-          audioPlayerService.play('assets/sounds/bell.ogg', volume * 0.8, 'bell');
+          audioPlayerService.play(
+              'assets/sounds/bell.ogg', volume * 0.8, 'bell');
         }
         if (breathsDone > maxBreaths) {
           animationControl = 'stop';
@@ -129,45 +135,87 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
     }
   }
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    body: SingleChildScrollView(
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.all(25.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                breathsDone < 0 ? 'get_ready'.i18n() : '${'round_label'.i18n()}: ${rounds + 1}',
-                style: BreezeStyle.header
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                breathsDone < 0
+                    ? 'get_ready'.i18n()
+                    : '${'round_label'.i18n()}: ${rounds + 1}',
+                style: BreezeStyle.header,
               ),
-              AnimatedCircle(
-                tempoDuration: tempoDuration,
-                volume: volume,
-                innerText: (breathsDone > maxBreaths ? maxBreaths : breathsDone).toString(),
-                controlCallback: () => animationControl, 
+            ),
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AnimatedCircle(
+                      tempoDuration: tempoDuration,
+                      volume: volume,
+                      innerText:
+                          (breathsDone > maxBreaths ? maxBreaths : breathsDone)
+                              .toString(),
+                      controlCallback: () => animationControl,
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(height: 200),
-              StopSessionButton(
-                onPause: pauseBreathCounting,
-                onResume: resumeBreathCounting,
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: StopSessionButton(
+                        onPause: pauseBreathCounting,
+                        onResume: resumeBreathCounting,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: ElevatedButton(
+                        onPressed: skipCountdown,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          foregroundColor:
+                              Theme.of(context).primaryTextTheme.button?.color,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24.0),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        ),
+                        child: Text(
+                          'skip_button'.i18n(),
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              TextButton(
-                child: Text('skip_button'.i18n()),
-                onPressed: () {
-                  skipCountdown();
-                },
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
-    ),
-  );
-}
+    );
+  }
+
   void pauseBreathCounting() {
     setState(() {
       animationControl = 'pause';
@@ -179,6 +227,7 @@ Widget build(BuildContext context) {
       animationControl = 'resume';
     });
   }
+
   @override
   void dispose() {
     audioPlayerService.disposePlayer('bell');
@@ -187,7 +236,6 @@ Widget build(BuildContext context) {
     super.dispose();
   }
 
-
   void skipCountdown() {
     BreathingUtils.cancelBreathCycleTimer(breathCycleTimer);
 
@@ -195,7 +243,6 @@ Widget build(BuildContext context) {
       setState(() {
         breathsDone = 1;
         animationControl = 'repeat';
-
       });
       startBreathCounting();
     } else {

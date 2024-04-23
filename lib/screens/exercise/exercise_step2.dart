@@ -8,7 +8,6 @@ import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/models/session.dart';
 
-
 class ExerciseStep2 extends StatefulWidget {
   ExerciseStep2({super.key});
 
@@ -36,8 +35,9 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
 
   Future<void> _loadDataFromPreferences() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final userPreferences = await userProvider.loadUserPreferences(['breaths', 'tempo', 'volume', 'sessionId']);
-    final sessionData = await userProvider.loadSessionData(); 
+    final userPreferences = await userProvider
+        .loadUserPreferences(['breaths', 'tempo', 'volume', 'sessionId']);
+    final sessionData = await userProvider.loadSessionData();
 
     if (!mounted) return;
 
@@ -48,6 +48,7 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
       rounds = sessionData!.rounds.length;
     });
   }
+
   void _onStopSessionPressed() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     Session? currentSession = await userProvider.loadSessionData();
@@ -58,8 +59,7 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
     }
   }
 
-
- void pauseTimer() {
+  void pauseTimer() {
     isPaused = true;
   }
 
@@ -76,56 +76,70 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
 
   @override
   void dispose() {
-    timer.cancel(); 
+    timer.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.all(25.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              
-              children: [
-                SizedBox(
-                  width: 300,
-                  height: 300,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
                   child: CustomTimer(duration: duration),
                 ),
-                SizedBox(
-                  height: 50,
-                ),
-                SizedBox(
-                  height: 42,
-                  child: OutlinedButton(
-                    onPressed: () {
-                      _navigateToNextExercise();
-                    },
-                    child: Text(
-                      'finish_hold'.i18n(),
-                      style: TextStyle(
-                        fontSize: 18.0,
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: StopSessionButton(
+                        onPause: pauseTimer,
+                        onResume: resumeTimer,
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 20),
-                StopSessionButton(
-                  onStopSessionPressed: _onStopSessionPressed,
-                  onPause: pauseTimer,
-                  onResume: resumeTimer,
-                ),
-              ],
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: ElevatedButton(
+                        onPressed: _navigateToNextExercise,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          foregroundColor:
+                              Theme.of(context).primaryTextTheme.button?.color,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24.0),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        ),
+                        child: Text(
+                          'finish_hold'.i18n(),
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
   }
 }
-

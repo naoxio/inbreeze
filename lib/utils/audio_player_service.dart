@@ -57,7 +57,7 @@ Future<void> play(String assetPath, double volume, String playerId) async {
       await player.setAsset(assetPath);
       _players[playerId] = player;
     } else {
-      var currentAsset = await player.audioSource?.sequence?.first.tag;
+      var currentAsset = await player.audioSource?.sequence.first.tag;
       if (currentAsset != assetPath) {
         await player.setAsset(assetPath);
       }

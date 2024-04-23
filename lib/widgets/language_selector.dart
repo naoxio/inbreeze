@@ -5,7 +5,7 @@ import 'package:inner_breeze/providers/user_provider.dart';
 class LanguageSelector extends StatefulWidget {
   final Function(String) onLanguageChanged;
 
-  const LanguageSelector({Key? key, required this.onLanguageChanged}) : super(key: key);
+  const LanguageSelector({super.key, required this.onLanguageChanged});
 
   @override
   _LanguageSelectorState createState() => _LanguageSelectorState();

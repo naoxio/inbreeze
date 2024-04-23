@@ -22,8 +22,7 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
   int countdown = 30;
   int customTicker = 0;
   Duration tempoDuration = Duration(seconds: 2);
-  String innerText= 'in';
-
+  String innerText = 'in';
   Timer? breathCycleTimer;
 
   @override
@@ -33,23 +32,21 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
       startBreathCounting();
     });
   }
-  
+
   Future<void> _loadDataFromPreferences() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final preferences = await userProvider.loadUserPreferences(['volume']);
-
     setState(() {
       volume = preferences.volume;
     });
   }
 
-  void _navigateToNextExercise() async{
+  void _navigateToNextExercise() async {
     BreathingUtils.cancelBreathCycleTimer(breathCycleTimer);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.go('/exercise/step1');
     });
   }
-
 
   String getDisplayText() {
     switch (innerText) {
@@ -61,13 +58,13 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
         return innerText;
     }
   }
-   void startBreathCounting() {
+
+  void startBreathCounting() {
     breathCycleTimer = Timer.periodic(Duration(seconds: 1), (timer) {
-      if (animationControl == 'pause') return;  // Pause logic
-
+      if (animationControl == 'pause') return;
+      // Pause logic
       setState(() {
-        customTicker++; 
-
+        customTicker++;
         if (customTicker < 2) {
           innerText = 'in';
         } else if (customTicker < 17) {
@@ -83,46 +80,80 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.all(25.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'recovery'.i18n(),
-                  style: BreezeStyle.header,
-                ),
-                AnimatedCircle(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'recovery'.i18n(),
+                style: BreezeStyle.header,
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: AnimatedCircle(
                   volume: volume,
                   tempoDuration: tempoDuration,
                   innerText: getDisplayText(),
                   controlCallback: () => animationControl,
                 ),
-                SizedBox(height: 200),
-                StopSessionButton(
-                  onPause: pauseBreathCounting,
-                  onResume: resumeBreathCounting,
-                ),
-                TextButton(
-                  child: Text('skip_button'.i18n()),
-                  onPressed: () {
-                    _navigateToNextExercise();
-                  },
-                ),
-              ],
+              ),
             ),
-          ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: StopSessionButton(
+                        onPause: pauseBreathCounting,
+                        onResume: resumeBreathCounting,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _navigateToNextExercise();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          foregroundColor:
+                              Theme.of(context).primaryTextTheme.button?.color,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24.0),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        ),
+                        child: Text(
+                          'skip_button'.i18n(),
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
+
   void pauseBreathCounting() {
     setState(() {
       animationControl = 'pause';
@@ -135,11 +166,9 @@ class _ExerciseStep3State extends State<ExerciseStep3> {
     });
   }
 
-
   @override
   void dispose() {
     BreathingUtils.cancelBreathCycleTimer(breathCycleTimer);
-
     super.dispose();
   }
 }
