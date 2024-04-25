@@ -129,11 +129,6 @@ class AnimatedCircleState extends State<AnimatedCircle>
     }
   }
 
-  void _stopAudio() async {
-    await audioPlayerService.stop('in');
-    await audioPlayerService.stop('out');
-  }
-
   @override
   void dispose() async {
     _controller.dispose();

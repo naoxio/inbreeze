@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/models/session.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/widgets/breeze_app_bar.dart';
 import 'package:inner_breeze/widgets/breeze_bottom_nav.dart';
+import 'package:inner_breeze/widgets/session_list_view.dart';
+import 'package:inner_breeze/widgets/graph_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localization/localization.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'dart:math';
+import 'package:intl/intl.dart';
 
 class ProgressScreen extends StatefulWidget {
   @override
@@ -122,359 +122,29 @@ class _ProgressScreenState extends State<ProgressScreen> {
   }
 
   Widget _buildSessionList() {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: sessionsByMonthAndDay.entries.map((monthEntry) {
-          return _buildMonthSection(monthEntry.key, monthEntry.value);
-        }).toList(),
-      ),
-    );
-  }
-
-  Widget _buildMonthSection(
-      String monthYearKey, Map<String, List<Session>> sessionsByDay) {
-    DateTime monthYear = DateFormat('yyyy-MM').parse(monthYearKey);
-    String monthName = DateFormat.yMMMM().format(monthYear);
-
-    List<String> sortedDays = sessionsByDay.keys.toList();
-    sortedDays.sort((a, b) => b.compareTo(a));
-
-    return ExpansionTile(
-      initiallyExpanded: monthYearKey == latestMonthKey,
-      title: Text(
-        monthName,
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      ),
-      children: sortedDays.map((dayKey) {
-        return _buildDaySection(dayKey, sessionsByDay[dayKey]!);
-      }).toList(),
-    );
-  }
-
-  Widget _buildDaySection(String dayKey, List<Session> sessions) {
-    DateTime dayDate = DateFormat('yyyy-MM-dd').parse(dayKey);
-    String dayName = DateFormat('d E').format(dayDate);
-
-    sessions.sort((a, b) => int.parse(b.id).compareTo(int.parse(a.id)));
-
-    return ExpansionTile(
-      initiallyExpanded: dayKey == latestDayKey,
-      title: Text(dayName, style: TextStyle(fontSize: 18)),
-      children: sessions.map((session) => _buildSessionTile(session)).toList(),
-    );
-  }
-
-  Widget _buildSessionTile(Session session) {
-    DateTime sessionDate =
-        DateTime.fromMillisecondsSinceEpoch(int.parse(session.id));
-    String sessionTime = DateFormat.jm().format(sessionDate);
-
-    return ExpansionTile(
-      leading: Icon(Icons.access_time),
-      title: Text(sessionTime),
-      subtitle: Text('${'rounds_label'.i18n()}: ${session.rounds.length}'),
-      children: session.rounds.entries.map((roundEntry) {
-        return ListTile(
-          title: Text(
-              '${'round_label'.i18n()} ${roundEntry.key}: ${_formatDuration(roundEntry.value)}'),
-          trailing: _buildEditDeleteButtons(
-              session, roundEntry.key, roundEntry.value),
-        );
-      }).toList(),
-    );
-  }
-
-  String _formatDuration(Duration duration) {
-    return '${duration.inMinutes > 0 ? "${duration.inMinutes} mins, " : ""}${duration.inSeconds % 60} secs';
-  }
-
-  Row _buildEditDeleteButtons(
-      Session session, int roundNumber, Duration roundDuration) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        IconButton(
-          icon: Icon(Icons.edit, color: Colors.teal),
-          onPressed: () async {
-            await showEditRoundDialog(session, roundNumber, roundDuration);
-            await _loadSessions();
-          },
-        ),
-        IconButton(
-          icon: Icon(Icons.delete, color: Colors.red),
-          onPressed: () async {
-            await Provider.of<UserProvider>(context, listen: false)
-                .deleteRound(roundNumber, session.id);
-            await _loadSessions();
-          },
-        ),
-      ],
-    );
-  }
-
-  Future<void> showEditRoundDialog(
-      Session session, int roundNumber, Duration duration) async {
-    DateTime sessionDateTime =
-        DateTime.fromMillisecondsSinceEpoch(int.parse(session.id));
-    DateTime selectedDate = sessionDateTime;
-    TimeOfDay selectedTime = TimeOfDay.fromDateTime(sessionDateTime);
-
-    TextEditingController minutesController =
-        TextEditingController(text: duration.inMinutes.toString());
-    TextEditingController secondsController =
-        TextEditingController(text: (duration.inSeconds % 60).toString());
-
-    return showDialog(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        final NavigatorState navigator = Navigator.of(dialogContext);
-
-        return AlertDialog(
-          title: Text('edit_round'.i18n() + roundNumber.toString()),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Date Picker
-              ListTile(
-                title: Text('select_date'.i18n()),
-                subtitle: Text(DateFormat.yMd().format(selectedDate)),
-                onTap: () async {
-                  final DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: selectedDate,
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2025),
-                  );
-                  if (pickedDate != null && pickedDate != selectedDate) {
-                    setState(() {
-                      selectedDate = pickedDate;
-                    });
-                  }
-                },
-              ),
-              // Time Picker
-              ListTile(
-                title: Text('select_time'.i18n()),
-                subtitle: Text(selectedTime.format(context)),
-                onTap: () async {
-                  final TimeOfDay? pickedTime = await showTimePicker(
-                    context: context,
-                    initialTime: selectedTime,
-                  );
-                  if (pickedTime != null && pickedTime != selectedTime) {
-                    setState(() {
-                      selectedTime = pickedTime;
-                    });
-                  }
-                },
-              ),
-              // Duration Field
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: minutesController,
-                      decoration: InputDecoration(
-                        labelText: 'minutes'.i18n(),
-                      ),
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: TextField(
-                      controller: secondsController,
-                      decoration: InputDecoration(
-                        labelText: 'seconds'.i18n(),
-                      ),
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('cancel_button'.i18n()),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            TextButton(
-              child: Text('save_button'.i18n()),
-              onPressed: () async {
-                DateTime newDateTime = DateTime(
-                  selectedDate.year,
-                  selectedDate.month,
-                  selectedDate.day,
-                  selectedTime.hour,
-                  selectedTime.minute,
-                );
-                int newTimestamp = newDateTime.millisecondsSinceEpoch;
-
-                int newMinutes =
-                    int.tryParse(minutesController.text) ?? duration.inMinutes;
-                int newSeconds = int.tryParse(secondsController.text) ??
-                    (duration.inSeconds % 60);
-                Duration newDuration =
-                    Duration(minutes: newMinutes, seconds: newSeconds);
-                final userProvider =
-                    Provider.of<UserProvider>(context, listen: false);
-
-                if (int.parse(session.id) != newTimestamp) {
-                  await userProvider.moveRoundToSession(
-                      session.id, roundNumber, newTimestamp);
-                } else {
-                  await userProvider.updateRoundDuration(
-                      session.id, roundNumber, newDuration);
-                }
-
-                await _loadSessions();
-                navigator.pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  List<FlSpot> _generateDataPoints() {
-    DateTime lastDayOfMonth =
-        DateTime(_viewingMonth.year, _viewingMonth.month + 1, 0);
-
-    List<FlSpot> spots = List.generate(lastDayOfMonth.day, (index) {
-      DateTime day =
-          DateTime(_viewingMonth.year, _viewingMonth.month, index + 1);
-      return FlSpot(day.millisecondsSinceEpoch.toDouble(), 0);
-    });
-
-    if (sessionsByMonthAndDay.isNotEmpty) {
-      String currentMonthKey = DateFormat('yyyy-MM').format(_viewingMonth);
-      Map<String, List<Session>>? currentMonthSessions =
-          sessionsByMonthAndDay[currentMonthKey];
-
-      if (currentMonthSessions != null) {
-        currentMonthSessions.forEach((dayKey, sessions) {
-          DateTime day = DateFormat('yyyy-MM-dd').parse(dayKey);
-          int dayIndex =
-              day.day - 1; // Adjust day to zero-based index for the list
-          int totalSeconds = sessions.fold(0, (total, session) {
-            return total + session.totalDurationInSeconds();
-          });
-          spots[dayIndex] = FlSpot(
-              day.millisecondsSinceEpoch.toDouble(), totalSeconds.toDouble());
-        });
-      }
+    if (sessionsByMonthAndDay.isEmpty) {
+      return _buildEmptyState();
     }
 
-    return spots;
+    return SessionListView(
+      sessionsByMonthAndDay: sessionsByMonthAndDay,
+      latestMonthKey: latestMonthKey,
+      latestDayKey: latestDayKey,
+      onSessionsUpdated: _loadSessions,
+    );
   }
 
   Widget _buildGraphView() {
-    List<FlSpot> spots = _generateDataPoints();
-
-    double minX = spots.first.x;
-    double maxX = spots.last.x;
-    double maxY = spots.map((spot) => spot.y).reduce(max) * 1.1;
-    double intervalY = maxY < 10 ? 1 : (maxY / 10).ceil().toDouble();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: 20),
-        Center(
-          child: Text(DateFormat('MMMM yyyy').format(_viewingMonth),
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: LineChart(
-              LineChartData(
-                gridData: FlGridData(show: false),
-                titlesData: FlTitlesData(
-                  bottomTitles: AxisTitles(
-                    axisNameWidget: Text(
-                      'days'.i18n(),
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      reservedSize: 40,
-                      getTitlesWidget: (value, meta) {
-                        final DateTime date =
-                            DateTime.fromMillisecondsSinceEpoch(value.toInt());
-                        return Text(DateFormat('dd').format(date),
-                            style: const TextStyle(fontSize: 10));
-                      },
-                      interval: 86400000 * 5,
-                    ),
-                  ),
-                  leftTitles: AxisTitles(
-                    axisNameWidget: Text(
-                      'seconds'.i18n(),
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: (value, meta) => Text('${value.toInt()}',
-                          style: const TextStyle(fontSize: 10)),
-                      interval: intervalY,
-                    ),
-                  ),
-                  topTitles:
-                      AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  rightTitles:
-                      AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                ),
-                borderData: FlBorderData(show: true),
-                minX: minX,
-                maxX: maxX,
-                minY: 0,
-                maxY: maxY,
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: spots,
-                    isCurved: false,
-                    dotData: FlDotData(show: false),
-                    belowBarData: BarAreaData(show: false),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => _changeMonth(-1),
-            ),
-            IconButton(
-              icon: Icon(Icons.arrow_forward),
-              onPressed: _viewingMonth.month == DateTime.now().month &&
-                      _viewingMonth.year == DateTime.now().year
-                  ? null
-                  : () => _changeMonth(1),
-            ),
-          ],
-        ),
-      ],
+    return GraphView(
+      sessionsByMonthAndDay: sessionsByMonthAndDay,
+      viewingMonth: _viewingMonth,
+      onMonthChanged: (delta) {
+        setState(() {
+          _viewingMonth =
+              DateTime(_viewingMonth.year, _viewingMonth.month + delta);
+          _loadSessions();
+        });
+      },
     );
-  }
-
-  void _changeMonth(int delta) {
-    setState(() {
-      _viewingMonth = DateTime(_viewingMonth.year, _viewingMonth.month + delta);
-      _loadSessions(); // Reload sessions for the new month
-    });
   }
 }
