@@ -1,4 +1,7 @@
 # Changelog
+## [1.3.1] - 2024-04-26
+- Improve bar chart
+
 ## [1.3.0] - 2024-04-23
 - Improve layout of exercises
 - Update social links

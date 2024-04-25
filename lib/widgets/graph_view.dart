@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:inner_breeze/models/session.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'dart:math';
 import 'package:localization/localization.dart';
 
 class GraphView extends StatefulWidget {
@@ -21,15 +20,8 @@ class GraphView extends StatefulWidget {
 }
 
 class _GraphViewState extends State<GraphView> {
-  List<FlSpot> _generateDataPoints() {
-    DateTime lastDayOfMonth =
-        DateTime(widget.viewingMonth.year, widget.viewingMonth.month + 1, 0);
-
-    List<FlSpot> spots = List.generate(lastDayOfMonth.day, (index) {
-      DateTime day = DateTime(
-          widget.viewingMonth.year, widget.viewingMonth.month, index + 1);
-      return FlSpot(day.millisecondsSinceEpoch.toDouble(), 0);
-    });
+  List<BarChartGroupData> _generateBarGroups() {
+    List<BarChartGroupData> barGroups = [];
 
     if (widget.sessionsByMonthAndDay.isNotEmpty) {
       String currentMonthKey =
@@ -38,30 +30,55 @@ class _GraphViewState extends State<GraphView> {
           widget.sessionsByMonthAndDay[currentMonthKey];
 
       if (currentMonthSessions != null) {
-        currentMonthSessions.forEach((dayKey, sessions) {
-          DateTime day = DateFormat('yyyy-MM-dd').parse(dayKey);
-          int dayIndex =
-              day.day - 1; // Adjust day to zero-based index for the list
-          int totalSeconds = sessions.fold(0, (total, session) {
+        List<String> sortedDays = currentMonthSessions.keys.toList()..sort();
+
+        for (int i = 0; i < sortedDays.length; i++) {
+          String dayKey = sortedDays[i];
+          List<Session> sessions = currentMonthSessions[dayKey]!..reversed;
+
+          int totalDurationInSeconds = sessions.fold(0, (total, session) {
             return total + session.totalDurationInSeconds();
           });
-          spots[dayIndex] = FlSpot(
-              day.millisecondsSinceEpoch.toDouble(), totalSeconds.toDouble());
-        });
+
+          barGroups.add(
+            BarChartGroupData(
+              x: i,
+              barRods: [
+                BarChartRodData(
+                  toY: totalDurationInSeconds.toDouble(),
+                  color: Colors.teal,
+                  width: 22,
+                ),
+              ],
+            ),
+          );
+        }
       }
     }
 
-    return spots;
+    return barGroups;
+  }
+
+  String _formatDuration(int seconds) {
+    int minutes = seconds ~/ 60;
+    int remainingSeconds = seconds % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
+  }
+
+  bool _isEarliestMonth() {
+    if (widget.sessionsByMonthAndDay.isEmpty) {
+      return true;
+    }
+    String earliestMonthKey = widget.sessionsByMonthAndDay.keys
+        .reduce((a, b) => a.compareTo(b) < 0 ? a : b);
+    DateTime earliestMonth = DateFormat('yyyy-MM').parse(earliestMonthKey);
+    return widget.viewingMonth.year == earliestMonth.year &&
+        widget.viewingMonth.month == earliestMonth.month;
   }
 
   @override
   Widget build(BuildContext context) {
-    List<FlSpot> spots = _generateDataPoints();
-
-    double minX = spots.first.x;
-    double maxX = spots.last.x;
-    double maxY = spots.map((spot) => spot.y).reduce(max) * 1.1;
-    double intervalY = maxY < 10 ? 1 : (maxY / 10).ceil().toDouble();
+    List<BarChartGroupData> barGroups = _generateBarGroups();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,9 +91,22 @@ class _GraphViewState extends State<GraphView> {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: LineChart(
-              LineChartData(
-                gridData: FlGridData(show: false),
+            child: BarChart(
+              BarChartData(
+                barGroups: barGroups,
+                alignment: BarChartAlignment.spaceAround,
+                maxY: (((barGroups.fold(0.0, (double max, group) {
+                                      double groupMax = group.barRods.fold(
+                                          0.0,
+                                          (m, rod) =>
+                                              rod.toY > m ? rod.toY : m);
+                                      return groupMax > max ? groupMax : max;
+                                    }) +
+                                    10.0) /
+                                10)
+                            .ceil() *
+                        10)
+                    .toDouble(),
                 titlesData: FlTitlesData(
                   bottomTitles: AxisTitles(
                     axisNameWidget: Text(
@@ -88,19 +118,23 @@ class _GraphViewState extends State<GraphView> {
                     ),
                     sideTitles: SideTitles(
                       showTitles: true,
-                      reservedSize: 40,
-                      getTitlesWidget: (value, meta) {
-                        final DateTime date =
-                            DateTime.fromMillisecondsSinceEpoch(value.toInt());
-                        return Text(DateFormat('dd').format(date),
+                      getTitlesWidget: (double value, TitleMeta meta) {
+                        String dayKey = widget
+                            .sessionsByMonthAndDay[DateFormat('yyyy-MM')
+                                .format(widget.viewingMonth)]!
+                            .keys
+                            .toList()
+                            .reversed
+                            .toList()[value.toInt()];
+                        DateTime day = DateFormat('yyyy-MM-dd').parse(dayKey);
+                        return Text(DateFormat('d').format(day),
                             style: const TextStyle(fontSize: 10));
                       },
-                      interval: 86400000 * 5,
                     ),
                   ),
                   leftTitles: AxisTitles(
                     axisNameWidget: Text(
-                      'seconds'.i18n(),
+                      'duration'.i18n(),
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
@@ -108,9 +142,14 @@ class _GraphViewState extends State<GraphView> {
                     ),
                     sideTitles: SideTitles(
                       showTitles: true,
-                      getTitlesWidget: (value, meta) => Text('${value.toInt()}',
-                          style: const TextStyle(fontSize: 10)),
-                      interval: intervalY,
+                      reservedSize: 40,
+                      getTitlesWidget: (double value, TitleMeta meta) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Text(_formatDuration(value.toInt()),
+                              style: const TextStyle(fontSize: 10)),
+                        );
+                      },
                     ),
                   ),
                   topTitles:
@@ -118,19 +157,30 @@ class _GraphViewState extends State<GraphView> {
                   rightTitles:
                       AxisTitles(sideTitles: SideTitles(showTitles: false)),
                 ),
+                gridData: FlGridData(show: false),
                 borderData: FlBorderData(show: true),
-                minX: minX,
-                maxX: maxX,
-                minY: 0,
-                maxY: maxY,
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: spots,
-                    isCurved: false,
-                    dotData: FlDotData(show: false),
-                    belowBarData: BarAreaData(show: false),
+                barTouchData: BarTouchData(
+                  enabled: true,
+                  touchTooltipData: BarTouchTooltipData(
+                    getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                      String dayKey = widget
+                          .sessionsByMonthAndDay[DateFormat('yyyy-MM')
+                              .format(widget.viewingMonth)]!
+                          .keys
+                          .toList()
+                          .reversed
+                          .toList()[groupIndex];
+                      DateTime day = DateFormat('yyyy-MM-dd').parse(dayKey);
+                      String formattedDate = DateFormat('d MMM').format(day);
+                      String formattedDuration =
+                          _formatDuration(rod.toY.toInt());
+                      return BarTooltipItem(
+                        '$formattedDate\n$formattedDuration',
+                        TextStyle(color: Colors.white),
+                      );
+                    },
                   ),
-                ],
+                ),
               ),
             ),
           ),
@@ -140,7 +190,8 @@ class _GraphViewState extends State<GraphView> {
           children: [
             IconButton(
               icon: Icon(Icons.arrow_back),
-              onPressed: () => widget.onMonthChanged(-1),
+              onPressed:
+                  _isEarliestMonth() ? null : () => widget.onMonthChanged(-1),
             ),
             IconButton(
               icon: Icon(Icons.arrow_forward),

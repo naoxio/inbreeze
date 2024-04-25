@@ -343,7 +343,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     _buildIconLink(Icons.currency_bitcoin, 'Donate Crypto',
                         'https://coindrop.to/naox'),
                     _buildIconLink(Icons.wallet, 'Donate Fiat',
-                        'https://buy.stripe.com/28o6qA0ux2BH75e000'),
+                        'https://buy.stripe.com/cN29CM5OR1xD75e28c'),
                   ],
                 ),
                 Padding(
