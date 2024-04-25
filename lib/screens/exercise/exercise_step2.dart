@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
+import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/widgets/stop_session.dart';
 import 'package:inner_breeze/widgets/stopwatch.dart';
 import 'package:go_router/go_router.dart';
@@ -86,6 +87,13 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
       body: SafeArea(
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'breath_hold'.i18n(),
+                style: BreezeStyle.header,
+              ),
+            ),
             Expanded(
               child: Center(
                 child: Padding(

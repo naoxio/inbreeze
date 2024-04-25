@@ -19,10 +19,10 @@ class SessionListView extends StatefulWidget {
   });
 
   @override
-  _SessionListViewState createState() => _SessionListViewState();
+  SessionListViewState createState() => SessionListViewState();
 }
 
-class _SessionListViewState extends State<SessionListView> {
+class SessionListViewState extends State<SessionListView> {
   Widget _buildMonthSection(
       String monthYearKey, Map<String, List<Session>> sessionsByDay) {
     DateTime monthYear = DateFormat('yyyy-MM').parse(monthYearKey);

@@ -16,10 +16,10 @@ class GraphView extends StatefulWidget {
   });
 
   @override
-  _GraphViewState createState() => _GraphViewState();
+  GraphViewState createState() => GraphViewState();
 }
 
-class _GraphViewState extends State<GraphView> {
+class GraphViewState extends State<GraphView> {
   List<BarChartGroupData> _generateBarGroups() {
     List<BarChartGroupData> barGroups = [];
 
