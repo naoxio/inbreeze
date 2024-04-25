@@ -5,7 +5,7 @@ import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/models/preferences.dart';
 
-enum BreathingTempo {slow, medium, fast, rapid}
+enum BreathingTempo { slow, medium, fast, rapid }
 
 class BreathingConfiguration extends StatefulWidget {
   @override
@@ -15,7 +15,7 @@ class BreathingConfiguration extends StatefulWidget {
 class BreathingConfigurationState extends State<BreathingConfiguration> {
   int breaths = 30;
   int volume = 100;
-  Duration tempoDuration = Duration(milliseconds: 1668); 
+  Duration tempoDuration = Duration(milliseconds: 1668);
   String animationCommand = 'repeat';
 
   @override
@@ -26,14 +26,16 @@ class BreathingConfigurationState extends State<BreathingConfiguration> {
 
   Future<void> _loadUserPreferences() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final prefs = await userProvider.loadUserPreferences(['breaths', 'tempo', 'volume']);
-    
+    final prefs =
+        await userProvider.loadUserPreferences(['breaths', 'tempo', 'volume']);
+
     setState(() {
       tempoDuration = Duration(milliseconds: prefs.tempo);
       breaths = prefs.breaths;
       volume = prefs.volume;
     });
   }
+
   Duration computeTempoDuration(double value) {
     int millis = (3000 - value * 666).toInt().clamp(1000, 3000);
     return Duration(milliseconds: millis);
@@ -74,7 +76,8 @@ class BreathingConfigurationState extends State<BreathingConfiguration> {
   }
 
   String capitalizeEnumValue(String enumValue) {
-    return enumValue[0].toUpperCase() + enumValue.substring(1, enumValue.length);
+    return enumValue[0].toUpperCase() +
+        enumValue.substring(1, enumValue.length);
   }
 
   @override
@@ -83,6 +86,7 @@ class BreathingConfigurationState extends State<BreathingConfiguration> {
 
     return Column(
       children: [
+        SizedBox(height: 90),
         Center(
           child: AnimatedCircle(
             tempoDuration: tempoDuration,
@@ -92,7 +96,7 @@ class BreathingConfigurationState extends State<BreathingConfiguration> {
             },
           ),
         ),
-        SizedBox(height: 190),
+        SizedBox(height: 90),
         Text(
           'tempo_label'.i18n(),
           style: TextStyle(
@@ -103,7 +107,8 @@ class BreathingConfigurationState extends State<BreathingConfiguration> {
         Slider(
           min: 0,
           max: 3,
-          label: capitalizeEnumValue(BreathingTempo.values[sliderValue.round()].name),
+          label: capitalizeEnumValue(
+              BreathingTempo.values[sliderValue.round()].name),
           divisions: 3,
           value: sliderValue.clamp(0.0, 3.0),
           onChanged: (dynamic value) {
