@@ -198,6 +198,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
@@ -217,9 +218,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: SizedBox(
             width: 480,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // App Settings
+                Text('app_settings_title'.i18n(),
+                    style:
+                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                SizedBox(height: 10),
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     minimumSize: Size(140, 50),
@@ -232,7 +237,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     context.go('/guide/welcome');
                   },
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 OutlinedButton(
                   child: Text(
                     'breathing_circle_button'.i18n(),
@@ -242,18 +247,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     context.go('/breathing');
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Column(
-                    children: [
-                      Text('language_title'.i18n(),
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold)),
-                      LanguageSelector(onLanguageChanged: handleLanguageChange),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 SwitchListTile(
                   title: Text('keep_screen_on_label'.i18n()),
                   value: _screenAlwaysOn,
@@ -261,17 +255,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     _updateScreenAlwaysOnPreference(value);
                   },
                 ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Text('data_management_title'.i18n(),
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                ),
+                SizedBox(height: 30),
+
+                // Language Settings
+                Text('language_settings_title'.i18n(),
+                    style:
+                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                SizedBox(height: 10),
+                LanguageSelector(onLanguageChanged: handleLanguageChange),
+                SizedBox(height: 30),
+
+                // Data Management
+                Text('data_management_title'.i18n(),
+                    style:
+                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                SizedBox(height: 10),
                 Wrap(
                   spacing: 10,
                   runSpacing: 10,
-                  alignment: WrapAlignment.center,
                   children: [
                     OutlinedButton(
                       onPressed: _exportData,
@@ -281,17 +282,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onPressed: _importData,
                       child: Text("import_data_button".i18n()),
                     ),
+                    TextButton(
+                      onPressed: _showResetConfirmation,
+                      child: Text("reset_data_button".i18n(),
+                          style: TextStyle(color: Colors.red)),
+                    ),
                   ],
                 ),
+                SizedBox(height: 30),
 
-                SizedBox(height: 20),
-                TextButton(
-                  onPressed: _showResetConfirmation,
-                  child: Text("reset_data_button".i18n(),
-                      style: TextStyle(color: Colors.red)),
-                ),
-                // Links Section
-                SizedBox(height: 40),
+                // About and Support
+                Text('about_support_title'.i18n(),
+                    style:
+                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                SizedBox(height: 10),
                 FutureBuilder<String>(
                   future: _getAppVersion(),
                   builder:
@@ -319,15 +323,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     } else {
                       versionWidgets.add(CircularProgressIndicator());
                     }
-                    return Column(children: versionWidgets);
+                    return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: versionWidgets);
                   },
                 ),
-                SizedBox(height: 40),
-
+                SizedBox(height: 10),
                 Text('connect_support_title'.i18n(),
                     style:
-                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                SizedBox(height: 15),
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                SizedBox(height: 10),
                 Wrap(
                   spacing: 15,
                   runSpacing: 15,
@@ -346,26 +351,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         'https://buy.stripe.com/cN29CM5OR1xD75e28c'),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                        onPressed: () =>
-                            launchUrl(Uri.parse('https://naox.io')),
-                        child:
-                            Text('NaoX', style: TextStyle(color: Colors.teal)),
-                      ),
-                      Text('© 2024'),
-                      TextButton(
-                        onPressed: () => launchUrl(Uri.parse(
-                            'https://inner-breeze.app/privacy-policy')),
-                        child: Text('privacy_policy'.i18n(),
-                            style: TextStyle(color: Colors.teal)),
-                      ),
-                    ],
-                  ),
+                SizedBox(height: 30),
+
+                // Legal and Copyright
+                Text('legal_copyright_title'.i18n(),
+                    style:
+                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      onPressed: () =>
+                          launchUrl(Uri.parse('https://naox.io')),
+                      child:
+                          Text('NaoX', style: TextStyle(color: Colors.teal)),
+                    ),
+                    Text('© 2024'),
+                    TextButton(
+                      onPressed: () => launchUrl(Uri.parse(
+                          'https://inner-breeze.app/privacy-policy')),
+                      child: Text('privacy_policy'.i18n(),
+                          style: TextStyle(color: Colors.teal)),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -375,6 +384,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       bottomNavigationBar: BreezeBottomNav(),
     );
   }
+
 
   Widget _buildIconLink(dynamic iconOrImagePath, String tooltip, String url) {
     Widget iconWidget;
