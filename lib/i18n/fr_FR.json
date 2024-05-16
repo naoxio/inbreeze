@@ -1,0 +1,102 @@
+{
+    "language_selection_title": "Sélection de langue",
+    "language_instruction": "Sélectionne ta langue préférée et clique sur contunuer.",
+  
+    "guide_welcome_title": "Guide utilisateur",
+    "guide_welcome_description": "Technique respiratoire puissante offrant paix intérieure, sanctuaire serein malgré rythme effréné.",
+    "safety_instruction": "Pour votre confort et votre sécurité, veuillez trouver une position confortable pour vous allonger ou vous asseoir avant de commencer.",
+  
+    "guide_method_title": "Méthode",
+    "guide_method_intro": "Simplement suivez ces 4 étapes :",
+
+    
+
+    
+    "guide_method_steps": "1. Inhale and exhale rhythmically for 30 breaths.\n2. Exhale and hold your breath.\n3. Inhale deeply and hold for 15 seconds.\n4. Exhale and repeat step 1\n\nDo 3-10 rounds of the process.",
+    "guide_method_personalize": "The next pages will let you personalize your experience.",
+    
+    "guide_step1_title": "Step 1: In & Out",
+    "guide_step1_description": "Fill your lungs with a full breath, starting from your belly, then your chest.\n\nAllow the breath to flow out naturally without strain.\n\nRepeat this for about 20-40 breaths at a steady pace.",
+    "breathing_circle": "Breathing Circle",
+  
+    "guide_step2_title": "Step 2: Exhale & hold",
+    "guide_step2_description": "Exhale normally and hold your breath.\nThe time of your hold will increase with more practice and with each round.\n\nThe circle in the middle indicates how long you have held your breath and the last breath hold length.\n\nRelease when you sense the urge to breathe, avoid overextending. Your body signals when it is time to breathe.",
+    
+    "guide_step3_title": "Step 3: Inhale & hold",
+    "guide_step3_description": "Inhale fully and hold for 15 seconds.\nAfterwards exhale, completing the first round.\n\nWith every round you can hold your breath longer and go deeper.",
+  
+    "back_button": "Back",
+    "continue_button": "Continue",
+    "skip_button": "Skip",
+    "next_button": "Next",
+    "finish_button": "Finish",
+    "save_button": "Save",
+    "cancel_button": "Cancel",
+    "close_button": "Close",
+    "start_button": "Start",
+    "stop_button": "Stop",
+  
+    "progress_title": "Progress View",
+    "start_journey": "Start Your Journey!",
+    "progress_records_info": "Your progress records will appear here.",
+    "begin_session_button": "Begin a Session",
+    "rounds_label": "Rounds",
+    "round_label": "Round",
+    "edit_round": "Edit Round",
+    "select_date": "Select Date",
+    "select_time": "Select Time",
+    "minutes_label": "Minutes",
+    "seconds_label": "Seconds",
+  
+    "get_ready": "Get Ready",
+    "finish_hold": "Finish Hold",
+    "in_breath": "In",
+    "out_breath": "Out",
+    "recovery": "Recovery",
+  
+    "results_title": "Results",
+    "rounds_completed": "Rounds Completed: ",
+    "no_data": "No data",
+    "save_progress": "Save Progress",
+  
+    "tempo_label": "Tempo",
+    "volume_label": "Volume",
+    "breaths_label": "Breaths",
+  
+    "stop_session": "Stop Session",
+    "stop_session_confirm": "Are you sure you want to end the session?",
+    "stop_session_button": "Stop Session",
+    "continue_session_button": "Continue Session",
+   
+    "settings_title": "Settings",
+    "show_tutorial_button": "Show Tutorial",
+    "breathing_circle_button": "Breathing Circle",
+    "keep_screen_on_label": "Keep Screen On During Exercise",
+    "language_title": "Language",
+    "data_management_title": "Data Management",
+    "export_data_button": "Export Data",
+    "import_data_button": "Import Data",
+    "reset_data_button": "Reset Data",
+    "connect_support_title": "Connect & Support",
+    "app_version_text": "App Version",
+    "new_version_available": "New version available",
+    "update_button": "Update",
+    "privacy_policy": "Privacy Policy",
+  
+    "confirm_reset": "Confirm Reset",
+    "reset_data_warning": "Are you sure you want to reset all data? This action cannot be undone.",
+    "cancel": "Cancel",
+    "reset_data": "Reset Data",
+    "data_imported_success": "Data imported successfully!",
+    "error_importing_data": "Error importing data: ",
+    "import_cancelled": "Import cancelled",
+    "data_exported_success": "Data exported successfully as ",
+    "error_exporting_data": "Error exporting data: ",
+  
+  
+    "sessions": "Sessions",
+    "graph": "Graph",
+    "breath_hold": "Breath hold"
+  
+  }
+    
