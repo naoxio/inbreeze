@@ -17,6 +17,7 @@ class LanguageSelectorState extends State<LanguageSelector> {
     'en': 'English',
     'de': 'Deutsch',
     'es': 'Español',
+    'fr': 'Français',
     'it': 'Italiano',
     'id': 'Bahasa Indonesia'
   };

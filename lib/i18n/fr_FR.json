@@ -1,102 +1,95 @@
 {
-    "language_selection_title": "Sélection de langue",
-    "language_instruction": "Sélectionne ta langue préférée et clique sur contunuer.",
-  
-    "guide_welcome_title": "Guide utilisateur",
-    "guide_welcome_description": "Technique respiratoire puissante offrant paix intérieure, sanctuaire serein malgré rythme effréné.",
-    "safety_instruction": "Pour votre confort et votre sécurité, veuillez trouver une position confortable pour vous allonger ou vous asseoir avant de commencer.",
-  
-    "guide_method_title": "Méthode",
-    "guide_method_intro": "Simplement suivez ces 4 étapes :",
+  "language_selection_title": "Sélection de la langue",
+  "language_instruction": "Sélectionnez votre langue préférée et appuyez sur continuer.",
 
-    
+  "guide_welcome_title": "Tutoriel",
+  "guide_welcome_description": "Cette technique de respiration simple mais puissante promet une paix profonde intérieure, offrant un sanctuaire de sérénité au milieu du rythme effréné de la vie.",
+  "safety_instruction": "Pour assurer votre sécurité, pratiquez soit allongé, soit assis dans une position confortable.",
 
-    
-    "guide_method_steps": "1. Inhale and exhale rhythmically for 30 breaths.\n2. Exhale and hold your breath.\n3. Inhale deeply and hold for 15 seconds.\n4. Exhale and repeat step 1\n\nDo 3-10 rounds of the process.",
-    "guide_method_personalize": "The next pages will let you personalize your experience.",
-    
-    "guide_step1_title": "Step 1: In & Out",
-    "guide_step1_description": "Fill your lungs with a full breath, starting from your belly, then your chest.\n\nAllow the breath to flow out naturally without strain.\n\nRepeat this for about 20-40 breaths at a steady pace.",
-    "breathing_circle": "Breathing Circle",
-  
-    "guide_step2_title": "Step 2: Exhale & hold",
-    "guide_step2_description": "Exhale normally and hold your breath.\nThe time of your hold will increase with more practice and with each round.\n\nThe circle in the middle indicates how long you have held your breath and the last breath hold length.\n\nRelease when you sense the urge to breathe, avoid overextending. Your body signals when it is time to breathe.",
-    
-    "guide_step3_title": "Step 3: Inhale & hold",
-    "guide_step3_description": "Inhale fully and hold for 15 seconds.\nAfterwards exhale, completing the first round.\n\nWith every round you can hold your breath longer and go deeper.",
-  
-    "back_button": "Back",
-    "continue_button": "Continue",
-    "skip_button": "Skip",
-    "next_button": "Next",
-    "finish_button": "Finish",
-    "save_button": "Save",
-    "cancel_button": "Cancel",
-    "close_button": "Close",
-    "start_button": "Start",
-    "stop_button": "Stop",
-  
-    "progress_title": "Progress View",
-    "start_journey": "Start Your Journey!",
-    "progress_records_info": "Your progress records will appear here.",
-    "begin_session_button": "Begin a Session",
-    "rounds_label": "Rounds",
-    "round_label": "Round",
-    "edit_round": "Edit Round",
-    "select_date": "Select Date",
-    "select_time": "Select Time",
-    "minutes_label": "Minutes",
-    "seconds_label": "Seconds",
-  
-    "get_ready": "Get Ready",
-    "finish_hold": "Finish Hold",
-    "in_breath": "In",
-    "out_breath": "Out",
-    "recovery": "Recovery",
-  
-    "results_title": "Results",
-    "rounds_completed": "Rounds Completed: ",
-    "no_data": "No data",
-    "save_progress": "Save Progress",
-  
-    "tempo_label": "Tempo",
-    "volume_label": "Volume",
-    "breaths_label": "Breaths",
-  
-    "stop_session": "Stop Session",
-    "stop_session_confirm": "Are you sure you want to end the session?",
-    "stop_session_button": "Stop Session",
-    "continue_session_button": "Continue Session",
-   
-    "settings_title": "Settings",
-    "show_tutorial_button": "Show Tutorial",
-    "breathing_circle_button": "Breathing Circle",
-    "keep_screen_on_label": "Keep Screen On During Exercise",
-    "language_title": "Language",
-    "data_management_title": "Data Management",
-    "export_data_button": "Export Data",
-    "import_data_button": "Import Data",
-    "reset_data_button": "Reset Data",
-    "connect_support_title": "Connect & Support",
-    "app_version_text": "App Version",
-    "new_version_available": "New version available",
-    "update_button": "Update",
-    "privacy_policy": "Privacy Policy",
-  
-    "confirm_reset": "Confirm Reset",
-    "reset_data_warning": "Are you sure you want to reset all data? This action cannot be undone.",
-    "cancel": "Cancel",
-    "reset_data": "Reset Data",
-    "data_imported_success": "Data imported successfully!",
-    "error_importing_data": "Error importing data: ",
-    "import_cancelled": "Import cancelled",
-    "data_exported_success": "Data exported successfully as ",
-    "error_exporting_data": "Error exporting data: ",
-  
-  
-    "sessions": "Sessions",
-    "graph": "Graph",
-    "breath_hold": "Breath hold"
-  
-  }
-    
+  "guide_method_title": "Méthode",
+  "guide_method_intro": "Suivez simplement 4 étapes :",
+  "guide_method_steps": "1. Inspirez et expirez de manière rythmique pendant 30 respirations.\n2. Expirez et retenez votre souffle.\n3. Inspirez profondément et retenez pendant 15 secondes.\n4. Expirez et répétez l'étape 1\n\nFaites 3 à 10 rounds du processus.",
+  "guide_method_personalize": "Les pages suivantes vous permettront de personnaliser votre expérience.",
+
+  "guide_step1_title": "Étape 1 : Inspirer et expirer",
+  "guide_step1_description": "Remplissez complètement vos poumons, en commençant par votre ventre, puis votre poitrine.\n\nLaissez l'air s'écouler naturellement sans effort.\n\nRépétez ceci pendant environ 20 à 40 respirations à un rythme régulier.",
+  "breathing_circle": "Cercle de respiration",
+
+  "guide_step2_title": "Étape 2 : Expirer et retenir",
+  "guide_step2_description": "Expirez normalement et retenez votre souffle. La durée de votre retenue augmentera avec plus de pratique et à chaque round.\n\nLe cercle au milieu indique combien de temps vous avez retenu votre souffle et la dernière durée de retenue de souffle.\n\nRelâchez quand vous ressentez l'envie de respirer, évitez de trop forcer. Votre corps vous signale quand il est temps de respirer.",
+
+  "guide_step3_title": "Étape 3 : Inspirer et retenir",
+  "guide_step3_description": "Inspirez complètement et retenez pendant 15 secondes. Ensuite, expirez, complétant le premier round.\n\nÀ chaque round, vous pourrez retenir votre souffle plus longtemps et aller plus profondément.",
+
+  "back_button": "Retour",
+  "continue_button": "Continuer",
+  "skip_button": "Passer",
+  "next_button": "Suivant",
+  "finish_button": "Terminer",
+  "save_button": "Enregistrer",
+  "cancel_button": "Annuler",
+  "close_button": "Fermer",
+  "start_button": "Démarrer",
+  "stop_button": "Arrêter",
+
+  "progress_title": "Vue de progression",
+  "start_journey": "Commencez votre voyage !",
+  "progress_records_info": "Vos enregistrements de progression apparaîtront ici.",
+  "begin_session_button": "Commencer une session",
+  "rounds_label": "Rounds",
+  "round_label": "Round",
+  "edit_round": "Modifier le round",
+  "select_date": "Sélectionner la date",
+  "select_time": "Sélectionner l'heure",
+  "minutes_label": "Minutes",
+  "seconds_label": "Secondes",
+
+  "get_ready": "Préparez-vous",
+  "finish_hold": "Terminer la retenue",
+  "in_breath": "Inspirer",
+  "out_breath": "Expirer",
+  "recovery": "Récupération",
+
+  "results_title": "Résultats",
+  "rounds_completed": "Rounds complétés : ",
+  "no_data": "Aucune donnée",
+  "save_progress": "Enregistrer la progression",
+
+  "tempo_label": "Tempo",
+  "volume_label": "Volume",
+  "breaths_label": "Respirations",
+
+  "stop_session": "Arrêter la session",
+  "stop_session_confirm": "Êtes-vous sûr de vouloir terminer la session ?",
+  "stop_session_button": "Arrêter la session",
+  "continue_session_button": "Continuer la session",
+
+  "settings_title": "Réglages",
+  "show_tutorial_button": "Afficher le tutoriel",
+  "breathing_circle_button": "Cercle de respiration",
+  "keep_screen_on_label": "Garder l'écran allumé pendant l'exercice",
+  "language_title": "Langue",
+  "data_management_title": "Gestion des données",
+  "export_data_button": "Exporter les données",
+  "import_data_button": "Importer les données",
+  "reset_data_button": "Réinitialiser les données",
+  "connect_support_title": "Connexion et assistance",
+  "app_version_text": "Version de l'application",
+  "new_version_available": "Nouvelle version disponible",
+  "update_button": "Mettre à jour",
+  "privacy_policy": "Politique de confidentialité",
+
+  "confirm_reset": "Confirmer la réinitialisation",
+  "reset_data_warning": "Êtes-vous sûr de vouloir réinitialiser toutes les données ? Cette action est irréversible.",
+  "cancel": "Annuler",
+  "reset_data": "Réinitialiser les données",
+  "data_imported_success": "Données importées avec succès !",
+  "error_importing_data": "Erreur lors de l'importation des données : ",
+  "import_cancelled": "Importation annulée",
+  "data_exported_success": "Données exportées avec succès en tant que ",
+  "error_exporting_data": "Erreur lors de l'exportation des données : ",
+
+  "sessions": "Sessions",
+  "graph": "Graphique",
+  "breath_hold": "Retenue de souffle"
+}
