@@ -1,1 +1,16 @@
-Find serenity in every breath with Inner Breeze. This app guides you through the Wim Hof Breathing Method with ease.
+Find serenity in every breath with Inner Breeze.
+This app guides you through the <a href="https://en.wikipedia.org/wiki/Wim_Hof">Wim Hof Breathing Method</a> with ease.
+Experience mindful breathing with personalized settings and track your journey towards tranquility and rejuvenation.
+
+This easy yet potent breathing technique promises profound inner peace,
+offering a sanctuary of serenity amidst life's hectic pace.
+
+Simply follow 4 steps:
+<ol>
+<li>Inhale and exhale rhythmically for 30 breaths.</li>
+<li>Exhale and hold your breath.</li>
+<li>Inhale deeply and hold for 15 seconds.</li>
+<li>Exhale and repeat step 1.</li>
+</ol>
+
+Do 3-10 rounds of the process.
