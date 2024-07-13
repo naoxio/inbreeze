@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
-Name=InnerBreeze
-Comment=A dedicated meditation app to guide and track your Wim Hof Breathing practice.
+Name=Inner Breeze
+Comment=A meditation app to guide and track your Wim Hof Breathing practice
 Exec=inner_breeze
 Icon=io.naox.InnerBreeze
 Terminal=false

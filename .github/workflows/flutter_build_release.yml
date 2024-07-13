@@ -184,8 +184,8 @@ jobs:
         cat > InnerBreeze.AppDir/InnerBreeze.desktop <<EOF
         [Desktop Entry]
         Type=Application
-        Name=InnerBreeze
-        Comment=A dedicated meditation app to guide and track your Wim Hof Breathing practice.
+        Name=Inner Breeze
+        Comment=A meditation app to guide and track your Wim Hof Breathing practice.
         Exec=AppRun
         Icon=InnerBreeze
         Terminal=false
