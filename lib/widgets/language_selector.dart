@@ -18,7 +18,8 @@ class LanguageSelectorState extends State<LanguageSelector> {
     'de': 'Deutsch',
     'es': 'Español',
     'it': 'Italiano',
-    'id': 'Bahasa Indonesia'
+    'id': 'Bahasa Indonesia',
+    'ru': 'Русский',
   };
 
   @override
