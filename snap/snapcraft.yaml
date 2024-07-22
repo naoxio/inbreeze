@@ -10,17 +10,32 @@ icon: snap/gui/io.naox.InnerBreeze.png
 
 apps:
   inner-breeze:
-    command: inner_breeze
+    command: bin/inner_breeze
     common-id: io.naox.InnerBreeze
-    extensions: [gnome]
     plugs:
       - network
+      - desktop
+      - wayland
+      - x11
+      - opengl
+      - audio-playback
 
 parts:
   inner-breeze:
-    source: .
     plugin: flutter
-    flutter-target: lib/main.dart    
+    source: .
+    flutter-target: lib/main.dart
+    build-packages:
+      - libgtk-3-dev
+      - libglu1-mesa-dev
+    stage-packages:
+      - libgtk-3-0
+      - libglib2.0-0
+      - libpango-1.0-0
+      - libcairo2
+      - libx11-6
+      - libgl1
+      - libglu1-mesa
     parse-info: [metadata/io.naox.InnerBreeze.metainfo.xml]
 
   metainfo:
@@ -28,3 +43,4 @@ parts:
     plugin: dump
     organize:
       metainfo.xml: metadata/io.naox.InnerBreeze.metainfo.xml
+      
