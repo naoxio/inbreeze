@@ -66,12 +66,11 @@ class BreathingConfigurationState extends State<BreathingConfiguration> {
     });
     _updateUser();
   }
-
   String _getTempoLabel(double seconds) {
-    if (seconds < 1) return 'Very Fast';
-    if (seconds < 1.5) return 'Fast';
-    if (seconds < 2) return 'Medium';
-    return 'Slow';
+    if (seconds < 1) return 'tempo_very_fast'.i18n();
+    if (seconds < 1.5) return 'tempo_fast'.i18n();
+    if (seconds < 2) return 'tempo_medium'.i18n();
+    return 'tempo_slow'.i18n();
   }
 
   @override
@@ -90,7 +89,7 @@ class BreathingConfigurationState extends State<BreathingConfiguration> {
         ),
         SizedBox(height: 90),
         Text(
-          'Breathing Tempo (Seconds per Breath)',
+          'breathing_tempo_label'.i18n(),
           style: TextStyle(
             fontSize: 22.0,
             fontWeight: FontWeight.bold,
@@ -99,7 +98,7 @@ class BreathingConfigurationState extends State<BreathingConfiguration> {
         Slider(
           min: 0.5,
           max: 3.0,
-          divisions: 25, // This gives steps of 0.1 seconds
+          divisions: 25,
           value: secondsPerBreath,
           label: '${secondsPerBreath.toStringAsFixed(1)}s (${_getTempoLabel(secondsPerBreath)})',
           onChanged: (value) {

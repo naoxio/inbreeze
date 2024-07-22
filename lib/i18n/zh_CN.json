@@ -92,5 +92,11 @@
 
   "sessions": "练习次数",
   "graph": "图表",
-  "breath_hold": "屏息时间"
+  "breath_hold": "屏息时间",
+
+  "breathing_tempo_label": "呼吸节奏（每次呼吸的秒数）",
+  "tempo_very_fast": "非常快",
+  "tempo_fast": "快",
+  "tempo_medium": "中等",
+  "tempo_slow": "慢"
 }

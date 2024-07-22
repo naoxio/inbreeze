@@ -92,7 +92,14 @@
 
   "sessions": "Сессии",
   "graph": "График",
-  "breath_hold": "Задержка дыхания"
+  "breath_hold": "Задержка дыхания",
+
+
+  "breathing_tempo_label": "Темп Дыхания (Секунд на Вдох)",
+  "tempo_very_fast": "Очень Быстро",
+  "tempo_fast": "Быстро",
+  "tempo_medium": "Средне",
+  "tempo_slow": "Медленно"
 
 }
   

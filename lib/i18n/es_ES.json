@@ -94,6 +94,12 @@
 
   "sessions": "Sesiones",
   "graph": "Gráfica",
-  "breath_hold": "Retención de la respiración"
+  "breath_hold": "Retención de la respiración",
+
+  "breathing_tempo_label": "Ritmo de Respiración (Segundos por Respiración)",
+  "tempo_very_fast": "Muy Rápido",
+  "tempo_fast": "Rápido",
+  "tempo_medium": "Medio",
+  "tempo_slow": "Lento"
 
 }

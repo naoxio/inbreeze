@@ -92,7 +92,12 @@
 
   "sessions": "Sessions",
   "graph": "Graph",
-  "breath_hold": "Breath hold"
+  "breath_hold": "Breath hold",
 
+  "breathing_tempo_label": "Breathing Tempo (Seconds per Breath)",
+  "tempo_very_fast": "Very Fast",
+  "tempo_fast": "Fast",
+  "tempo_medium": "Medium",
+  "tempo_slow": "Slow"
 }
   

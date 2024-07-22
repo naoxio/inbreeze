@@ -92,7 +92,13 @@
 
   "sessions": "Sessioni",
   "graph": "Grafico",
-  "breath_hold": "Trattenimento del respiro"
+  "breath_hold": "Trattenimento del respiro",
+  
+  "breathing_tempo_label": "Ritmo Respiratorio (Secondi per Respiro)",
+  "tempo_very_fast": "Molto Veloce",
+  "tempo_fast": "Veloce",
+  "tempo_medium": "Medio",
+  "tempo_slow": "Lento"
 
 }
   

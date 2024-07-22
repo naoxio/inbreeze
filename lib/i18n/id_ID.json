@@ -91,7 +91,13 @@
 
   "sessions": "Sesi",
   "graph": "Grafik",  
-  "breath_hold": "Tahan napas"
+  "breath_hold": "Tahan napas",
+
+  "breathing_tempo_label": "Tempo Pernapasan (Detik per Napas)",
+  "tempo_very_fast": "Sangat Cepat",
+  "tempo_fast": "Cepat",
+  "tempo_medium": "Sedang",
+  "tempo_slow": "Lambat"
 
 }
 

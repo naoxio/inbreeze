@@ -93,6 +93,12 @@
 
   "sessions": "Sitzungen",
   "graph": "Grafik",
-  "breath_hold": "Atem anhalten"
+  "breath_hold": "Atem anhalten",
+
+  "breathing_tempo_label": "Atemrhythmus (Sekunden pro Atemzug)",
+  "tempo_very_fast": "Sehr Schnell",
+  "tempo_fast": "Schnell",
+  "tempo_medium": "Mittel",
+  "tempo_slow": "Langsam"
 
 }
