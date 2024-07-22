@@ -1,4 +1,7 @@
 # Changelog
+## [1.3.3] - 2024-07-22
+- Improve tempo slider
+
 ## [1.3.2] - 2024-07-22
 - Added french thanks to @arkryonia
 - Added russian thanks to @yurtpage
