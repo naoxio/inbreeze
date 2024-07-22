@@ -264,6 +264,8 @@ jobs:
     name: Release Builds
     needs: [android, ios, linux, windows] 
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
@@ -305,5 +307,3 @@ jobs:
           build/linux/InnerBreeze-Linux-x86_64.tar.gz
           build/linux/InnerBreeze-x86_64.AppImage
           build/windows/InnerBreeze-Windows-x86_64.zip
-          
-        
