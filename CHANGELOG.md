@@ -1,4 +1,9 @@
 # Changelog
+## [1.3.2] - 2024-07-22
+- Added french thanks to @arkryonia
+- Added russian thanks to @yurtpage
+- Added mandarin thanks to ichiban
+
 ## [1.3.1] - 2024-04-26
 - Improve bar chart
 

@@ -10,15 +10,16 @@ class LanguageSelector extends StatefulWidget {
   @override
   LanguageSelectorState createState() => LanguageSelectorState();
 }
-
 class LanguageSelectorState extends State<LanguageSelector> {
-  String? selectedLanguage;
+  String selectedLanguage = 'en';  // Default to English
   final Map<String, String> languageOptions = {
     'en': 'English',
     'de': 'Deutsch',
+    'fr': 'Français',
     'es': 'Español',
     'it': 'Italiano',
     'id': 'Bahasa Indonesia',
+    'zh': '普通话',
     'ru': 'Русский',
   };
 
@@ -32,16 +33,27 @@ class LanguageSelectorState extends State<LanguageSelector> {
     try {
       final userProvider = Provider.of<UserProvider>(context, listen: false);
       String languagePreference = await userProvider.getLanguagePreference();
+       
+      if (!languageOptions.containsKey(languagePreference)) {
+        // If the saved preference is invalid, reset to English
+        languagePreference = 'en';
+        await userProvider.setLanguagePreference('en');
+      }
+
+
       setState(() {
-        selectedLanguage = languagePreference;
+        selectedLanguage = languagePreference.isNotEmpty ? languagePreference : 'en';
       });
     } catch (e) {
-      // Handle errors or set a default language if necessary
       print('Error fetching language preference: $e');
+      setState(() {
+        selectedLanguage = 'en';  // Set to default if there's an error
+      });
     }
   }
 
-  void setLanguage(String languageCode) async {
+  void setLanguage(String? languageCode) async {
+    if (languageCode == null) return;
     try {
       final userProvider = Provider.of<UserProvider>(context, listen: false);
       await userProvider.setLanguagePreference(languageCode);
@@ -50,7 +62,6 @@ class LanguageSelectorState extends State<LanguageSelector> {
       });
       widget.onLanguageChanged(languageCode);
     } catch (e) {
-      // Handle potential errors when setting the language
       print('Error setting language preference: $e');
     }
   }
@@ -65,7 +76,7 @@ class LanguageSelectorState extends State<LanguageSelector> {
           child: Text(entry.value),
         );
       }).toList(),
-      onChanged: (value) => value != null ? setLanguage(value) : null,
+      onChanged: setLanguage,
     );
   }
 }
