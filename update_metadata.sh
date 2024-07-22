@@ -85,11 +85,3 @@ if [ -f "$pubspec_file" ]; then
 else
     echo "$pubspec_file does not exist"
 fi
-
-snapcraft_file="snap/snapcraft.yaml"
-if [ -f "$snapcraft_file" ]; then
-    sed -i "s/^version: .*/version: '$latest_version'/" "$snapcraft_file"
-    echo "Updated version in $snapcraft_file to $latest_version"
-else
-    echo "$snapcraft_file does not exist"
-fi
