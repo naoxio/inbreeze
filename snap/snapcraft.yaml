@@ -4,7 +4,7 @@ adopt-info: inner-breeze
 version: '1.3.2'
 license: MIT
 grade: stable
-base: core22
+base: core20
 confinement: strict
 icon: snap/gui/io.naox.InnerBreeze.png
 

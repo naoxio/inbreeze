@@ -32,7 +32,7 @@ in
 pkgs.mkShell {
   buildInputs = with pkgs; [
     # Flutter
-    flutter
+    flutter316
 
     # Android dependencies
     androidComposition.androidsdk
