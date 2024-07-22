@@ -1,0 +1,4 @@
+* Added french thanks to @arkryonia
+* Added russian thanks to @yurtpage
+* Added mandarin thanks to ichiban
+

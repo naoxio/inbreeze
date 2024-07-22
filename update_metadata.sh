@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 changelog_file="CHANGELOG.md"
 output_dir="metadata/en-US/changelogs"
