@@ -6,13 +6,60 @@ import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 
+// Conditionally import dart:html
+import 'dart:async';
+import 'package:universal_html/html.dart' if (dart.library.html) 'dart:html'
+    as html;
+
+import 'package:flutter/foundation.dart';
+
+bool isOldDomain() {
+  if (kIsWeb) {
+    try {
+      final currentUrl = html.window.location.href;
+      return currentUrl.contains('web.inner-breeze.app');
+    } catch (e) {
+      // Handle any potential errors when accessing window.location
+      print('Error checking domain: $e');
+      return false;
+    }
+  }
+  return false; // Return false for non-web platforms
+}
+
+class MigrationBanner extends StatelessWidget {
+  final VoidCallback onMigrate;
+  const MigrationBanner({Key? key, required this.onMigrate}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.yellow,
+      padding: EdgeInsets.all(8),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              'Click here to migrate your data to the new domain',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: onMigrate,
+            child: Text('Migrate'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class TitleScreen extends StatefulWidget {
   @override
   State<TitleScreen> createState() => _TitleScreenState();
 }
 
 class _TitleScreenState extends State<TitleScreen> {
-
   void _navigateToExercise() {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     userProvider.startNewSession();
@@ -26,7 +73,6 @@ class _TitleScreenState extends State<TitleScreen> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +80,20 @@ class _TitleScreenState extends State<TitleScreen> {
         child: Center(
           child: Column(
             children: [
+              if (isOldDomain())
+                MigrationBanner(
+                  onMigrate: () {
+                    final userProvider =
+                        Provider.of<UserProvider>(context, listen: false);
+                    final migrationUrl = userProvider.generateMigrationUrl();
+                    if (kIsWeb) {
+                      html.window.open(migrationUrl, '_blank');
+                    } else {
+                      // Handle non-web platforms (e.g., show a dialog or navigate to a new screen)
+                      print('Migration not supported on this platform');
+                    }
+                  },
+                ),
               SizedBox(height: 60),
               SizedBox(
                 width: 256,
@@ -63,7 +123,7 @@ class _TitleScreenState extends State<TitleScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BreezeBottomNav()
+      bottomNavigationBar: BreezeBottomNav(),
     );
   }
 }

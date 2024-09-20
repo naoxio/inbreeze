@@ -48,7 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<String> _fetchLatestVersion() async {
     const String url =
-        'https://api.github.com/repos/naoxio/inner_breeze/releases/latest';
+        'https://api.github.com/repos/naoxio/inbreeze/releases/latest';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -309,7 +309,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         versionWidgets.add(TextButton(
                           onPressed: () {
                             launchUrl(Uri.parse(
-                                'https://github.com/naoxio/inner_breeze/releases/tag/$_latestVersionTag'));
+                                'https://github.com/naoxio/inbreeze/releases/tag/$_latestVersionTag'));
                           },
                           child: Text('update_button'.i18n()),
                         ));
@@ -333,9 +333,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   runSpacing: 15,
                   children: [
                     _buildIconLink(
-                        Icons.web, 'Website', 'https://inner-breeze.app/'),
+                        Icons.web, 'Website', 'https://inbreeze.xyz/'),
                     _buildIconLink('assets/icons/github.svg', 'GitHub',
-                        'https://github.com/naoxio/inner_breeze'),
+                        'https://github.com/naoxio/inbreeze'),
                     _buildIconLink('assets/icons/telegram.svg', 'Telegram',
                         'https://t.me/inner_breeze'),
                     _buildIconLink('assets/icons/twitter.svg', 'X Page',
@@ -359,8 +359,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       Text('© 2024'),
                       TextButton(
-                        onPressed: () => launchUrl(Uri.parse(
-                            'https://inner-breeze.app/privacy-policy')),
+                        onPressed: () => launchUrl(
+                            Uri.parse('https://inbreeze.xyz/privacy-policy')),
                         child: Text('privacy_policy'.i18n(),
                             style: TextStyle(color: Colors.teal)),
                       ),

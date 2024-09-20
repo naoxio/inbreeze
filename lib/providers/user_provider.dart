@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -34,7 +35,9 @@ class UserProvider with ChangeNotifier {
       user = User(id: Uuid().v4(), preferences: Preferences());
     } else {
       final userJson = prefs.getString(userId);
-      user = userJson != null ? User.fromJson(jsonDecode(userJson)) : User(id: userId, preferences: Preferences());
+      user = userJson != null
+          ? User.fromJson(jsonDecode(userJson))
+          : User(id: userId, preferences: Preferences());
     }
     prefs.setString(user.id, jsonEncode(user.toJson()));
     prefs.setString('userId', user.id);
@@ -55,7 +58,8 @@ class UserProvider with ChangeNotifier {
 
   Future<Session?> loadSessionData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? sessionJson = prefs.getString('${user.id}/sessions/${user.currentSessionId}');
+    String? sessionJson =
+        prefs.getString('${user.id}/sessions/${user.currentSessionId}');
     if (sessionJson != null) {
       Session session = Session.fromJson(jsonDecode(sessionJson));
       return session;
@@ -63,7 +67,8 @@ class UserProvider with ChangeNotifier {
     return null;
   }
 
-  Future<Map<String, dynamic>> _loadData(List<String> keys, String prefix) async {
+  Future<Map<String, dynamic>> _loadData(
+      List<String> keys, String prefix) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, dynamic> loadedData = {};
     for (var key in keys) {
@@ -97,13 +102,17 @@ class UserProvider with ChangeNotifier {
   Future<void> saveUserPreferences(Preferences preferences) async {
     await _saveData(preferences.toJson(), user.id);
   }
+
   Future<String> startNewSession([DateTime? dateTime]) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    DateTime sessionDateTime = dateTime?.roundToNearestMinute() ?? DateTime.now().roundToNearestMinute();
-    int timestamp = sessionDateTime.millisecondsSinceEpoch; // Convert to timestamp
+    DateTime sessionDateTime = dateTime?.roundToNearestMinute() ??
+        DateTime.now().roundToNearestMinute();
+    int timestamp =
+        sessionDateTime.millisecondsSinceEpoch; // Convert to timestamp
     String sessionId = timestamp.toString();
     Session session = Session(id: sessionId, rounds: {});
-    prefs.setString('${user.id}/sessions/$sessionId', jsonEncode(session.toJson()));
+    prefs.setString(
+        '${user.id}/sessions/$sessionId', jsonEncode(session.toJson()));
     user.currentSessionId = sessionId;
     notifyListeners();
     return sessionId;
@@ -111,14 +120,14 @@ class UserProvider with ChangeNotifier {
 
   Future<void> saveSessionData(Session session) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('${user.id}/sessions/${session.id}', jsonEncode(session.toJson()));
+    prefs.setString(
+        '${user.id}/sessions/${session.id}', jsonEncode(session.toJson()));
   }
 
   Future<void> convertOldSessions() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final allKeys = prefs.getKeys();
     for (String key in allKeys) {
-  
       if (key.startsWith('${user.id}/sessions/')) {
         var sessionJson = prefs.getString(key);
         if (sessionJson != null) {
@@ -128,10 +137,12 @@ class UserProvider with ChangeNotifier {
             DateTime roundedDateTime = oldDateTime.roundToNearestMinute();
             String newSessionId = roundedDateTime.toIso8601String();
 
-            if (!RegExp(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$').hasMatch(sessionData['id'])) {
+            if (!RegExp(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$')
+                .hasMatch(sessionData['id'])) {
               sessionData['id'] = newSessionId;
               prefs.remove(key);
-              prefs.setString('${user.id}/sessions/$newSessionId', jsonEncode(sessionData));
+              prefs.setString(
+                  '${user.id}/sessions/$newSessionId', jsonEncode(sessionData));
             }
           }
         }
@@ -163,6 +174,7 @@ class UserProvider with ChangeNotifier {
 
     return allData;
   }
+
   Future<void> importData(Map<String, dynamic> importedData) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -183,7 +195,8 @@ class UserProvider with ChangeNotifier {
         for (var sessionJson in sessionsList) {
           if (sessionJson is Map<String, dynamic>) {
             if (sessionJson.containsKey('dateTime')) {
-              DateTime oldDateTime = DateTime.tryParse(sessionJson['dateTime']) ?? DateTime.now();
+              DateTime oldDateTime =
+                  DateTime.tryParse(sessionJson['dateTime']) ?? DateTime.now();
               DateTime roundedDateTime = oldDateTime.roundToNearestMinute();
               int timestamp = roundedDateTime.millisecondsSinceEpoch;
               String sessionId = timestamp.toString();
@@ -191,7 +204,8 @@ class UserProvider with ChangeNotifier {
             }
 
             Session importedSession = Session.fromJson(sessionJson);
-            await prefs.setString('${user.id}/sessions/${importedSession.id}', jsonEncode(importedSession.toJson()));
+            await prefs.setString('${user.id}/sessions/${importedSession.id}',
+                jsonEncode(importedSession.toJson()));
           } else {
             print('Invalid format for session data');
           }
@@ -206,7 +220,8 @@ class UserProvider with ChangeNotifier {
 
   Future<String> getLanguagePreference() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('languagePreference') ?? 'en'; // Default to 'en' if not set
+    return prefs.getString('languagePreference') ??
+        'en'; // Default to 'en' if not set
   }
 
   Future<void> setLanguagePreference(String languageCode) async {
@@ -218,20 +233,29 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> moveRoundToSession(String oldSessionId, int roundNumber, int newTimestamp) async {
+  Future<void> moveRoundToSession(
+      String oldSessionId, int roundNumber, int newTimestamp) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    Session? oldSession = (prefs.getString('${user.id}/sessions/$oldSessionId') != null) 
-        ? Session.fromJson(jsonDecode(prefs.getString('${user.id}/sessions/$oldSessionId')!)) 
+    Session? oldSession = (prefs
+                .getString('${user.id}/sessions/$oldSessionId') !=
+            null)
+        ? Session.fromJson(
+            jsonDecode(prefs.getString('${user.id}/sessions/$oldSessionId')!))
         : null;
 
     String newSessionId = newTimestamp.toString();
-    Session newSession = (prefs.getString('${user.id}/sessions/$newSessionId') != null) 
-        ? Session.fromJson(jsonDecode(prefs.getString('${user.id}/sessions/$newSessionId')!)) 
+    Session newSession = (prefs
+                .getString('${user.id}/sessions/$newSessionId') !=
+            null)
+        ? Session.fromJson(
+            jsonDecode(prefs.getString('${user.id}/sessions/$newSessionId')!))
         : Session(id: newSessionId, rounds: {});
 
     if (oldSession != null && oldSession.rounds.containsKey(roundNumber)) {
-      int newRoundNumber = newSession.rounds.isEmpty ? 1 : newSession.rounds.keys.reduce(max) + 1;
+      int newRoundNumber = newSession.rounds.isEmpty
+          ? 1
+          : newSession.rounds.keys.reduce(max) + 1;
       newSession.rounds[newRoundNumber] = oldSession.rounds[roundNumber]!;
       oldSession.rounds.remove(roundNumber);
 
@@ -242,7 +266,8 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateRoundDuration(String sessionId, int roundNumber, Duration newDuration) async {
+  Future<void> updateRoundDuration(
+      String sessionId, int roundNumber, Duration newDuration) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? sessionJson = prefs.getString('${user.id}/sessions/$sessionId');
     if (sessionJson == null) return;
@@ -258,7 +283,8 @@ class UserProvider with ChangeNotifier {
 
   Future<Map<int, Duration>> loadRoundDurations() async {
     final prefs = await SharedPreferences.getInstance();
-    final sessionJson = prefs.getString('${user.id}/sessions/${user.currentSessionId}');
+    final sessionJson =
+        prefs.getString('${user.id}/sessions/${user.currentSessionId}');
     if (sessionJson == null) return {};
     final sessionData = Session.fromJson(jsonDecode(sessionJson));
     return sessionData.rounds;
@@ -266,25 +292,27 @@ class UserProvider with ChangeNotifier {
 
   Future<void> deleteSessionData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? sessionJson = prefs.getString('${user.id}/sessions/${user.currentSessionId}');
+    String? sessionJson =
+        prefs.getString('${user.id}/sessions/${user.currentSessionId}');
     if (sessionJson == null) return;
     Session session = Session.fromJson(jsonDecode(sessionJson));
     Set<String> allKeys = prefs.getKeys();
     for (String key in allKeys) {
-      if (key.startsWith('${user.id}/sessions/${user.currentSessionId}/rounds/')) {
+      if (key
+          .startsWith('${user.id}/sessions/${user.currentSessionId}/rounds/')) {
         prefs.remove(key);
       }
     }
     session.rounds = {};
     saveSessionData(session);
     notifyListeners();
-  
   }
-  
+
   Future<void> deleteRound(int roundNumber, [String? sessionId]) async {
     final prefs = await SharedPreferences.getInstance();
     String? finalSessionId = sessionId ?? user.currentSessionId;
-    String? sessionJson = prefs.getString('${user.id}/sessions/$finalSessionId');
+    String? sessionJson =
+        prefs.getString('${user.id}/sessions/$finalSessionId');
     if (sessionJson == null) return;
     Session session = Session.fromJson(jsonDecode(sessionJson));
     session.rounds.remove(roundNumber);
@@ -299,6 +327,7 @@ class UserProvider with ChangeNotifier {
     session.rounds = updatedRounds;
     saveSessionData(session);
   }
+
   Future<List<Session>> getAllSessions() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final allKeys = prefs.getKeys();
@@ -323,4 +352,22 @@ class UserProvider with ChangeNotifier {
     return sessions;
   }
 
+  String compressUserData() {
+    final allData = getAllData();
+    final jsonString = jsonEncode(allData);
+    final compressedBytes = gzip.encode(utf8.encode(jsonString));
+    return base64Url.encode(compressedBytes);
+  }
+
+  Future<void> importCompressedData(String compressedData) async {
+    final compressedBytes = base64Url.decode(compressedData);
+    final jsonString = utf8.decode(gzip.decode(compressedBytes));
+    final decodedData = jsonDecode(jsonString);
+    await importData(decodedData);
+  }
+
+  String generateMigrationUrl() {
+    final compressedData = compressUserData();
+    return 'https://web.inbreeze.xyz/migrate?data=$compressedData';
+  }
 }

@@ -126,7 +126,7 @@ class AppState extends State<App> {
         Locale('en', 'US'),
         Locale('de', 'DE'),
         Locale('es', 'ES'),
-        Locale('fr', 'FR'),        
+        Locale('fr', 'FR'),
         Locale('it', 'IT'),
         Locale('id', 'ID'),
         Locale('ru', 'RU'),
@@ -138,7 +138,7 @@ class AppState extends State<App> {
       darkTheme: _darkTheme,
       themeMode: ThemeMode.dark,
       builder: (context, child) {
-        var backgroundColor = Theme.of(context).colorScheme.background;
+        var backgroundColor = Theme.of(context).colorScheme.surface;
 
         return Container(
           color: backgroundColor,
