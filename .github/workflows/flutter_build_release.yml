@@ -70,45 +70,6 @@ jobs:
         path: |
           build/app/outputs/flutter-apk/InnerBreeze.apk
 
-  ios:
-    needs: cancel
-    name: Build iOS
-    runs-on: macos-latest
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-
-    - name: Cache Flutter SDK and dependencies
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/.pub-cache
-          ~/Library/Caches/com.google.dart.tools.sdk
-          ~/.flutter
-        key: ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-${{ hashFiles('**/pubspec.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-
-    
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: ${{ env.FLUTTER_VERSION }}
-
-    - name: Install Dependencies
-      run: flutter pub get
-
-    - name: Build iOS
-      run: flutter build ios --release --no-codesign
-
-    - name: Archive iOS app
-      run: tar -czf build/ios/iphoneos/ios_unsigned.app.tar.gz build/ios/iphoneos/Runner.app
-    
-    - name: Upload iOS app as Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: ios-artifact
-        path: build/ios/iphoneos/ios_unsigned.app.tar.gz
-  
   linux:
     needs: cancel
     name: Build Linux
@@ -217,52 +178,9 @@ jobs:
           InnerBreeze-Linux-x86_64.tar.gz 
           InnerBreeze-x86_64.AppImage
 
-  windows:
-    needs: cancel
-    name: Build Windows
-    runs-on: windows-latest
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-    
-    - name: Cache Flutter SDK
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~\AppData\Local\Pub\Cache
-          ~\AppData\Local\Flutter
-        key: ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-${{ hashFiles('**/pubspec.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-flutter-${{ env.FLUTTER_VERSION }}-
-        
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: ${{ env.FLUTTER_VERSION }}
-
-    - name: Install Dependencies
-      run: flutter pub get
-
-    - name: Build Windows Executable
-      run: flutter build windows --release
-    
-    - name: Reorganize Windows Directory
-      run: |
-        mkdir -p organized_output/windows/
-        cp -r build/windows/x64/runner/Release/* organized_output/windows/
-
-    - name: Archive Windows executable
-      run: 7z a build/InnerBreeze-Windows-x86_64.zip organized_output/windows/
-
-    - name: Upload Windows executable as Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: windows-artifact
-        path: build/InnerBreeze-Windows-x86_64.zip
-
   release:
     name: Release Builds
-    needs: [android, ios, linux, windows] 
+    needs: [android, linux] 
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -276,23 +194,12 @@ jobs:
         name: apk-artifacts
         path: build/app/outputs/flutter-apk/
     
-    - name: Download iOS Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: ios-artifact
-        path: build/ios/iphoneos/
-    
     - name: Download Linux Artifacts
       uses: actions/download-artifact@v2
       with:
         name: linux-artifacts
         path: build/linux/
     
-    - name: Download Windows Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: windows-artifact
-        path: build/windows/
     
     - name: Create Release and Upload Builds
       uses: "marvinpinto/action-automatic-releases@latest"
@@ -303,7 +210,5 @@ jobs:
         title: "${{ env.RELEASE_TAG }}"
         files: |
           build/app/outputs/flutter-apk/InnerBreeze.apk
-          build/ios/iphoneos/ios_unsigned.app.tar.gz
           build/linux/InnerBreeze-Linux-x86_64.tar.gz
           build/linux/InnerBreeze-x86_64.AppImage
-          build/windows/InnerBreeze-Windows-x86_64.zip
