@@ -1,0 +1,211 @@
+time:
+  duration: "Dauer"
+  hours: "Stunden"
+  minutes: "Minuten"
+  seconds: "Sekunden"
+  seconds_per_breath: "Sekunden pro Atemzug"
+
+difficulty:
+  beginner: "Anfänger"
+  intermediate: "Fortgeschritten"
+  advanced: "Experte"
+
+speed:
+  slow: "Langsam"
+  medium: "Mittel"
+  fast: "Schnell"
+
+ui:
+  round_counter_desc: "Zeigt die aktuelle Rundennummer an"
+  breath_counter_desc: "Zeigt die aktuelle Atemzugnummer innerhalb des Atemzyklus an"
+  timer_desc: "Zeigt den Countdown für zeitlich begrenzte Phasen an"
+  instruction_display_desc: "Zeigt die aktuelle Handlungsanweisung an"
+  progress_indicator_desc: "Visuelle Darstellung des Fortschritts durch jede Phase"
+  breath_circle_desc: "Animierter Kreis zur Führung des Atemrhythmus"
+  retention_time_display_desc: "Zeigt die erreichte Atemanhaltezeit in jeder Runde an"
+  pose_counter_desc: "Zeigt die aktuelle Posennummer innerhalb der Sequenz an"
+  pose_illustration_desc: "Zeigt eine visuelle Darstellung der aktuellen Pose"
+
+input:
+  start_exercise: "Übung beginnen"
+  end_retention: "Atemanhalten beenden"
+  pause_exercise: "Übung pausieren"
+  resume_exercise: "Übung fortsetzen"
+  skip_to_next_phase: "Zur nächsten Phase springen"
+  adjust_breath_pace: "Atemrhythmus anpassen"
+  skip_to_next_pose: "Zur nächsten Pose in der Sequenz springen"
+  adjust_pose_duration: "Dauer jeder Pose anpassen"
+
+safety:
+  consult_professional: "Konsultieren Sie vor Beginn einen Arzt, besonders wenn Sie gesundheitliche Probleme haben"
+  stop_if_uncomfortable: "Stoppen Sie, wenn Sie sich schwindelig, übel oder übermäßig unwohl fühlen"
+  breathe_normally: "Atmen Sie normal, wenn Sie Kribbeln oder Leichtigkeit im Kopf verspüren"
+  no_driving: "Nicht während des Autofahrens praktizieren"
+  no_water: "Nicht im Wasser praktizieren"
+  breathe_steadily: "Halten Sie während der Übung einen gleichmäßigen Atem bei"
+  listen_to_body: "Hören Sie auf Ihren Körper und passen Sie die Posen bei Bedarf an"
+  warm_up: "Führen Sie vor Beginn der Sequenz ein sanftes Aufwärmen durch"
+
+implementation:
+  smooth_transitions: "Sorgen Sie für sanfte Übergänge zwischen den Phasen"
+  clear_cues: "Bieten Sie klare visuelle und akustische Signale für jede Aktion"
+  customization: "Ermöglichen Sie Benutzern, Einstellungen vor dem Start anzupassen"
+  failsafe: "Implementieren Sie einen Sicherheitsmechanismus, um übermäßige Dauern zu verhindern"
+  tutorial: "Fügen Sie eine optionale Anleitung für Erstbenutzer hinzu"
+  voice_options: "Bieten Sie Optionen für verschiedene Sprachführungen an"
+  alignment_cues: "Geben Sie klare Ausrichtungshinweise für jede Pose"
+
+customization:
+  breathing_pace: "Atemrhythmus"
+  breathing_pace_desc: "Atemrhythmus anpassen"
+  audio_volume: "Audio-Lautstärke"
+  audio_volume_desc: "Audio-Lautstärke anpassen"
+  retention_time_goal: "Atemanhaltezeit-Ziel"
+  retention_time_goal_desc: "Setzen Sie ein Ziel für die Atemanhaltezeit"
+  pose_duration_desc: "Dauer für das Halten jeder Pose festlegen"
+  transition_speed_desc: "Geschwindigkeit der Übergänge zwischen den Posen anpassen"
+  audio_guidance_desc: "Audioanweisungen aktivieren oder deaktivieren"
+
+
+tracking:
+  session_duration: "Sitzungsdauer"
+  session_duration_desc: "Gesamtdauer jeder Übungssitzung"
+  retention_time: "Atemanhaltezeit"
+  retention_time_desc: "Verfolgen Sie die Atemanhaltezeit für jede Runde"
+  completed_rounds: "Abgeschlossene Runden"
+  completed_rounds_desc: "Anzahl der abgeschlossenen Runden in jeder Sitzung"
+  calories_burned_desc: "Geschätzte verbrannte Kalorien während der Übung"
+  calories_burned_desc: "Estimated calories burned during the practice"
+
+
+contraindications:
+  pregnancy: "Schwangerschaft"
+  epilepsy: "Epilepsie"
+  high_blood_pressure: "Bluthochdruck (unkontrolliert)"
+  heart_disease: "Herzerkrankungen in der Vorgeschichte"
+  migraines: "Schwere Migräne"
+  recent_surgery: "Kürzlich durchgeführte größere Operation"
+  wrist_issues: "Handgelenkschmerzen oder -verletzungen"
+  shoulder_issues: "Schulterschmerzen oder -verletzungen"
+  back_pain: "Akute oder starke Rückenschmerzen"
+
+practice:
+  get_ready: "Bereit Machen"
+  round: "Runde"
+  rounds_label: "Anzahl der Runden"
+  breaths_per_cycle: "Anzahl der Atemzüge pro Zyklus"
+
+phase:
+  breathing_cycle: "Atemzyklus"
+  retention: "Atemanhalten"
+  recovery_breath: "Erholungsatem"
+
+step:
+  inhale: "Einatmen"
+  exhale: "Ausatmen"
+  hold: "Halten"
+  deep_inhale: "Tief einatmen"
+
+action:
+  deep_inhale: "Atmen Sie tief ein, füllen Sie zuerst den Bauch, dann die Brust"
+  let_go: "Lassen Sie den Atem los, ohne zu forcieren"
+  hold_after_exhale: "Halten Sie den Atem nach dem letzten Ausatmen an"
+  hold_as_long: "Halten Sie den Atem so lange wie es angenehm ist"
+  deep_inhale_full: "Atmen Sie tief ein, füllen Sie Bauch und Brust vollständig"
+  hold_feel_energy: "Halten Sie den Atem an und spüren Sie, wie sich die Energie in Ihrem Körper ausbreitet"
+  slow_exhale: "Atmen Sie langsam aus"
+
+duration:
+  breath_retention_time: "Atemanhaltezeit"
+
+benefits:
+  energy: "Erhöhter Energielevel und Vitalität"
+  immune: "Verbesserte Immunfunktion und Widerstandsfähigkeit"
+  stress: "Reduzierter Stress, Angst und Depression"
+  focus: "Verbesserte Konzentration und geistige Klarheit"
+  cardiovascular: "Verbesserte Herz-Kreislauf-Gesundheit"
+  sleep: "Bessere Schlafqualität"
+  willpower: "Erhöhte Willenskraft und Entschlossenheit"
+  flexibility: "Verbesserte Flexibilität und Bewegungsfreiheit"
+  strength: "Erhöhte allgemeine Körperkraft"
+  balance: "Verbessertes Gleichgewicht und Koordination"
+  circulation: "Verbesserte Durchblutung"
+  stress_relief: "Reduzierter Stress und Anspannung"
+
+# Sun Salutation Specific translations
+sn:
+  practice:
+    name: "Sonnengruß"
+    description: "Eine Abfolge von Yoga-Posen, die fließend ineinander übergehen und traditionell bei Sonnenaufgang praktiziert werden, um den neuen Tag zu begrüßen und Körper und Geist zu energetisieren."
+    origin: "Alte indische Yoga-Tradition"
+    rounds_label: "Anzahl der Zyklen"
+
+  phase:
+    surya_namaskar: "Sonnengruß-Sequenz"
+
+  step:
+    mountain_pose: "Berghaltung (Tadasana)"
+    raised_arms_pose: "Erhobene-Arme-Haltung (Urdhva Hastasana)"
+    standing_forward_bend: "Stehende Vorwärtsbeuge (Uttanasana)"
+    lunge: "Ausfallschritt (Anjaneyasana)"
+    plank_pose: "Bretthaltung (Phalakasana)"
+    low_plank: "Tiefer Liegestütz (Chaturanga Dandasana)"
+    cobra_pose: "Kobra-Haltung (Bhujangasana)"
+    downward_facing_dog: "Herabschauender Hund (Adho Mukha Svanasana)"
+
+  action:
+    stand_tall: "Stehen Sie aufrecht, Füße zusammen, Hände vor dem Herzen"
+    raise_arms: "Einatmen, Arme über den Kopf heben, sanft nach hinten beugen"
+    forward_bend: "Ausatmen, nach vorne beugen, Hände zu den Füßen bringen"
+    step_back: "Einatmen, rechten Fuß nach hinten in den Ausfallschritt bringen"
+    hold_plank: "Ausatmen, linken Fuß nach hinten in die Bretthaltung bringen"
+    lower_body: "Körper zum Boden senken, Ellbogen nah am Körper halten"
+    lift_chest: "Einatmen, Brust in die Kobra-Haltung heben"
+    push_back: "Ausatmen, in den herabschauenden Hund drücken"
+    step_forward: "Einatmen, rechten Fuß nach vorne in den Ausfallschritt bringen"
+    return_to_start: "Ausatmen, Füße zusammenbringen, zur Berghaltung zurückkehren"
+
+  references:
+    ref_1:
+      title: "Licht auf Yoga"
+      author: "B.K.S. Iyengar"
+      year: 1966
+      url: "https://www.goodreads.com/book/show/217363.Light_on_Yoga"
+    ref_2:
+      title: "Auswirkungen des Surya Namaskar auf kardiovaskuläre und respiratorische Parameter bei Studenten"
+      authors: ["Bhutkar", "Bhutkar", "Taware", "Doijad", "Doddamani"]
+      publication: "Al Ameen Journal of Medical Sciences"
+      year: 2011
+      url: "https://ajms.alameenmedical.org/article.asp?issn=0974-1143;year=2011;volume=4;issue=2;spage=152;epage=158;aulast=Bhutkar"
+    ref_3:
+      title: "Yoga Sutras des Patanjali"
+      author: "Patanjali"
+      translator: "Verschiedene Übersetzungen verfügbar"
+      estimated_year: "400 n. Chr."
+      url: "https://www.sacred-texts.com/hin/yogasutr.htm"
+      
+whm:
+  practice:
+    name: "Wim-Hof-Methode"
+    description: "Eine von Wim Hof entwickelte Atemtechnik zur Verbesserung des körperlichen und geistigen Wohlbefindens durch kontrollierte Hyperventilation und Atemanhalten."
+    origin: "Entwickelt von Wim Hof"
+
+  references:
+    ref_1:
+      title: "Die Wim-Hof-Methode: Aktiviere dein volles menschliches Potenzial"
+      author: "Wim Hof"
+      year: 2020
+      url: "https://www.wimhofmethod.com/book"
+    ref_2:
+      title: "Freiwillige Aktivierung des sympathischen Nervensystems und Abschwächung der angeborenen Immunantwort beim Menschen"
+      authors: ["Matthijs Kox", "Lucas T. van Eijk", "Jelle Zwaag", "Joanne van den Wildenberg", "Fred C.G.J. Sweep", "Johannes G. van der Hoeven", "Peter Pickkers"]
+      publication: "Proceedings of the National Academy of Sciences"
+      year: 2014
+      url: "https://www.pnas.org/content/111/20/7379"
+    ref_3:
+      title: "Gehirn über Körper: Eine Studie zur willentlichen Regulierung der autonomen Funktion während Kälteexposition"
+      authors: ["Otto Muzik", "Kaice T. Reilly", "Vaibhav A. Diwadkar"]
+      publication: "NeuroImage"
+      year: 2018
+      url: "https://www.sciencedirect.com/science/article/pii/S1053811918300673"
+      

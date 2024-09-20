@@ -1,0 +1,259 @@
+id: "whm_basic"
+name: "whm.practice.name"
+description: "whm.practice.description"
+author: "Wim Hof"
+version: "1.0"
+category: "breathing"
+tags: ["cold exposure", "meditation", "stress relief"]
+origin: "whm.practice.origin"
+difficulty: "difficulty.intermediate"
+duration:
+  average: 12
+  unit: "time.minutes"
+  
+visual:
+  background_image: "/assets/cards/ice_water.webp"
+  background_color: "#6BA7CC"
+  icon: "/assets/icons/snowflake.svg"
+  colors:
+    primary: "#1E88E5"
+    secondary: "#64B5F6"
+    text: "#E3F2FD"
+    title: "#BBDEFB"
+    button: "#2196F3"
+    button_hover: "#1565C0"
+    button_disabled: "#90CAF9"
+    button_text: "#FFFFFF"
+    button_disabled_text: "#1A237E"
+
+practice_structure:
+  rounds:
+    default: 3
+    range: [1, 10]
+    label: "practice.rounds_label"
+  sequences:
+    - id: "breathing_cycle"
+      name: "sequence.breathing_cycle"
+      repeats:
+        default: 30
+        range: [20, 40]
+        label: "practice.breaths_per_cycle"
+      steps:
+        - id: "inhale"
+          name: "step.inhale"
+          instruction: "action.deep_inhale"
+          duration:
+            type: "guided"
+            value: 2
+            unit: "time.seconds"
+          sounds:
+            - "inhale_sound_1"
+            - "inhale_sound_2"
+        - id: "exhale"
+          name: "step.exhale"
+          instruction: "action.let_go"
+          duration:
+            type: "guided"
+            value: 1
+            unit: "time.seconds"
+          sounds:
+            - "exhale_sound_1"
+            - "exhale_sound_2"
+    - id: "retention"
+      name: "sequence.retention"
+      steps:
+        - id: "hold"
+          name: "step.hold"
+          instruction: "action.hold_after_exhale"
+          track_data: true
+          duration:
+            type: "variable"
+            options:
+              - type: "timed"
+                default: 90
+                range: [30, 180]
+                unit: "time.seconds"
+                label: "duration.breath_retention_time"
+              - type: "manual"
+                instruction: "action.hold_as_long"
+                end_trigger: "user_input"
+          sounds:
+            - "retention_ambience_1"
+            - "retention_ambience_2"
+    - id: "recovery_breath"
+      name: "sequence.recovery_breath"
+      steps:
+        - id: "deep_inhale"
+          name: "step.deep_inhale"
+          instruction: "action.deep_inhale_full"
+          duration:
+            type: "guided"
+            value: 2
+            unit: "time.seconds"
+          sounds:
+            - "deep_inhale_sound_1"
+            - "deep_inhale_sound_2"
+        - id: "hold"
+          name: "step.hold"
+          instruction: "action.hold_feel_energy"
+          duration:
+            type: "fixed"
+            value: 15
+            unit: "time.seconds"
+        - id: "exhale"
+          name: "step.exhale"
+          instruction: "action.slow_exhale"
+          duration:
+            type: "guided"
+            value: 3
+            unit: "time.seconds"
+          sounds:
+            - "slow_exhale_sound_1"
+            - "slow_exhale_sound_2"
+
+ui_elements:
+  - id: "round_counter"
+    type: "text"
+    description: "ui.round_counter_desc"
+  - id: "breath_circle"
+    type: "animated_circle"
+    description: "ui.breath_circle_desc"
+  - id: "breath_counter"
+    type: "counter"
+    description: "ui.breath_counter_desc"
+  - id: "timer"
+    type: "timer"
+    description: "ui.timer_desc"
+  - id: "instruction_display"
+    type: "text_display"
+    description: "ui.instruction_display_desc"
+
+user_inputs:
+  - id: "stop_session"
+    name: "input.stop_session"
+    type: "button"
+  - id: "go_back"
+    name: "input.go_back"
+    type: "button"
+  - id: "pause_resume"
+    name: "input.pause_resume"
+    type: "button"
+  - id: "skip"
+    name: "input.skip"
+    type: "button"
+
+
+safety_notes:
+  - "safety.consult_professional"
+  - "safety.stop_if_uncomfortable"
+  - "safety.breathe_normally"
+  - "safety.no_driving"
+  - "safety.no_water"
+
+implementation_notes:
+  - "implementation.smooth_transitions"
+  - "implementation.clear_cues"
+  - "implementation.customization"
+  - "implementation.failsafe"
+  - "implementation.tutorial"
+  - "implementation.voice_options"
+
+benefits:
+  - "benefits.energy"
+  - "benefits.immune"
+  - "benefits.stress"
+  - "benefits.focus"
+  - "benefits.cardiovascular"
+  - "benefits.sleep"
+  - "benefits.willpower"
+
+contraindications:
+  - "contraindications.pregnancy"
+  - "contraindications.epilepsy"
+  - "contraindications.high_blood_pressure"
+  - "contraindications.heart_disease"
+  - "contraindications.migraines"
+  - "contraindications.recent_surgery"
+
+assets:
+  sounds:
+    - id: "inhale_sound_1"
+      file: "inhale_1.mp3"
+    - id: "inhale_sound_2"
+      file: "inhale_2.mp3"
+    - id: "exhale_sound_1"
+      file: "exhale_1.mp3"
+    - id: "exhale_sound_2"
+      file: "exhale_2.mp3"
+    - id: "retention_ambience_1"
+      file: "retention_1.mp3"
+    - id: "retention_ambience_2"
+      file: "retention_2.mp3"
+    - id: "deep_inhale_sound_1"
+      file: "deep_inhale_1.mp3"
+    - id: "deep_inhale_sound_2"
+      file: "deep_inhale_2.mp3"
+    - id: "slow_exhale_sound_1"
+      file: "slow_exhale_1.mp3"
+    - id: "slow_exhale_sound_2"
+      file: "slow_exhale_2.mp3"
+  videos:
+    - id: "technique_tutorial"
+      file: "whm_tutorial.mp4"
+
+customization_options:
+  - id: "breathing_pace"
+    name: "customization.breathing_pace"
+    description: "customization.breathing_pace_desc"
+    type: "slider"
+    range: [0.5, 3]
+    default: 1.5
+    step: 0.1
+    unit: "time.seconds_per_breath"
+  - id: "retention_time_goal"
+    name: "customization.retention_time_goal"
+    description: "customization.retention_time_goal_desc"
+    type: "number"
+    range: [30, 180]
+    default: 90
+    unit: "time.seconds"
+  - id: "audio_volume"
+    name: "customization.audio_volume"
+    description: "customization.audio_volume_desc"
+    type: "slider"
+    range: [0, 1]
+    default: 0.7
+    step: 0.1
+
+data_tracking:
+  - id: "retention_time"
+    name: "tracking.retention_time"
+    description: "tracking.retention_time_desc"
+    unit: "time.seconds"
+  - id: "completed_rounds"
+    name: "tracking.completed_rounds"
+    description: "tracking.completed_rounds_desc"
+    unit: "count"
+  - id: "session_duration"
+    name: "tracking.session_duration"
+    description: "tracking.session_duration_desc"
+    unit: "time.minutes"
+
+references:
+  - key: "whm.references.ref_1"
+    type: "book"
+    title: "The Wim Hof Method"
+    author: "Wim Hof"
+    year: 2020
+  - key: "whm.references.ref_2"
+    type: "scientific_paper"
+    title: "The Effects of Cold Exposure on Leukocytes, Hormones and Cytokines during Acute Exercise in Humans"
+    authors: ["Kox M", "van Eijk LT", "Zwaag J", "van den Wildenberg J", "Sweep FC", "van der Hoeven JG", "Pickkers P"]
+    journal: "PLoS One"
+    year: 2014
+  - key: "whm.references.ref_3"
+    type: "scientific_paper"
+    title: "Voluntary activation of the sympathetic nervous system and attenuation of the innate immune response in humans"
+    authors: ["Kox M", "van Eijk LT", "Zwaag J", "van den Wildenberg J", "Sweep FC", "van der Hoeven JG", "Pickkers P"]
+    journal: "Proceedings of the National Academy of Sciences"
+    year: 2014

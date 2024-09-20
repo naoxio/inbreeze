@@ -1,0 +1,265 @@
+id: "surya_namaskar_basic"
+name: "sn.practice.name"
+description: "sn.practice.description"
+author: "Traditional Yoga"
+version: "1.0"
+category: "yoga"
+tags: ["sun salutation", "vinyasa", "morning practice"]
+origin: "sn.practice.origin"
+difficulty: "difficulty.beginner"
+duration:
+  average: 4
+  unit: "time.minutes"
+
+visual:
+  background_image: "/assets/cards/sunrise.webp"
+  background_color: "#FFA726"
+  icon: "/assets/icons/sun.svg"
+  colors:
+    primary: "#FFB74D"
+    secondary: "#FFCC80"
+    text: "#FFF3E0"
+    title: "#FFE0B2"
+    button: "#FF9800"
+    button_hover: "#FB8C00"
+    button_disabled: "#FFE0B2"
+    button_text: "#FFFFFF"
+    button_disabled_text: "#BF360C"
+
+practice_structure:
+  rounds:
+    default: 3
+    range: [1, 12]
+    label: "sn.practice.rounds_label"
+  sequences:
+    - id: "surya_namaskar"
+      name: "sn.sequence.surya_namaskar"
+      steps:
+        - id: "mountain_pose"
+          name: "sn.step.mountain_pose"
+          instruction: "sn.action.stand_tall"
+          duration:
+            type: "guided"
+            value: 5
+            unit: "time.seconds"
+        - id: "raised_arms_pose"
+          name: "sn.step.raised_arms_pose"
+          instruction: "sn.action.raise_arms"
+          duration:
+            type: "guided"
+            value: 5
+            unit: "time.seconds"
+        - id: "standing_forward_bend"
+          name: "sn.step.standing_forward_bend"
+          instruction: "sn.action.forward_bend"
+          duration:
+            type: "guided"
+            value: 5
+            unit: "time.seconds"
+        - id: "lunge"
+          name: "sn.step.lunge"
+          instruction: "sn.action.step_back"
+          duration:
+            type: "guided"
+            value: 5
+            unit: "time.seconds"
+        - id: "plank_pose"
+          name: "sn.step.plank_pose"
+          instruction: "sn.action.hold_plank"
+          duration:
+            type: "guided"
+            value: 5
+            unit: "time.seconds"
+        - id: "low_plank"
+          name: "sn.step.low_plank"
+          instruction: "sn.action.lower_body"
+          duration:
+            type: "guided"
+            value: 5
+            unit: "time.seconds"
+        - id: "cobra_pose"
+          name: "sn.step.cobra_pose"
+          instruction: "sn.action.lift_chest"
+          duration:
+            type: "guided"
+            value: 5
+            unit: "time.seconds"
+        - id: "downward_facing_dog"
+          name: "sn.step.downward_facing_dog"
+          instruction: "sn.action.push_back"
+          duration:
+            type: "guided"
+            value: 5
+            unit: "time.seconds"
+        - id: "lunge_forward"
+          name: "sn.step.lunge"
+          instruction: "sn.action.step_forward"
+          duration:
+            type: "guided"
+            value: 5
+            unit: "time.seconds"
+        - id: "standing_forward_bend_return"
+          name: "sn.step.standing_forward_bend"
+          instruction: "sn.action.forward_bend"
+          duration:
+            type: "guided"
+            value: 5
+            unit: "time.seconds"
+        - id: "raised_arms_pose_return"
+          name: "sn.step.raised_arms_pose"
+          instruction: "sn.action.raise_arms"
+          duration:
+            type: "guided"
+            value: 5
+            unit: "time.seconds"
+        - id: "mountain_pose_return"
+          name: "sn.step.mountain_pose"
+          instruction: "sn.action.return_to_start"
+          duration:
+            type: "guided"
+            value: 5
+            unit: "time.seconds"
+
+ui_elements:
+  - id: "round_counter"
+    type: "counter"
+    description: "ui.round_counter_desc"
+  - id: "pose_counter"
+    type: "counter"
+    description: "sn.ui.pose_counter_desc"
+  - id: "timer"
+    type: "timer"
+    description: "ui.timer_desc"
+  - id: "instruction_display"
+    type: "text_display"
+    description: "ui.instruction_display_desc"
+  - id: "progress_indicator"
+    type: "progress_bar"
+    description: "ui.progress_indicator_desc"
+  - id: "pose_illustration"
+    type: "image_display"
+    description: "ui.pose_illustration_desc"
+
+user_inputs:
+  - id: "start_exercise"
+    name: "input.start_exercise"
+    type: "button"
+  - id: "pause_exercise"
+    name: "input.pause_exercise"
+    type: "button"
+  - id: "resume_exercise"
+    name: "input.resume_exercise"
+    type: "button"
+  - id: "skip_to_next_pose"
+    name: "input.skip_to_next_pose"
+    type: "button"
+  - id: "adjust_pose_duration"
+    name: "input.adjust_pose_duration"
+    type: "slider"
+
+safety_notes:
+  - "safety.consult_professional"
+  - "safety.stop_if_uncomfortable"
+  - "safety.breathe_steadily"
+  - "safety.listen_to_body"
+  - "safety.warm_up"
+
+implementation_notes:
+  - "implementation.smooth_transitions"
+  - "implementation.clear_cues"
+  - "implementation.customization"
+  - "implementation.failsafe"
+  - "implementation.tutorial"
+  - "sn.implementation.alignment_cues"
+
+benefits:
+  - "benefits.flexibility"
+  - "benefits.strength"
+  - "benefits.balance"
+  - "benefits.energy"
+  - "benefits.circulation"
+  - ".benefits.focus"
+  - "benefits.stress_relief"
+
+contraindications:
+  - "contraindications.pregnancy"
+  - "contraindications.recent_surgery"
+  - "contraindications.wrist_issues"
+  - "contraindications.shoulder_issues"
+  - "contraindications.back_pain"
+  - "contraindications.high_blood_pressure"
+
+assets:
+  images:
+    - id: "mountain_pose"
+      file: "mountain_pose.webp"
+    - id: "raised_arms_pose"
+      file: "raised_arms_pose.webp"
+    - id: "standing_forward_bend"
+      file: "standing_forward_bend.webp"
+    - id: "lunge"
+      file: "lunge.webp"
+    - id: "plank_pose"
+      file: "plank_pose.webp"
+    - id: "low_plank"
+      file: "low_plank.webp"
+    - id: "cobra_pose"
+      file: "cobra_pose.webp"
+    - id: "downward_facing_dog"
+      file: "downward_facing_dog.webp"
+  videos:
+    - id: "surya_namaskar_tutorial"
+      file: "surya_namaskar_tutorial.mp4"
+
+customization_options:
+  - id: "pose_duration"
+    name: "sn.customization.pose_duration"
+    description: "sn.customization.pose_duration_desc"
+    type: "slider"
+    range: [3, 10]
+    default: 5
+    step: 1
+    unit: "time.seconds"
+  - name: "transition_speed"
+    description: "sn.customization.transition_speed_desc"
+    type: "dropdown"
+    options:
+      - "sn.speed.slow"
+      - "sn.speed.medium"
+      - "sn.speed.fast"
+    default: "sn.speed.medium"
+  - name: "audio_guidance"
+    description: "sn.customization.audio_guidance_desc"
+    type: "toggle"
+    default: true
+    
+data_tracking:
+  - id: "completed_rounds"
+    name: "sn.tracking.completed_rounds"
+    description: "sn.tracking.completed_rounds_desc"
+    unit: "count"
+  - id: "session_duration"
+    name: "tracking.session_duration"
+    description: "tracking.session_duration_desc"
+    unit: "time.minutes"
+  - id: "calories_burned"
+    name: "sn.tracking.calories_burned"
+    description: "sn.tracking.calories_burned_desc"
+    unit: "calories"
+
+references:
+  - key: "sn.references.ref_1"
+    type: "book"
+    title: "Title of the book"
+    author: "Author Name"
+    year: 2020
+  - key: "sn.references.ref_2"
+    type: "scientific_paper"
+    title: "Title of the paper"
+    authors: ["Author 1", "Author 2"]
+    journal: "Journal Name"
+    year: 2021
+  - key: "sn.references.ref_3"
+    type: "traditional_text"
+    title: "Title of the text"
+    year: 1900

@@ -1,0 +1,31 @@
+// app.rs
+use dioxus::prelude::*;
+use crate::routes::Route;
+use crate::i18n::set_language;
+use crate::components::splash_screen::SplashScreen;
+
+pub fn change_language(new_language: &str) {
+    if let Err(e) = set_language(new_language) {
+        eprintln!("Failed to set language: {}", e);
+    }
+}
+
+pub fn App() -> Element {
+    let mut show_splash = use_signal(|| true);
+
+    rsx! {
+        style { {include_str!("../assets/styles/main.css")} }
+        style { {include_str!("../assets/styles/module_grid.css")} }
+        style { {include_str!("../assets/styles/splash.css")} }
+        style { {include_str!("../assets/styles/top_nav.css")} }
+        style { {include_str!("../assets/styles/practice.css")} }
+
+        if show_splash() {
+            SplashScreen {
+                on_complete: move |_| show_splash.set(false)
+            }
+        } else {
+            Router::<Route> {}
+        }
+    }
+}

@@ -1,0 +1,48 @@
+:root {
+    --background-color: #0A0C11;
+    --dark-teal: #004d4d;
+    --medium-teal: #006666;
+    --light-teal: #008080;
+    --accent-teal: #00cccc;
+    --text-light: #e6f3f3;
+    --text-dark: #001a1a;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-light);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+button {
+    padding: 0 !important;
+    text-decoration: none;
+}
+
+h1 {
+    color: var(--accent-teal);
+}
+
+a {
+    color: var(--accent-teal);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+.icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+    filter: brightness(0) invert(1);
+    margin-bottom: 5px;
+}

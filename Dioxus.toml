@@ -1,0 +1,25 @@
+[application]
+name = "inbreeze"
+default_platform = "web"
+out_dir = "dist"
+asset_dir = "assets"
+
+[web.app]
+title = "Inner Breeze"
+
+[web.watcher]
+reload_html = true
+watch_path = ["src", "assets"]
+
+# include `assets` in web platform
+[web.resource]
+style = []
+
+# Javascript code file
+script = []
+
+[web.resource.dev]
+
+# Javascript code file
+# serve: [dev-server] only
+script = []

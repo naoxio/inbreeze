@@ -1,0 +1,207 @@
+time:
+  duration: "Duration"
+  hours: "Hours"
+  minutes: "Minutes"
+  seconds: "Seconds"
+  seconds_per_breath: "Seconds per breath"
+
+difficulty:
+  beginner: "Beginner"
+  intermediate: "Intermediate"
+  advanced: "Advanced"
+
+speed:
+  slow: "Slow"
+  medium: "Medium"
+  fast: "Fast"
+  
+ui:
+  round_counter_desc: "Display current round number"
+  breath_counter_desc: "Display current breath number within breathing cycle"
+  timer_desc: "Display countdown for timed durations"
+  instruction_display_desc: "Show current action instruction"
+  progress_indicator_desc: "Visual representation of progress through each phase"
+  breath_circle_desc: "Animated circle guiding breath pace"
+  retention_time_display_desc: "Show retention time achieved in each round"
+  pose_counter_desc: "Display current pose number within the sequence"
+  pose_illustration_desc: "Show visual representation of current pose"
+
+input:
+  start_exercise: "Begin the exercise"
+  end_retention: "End the retention phase"
+  pause_exercise: "Pause the exercise"
+  resume_exercise: "Resume the exercise"
+  skip_to_next_phase: "Skip to next phase"
+  adjust_breath_pace: "Adjust breath pace"
+  skip_to_next_pose: "Skip to the next pose in the sequence"
+  adjust_pose_duration: "Adjust the duration of each pose"
+
+safety:
+  consult_professional: "Consult with a healthcare professional before starting, especially if you have any medical conditions"
+  stop_if_uncomfortable: "Stop if you feel dizzy, nauseous, or excessively uncomfortable"
+  breathe_normally: "Breathe normally if you experience tingling sensations or light-headedness"
+  no_driving: "Do not practice while driving"
+  no_water: "Do not practice in water"
+  breathe_steadily: "Maintain steady, even breathing throughout the practice"
+  listen_to_body: "Listen to your body and modify poses as needed"
+  warm_up: "Perform a gentle warm-up before beginning the sequence"
+
+implementation:
+  smooth_transitions: "Ensure smooth transitions between phases"
+  clear_cues: "Provide clear visual and audio cues for each action"
+  customization: "Allow users to customize settings before starting"
+  failsafe: "Implement a fail-safe mechanism to prevent excessive durations"
+  tutorial: "Include an optional tutorial for first-time users"
+  voice_options: "Provide options for different voice guidances"
+  alignment_cues: "Provide clear alignment cues for each pose"
+
+customization:
+  breathing_pace: "Breathing Pace"
+  breathing_pace_desc: "Adjust breathing pace"
+  audio_volume: "Audio Volume"
+  audio_volume_desc: "Adjust audio volume"
+  retention_time_goal: "Retention Time Goal"
+  retention_time_goal_desc: "Set a target time for breath retention"
+  pose_duration_desc: "Set the duration for holding each pose"
+  transition_speed_desc: "Adjust the speed of transitions between poses"
+  audio_guidance_desc: "Enable or disable audio instructions"
+
+tracking:
+  session_duration: "Session Duration"
+  session_duration_desc: "Total duration of each practice session"
+  retention_time: "Retention Time"
+  retention_time_desc: "Track breath retention time for each round"
+  completed_rounds: "Completed Rounds"
+  completed_rounds_desc: "Number of completed rounds in each session"
+
+contraindications:
+  pregnancy: "Pregnancy"
+  epilepsy: "Epilepsy"
+  high_blood_pressure: "High blood pressure (uncontrolled)"
+  heart_disease: "History of heart disease"
+  migraines: "Severe migraines"
+  recent_surgery: "Recent major surgery"
+  wrist_issues: "Wrist pain or injuries"
+  shoulder_issues: "Shoulder pain or injuries"
+  back_pain: "Acute or severe back pain"
+
+practice:
+  get_ready: "Get Ready"
+  round: "Round"
+  rounds_label: "Number of Rounds"
+  breaths_per_cycle: "Number of Breaths per Cycle"
+
+phase:
+  breathing_cycle: "Breathing Cycle"
+  retention: "Retention"
+  recovery_breath: "Recovery Breath"
+
+step:
+  inhale: "Inhale"
+  exhale: "Exhale"
+  hold: "Hold"
+  deep_inhale: "Deep Inhale"
+
+action:
+  deep_inhale: "Deep breath in, filling your belly, then chest"
+  let_go: "Let breath go, without forcing"
+  hold_after_exhale: "Hold breath after final exhale"
+  hold_as_long: "Hold as long as comfortable"
+  deep_inhale_full: "Deep breath in, filling your belly and chest completely"
+  hold_feel_energy: "Hold breath, feeling the energy spread through your body"
+  slow_exhale: "Slowly release breath"
+
+duration:
+  breath_retention_time: "Breath Retention Time"
+
+benefits:
+  energy: "Increased energy levels and vitality"
+  immune: "Improved immune function and resilience"
+  stress: "Reduced stress, anxiety, and depression"
+  focus: "Enhanced focus and mental clarity"
+  cardiovascular: "Improved cardiovascular health"
+  sleep: "Better sleep quality"
+  willpower: "Increased willpower and determination"
+  flexibility: "Improved flexibility and range of motion"
+  strength: "Increased overall body strength"
+  balance: "Enhanced balance and coordination"
+  circulation: "Improved blood circulation"
+  stress_relief: "Reduced stress and tension"
+
+# Sun Salutation Specific translations
+sn:
+
+  phase:
+    surya_namaskar: "Sun Salutation Sequence"
+  practice:
+    name: "Sun Salutation"
+    description: "A sequence of yoga poses that flow together, traditionally performed at sunrise to greet the new day and energize the body and mind."
+    origin: "Ancient Indian yoga tradition"
+  step:
+    mountain_pose: "Mountain Pose (Tadasana)"
+    raised_arms_pose: "Raised Arms Pose (Urdhva Hastasana)"
+    standing_forward_bend: "Standing Forward Bend (Uttanasana)"
+    lunge: "Lunge (Anjaneyasana)"
+    plank_pose: "Plank Pose (Phalakasana)"
+    low_plank: "Low Plank (Chaturanga Dandasana)"
+    cobra_pose: "Cobra Pose (Bhujangasana)"
+    downward_facing_dog: "Downward Facing Dog (Adho Mukha Svanasana)"
+
+  action:
+    stand_tall: "Stand tall, feet together, hands at heart center"
+    raise_arms: "Inhale, raise arms overhead, gently arch back"
+    forward_bend: "Exhale, fold forward, bringing hands to feet"
+    step_back: "Inhale, step right foot back into a lunge"
+    hold_plank: "Exhale, step left foot back to plank position"
+    lower_body: "Lower body to the ground, keeping elbows close to sides"
+    lift_chest: "Inhale, lift chest into cobra pose"
+    push_back: "Exhale, push back into downward facing dog"
+    step_forward: "Inhale, step right foot forward into a lunge"
+    return_to_start: "Exhale, bring feet together, return to mountain pose"
+
+  references:
+    ref_1:
+      title: "Light on Yoga"
+      author: "B.K.S. Iyengar"
+      year: 1966
+      url: "https://www.goodreads.com/book/show/217363.Light_on_Yoga"
+    ref_2:
+      title: "Effects of Surya Namaskar on cardiovascular and respiratory parameters in college students"
+      authors: ["Bhutkar", "Bhutkar", "Taware", "Doijad", "Doddamani"]
+      publication: "Al Ameen Journal of Medical Sciences"
+      year: 2011
+      url: "https://ajms.alameenmedical.org/article.asp?issn=0974-1143;year=2011;volume=4;issue=2;spage=152;epage=158;aulast=Bhutkar"
+    ref_3:
+      title: "Yoga Sutras of Patanjali"
+      author: "Patanjali"
+      translator: "Various translations available"
+      estimated_year: "400 CE"
+      url: "https://www.sacred-texts.com/hin/yogasutr.htm"
+# WHM-specific translations
+whm:
+  practice:
+    name: "Wim Hof Method"
+    description: "A breathing technique developed by Wim Hof to improve physical and mental well-being through controlled hyperventilation and breath retention."
+    origin: "Developed by Wim Hof"
+
+  references:
+    ref_1:
+      title: "The Wim Hof Method: Activate Your Full Human Potential"
+      author: "Wim Hof"
+      year: 2020
+      url: "https://www.wimhofmethod.com/book"
+    ref_2:
+      title: "Voluntary activation of the sympathetic nervous system and attenuation of the innate immune response in humans"
+      authors: ["Matthijs Kox", "Lucas T. van Eijk", "Jelle Zwaag", "Joanne van den Wildenberg", "Fred C.G.J. Sweep", "Johannes G. van der Hoeven", "Peter Pickkers"]
+      publication: "Proceedings of the National Academy of Sciences"
+      year: 2014
+      url: "https://www.pnas.org/content/111/20/7379"
+    ref_3:
+      title: "Brain over body: A study on the willful regulation of autonomic function during cold exposure"
+      authors: ["Otto Muzik", "Kaice T. Reilly", "Vaibhav A. Diwadkar"]
+      publication: "NeuroImage"
+      year: 2018
+      url: "https://www.sciencedirect.com/science/article/pii/S1053811918300673"
+
+
+
