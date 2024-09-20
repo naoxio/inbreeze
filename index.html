@@ -184,11 +184,11 @@
             <div class="app-card">
                 <h3>Android</h3>
                 <a href="https://f-droid.org/packages/io.naox.inbe" class="button">F-Droid</a>
-                <a href="https://github.com/naoxio/inner_breeze/releases/download/latest/InnerBreeze.apk" class="button">Download APK</a>
+                <a href="https://github.com/naoxio/inbreeze/releases/download/latest/InnerBreeze.apk" class="button">Download APK</a>
             </div>
             <div class="app-card">
                 <h3>Linux</h3>
-                <a href="https://github.com/naoxio/inner_breeze/releases/download/latest/InnerBreeze-x86_64.AppImage" class="button">AppImage</a>
+                <a href="https://github.com/naoxio/inbreeze/releases/download/latest/InnerBreeze-x86_64.AppImage" class="button">AppImage</a>
                 <a href="https://flathub.org/apps/io.naox.InnerBreeze" class="button">Flathub</a>
                 <a href="https://snapcraft.io/inner-breeze" class="button">Snap Store</a>
             </div>
@@ -208,10 +208,33 @@
         </section>
     </main>
 
+    <style>
+        /* Add this to your existing styles */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .social-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+    
     <footer>
-        <p>© 2024 <a href="https://naox.io">NaoX</a> | Empowering Inner Peace Through Technology</p>
+        <p>© 2024 <a href="https://naox.io">NaoX</a></p>
+        <div class="social-links">
+            <a href="https://t.me/inner_breeze" target="_blank">Telegram</a>
+            <a href="https://x.com/inner_breeze" target="_blank">X</a>
+            <a href="https://github.com/naoxio/inbreeze" target="_blank">GitHub</a>
+        </div>
     </footer>
-
+    
     <script>
         // Animate the hero section
         anime({
