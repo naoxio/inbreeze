@@ -1,87 +1,237 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Find serenity in every breath with Inner Breeze. This app guides you through the Wim Hof Breathing Method with ease.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inner Breeze - Inner Peace Through Breath</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2292b1;
+            --background-color: #0A0C11;
+            --text-color: #ffffff;
+            --secondary-color: #1b3385;
+            --accent-color: #4CAF50;
+        }
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Inner Breeze">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
 
-  <!-- Social Media Preview Tags -->
-  <meta property="og:title" content="Inner Breeze">
-  <meta property="og:description" content="Find serenity in every breath with Inner Breeze. This app guides you through the Wim Hof Breathing Method with ease.">
-  <meta property="og:image" content="/social-logo.jpg">
-  <meta property="og:url" content="https://inner-breeze.app">
-  <meta property="og:type" content="website">
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Inner Breeze">
-  <meta name="twitter:description" content="Find serenity in every breath with Inner Breeze. This app guides you through the Wim Hof Breathing Method with ease.">
-  <meta name="twitter:image" content="/social_logo.jpg">
+        header {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
 
-  <title>Inner Breeze</title>
-  <link rel="manifest" href="manifest.json">
+        a:hover {
+            color: var(--secondary-color);
+        }
 
-  <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-container img {
+            width: 80px;
+            height: 80px;
+            margin-right: 1rem;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+
+        .title-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .tagline {
+            margin: 0;
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .version {
+            font-size: 1rem;
+            color: var(--accent-color);
+            margin-top: 0.5rem;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .app-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.1);
+        }
+
+        .app-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin: 0.5rem;
+            font-weight: 600;
+        }
+
+        .button:hover {
+            background-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        #donate {
+            margin-top: 4rem;
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .donation-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <img src="/icons/icon-192.png" alt="Inner Breeze Logo" class="logo">
-    <h1>Inner Breeze</h1>
-    <p>Find serenity in every breath with Inner Breeze. This app guides you through the Wim Hof Breathing Method with ease.</p>
-    <div class="apps">
-      <h2>Available On</h2>
-      <section>
-        <a href="https://web.inner-breeze.app">
-          <img src="/docs/web-app.png" alt="Web App">
-        </a>
-      </section>
-      <section>
-        <h3>Android</h3>
-        <a href="https://f-droid.org/packages/io.naox.inbe">
-          <img src="/docs/get-it-on.png" alt="F-droid">
-        </a>
-        <a href="https://github.com/naoxio/inner_breeze/releases/download/latest/InnerBreeze.apk">
-          <img src="/docs/get-apk.png" alt="APK">
-        </a>
-      </section>
-      <section>
-        <h3>Linux</h3>
-        <a href="https://github.com/naoxio/inner_breeze/releases/download/latest/InnerBreeze-x86_64.AppImage">
-          <img src="/docs/appimage.png" alt="AppImage">
-        </a>
-        <a href="https://flathub.org/apps/io.naox.InnerBreeze">
-          <img src="/docs/flathub-badge-en.png" alt="Flathub">
-        </a>
-        <a href="https://snapcraft.io/inner-breeze">
-          <img src="/docs/snapcraft.png" alt="Snapcraft">
-        </a>
-      </section>
-    </div>
-    <div class="social-icons">
-      <a href="https://github.com/naoxio/inner_breeze" target="_blank" rel="noopener noreferrer">
-          <img src="/icons/github.png" alt="X">
-      </a>
-      <a href="https://t.me/naoxio/78" target="_blank" rel="noopener noreferrer">
-          <img src="/icons/telegram.png" alt="Telegram">
-      </a>
-      <a href="https://x.com/naox_io" target="_blank" rel="noopener noreferrer">
-          <img src="/icons/x.png" alt="X">
-      </a>
-    </div>
+    <header>
+        <div class="logo-container">
+            <img src="/assets/inbreeze.webp" alt="Inner Breeze Logo">
+            <div class="title-container">
+                <h1>InBreeze</h1>
+                <p class="tagline">Inner Breeze for Inner Peace</p>
+                <p class="version">Stable Version: v1.3.3</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Breathe Your Way to Serenity</h2>
+            <p>Discover the power of the Wim Hof Breathing Method with Inner Breeze. Experience tranquility in every breath.</p>
+        </section>
+
+        <section class="app-grid">
+            <div class="app-card">
+                <h3>Web App</h3>
+                <a href="https://v1.inbreeze.xyz/#/" class="button">Launch Now</a>
+            </div>
+            <div class="app-card">
+                <h3>Android</h3>
+                <a href="https://f-droid.org/packages/io.naox.inbe" class="button">F-Droid</a>
+                <a href="https://github.com/naoxio/inner_breeze/releases/download/latest/InnerBreeze.apk" class="button">Download APK</a>
+            </div>
+            <div class="app-card">
+                <h3>Linux</h3>
+                <a href="https://github.com/naoxio/inner_breeze/releases/download/latest/InnerBreeze-x86_64.AppImage" class="button">AppImage</a>
+                <a href="https://flathub.org/apps/io.naox.InnerBreeze" class="button">Flathub</a>
+                <a href="https://snapcraft.io/inner-breeze" class="button">Snap Store</a>
+            </div>
+        </section>
+
+        <section id="donate">
+            <h2>Support Inner Breeze</h2>
+            <p>Your donation helps us continue developing and improving Inner Breeze for everyone.</p>
+            <details>
+                <summary>View Donation Options</summary>
+                <div class="donation-options">
+                    <iframe src="https://trocador.app/anonpay/?ticker_to=xmr&network_to=Mainnet&address=44wpiLs2XqtJ8fQhMtdYgWSQDWdNbAsdMGpJ5PBaftFHAiViUYCUVHU5aN8e8hMQyWjXFZrPDge2yek22RMbaqu12xXqzLG&donation=True&amount=0.1&name=Inner+Breeze&description=Thank+you+for+supporting+Inner+Breeze%21&email=waotzi@proton.me&ticker_from=xmr&network_from=Mainnet&buttonbgcolor=27355e&bgcolor=" width="310" height="350" style="border:0" scrolling="no"></iframe>
+                    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+                    <stripe-buy-button buy-button-id="buy_btn_1P9BKtDfOnP3YLAAG0tchOpX" publishable-key="pk_live_51P6F2VDfOnP3YLAAwIHcNMaNIANBXbcNQABsTVhMrp4En4IOP2vqFF7ktJ07SVkYvi5nsd1iSgpIsVi9xN7YHdeb0020C1GvNV"></stripe-buy-button>
+                </div>
+            </details>
+        </section>
+    </main>
+
     <footer>
-      <a href="https://naox.io">NaoX</a> © 2024 - <a href="/privacy-policy">Privacy Policy</a>
+        <p>© 2024 <a href="https://naox.io">NaoX</a> | Empowering Inner Peace Through Technology</p>
     </footer>
-  
-  </div>
+
+    <script>
+        // Animate the hero section
+        anime({
+            targets: '.hero h2, .hero p',
+            translateY: [50, 0],
+            opacity: [0, 1],
+            duration: 1200,
+            easing: 'easeOutExpo',
+            delay: anime.stagger(200)
+        });
+
+        // Animate the app cards
+        anime({
+            targets: '.app-card',
+            scale: [0.9, 1],
+            opacity: [0, 1],
+            duration: 1000,
+            easing: 'easeOutElastic(1, .8)',
+            delay: anime.stagger(100)
+        });
+    </script>
 </body>
-</html>
+</html>1

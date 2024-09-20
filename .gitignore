@@ -8,3 +8,8 @@ build
 linux
 windows
 metadata
+.dart*
+.fvm
+dist/
+target
+.idea
