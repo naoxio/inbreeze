@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 
 // Conditionally import dart:html
-import 'dart:async';
 import 'package:universal_html/html.dart' if (dart.library.html) 'dart:html'
     as html;
 

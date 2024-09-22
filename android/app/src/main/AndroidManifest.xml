@@ -13,7 +13,7 @@
     
     <application
         android:label="Inner Breeze"
-        android:name="${applicationName}"
+        android:name="androidx.multidex.MultiDexApplication"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

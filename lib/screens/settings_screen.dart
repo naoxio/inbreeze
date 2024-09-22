@@ -15,7 +15,8 @@ import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/models/preferences.dart';
 import 'package:intl/intl.dart';
-import 'package:document_file_save_plus/document_file_save_plus.dart';
+import 'package:file_saver/file_saver.dart';
+
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:http/http.dart' as http;
 
@@ -167,8 +168,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _exportData() async {
-    final DocumentFileSavePlus fileSaver = DocumentFileSavePlus();
-
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final data = await userProvider.getAllData();
     final jsonString = jsonEncode(data);
@@ -177,8 +176,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
       String formattedDate =
           DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
       String fileName = 'InnerBreeze_$formattedDate.json';
-      Uint8List textBytes = Uint8List.fromList(jsonString.codeUnits);
-      await fileSaver.saveFile(textBytes, fileName, "application/json");
+      Uint8List bytes = Uint8List.fromList(utf8.encode(jsonString));
+
+      await FileSaver.instance.saveFile(
+        name: fileName,
+        bytes: bytes,
+        ext: 'json',
+        mimeType: MimeType.json,
+      );
+
       _showSnackBar('data_exported_success'.i18n() + fileName);
     } catch (e) {
       _showSnackBar('error_exporting_data'.i18n() + e.toString());
