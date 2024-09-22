@@ -64,7 +64,7 @@ jobs:
       run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/InnerBreeze.apk
 
     - name: Upload APKs as Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: apk-artifacts
         path: |
@@ -171,7 +171,7 @@ jobs:
         tar -czf ../InnerBreeze-Linux-x86_64.tar.gz InnerBreeze-x86_64/
   
     - name: Upload Linux Artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: linux-artifacts
         path: |
