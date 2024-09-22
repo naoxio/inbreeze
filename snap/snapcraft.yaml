@@ -1,0 +1,30 @@
+name: inner-breeze
+adopt-info: inner-breeze
+
+version: '1.3.2'
+license: MIT
+grade: stable
+base: core20
+confinement: strict
+icon: snap/gui/io.naox.InnerBreeze.png
+
+apps:
+  inner-breeze:
+    command: inner_breeze
+    common-id: io.naox.InnerBreeze
+    extensions: [gnome]
+    plugs:
+      - network
+
+parts:
+  inner-breeze:
+    source: .
+    plugin: flutter
+    flutter-target: lib/main.dart    
+    parse-info: [metadata/io.naox.InnerBreeze.metainfo.xml]
+
+  metainfo:
+    source: .
+    plugin: dump
+    organize:
+      metainfo.xml: metadata/io.naox.InnerBreeze.metainfo.xml
