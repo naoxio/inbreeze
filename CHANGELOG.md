@@ -1,4 +1,7 @@
 # Changelog
+## [1.3.4] - 2024-09-22
+- Fix flathub build
+
 ## [1.3.3] - 2024-07-22
 - Improve tempo slider
 
