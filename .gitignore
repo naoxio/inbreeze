@@ -3,7 +3,6 @@
 *~
 ios
 macos
-android
 build
 linux
 windows
@@ -13,3 +12,4 @@ metadata
 dist/
 target
 .idea
+android/
