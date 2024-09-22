@@ -51,4 +51,7 @@ android/.env
 *.snap
 
 # FVM Version Cache
-.fvm/
+dist
+target
+.fvm
+!.fvm/fvm_config.json
