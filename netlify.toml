@@ -1,3 +1,0 @@
-[build]
-  command = ".flutter/bin/flutter build web --release"
-  publish = "build/web"

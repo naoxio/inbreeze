@@ -24,4 +24,4 @@ Join us and share your ideas:
 - [Telegram](https://t.me/inner_breeze)
 - [Twitter](https://twitter.com/inner_breeze)
 
-For downloads and more, visit our website: [inner-breeze.app](https://inner-breeze.app)
+For downloads and more, visit our website: [inbreeze.xyz](https://inbreeze.xyz)
