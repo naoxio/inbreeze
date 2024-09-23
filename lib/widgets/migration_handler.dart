@@ -12,6 +12,14 @@ class MigrationHandler extends StatefulWidget {
   @override
   _MigrationHandlerState createState() => _MigrationHandlerState();
 }
+class MigrationHandler extends StatefulWidget {
+  final String? data;
+  
+  const MigrationHandler({Key? key, this.data}) : super(key: key);
+
+  @override
+  _MigrationHandlerState createState() => _MigrationHandlerState();
+}
 
 class _MigrationHandlerState extends State<MigrationHandler> {
   bool _showBanner = false;
@@ -20,65 +28,63 @@ class _MigrationHandlerState extends State<MigrationHandler> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _handleMigration();
-    });
+    if (widget.data != null) {
+      _handleMigration(widget.data!);
+    }
   }
 
-  void _handleMigration() async {
-    if (kIsWeb) {
-      try {
-        final uri = Uri.parse(html.window.location.href);
-        final compressedData = uri.queryParameters['data'];
-        if (compressedData != null) {
-          setState(() {
-            _showBanner = true;
-            _message = 'Migrating data...';
-          });
-          
-          final userProvider = Provider.of<UserProvider>(context, listen: false);
-          await userProvider.importCompressedData(compressedData);
-          
-          setState(() {
-            _message = 'Data migration completed successfully!';
-          });
-          
-          html.window.history.pushState(null, '', '/');
-          
-          // Hide the banner after a delay
-          Future.delayed(Duration(seconds: 3), () {
-            setState(() {
-              _showBanner = false;
-            });
-          });
-        }
-      } catch (e, stackTrace) {
-        print('Error during web migration: $e');
-        print('Stack trace: $stackTrace');
-        setState(() {
-          _showBanner = true;
-          _message = 'Error during data migration: ${e.toString()}';
-        });
-      }
+  void _handleMigration(String compressedData) async {
+    setState(() {
+      _showBanner = true;
+      _message = 'Migrating data...';
+    });
+
+    try {
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      await userProvider.importCompressedData(compressedData);
+      
+      setState(() {
+        _message = 'Data migration completed successfully!';
+      });
+      
+      // Redirect to home page after successful migration
+      Future.delayed(Duration(seconds: 2), () {
+        context.go('/home');
+      });
+    } catch (e) {
+      print('Error during migration: $e');
+      setState(() {
+        _message = 'Error during data migration: ${e.toString()}';
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!_showBanner) return SizedBox.shrink();
-
-    return Container(
-      width: double.infinity,
-      color: Colors.orange[900], // Dark orange background
-      child: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          child: Text(
-            _message,
-            style: TextStyle(color: Colors.white),
-            textAlign: TextAlign.center,
+    return Scaffold(
+      body: Stack(
+        children: [
+          Center(
+            child: Text('Migrating data...'),
           ),
-        ),
+          if (_showBanner)
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                color: Colors.orange[900],
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                child: SafeArea(
+                  child: Text(
+                    _message,
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }

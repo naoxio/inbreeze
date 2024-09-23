@@ -377,6 +377,6 @@ class UserProvider with ChangeNotifier {
   }
   String generateMigrationUrl() {
     final compressedData = compressUserData();
-    return 'https://v1.inbreeze.xyz/migrate?data=$compressedData';
+    return 'https://v1.inbreeze.xyz/#/migrate?data=$compressedData';
   }
 }

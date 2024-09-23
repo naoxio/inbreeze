@@ -17,6 +17,14 @@ final router = GoRouter(
       path: '/',
       builder: (context, state) => MigrationWrapper(child: SplashScreen()),
     ),
+
+    GoRoute(
+      path: '/migrate',
+      builder: (context, state) {
+        final data = state.queryParameters['data'];
+        return MigrationHandler(data: data);
+      },
+    ),
     GoRoute(
       path: '/home',
       builder: (context, state) => MigrationWrapper(child: TitleScreen()),
@@ -55,16 +63,10 @@ final router = GoRouter(
 
 class MigrationWrapper extends StatelessWidget {
   final Widget child;
-
   const MigrationWrapper({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        child,
-        MigrationHandler(),
-      ],
-    );
+    return child;
   }
 }
