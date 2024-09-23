@@ -14,6 +14,9 @@ class MigrationHandler extends StatefulWidget {
 }
 
 class _MigrationHandlerState extends State<MigrationHandler> {
+  bool _showBanner = false;
+  String _message = '';
+
   @override
   void initState() {
     super.initState();
@@ -23,34 +26,60 @@ class _MigrationHandlerState extends State<MigrationHandler> {
   }
 
   void _handleMigration() async {
-    // Check if running on the web
     if (kIsWeb) {
       try {
         final uri = Uri.parse(html.window.location.href);
         final compressedData = uri.queryParameters['data'];
         if (compressedData != null) {
-          final userProvider =
-              Provider.of<UserProvider>(context, listen: false);
+          setState(() {
+            _showBanner = true;
+            _message = 'Migrating data...';
+          });
+          
+          final userProvider = Provider.of<UserProvider>(context, listen: false);
           await userProvider.importCompressedData(compressedData);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Data migration completed successfully!')),
-          );
+          
+          setState(() {
+            _message = 'Data migration completed successfully!';
+          });
+          
           html.window.history.pushState(null, '', '/');
+          
+          // Hide the banner after a delay
+          Future.delayed(Duration(seconds: 3), () {
+            setState(() {
+              _showBanner = false;
+            });
+          });
         }
-      } catch (e) {
+      } catch (e, stackTrace) {
         print('Error during web migration: $e');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error during data migration')),
-        );
+        print('Stack trace: $stackTrace');
+        setState(() {
+          _showBanner = true;
+          _message = 'Error during data migration: ${e.toString()}';
+        });
       }
-    } else {
-      // Handle non-web scenarios, if necessary
-      print('Migration logic is only for web.');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.shrink(); // Empty widget
+    if (!_showBanner) return SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      color: Colors.orange[900], // Dark orange background
+      child: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          child: Text(
+            _message,
+            style: TextStyle(color: Colors.white),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    );
   }
 }
