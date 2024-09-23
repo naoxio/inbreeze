@@ -131,16 +131,16 @@ jobs:
     - name: Build Linux Executable
       run: |
         flutter build linux --release
-
+        
     - name: Create AppImage
       run: |
         sudo apt-get update
         sudo apt-get install -y libfuse2
-  
+
         # Download appimagetool from GitHub
         wget "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
         chmod a+x appimagetool-x86_64.AppImage
-       
+
         # Make Appdir
         cp -r build/linux/x64/release/bundle InnerBreeze.AppDir
 
@@ -148,24 +148,30 @@ jobs:
         echo -e '#!/bin/bash\ncurrent_dir="$(dirname "$(readlink -f "$0")")"\n"$current_dir/inner_breeze"' > InnerBreeze.AppDir/AppRun
         chmod +x InnerBreeze.AppDir/AppRun
 
-        cat > InnerBreeze.AppDir/InnerBreeze.desktop <<EOF
-        [Desktop Entry]
-        Type=Application
-        Name=Inner Breeze
-        Comment=A meditation app to guide and track your Wim Hof Breathing practice.
-        Exec=AppRun
-        Icon=InnerBreeze
-        Terminal=false
-        Version=1.5
-        Categories=Utility;Education;
-        Keywords=Meditation;Breathing;Relaxation;Focus;Wellness;
-        StartupNotify=true
-        EOF
+        # Copy the existing desktop file
+        cp snap/gui/io.naox.InnerBreeze.desktop InnerBreeze.AppDir/InnerBreeze.desktop
 
+        # Copy the icon
         cp InnerBreeze.AppDir/data/flutter_assets/assets/images/logo.png InnerBreeze.AppDir/InnerBreeze.png
 
+        # Debug output
+        echo "Contents of InnerBreeze.AppDir:"
+        ls -R InnerBreeze.AppDir
+
         ./appimagetool-x86_64.AppImage InnerBreeze.AppDir
-      
+
+        # Debug output
+        echo "Contents of current directory:"
+        ls -l
+
+        # Verify AppImage creation
+        if [ -f InnerBreeze-x86_64.AppImage ]; then
+          echo "AppImage created successfully"
+        else
+          echo "AppImage creation failed"
+          exit 1
+        fi
+        
     - name: Archive Linux executable
       run: |
         mkdir -p organized_output/InnerBreeze-x86_64/
