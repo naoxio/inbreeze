@@ -1,4 +1,7 @@
 # Changelog
+## [1.3.5] - 2024-09-23
+- Bug fixes
+
 ## [1.3.4] - 2024-09-22
 - Fix flathub build
 
