@@ -8,6 +8,6 @@ Exec=inner_breeze
 Icon=io.naox.InnerBreeze
 Terminal=false
 Version=1.5
-Categories=Utility;Education;
+Categories=Utility;
 Keywords=Meditation;Breathing;Relaxation;Focus;Wellness;
 StartupNotify=true
