@@ -7,11 +7,6 @@ import 'package:flutter/foundation.dart';
 import 'dart:async';
 import 'package:universal_html/html.dart' if (dart.library.html) 'dart:html'
     as html;
-
-class MigrationHandler extends StatefulWidget {
-  @override
-  _MigrationHandlerState createState() => _MigrationHandlerState();
-}
 class MigrationHandler extends StatefulWidget {
   final String? data;
   
@@ -47,7 +42,7 @@ class _MigrationHandlerState extends State<MigrationHandler> {
         _message = 'Data migration completed successfully!';
       });
       
-      // Redirect to home page after successful migration
+      // Delay navigation to show success message
       Future.delayed(Duration(seconds: 2), () {
         context.go('/home');
       });
