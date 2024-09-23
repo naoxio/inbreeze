@@ -157,6 +157,7 @@ jobs:
         ls -R InnerBreeze.AppDir
 
         ./appimagetool-x86_64.AppImage InnerBreeze.AppDir
+        mv Inner_Breeze-x86_64.AppImage InnerBreeze-x86_64.AppImage
 
         # Debug output
         echo "Contents of current directory:"
