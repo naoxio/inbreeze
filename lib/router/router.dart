@@ -21,7 +21,7 @@ final router = GoRouter(
     GoRoute(
       path: '/migrate',
       builder: (context, state) {
-        final data = state.queryParameters['data'];
+        final data = state.uri.queryParameters['data'];
         return MigrationHandler(data: data);
       },
     ),
