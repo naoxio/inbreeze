@@ -351,32 +351,4 @@ class UserProvider with ChangeNotifier {
 
     return sessions;
   }
-
-  String compressUserData() {
-    try {
-      final allData = getAllData();
-      final jsonString = jsonEncode(allData);
-      final compressedBytes = gzip.encode(utf8.encode(jsonString));
-      return base64Url.encode(compressedBytes);
-    } catch (e) {
-      print('Error in compressUserData: $e');
-      return '';
-    }
-  }
-
-  Future<void> importCompressedData(String compressedData) async {
-    try {
-      final compressedBytes = base64Url.decode(compressedData);
-      final jsonString = utf8.decode(gzip.decode(compressedBytes));
-      final decodedData = jsonDecode(jsonString);
-      await importData(decodedData);
-    } catch (e) {
-      print('Error in importCompressedData: $e');
-      throw Exception('Failed to import compressed data: $e');
-    }
-  }
-  String generateMigrationUrl() {
-    final compressedData = compressUserData();
-    return 'https://v1.inbreeze.xyz/#/migrate?data=$compressedData';
-  }
 }
