@@ -171,7 +171,8 @@ jobs:
         mkdir -p organized_output/InnerBreeze-x86_64/
         mv build/linux/x64/release/bundle/* organized_output/InnerBreeze-x86_64/
         cp -r metadata organized_output/InnerBreeze-x86_64/
-        
+        cp -r snap organized_output/InnerBreeze-x86_64/
+
         cd organized_output
     
         tar -czf ../InnerBreeze-Linux-x86_64.tar.gz InnerBreeze-x86_64/
