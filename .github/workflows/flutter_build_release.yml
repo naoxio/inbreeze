@@ -131,7 +131,7 @@ jobs:
     - name: Build Linux Executable
       run: |
         flutter build linux --release
-        
+
     - name: Create AppImage
       run: |
         sudo apt-get update
@@ -150,9 +150,7 @@ jobs:
 
         # Copy the existing desktop file
         cp snap/gui/io.naox.InnerBreeze.desktop InnerBreeze.AppDir/InnerBreeze.desktop
-
-        # Copy the icon
-        cp InnerBreeze.AppDir/data/flutter_assets/assets/images/logo.png InnerBreeze.AppDir/InnerBreeze.png
+        cp snap/gui/io.naox.InnerBreeze.png InnerBreeze.AppDir/io.naox.InnerBreeze.png
 
         # Debug output
         echo "Contents of InnerBreeze.AppDir:"
