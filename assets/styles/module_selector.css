@@ -1,27 +1,60 @@
 .module-selector {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 20px;
 }
 
-.module-selector-toggle {
-    background: none;
-    border: none;
+.module-title {
+    font-size: 1.8rem; /* Reduced from 2.5rem */
+    font-weight: bold;
     color: var(--text-primary);
     cursor: pointer;
+    margin-bottom: 10px;
+    text-align: left; /* Changed from center */
+    padding: 10px 15px;
+    border: 2px solid var(--accent-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.module-title::after {
+    content: '▼';
     font-size: 1rem;
-    padding: 5px 10px;
+    transition: transform 0.3s ease;
+    margin-left: 10px; /* Add some space between text and arrow */
+}
+
+.module-title:hover {
+    background-color: rgba(0, 204, 204, 0.1);
+}
+
+.module-title.open::after {
+    transform: rotate(180deg);
 }
 
 .module-options {
-    position: absolute;
-    top: 100%;
+    position: absolute; /* Make it position absolutely */
+    top: 100%; /* Position it right below the title */
+    left: 0;
     right: 0;
     background-color: var(--background-color);
-    border: 1px solid var(--text-primary);
-    border-radius: 5px;
+    border: 2px solid var(--accent-color);
+    border-radius: 8px;
     overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 10; /* Ensure it appears above other content */
+}
+
+.module-options.open {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 5px;
 }
 
 .module-options button {
@@ -33,6 +66,8 @@
     text-align: left;
     color: var(--text-primary);
     cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 1rem; /* Ensure consistent font size */
 }
 
 .module-options button:hover {

@@ -10,7 +10,7 @@ pub fn BottomNav(active_route: Route) -> Element {
                 to: Route::ProgressPage {},
                 class: if matches!(active_route, Route::ProgressPage {}) { "nav-icon active" } else { "nav-icon" },
                 Icon {
-                    name: "progress".to_string(),
+                    name: "stats".to_string(),
                     alt: Some("Progress".to_string()),
                     class: Some("nav-icon-img".to_string())
                 }

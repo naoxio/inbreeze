@@ -2,10 +2,11 @@ use dioxus::prelude::*;
 #[cfg(target_arch = "wasm32")]
 use manganis::*;
 
+
 const ICON_NAMES: &[&str] = &[
     "yoga", "meditation", "breathing", "clock", "exercise", "moon",
     "sun", "language", "stats", "settings", "trekking", "default",
-    "stop", "skip_next", "skip_prev", "play", "pause"
+    "stop", "skip_next", "skip_prev", "play", "pause", "logo"
 ];
 
 #[derive(Clone, Props, PartialEq)]
@@ -73,7 +74,7 @@ fn get_icon_src(icon: &str) -> String {
     {
         generate_icon_match!(icon_name.as_str(), "yoga", "meditation", "breathing", "clock", "exercise", "moon",
             "sun", "language", "stats", "settings", "trekking", "default",
-            "stop", "skip_next", "skip_prev", "play", "pause").to_string()
+            "stop", "skip_next", "skip_prev", "play", "pause", "logo").to_string()
     }
 
     #[cfg(not(target_arch = "wasm32"))]

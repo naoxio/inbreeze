@@ -12,13 +12,20 @@
     justify-content: center;
     flex-grow: 1;
 }
-
-.logo {
-    width: 100px;
-    height: 100px;
+.logo svg {
+    width: 160px;
+    height: 160px;
 }
+
+.logo path {
+    fill: var(--text-primary) !important;
+    stroke: var(--text-primary) !important;
+
+}
+
 
 .title {
     font-size: 2rem;
     margin: 1rem 0;
 }
+

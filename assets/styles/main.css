@@ -68,58 +68,58 @@
   .input-field::placeholder {
     color: rgba(230, 243, 243, 0.5);
   }
-  
-  /* Button Styles with Clear Text Visibility */
-  .btn {
-    background-color: var(--accent-color);
-    border: none;
-    border-radius: 4px;
-    color: var(--text-secondary);
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 10px 16px;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    display: inline-block;
-    margin: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  
-  .btn:hover, .btn:focus {
-    background-color: var(--tertiary-color);
-    color: var(--text-secondary);
-  }
-  
-  .btn:active {
-    background-color: var(--secondary-color);
-    color: var(--text-secondary);
-  }
-  
-  .btn-outline {
-    background-color: transparent;
-    border: 2px solid var(--accent-color);
-    color: var(--accent-color);
-  }
-  
-  .btn-outline:hover, .btn-outline:focus {
-    background-color: var(--accent-color);
-    color: var(--text-secondary);
-  }
-  
-  .btn-outline:active {
-    background-color: var(--secondary-color);
-    color: var(--text-secondary);
-  }
-  
-  .btn-large {
-    font-size: 16px;
-    padding: 12px 24px;
-  }
-  
-  .btn-small {
-    font-size: 13px;
-    padding: 8px 12px;
-  }
+  /* Button Styles with Improved Text Visibility */
+.btn {
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 4px;
+  color: var(--background-color); /* This ensures dark text on light background */
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700; /* Increased font weight for better visibility */
+  padding: 10px 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  margin: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+}
+
+.btn:hover, .btn:focus {
+  background-color: var(--tertiary-color);
+  color: var(--text-primary); /* Light text on darker background */
+}
+
+.btn:active {
+  background-color: var(--secondary-color);
+  color: var(--text-primary);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+}
+
+.btn-outline:hover, .btn-outline:focus {
+  background-color: var(--accent-color);
+  color: var(--background-color);
+}
+
+.btn-outline:active {
+  background-color: var(--secondary-color);
+  color: var(--text-primary);
+}
+
+.btn-large {
+  font-size: 18px; /* Increased font size */
+  padding: 14px 28px; /* Increased padding */
+}
+
+.btn-small {
+  font-size: 13px;
+  padding: 8px 12px;
+}

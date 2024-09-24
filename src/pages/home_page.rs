@@ -4,15 +4,7 @@ use crate::routes::Route;
 use crate::components::bottom_nav::BottomNav;
 use crate::components::module_selector::ModuleSelector;
 use crate::models::practice::ModuleContext;
-
-#[cfg(target_arch = "wasm32")]
-use manganis::*;
-
-#[cfg(target_arch = "wasm32")]
-const LOGO: ImageAsset = manganis::mg!(image("./assets/logo.svg").preload());
-
-#[cfg(not(target_arch = "wasm32"))]
-const LOGO: &str = "assets/logo.svg";
+use crate::components::icon::Icon;
 
 #[component]
 pub fn HomePage() -> Element {
@@ -22,11 +14,15 @@ pub fn HomePage() -> Element {
         style { {include_str!("../../assets/styles/home.css")} }
         div { 
             class: "container",
-            ModuleSelector {}
             div { 
                 class: "content",
-                img { class: "logo", src: "{LOGO}", alt: "Inner Breeze Logo" }
-                h1 { class: "title", "Inner Breeze" }
+                Icon {
+                    class: "logo".to_string(),
+                    name: "logo".to_string(),
+
+                }
+                ModuleSelector {}
+
                 Link {
                     class: "btn btn-large",
                     to: Route::PracticePage { id: module_context.read().current_module.clone() },
