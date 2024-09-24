@@ -9,10 +9,10 @@ use crate::models::practice::ModuleContext;
 use manganis::*;
 
 #[cfg(target_arch = "wasm32")]
-const LOGO: ImageAsset = manganis::mg!(image("./assets/logo.png").preload());
+const LOGO: ImageAsset = manganis::mg!(image("./assets/logo.svg").preload());
 
 #[cfg(not(target_arch = "wasm32"))]
-const LOGO: &str = "assets/logo.png";
+const LOGO: &str = "assets/logo.svg";
 
 #[component]
 pub fn HomePage() -> Element {
