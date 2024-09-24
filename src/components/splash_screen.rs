@@ -67,6 +67,8 @@ pub fn SplashScreen(on_complete: EventHandler<()>) -> Element {
     });
 
     rsx! {
+        style { {include_str!("../../assets/styles/splash.css")} }
+
         div {
             class: "splash-screen",
             onclick: move |_| on_complete.call(()),

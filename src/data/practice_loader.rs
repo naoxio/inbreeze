@@ -23,15 +23,14 @@ fn create_error_practice(description: String) -> Practice {
             background_color: "#FF0000".to_string(),
             icon: "error.svg".to_string(),
             colors: Colors {
-                primary: "#FF4444".to_string(),        // Lighter red
-                secondary: "#FF8888".to_string(),      // Even lighter red
-                text: "#FFFFFF".to_string(),           // White text
-                title: "#FFDDDD".to_string(),          // Very light red for titles
-                button: "#CC0000".to_string(),         // Darker red for buttons
-                button_hover: "#AA0000".to_string(),   // Even darker red for button hover
-                button_disabled: "#FFAAAA".to_string(), // Light red for disabled buttons
-                button_text: "#FFFFFF".to_string(),    // White text for buttons
-                button_disabled_text: "#FF0000".to_string(), // Red text for disabled buttons
+                background_color: "#FF0000".to_string(),
+                primary_color: "#FF4444".to_string(),
+                secondary_color: "#FF8888".to_string(),
+                tertiary_color: "#FFAAAA".to_string(),
+                accent_color: "#FF0000".to_string(),
+                text_primary: "#FFFFFF".to_string(),
+                text_secondary: "#FFDDDD".to_string(),
+                shadow_color: "rgba(255, 0, 0, 0.2)".to_string(),
             },
         },
         version: "0.0.0".to_string(),

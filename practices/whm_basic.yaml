@@ -16,15 +16,13 @@ visual:
   background_color: "#6BA7CC"
   icon: "/assets/icons/snowflake.svg"
   colors:
-    primary: "#1E88E5"
-    secondary: "#64B5F6"
-    text: "#E3F2FD"
-    title: "#BBDEFB"
-    button: "#2196F3"
-    button_hover: "#1565C0"
-    button_disabled: "#90CAF9"
-    button_text: "#FFFFFF"
-    button_disabled_text: "#1A237E"
+    dark_teal: "#004d4d"
+    medium_teal: "#006666"
+    light_teal: "#008080"
+    accent_teal: "#00cccc"
+    text_light: "#e6f3f3"
+    text_dark: "#001a1a"
+    shadow_color: "rgba(0, 204, 204, 0.2)"
 
 practice_structure:
   rounds:

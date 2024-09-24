@@ -1,5 +1,4 @@
 /* assets/module_grid.css */
-
 .module-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 340px));
@@ -12,15 +11,16 @@
     width: 340px;
     height: 204px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px var(--shadow-color);
     overflow: hidden;
     transition: box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
+    background-color: var(--primary-color);
 }
 
 .module:hover {
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px var(--shadow-color);
 }
 
 .module-content {
@@ -31,15 +31,15 @@
 }
 
 .practice-name {
-    color: white;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    color: var(--text-primary);
+    text-shadow: 1px 1px 3px var(--shadow-color);
     margin: 0 0 10px 0;
     font-size: 1.4em;
 }
 
 .practice-description {
-    color: white;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    color: var(--text-primary);
+    text-shadow: 1px 1px 3px var(--shadow-color);
     margin: 0 0 15px 0;
     flex-grow: 1;
     font-size: 0.8em;
@@ -50,6 +50,7 @@
     justify-content: space-around;
     align-items: flex-start;
     padding: 8px;
+    background-color: var(--secondary-color);
 }
 
 .fact {
@@ -64,7 +65,7 @@
 
 .fact span {
     text-align: center;
-    color: white;
+    color: var(--text-primary);
     font-size: 0.6em;
 }
 

@@ -1,121 +1,125 @@
 :root {
     --background-color: #0A0C11;
-    --dark-teal: #004d4d;
-    --medium-teal: #006666;
-    --light-teal: #008080;
-    --accent-teal: #00cccc;
-    --text-light: #e6f3f3;
-    --text-dark: #001a1a;
+    --primary-color: #004d4d;
+    --secondary-color: #006666;
+    --tertiary-color: #008080;
+    --accent-color: #00cccc;
+    --text-primary: #e6f3f3;
+    --text-secondary: #001a1a;
     --shadow-color: rgba(0, 204, 204, 0.2);
-}
-
-body {
+  }
+  
+  body {
     background-color: var(--background-color);
-    color: var(--text-light);
+    color: var(--text-primary);
     font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
-}
-
-h1 {
-    color: var(--accent-teal);
+  }
+  
+  h1 {
+    color: var(--accent-color);
     font-weight: 300;
     margin-bottom: 1rem;
-}
-
-a {
-    color: var(--accent-teal);
+  }
+  
+  a {
+    color: var(--accent-color);
     text-decoration: none;
     transition: color 0.3s ease;
-}
-
-a:hover {
-    color: var(--light-teal);
-}
-
-.hidden {
+  }
+  
+  a:hover {
+    color: var(--tertiary-color);
+  }
+  
+  .hidden {
     display: none;
-}
-
-.icon {
+  }
+  
+  .icon {
     width: 24px;
     height: 24px;
     display: block;
     filter: brightness(0) invert(1);
     margin-bottom: 5px;
-}
-
-/* Modern Input Styles */
-.input-field {
+  }
+  
+  /* Modern Input Styles */
+  .input-field {
     background-color: rgba(255, 255, 255, 0.1);
     border: none;
-    border-bottom: 2px solid var(--medium-teal);
-    color: var(--text-light);
+    border-bottom: 2px solid var(--secondary-color);
+    color: var(--text-primary);
     font-size: 1rem;
     padding: 10px 15px;
     margin-bottom: 1rem;
     width: 100%;
     transition: all 0.3s ease;
-}
-
-.input-field:focus {
+  }
+  
+  .input-field:focus {
     outline: none;
-    border-bottom-color: var(--accent-teal);
+    border-bottom-color: var(--accent-color);
     box-shadow: 0 4px 6px var(--shadow-color);
-}
-
-.input-field::placeholder {
+  }
+  
+  .input-field::placeholder {
     color: rgba(230, 243, 243, 0.5);
-}
-
-/* Modern Button Styles */
-.btn {
-    background-color: var(--accent-teal);
+  }
+  
+  /* Button Styles with Clear Text Visibility */
+  .btn {
+    background-color: var(--accent-color);
     border: none;
     border-radius: 4px;
-    color: var(--text-dark);
+    color: var(--text-secondary);
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 14px;
     font-weight: 500;
-    padding: 10px 20px;
+    padding: 10px 16px;
     text-align: center;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     display: inline-block;
-    margin: 5px;
-}
-
-.btn:hover {
-    background-color: var(--light-teal);
-    box-shadow: 0 4px 8px var(--shadow-color);
-    transform: translateY(-2px);
-}
-
-.btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px var(--shadow-color);
-}
-
-.btn-outline {
+    margin: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .btn:hover, .btn:focus {
+    background-color: var(--tertiary-color);
+    color: var(--text-secondary);
+  }
+  
+  .btn:active {
+    background-color: var(--secondary-color);
+    color: var(--text-secondary);
+  }
+  
+  .btn-outline {
     background-color: transparent;
-    border: 2px solid var(--accent-teal);
-    color: var(--accent-teal);
-}
-
-.btn-outline:hover {
-    background-color: var(--accent-teal);
-    color: var(--text-dark);
-}
-
-.btn-large {
-    font-size: 1.2rem;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+  }
+  
+  .btn-outline:hover, .btn-outline:focus {
+    background-color: var(--accent-color);
+    color: var(--text-secondary);
+  }
+  
+  .btn-outline:active {
+    background-color: var(--secondary-color);
+    color: var(--text-secondary);
+  }
+  
+  .btn-large {
+    font-size: 16px;
     padding: 12px 24px;
-}
-
-.btn-small {
-    font-size: 0.9rem;
-    padding: 8px 16px;
-}
-
-/* You can add more button variants as needed */
+  }
+  
+  .btn-small {
+    font-size: 13px;
+    padding: 8px 12px;
+  }

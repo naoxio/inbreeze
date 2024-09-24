@@ -93,14 +93,11 @@ pub fn PracticePage(id: String) -> Element {
             class: "practice-page",
             {practice.with(|practice| {
                 if let Some(practice) = practice {
-                    let colors = &practice.visual.colors;
                     rsx! {
                         div { 
                             class: "practice-exercise",
-                            style: "color: {colors.text}",
                             h2 { 
                                 class: "title",
-                                style: "color: {colors.title}",
                                 {if countdown() > 0 {
                                     translate("practice.get_ready")
                                 } else {
@@ -110,7 +107,6 @@ pub fn PracticePage(id: String) -> Element {
                             
                             {practice.practice_structure.sequences.iter().any(|seq| seq.id == "breathing_cycle").then(|| rsx!(
                                 BreathingCircle {
-                                    colors: colors.clone(),
                                     circle_expanded: circle_expanded,
                                     countdown: countdown,
                                     breath_count: breath_count,
@@ -119,27 +115,24 @@ pub fn PracticePage(id: String) -> Element {
                             
                             div { class: "controls",
                                 button { 
-                                    class: "control-button", 
+                                    class: "control-button",
                                     onclick: on_stop_click,
-                                    style: "background-color: {colors.button}; color: {colors.button_text}",
                                     Icon {
                                         name: "stop".to_string(),
                                         class: Some("nav-icon-img".to_string())
                                     }
                                 }
                                 button {
-                                    class: "control-button",
+                                    class: "control-button disabled",
                                     disabled: true,
-                                    style: "background-color: {colors.button_disabled}; color: {colors.button_disabled_text}",
                                     Icon {
                                         name: "skip-prev".to_string(),
                                         class: Some("nav-icon-img".to_string())
                                     }
                                 }
                                 button { 
-                                    class: "control-button", 
+                                    class: "control-button",
                                     onclick: |_| (),
-                                    style: "background-color: {colors.button}; color: {colors.button_text}",
                                     Icon {
                                         name: "pause".to_string(),
                                         class: Some("nav-icon-img".to_string())
@@ -148,7 +141,6 @@ pub fn PracticePage(id: String) -> Element {
                                 button {
                                     class: "control-button",
                                     onclick: on_next_click,
-                                    style: "background-color: {colors.button}; color: {colors.button_text}",
                                     Icon {
                                         name: "skip-next".to_string(),
                                         class: Some("nav-icon-img".to_string())

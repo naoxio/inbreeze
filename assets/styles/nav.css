@@ -3,13 +3,13 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: var(--dark-teal);
+    background-color: var(--primary-color);
     padding: 10px 0;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -2px 4px var(--shadow-color);
 }
 
 .nav-icon {
@@ -17,7 +17,7 @@
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    color: var(--text-light);
+    color: var(--text-primary);
     transition: color 0.3s ease;
 }
 
@@ -36,7 +36,7 @@
 
 .nav-icon:hover,
 .nav-icon.active {
-    color: var(--accent-teal);
+    color: var(--accent-color);
 }
 
 .nav-icon:hover .nav-icon-img,

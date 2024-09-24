@@ -2,6 +2,12 @@ use dioxus::prelude::*;
 #[cfg(target_arch = "wasm32")]
 use manganis::*;
 
+const ICON_NAMES: &[&str] = &[
+    "yoga", "meditation", "breathing", "clock", "exercise", "moon",
+    "sun", "language", "stats", "settings", "trekking", "default",
+    "stop", "skip_next", "skip_prev", "play", "pause"
+];
+
 #[derive(Clone, Props, PartialEq)]
 pub struct IconProps {
     name: String,
@@ -29,7 +35,6 @@ pub fn Icon(props: IconProps) -> Element {
 
     #[cfg(target_arch = "wasm32")]
     {
-        // Render raw SVG content using `dangerous_inner_html`
         rsx! {
             div {
                 class: "{class}",
@@ -40,7 +45,6 @@ pub fn Icon(props: IconProps) -> Element {
 
     #[cfg(not(target_arch = "wasm32"))]
     {
-        // Render as an image for non-WASM targets
         rsx! {
             img {
                 class: "{class}",
@@ -51,50 +55,37 @@ pub fn Icon(props: IconProps) -> Element {
     }
 }
 
-const ICON_NAMES: [&str; 17] = [
-    "yoga", "meditation", "breathing", "clock", "exercise", "moon",
-    "sun", "language", "stats", "settings", "trekking", "default",
-    "stop", "skip-next", "skip-prev", "play", "pause"
-];
-#[cfg(target_arch = "wasm32")]
-macro_rules! icon_paths {
-    ($($name:ident),+) => {
-        $(const $name: &str = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/assets/icons/", stringify!($name), ".svg"));)+
+macro_rules! generate_icon_match {
+    ($icon_name:expr, $($name:expr),+) => {
+        match $icon_name {
+            $(
+                $name => include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/assets/icons/", $name, ".svg")),
+            )+
+            _ => include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/assets/icons/default.svg")),
+        }
     };
 }
 
+fn get_icon_src(icon: &str) -> String {
+    let icon_name = icon.to_lowercase().replace('-', "_");
+    
+    #[cfg(target_arch = "wasm32")]
+    {
+        generate_icon_match!(icon_name.as_str(), "yoga", "meditation", "breathing", "clock", "exercise", "moon",
+            "sun", "language", "stats", "settings", "trekking", "default",
+            "stop", "skip_next", "skip_prev", "play", "pause").to_string()
+    }
 
-#[cfg(not(target_arch = "wasm32"))]
-macro_rules! icon_paths {
-    ($($name:ident),+) => {
-        $(const $name: &str = concat!("assets/icons/", stringify!($name), ".svg");)+
-    };
-}
-
-icon_paths!(yoga, meditation, breathing, clock, exercise, moon, sun, language, stats, settings, trekking, default_icon, stop, skip_next, skip_prev, play, pause);
-
-fn get_icon_src(icon: &str) -> &'static str {
-    match icon.to_lowercase().as_str() {
-        "yoga" => yoga,
-        "meditation" => meditation,
-        "breathing" => breathing,
-        "clock" => clock,
-        "exercise" => exercise,
-        "moon" => moon,
-        "sun" => sun,
-        "language" => language,
-        "stats" => stats,
-        "settings" => settings,
-        "trekking" => trekking,
-        "stop" => stop,
-        "skip-next" => skip_next,
-        "skip-prev" => skip_prev,
-        "play" => play,
-        "pause" => pause,
-        _ => default_icon,
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        if ICON_NAMES.contains(&icon_name.as_str()) {
+            format!("assets/icons/{}.svg", icon_name)
+        } else {
+            "assets/icons/default.svg".to_string()
+        }
     }
 }
 
-fn get_all_icon_names() -> Vec<&'static str> {
-    ICON_NAMES.to_vec()
+fn get_all_icon_names() -> Vec<String> {
+    ICON_NAMES.iter().map(|&s| s.to_string()).collect()
 }

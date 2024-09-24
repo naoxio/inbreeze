@@ -17,11 +17,8 @@ pub fn App() -> Element {
     rsx! {
         ThemeProvider {
             style { {include_str!("../assets/styles/main.css")} }
-            style { {include_str!("../assets/styles/module_grid.css")} }
-            style { {include_str!("../assets/styles/splash.css")} }
             style { {include_str!("../assets/styles/nav.css")} }
             style { {include_str!("../assets/styles/practice.css")} }
-            style { {include_str!("../assets/styles/home.css")} }
             style { {include_str!("../assets/styles/progress.css")} }
             style { {include_str!("../assets/styles/module_selector.css")} }
 

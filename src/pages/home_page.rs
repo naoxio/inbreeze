@@ -16,6 +16,8 @@ pub fn HomePage() -> Element {
     let mut current_module = use_signal(|| "whm_basic".to_string());
 
     rsx! {
+        style { {include_str!("../../assets/styles/home.css")} }
+
         div { class: "container",
             ModuleSelector {
                 on_module_change: move |new_module: String| {
@@ -26,7 +28,7 @@ pub fn HomePage() -> Element {
                 img { class: "logo", src: "{LOGO}", alt: "InBreeze Logo" }
                 h1 { class: "title", "Inner Breeze" }
                 Link {
-                    class: "btn",
+                    class: "btn btn-large",
                     to: Route::PracticePage { id: current_module() },
                     "Start"
                 }

@@ -8,6 +8,8 @@ use crate::utils::{get_time_unit_short_code, capitalize_first_letter, generate_c
 #[component]
 pub fn ModuleGrid(practices: Vec<Practice>) -> Element {
     rsx! {
+        style { {include_str!("../../assets/styles/module_grid.css")} }
+
         p { class: "hidden", "The length is: {practices.len()}" }
 
         div { class: "module-grid",

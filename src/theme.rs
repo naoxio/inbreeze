@@ -2,28 +2,31 @@ use crate::models::practice::Colors;
 use crate::data::practice_loader::get_practice_by_id;
 use once_cell::sync::Lazy;
 use std::sync::Mutex;
+use serde::Deserialize;
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Deserialize)]
 pub struct Theme {
     pub background_color: String,
-    pub colors: Colors,
+    pub primary_color: String,
+    pub secondary_color: String,
+    pub tertiary_color: String,
+    pub accent_color: String,
+    pub text_primary: String,
+    pub text_secondary: String,
+    pub shadow_color: String,
 }
 
 impl Default for Theme {
     fn default() -> Self {
         Theme {
-            background_color: "#6BA7CC".to_string(),
-            colors: Colors {
-                primary: "#1E88E5".to_string(),
-                secondary: "#64B5F6".to_string(),
-                text: "#E3F2FD".to_string(),
-                title: "#BBDEFB".to_string(),
-                button: "#2196F3".to_string(),
-                button_hover: "#1565C0".to_string(),
-                button_disabled: "#90CAF9".to_string(),
-                button_text: "#FFFFFF".to_string(),
-                button_disabled_text: "#1A237E".to_string(),
-            },
+            background_color: "#0A0C11".to_string(),
+            primary_color: "#004d4d".to_string(),
+            secondary_color: "#006666".to_string(),
+            tertiary_color: "#008080".to_string(),
+            accent_color: "#00cccc".to_string(),
+            text_primary: "#e6f3f3".to_string(),
+            text_secondary: "#001a1a".to_string(),
+            shadow_color: "rgba(0, 204, 204, 0.2)".to_string(),
         }
     }
 }
@@ -34,11 +37,16 @@ pub fn set_theme(practice_id: &str) {
     let mut theme = CURRENT_THEME.lock().unwrap();
     if let Some(practice) = get_practice_by_id(practice_id) {
         *theme = Theme {
-            background_color: practice.visual.background_color,
-            colors: practice.visual.colors,
+            background_color: practice.visual.colors.background_color,
+            primary_color: practice.visual.colors.primary_color,
+            secondary_color: practice.visual.colors.secondary_color,
+            tertiary_color: practice.visual.colors.tertiary_color,
+            accent_color: practice.visual.colors.accent_color,
+            text_primary: practice.visual.colors.text_primary,
+            text_secondary: practice.visual.colors.text_secondary,
+            shadow_color: practice.visual.colors.shadow_color,
         };
     } else {
-        // Set a default theme if practice is not found
         *theme = Theme::default();
     }
 }
@@ -47,7 +55,6 @@ pub fn get_current_theme() -> Theme {
     CURRENT_THEME.lock().unwrap().clone()
 }
 
-// Function to get CSS string
 pub fn get_theme_css() -> String {
     let theme = get_current_theme();
     format!(
@@ -55,24 +62,20 @@ pub fn get_theme_css() -> String {
             --background-color: {};
             --primary-color: {};
             --secondary-color: {};
-            --text-color: {};
-            --title-color: {};
-            --button-color: {};
-            --button-hover-color: {};
-            --button-disabled-color: {};
-            --button-text-color: {};
-            --button-disabled-text-color: {};
+            --tertiary-color: {};
+            --accent-color: {};
+            --text-primary: {};
+            --text-secondary: {};
+            --shadow-color: {};
         }}",
         theme.background_color,
-        theme.colors.primary,
-        theme.colors.secondary,
-        theme.colors.text,
-        theme.colors.title,
-        theme.colors.button,
-        theme.colors.button_hover,
-        theme.colors.button_disabled,
-        theme.colors.button_text,
-        theme.colors.button_disabled_text
+        theme.primary_color,
+        theme.secondary_color,
+        theme.tertiary_color,
+        theme.accent_color,
+        theme.text_primary,
+        theme.text_secondary,
+        theme.shadow_color
     )
 }
 
@@ -85,13 +88,15 @@ mod tests {
         // This test assumes that get_practice_by_id is mocked or a test practice is available
         set_theme("whm_basic");
         let theme = get_current_theme();
-        assert_eq!(theme.background_color, "#6BA7CC");
+        assert_eq!(theme.background_color, "#0A0C11");
+        assert_eq!(theme.primary_color, "#004d4d");
     }
 
     #[test]
     fn test_default_theme() {
         let default_theme = Theme::default();
-        assert_eq!(default_theme.background_color, "#6BA7CC");
-        assert_eq!(default_theme.colors.primary, "#1E88E5");
+        assert_eq!(default_theme.background_color, "#0A0C11");
+        assert_eq!(default_theme.primary_color, "#004d4d");
+        assert_eq!(default_theme.secondary_color, "#006666");
     }
 }

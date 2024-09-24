@@ -58,18 +58,19 @@ pub struct Visual {
     pub colors: Colors,
 }
 
+
 #[derive(Debug, Deserialize, Clone, PartialEq)]
 pub struct Colors {
-    pub primary: String,
-    pub secondary: String,
-    pub text: String,
-    pub title: String,
-    pub button: String,
-    pub button_hover: String,
-    pub button_disabled: String,
-    pub button_text: String,
-    pub button_disabled_text: String,
+    pub background_color: String,
+    pub primary_color: String,
+    pub secondary_color: String,
+    pub tertiary_color: String,
+    pub accent_color: String,
+    pub text_primary: String,
+    pub text_secondary: String,
+    pub shadow_color: String,
 }
+
 
 #[derive(Debug, Deserialize, Clone, PartialEq)]
 pub struct PracticeStructure {
