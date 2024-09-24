@@ -11,6 +11,7 @@ mod i18n;
 mod utils;
 mod pages;
 mod models;
+mod theme;
 
 fn main() {
     dioxus_logger::init(Level::INFO).expect("failed to init logger");
