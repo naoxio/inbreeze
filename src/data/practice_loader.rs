@@ -20,7 +20,6 @@ fn create_error_practice(description: String) -> Practice {
         author: "System".to_string(),
         visual: Visual {
             background_image: "".to_string(),
-            background_color: "#FF0000".to_string(),
             icon: "error.svg".to_string(),
             colors: Colors {
                 background_color: "#FF0000".to_string(),
@@ -66,49 +65,63 @@ fn create_error_practice(description: String) -> Practice {
         references: vec![],
     }
 }
-
-
+#[cfg(target_arch = "wasm32")]
 pub fn load_practices() -> Vec<Practice> {
-    #[cfg(target_arch = "wasm32")]
-    {
-        let practice_content = include_str!("../.././practices/whm_basic.yaml");
+    // Define your list of practice filenames.
+    let practice_filenames = [
+        ("whm_basic.yaml", include_str!("../.././practices/whm_basic.yaml")),
+        ("surya_namaskar_basic.yaml", include_str!("../.././practices/surya_namaskar_basic.yaml")),
+    ];
 
+    let mut practices = Vec::new();
+
+    for (filename, practice_content) in &practice_filenames {
         match serde_yaml::from_str::<Practice>(practice_content) {
-            Ok(practice) => vec![practice],
+            Ok(practice) => practices.push(practice),
             Err(e) => {
-                let error_practice = create_error_practice(format!("Failed to parse YAML: {}. Content: {}", e, practice_content));
-                vec![error_practice]
+                let error_practice = create_error_practice(format!(
+                    "Failed to parse YAML for {}: {}. Content: {}",
+                    filename, e, practice_content
+                ));
+                practices.push(error_practice);
             }
         }
     }
 
-    #[cfg(not(target_arch = "wasm32"))]
-    {
-        let practices_dir = Path::new("practices");
-        let mut practices = Vec::new();
+    if practices.is_empty() {
+        practices.push(create_error_practice("No practices found".to_string()));
+    }
 
-        if practices_dir.is_dir() {
-            if let Ok(entries) = fs::read_dir(practices_dir) {
-                for entry in entries.flatten() {
-                    let path = entry.path();
-                    if path.extension().and_then(|s| s.to_str()) == Some("yaml") {
-                        if let Ok(contents) = fs::read_to_string(&path) {
-                            match serde_yaml::from_str(&contents) {
-                                Ok(practice) => practices.push(practice),
-                                Err(e) => eprintln!("Error parsing practice file {:?}: {}", path, e),
-                            }
+    practices
+}
+
+
+#[cfg(not(target_arch = "wasm32"))]
+pub fn load_practices() -> Vec<Practice> {
+    let practices_dir = Path::new("practices");
+    let mut practices = Vec::new();
+
+    if practices_dir.is_dir() {
+        if let Ok(entries) = fs::read_dir(practices_dir) {
+            for entry in entries.flatten() {
+                let path = entry.path();
+                if path.extension().and_then(|s| s.to_str()) == Some("yaml") {
+                    if let Ok(contents) = fs::read_to_string(&path) {
+                        match serde_yaml::from_str(&contents) {
+                            Ok(practice) => practices.push(practice),
+                            Err(e) => eprintln!("Error parsing practice file {:?}: {}", path, e),
                         }
                     }
                 }
             }
         }
-
-        if practices.is_empty() {
-            practices.push(create_error_practice("No practices found".to_string()));
-        }
-
-        practices
     }
+
+    if practices.is_empty() {
+        practices.push(create_error_practice("No practices found".to_string()));
+    }
+
+    practices
 }
 
 pub fn get_practice_by_id(id: &str) -> Option<Practice> {

@@ -49,6 +49,9 @@ pub fn set_theme(practice_id: &str) {
     } else {
         *theme = Theme::default();
     }
+    
+    // Apply the theme
+    apply_theme(&theme);
 }
 
 pub fn get_current_theme() -> Theme {
@@ -79,10 +82,48 @@ pub fn get_theme_css() -> String {
     )
 }
 
+#[cfg(target_arch = "wasm32")]
+fn apply_theme(theme: &Theme) {
+    use wasm_bindgen::prelude::*;
+    use wasm_bindgen::JsCast;
+    use web_sys::{window, HtmlElement};
+
+    if let Some(window) = window() {
+        if let Some(document) = window.document() {
+            if let Some(root) = document.document_element() {
+                if let Some(html_element) = root.dyn_ref::<HtmlElement>() {
+                    let style = html_element.style();
+                    let _ = style.set_property("--background-color", &theme.background_color);
+                    let _ = style.set_property("--primary-color", &theme.primary_color);
+                    let _ = style.set_property("--secondary-color", &theme.secondary_color);
+                    let _ = style.set_property("--tertiary-color", &theme.tertiary_color);
+                    let _ = style.set_property("--accent-color", &theme.accent_color);
+                    let _ = style.set_property("--text-primary", &theme.text_primary);
+                    let _ = style.set_property("--text-secondary", &theme.text_secondary);
+                    let _ = style.set_property("--shadow-color", &theme.shadow_color);
+                }
+            }
+        }
+    }
+}
+
+#[cfg(not(target_arch = "wasm32"))]
+fn apply_theme(theme: &Theme) {
+    println!("Applying theme (simulated for desktop):");
+    println!("Background color: {}", theme.background_color);
+    println!("Primary color: {}", theme.primary_color);
+    println!("Secondary color: {}", theme.secondary_color);
+    println!("Tertiary color: {}", theme.tertiary_color);
+    println!("Accent color: {}", theme.accent_color);
+    println!("Text primary: {}", theme.text_primary);
+    println!("Text secondary: {}", theme.text_secondary);
+    println!("Shadow color: {}", theme.shadow_color);
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
-
+    
     #[test]
     fn test_set_theme() {
         // This test assumes that get_practice_by_id is mocked or a test practice is available

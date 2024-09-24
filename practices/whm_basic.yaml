@@ -13,17 +13,17 @@ duration:
   
 visual:
   background_image: "/assets/cards/ice_water.webp"
-  background_color: "#6BA7CC"
   icon: "/assets/icons/snowflake.svg"
   colors:
-    dark_teal: "#004d4d"
-    medium_teal: "#006666"
-    light_teal: "#008080"
-    accent_teal: "#00cccc"
-    text_light: "#e6f3f3"
-    text_dark: "#001a1a"
+    background_color: "#1A2C3D"
+    primary_color: "#004d4d"
+    secondary_color: "#006666"
+    tertiary_color: "#008080"
+    accent_color: "#00cccc"
+    text_primary: "#e6f3f3"
+    text_secondary: "#B0C4DE"
     shadow_color: "rgba(0, 204, 204, 0.2)"
-
+    
 practice_structure:
   rounds:
     default: 3

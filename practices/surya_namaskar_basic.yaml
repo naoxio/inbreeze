@@ -12,17 +12,17 @@ duration:
   unit: "time.minutes"
 visual:
   background_image: "/assets/cards/sunrise.webp"
-  background_color: "#FFA726"
   icon: "/assets/icons/sun.svg"
   colors:
-    background_color: "#FFA726"
-    primary_color: "#FFB74D"
-    secondary_color: "#FFCC80"
-    tertiary_color: "#FFE0B2"
-    accent_color: "#FF9800"
-    text_primary: "#FFF3E0"
-    text_secondary: "#BF360C"
-    shadow_color: "rgba(255, 152, 0, 0.2)"
+    background_color: "#212121"
+    primary_color: "#424242"
+    secondary_color: "#616161"
+    tertiary_color: "#757575"
+    accent_color: "#FF6F00"
+    text_primary: "#FFFFFF"
+    text_secondary: "#FFAB40"
+    shadow_color: "rgba(255, 111, 0, 0.3)"
+
 practice_structure:
   rounds:
     default: 3

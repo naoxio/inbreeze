@@ -19,7 +19,7 @@ pub fn ModuleGrid(practices: Vec<Practice>) -> Element {
                     div {
                         class: "module",
                         key: "{practice.id}",
-                        style: "background-color: {practice.visual.background_color};",
+                        style: "background-color: {practice.visual.colors.background_color};",
                         div { class: "module-content",
                             h2 { class: "practice-name", "{translate(&practice.name)}" }
                             p { class: "practice-description", 

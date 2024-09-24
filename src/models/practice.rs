@@ -1,4 +1,11 @@
 use serde::Deserialize;
+use dioxus::prelude::*;
+
+#[derive(Clone, Debug)]
+pub struct ModuleContext {
+    pub current_module: String,
+}
+
 
 #[derive(Debug, Deserialize, Clone, PartialEq)]
 pub struct Practice {
@@ -53,7 +60,6 @@ pub struct Duration {
 #[derive(Debug, Deserialize, Clone, PartialEq)]
 pub struct Visual {
     pub background_image: String,
-    pub background_color: String,
     pub icon: String,
     pub colors: Colors,
 }
