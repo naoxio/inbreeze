@@ -1,0 +1,35 @@
+.progress-list {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.progress-item {
+    margin-bottom: 1rem;
+}
+
+.progress-name {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+    height: 1rem;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background-color: #007bff;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.progress-percentage {
+    display: block;
+    text-align: right;
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-top: 0.25rem;
+}

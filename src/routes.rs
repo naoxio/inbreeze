@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::pages::{home_page::HomePage, settings_page::SettingsPage, stats_page::StatsPage, practice_page::PracticePage};
+use crate::pages::{home_page::HomePage, settings_page::SettingsPage, stats_page::StatsPage, practice_page::PracticePage, progress_page::ProgressPage};
 
 #[derive(Clone, Routable, Debug, PartialEq)]
 pub enum Route {
@@ -10,6 +10,8 @@ pub enum Route {
     SettingsPage {},
     #[route("/stats")]
     StatsPage {},
+    #[route("/progress")]
+    ProgressPage {},
     #[route("/practice/:id")]
     PracticePage { id: String },
 }

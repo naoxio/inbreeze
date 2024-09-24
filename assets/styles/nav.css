@@ -1,0 +1,56 @@
+/* src/styles/bottom_nav.css */
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--dark-teal);
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-light);
+    transition: color 0.3s ease;
+}
+
+.nav-icon-img {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+    filter: brightness(0) invert(1);
+    transition: filter 0.3s ease;
+}
+
+.nav-icon span {
+    font-size: 12px;
+    text-align: center;
+}
+
+.nav-icon:hover,
+.nav-icon.active {
+    color: var(--accent-teal);
+}
+
+.nav-icon:hover .nav-icon-img,
+.nav-icon.active .nav-icon-img {
+    filter: brightness(0) saturate(100%) invert(80%) sepia(72%) saturate(4462%) hue-rotate(155deg) brightness(95%) contrast(101%);
+}
+
+/* Adjust main content to account for fixed bottom nav */
+body {
+    padding-bottom: 60px; /* Adjust this value based on your bottom nav height */
+}
+
+/* Optional: Add a transition effect for smoother color changes */
+.nav-icon,
+.nav-icon-img {
+    transition: all 0.3s ease;
+}

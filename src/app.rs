@@ -11,14 +11,16 @@ pub fn change_language(new_language: &str) {
 }
 
 pub fn App() -> Element {
-    let mut show_splash = use_signal(|| true);
+    let mut show_splash = use_signal(|| false);
 
     rsx! {
         style { {include_str!("../assets/styles/main.css")} }
         style { {include_str!("../assets/styles/module_grid.css")} }
         style { {include_str!("../assets/styles/splash.css")} }
-        style { {include_str!("../assets/styles/top_nav.css")} }
+        style { {include_str!("../assets/styles/nav.css")} }
         style { {include_str!("../assets/styles/practice.css")} }
+        style { {include_str!("../assets/styles/home.css")} }
+        style { {include_str!("../assets/styles/progress.css")} }
 
         if show_splash() {
             SplashScreen {

@@ -25,3 +25,6 @@ android
 linux
 
 *bak
+node_modules
+src-tauri
+
