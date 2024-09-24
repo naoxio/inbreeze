@@ -18,3 +18,10 @@
 .idea
 .flutter*
 .fvm
+
+
+build
+android
+linux
+
+*bak
