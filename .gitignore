@@ -13,3 +13,4 @@ dist/
 target
 .idea
 android/
+src-tauri
