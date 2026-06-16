@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
+import 'package:inner_breeze/utils/wake_lock_service.dart';
 
 class StopSessionButton extends StatefulWidget {
   final VoidCallback? onStopSessionPressed;
@@ -31,12 +34,11 @@ class _StopSessionButtonState extends State<StopSessionButton> {
     _loadDataFromProvider();
   }
 
-
   Future<void> _loadDataFromProvider() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final sessionData = await userProvider.loadSessionData();
-    
-    if (sessionData != null) { 
+
+    if (sessionData != null) {
       setState(() {
         _rounds = sessionData.rounds.length;
       });
@@ -44,18 +46,19 @@ class _StopSessionButtonState extends State<StopSessionButton> {
   }
 
   void _navigateToResults() {
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
+    unawaited(WakeLockService.disable());
 
-      Navigator.of(context).pop();
+    Navigator.of(context).pop();
 
-      if (widget.onStopSessionPressed != null) {
-        widget.onStopSessionPressed!();
-      }
-      else if (_rounds == 0) {
-        context.go('/home');
-        return;
-      }
-      context.go('/results');
+    if (widget.onStopSessionPressed != null) {
+      widget.onStopSessionPressed!();
+    } else if (_rounds == 0) {
+      context.go('/home');
+      return;
+    }
+    context.go('/results');
   }
 
   void _showExitConfirmationDialog(BuildContext context) {
@@ -64,7 +67,7 @@ class _StopSessionButtonState extends State<StopSessionButton> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-            title: Text('stop_session'.i18n()),
+          title: Text('stop_session'.i18n()),
           content: Text('stop_session_confirm'.i18n()),
           actions: <Widget>[
             Wrap(
@@ -79,13 +82,13 @@ class _StopSessionButtonState extends State<StopSessionButton> {
                     side: BorderSide(color: Colors.red),
                   ),
                   child: Text(
-                      'stop_session_button'.i18n(),
+                    'stop_session_button'.i18n(),
                     style: TextStyle(color: Colors.red),
                   ),
                 ),
                 OutlinedButton(
                   onPressed: () {
-                    widget.onResume?.call(); 
+                    widget.onResume?.call();
                     Navigator.of(context).pop();
                   },
                   child: Text('continue_session_button'.i18n()),

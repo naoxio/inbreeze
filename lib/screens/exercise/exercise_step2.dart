@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/models/session.dart';
+import 'package:inner_breeze/utils/wake_lock_service.dart';
 
 class ExerciseStep2 extends StatefulWidget {
   ExerciseStep2({super.key});
@@ -36,9 +37,13 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
 
   Future<void> _loadDataFromPreferences() async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final userPreferences = await userProvider
-        .loadUserPreferences(['breaths', 'tempo', 'volume', 'sessionId']);
+    final userPreferences = await userProvider.loadUserPreferences(
+        ['breaths', 'tempo', 'volume', 'sessionId', 'screenAlwaysOn']);
     final sessionData = await userProvider.loadSessionData();
+
+    if (!mounted) return;
+
+    await WakeLockService.setEnabled(userPreferences.screenAlwaysOn);
 
     if (!mounted) return;
 

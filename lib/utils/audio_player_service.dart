@@ -4,14 +4,18 @@ import 'dart:async';
 class AudioPlayerService {
   final Map<String, AudioPlayer> _players = {};
 
-  Future<void> initialize() async {
-  }
+  Future<void> initialize() async {}
 
   Future<void> preload(String assetPath, String playerId) async {
     try {
       var player = _players[playerId];
-      player ??= _players.putIfAbsent(playerId, () => AudioPlayer());
-      await player.setSource(AssetSource(assetPath.replaceFirst('assets/', '')));
+      if (player == null) {
+        player = AudioPlayer();
+        await player.setReleaseMode(ReleaseMode.stop);
+        _players[playerId] = player;
+      }
+      await player
+          .setSource(AssetSource(assetPath.replaceFirst('assets/', '')));
       await player.setVolume(0);
     } catch (e) {
       print('Error preloading audio: $e');
@@ -27,12 +31,13 @@ class AudioPlayerService {
       var player = _players[playerId];
       if (player == null) {
         player = AudioPlayer();
-        await player.setSource(AssetSource(assetPath.replaceFirst('assets/', '')));
+        await player.setReleaseMode(ReleaseMode.stop);
         _players[playerId] = player;
       }
-      await player.seek(Duration.zero);
-      await player.setVolume(volume / 100);
-      await player.resume();
+      await player.play(
+        AssetSource(assetPath.replaceFirst('assets/', '')),
+        volume: volume / 100,
+      );
     } catch (e) {
       print('Error playing audio: $e');
     }

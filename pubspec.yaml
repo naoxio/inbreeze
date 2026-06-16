@@ -30,6 +30,7 @@ dependencies:
   permission_handler: ^12.0.3
   http: ^1.1.2
   fl_chart: ^1.2.0
+  wakelock_plus: ^1.6.1
 
 dev_dependencies:
   flutter_test:

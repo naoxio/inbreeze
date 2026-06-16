@@ -10,6 +10,7 @@ import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:inner_breeze/utils/audio_player_service.dart';
+import 'package:inner_breeze/utils/wake_lock_service.dart';
 
 class ExerciseStep1 extends StatefulWidget {
   ExerciseStep1({super.key});
@@ -52,6 +53,10 @@ class _ExerciseStep1State extends State<ExerciseStep1> {
       userProvider.startNewSession();
       sessionData = await userProvider.loadSessionData();
     }
+
+    await WakeLockService.setEnabled(preferences.screenAlwaysOn);
+
+    if (!mounted) return;
 
     int localMaxBreaths = preferences.breaths;
     int localTempo = preferences.tempo;

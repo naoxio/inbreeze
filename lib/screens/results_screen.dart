@@ -5,6 +5,7 @@ import 'package:inner_breeze/widgets/breeze_app_bar.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
+import 'package:inner_breeze/utils/wake_lock_service.dart';
 
 class ResultsScreen extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
   @override
   void initState() {
     super.initState();
+    WakeLockService.disable();
     _loadSessions();
   }
 
