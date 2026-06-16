@@ -1,21 +1,40 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 
 class AudioPlayerService {
   final Map<String, AudioPlayer> _players = {};
+  final AudioContext _soundEffectContext =
+      AudioContextConfig(focus: AudioContextConfigFocus.mixWithOthers).build();
 
   Future<void> initialize() async {}
 
+  String _assetPathForPlatform(String assetPath) {
+    if (defaultTargetPlatform == TargetPlatform.android &&
+        assetPath.endsWith('.m4a')) {
+      return assetPath.replaceFirst('.m4a', '.ogg');
+    }
+    return assetPath;
+  }
+
+  Future<AudioPlayer> _getPlayer(String playerId) async {
+    var player = _players[playerId];
+    if (player == null) {
+      player = AudioPlayer();
+      await player.setPlayerMode(PlayerMode.lowLatency);
+      await player.setReleaseMode(ReleaseMode.stop);
+      await player.setAudioContext(_soundEffectContext);
+      _players[playerId] = player;
+    }
+    return player;
+  }
+
   Future<void> preload(String assetPath, String playerId) async {
     try {
-      var player = _players[playerId];
-      if (player == null) {
-        player = AudioPlayer();
-        await player.setReleaseMode(ReleaseMode.stop);
-        _players[playerId] = player;
-      }
-      await player
-          .setSource(AssetSource(assetPath.replaceFirst('assets/', '')));
+      final player = await _getPlayer(playerId);
+      final resolvedAssetPath = _assetPathForPlatform(assetPath);
+      await player.setSource(
+          AssetSource(resolvedAssetPath.replaceFirst('assets/', '')));
       await player.setVolume(0);
     } catch (e) {
       print('Error preloading audio: $e');
@@ -28,14 +47,11 @@ class AudioPlayerService {
     }
 
     try {
-      var player = _players[playerId];
-      if (player == null) {
-        player = AudioPlayer();
-        await player.setReleaseMode(ReleaseMode.stop);
-        _players[playerId] = player;
-      }
+      final player = await _getPlayer(playerId);
+      final resolvedAssetPath = _assetPathForPlatform(assetPath);
+      await player.stop();
       await player.play(
-        AssetSource(assetPath.replaceFirst('assets/', '')),
+        AssetSource(resolvedAssetPath.replaceFirst('assets/', '')),
         volume: volume / 100,
       );
     } catch (e) {

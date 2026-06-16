@@ -12,7 +12,7 @@ void main() {
     await tester.pumpWidget(
       ChangeNotifierProvider(
         create: (context) => UserProvider(),
-        child: const App(),
+        child: const App(initialLocale: Locale('en')),
       ),
     );
     await tester.pump();

@@ -20,16 +20,17 @@ class ExerciseStep2 extends StatefulWidget {
 class _ExerciseStep2State extends State<ExerciseStep2> {
   Duration duration = Duration(seconds: 0);
   late Timer timer;
+  final Stopwatch _stopwatch = Stopwatch();
+  Duration _initialDuration = Duration.zero;
   int rounds = 1;
-  bool isPaused = false;
 
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(Duration(milliseconds: 10), (Timer t) {
+    _stopwatch.start();
+    timer = Timer.periodic(Duration(milliseconds: 100), (Timer t) {
       setState(() {
-        if (isPaused) return;
-        duration = duration + Duration(milliseconds: 10);
+        duration = _initialDuration + _stopwatch.elapsed;
       });
     });
     _loadDataFromPreferences();
@@ -48,7 +49,8 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
     if (!mounted) return;
 
     int tempo = userPreferences.tempo;
-    duration = Duration(milliseconds: tempo);
+    _initialDuration = Duration(milliseconds: tempo);
+    duration = _initialDuration + _stopwatch.elapsed;
 
     setState(() {
       rounds = sessionData!.rounds.length;
@@ -66,11 +68,11 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
   }
 
   void pauseTimer() {
-    isPaused = true;
+    _stopwatch.stop();
   }
 
   void resumeTimer() {
-    isPaused = false;
+    _stopwatch.start();
   }
 
   void _navigateToNextExercise() async {
@@ -83,6 +85,7 @@ class _ExerciseStep2State extends State<ExerciseStep2> {
   @override
   void dispose() {
     timer.cancel();
+    _stopwatch.stop();
     super.dispose();
   }
 

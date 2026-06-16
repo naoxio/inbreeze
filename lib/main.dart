@@ -1,26 +1,33 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:inner_breeze/providers/user_provider.dart';
 import 'package:inner_breeze/widgets/centered_max_width_widget.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'router/router.dart';
 
 const String title = 'Inner Breeze';
 final GlobalKey<AppState> appKey = GlobalKey();
 
-void run() {
+void run(Locale initialLocale) {
   runApp(
     ChangeNotifierProvider(
       create: (context) => UserProvider(),
-      child: App(key: appKey),
+      child: App(key: appKey, initialLocale: initialLocale),
     ),
   );
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  run();
+  LocalJsonLocalization.delegate.directories = ['lib/i18n'];
+
+  final prefs = await SharedPreferences.getInstance();
+  final languageCode = prefs.getString('languagePreference') ?? 'en';
+  run(Locale(languageCode));
 }
 
 final _darkTheme = ThemeData.from(
@@ -38,22 +45,22 @@ final _lightTheme = ThemeData.from(
 );
 
 class App extends StatefulWidget {
-  const App({super.key});
+  const App({required this.initialLocale, super.key});
+
+  final Locale initialLocale;
 
   @override
   State<App> createState() => AppState();
 }
 
 class AppState extends State<App> {
-  Locale _currentLocale;
-  bool _assetsPreloaded = false;
-
-  AppState() : _currentLocale = Locale('en');
+  late Locale _currentLocale;
 
   @override
   void initState() {
     super.initState();
-    initializeLocale();
+    _currentLocale = widget.initialLocale;
+    unawaited(initializeLocale());
   }
 
   Future<void> initializeLocale() async {
@@ -68,31 +75,8 @@ class AppState extends State<App> {
     });
   }
 
-  Future<void> _preloadAssets(BuildContext context) async {
-    final imageExtensions = ['.png', '.jpg', '.jpeg'];
-
-    final imageAssetFilenames = [
-      'angel.jpg',
-      'begin.jpg',
-      'logo.png',
-    ];
-
-    // Construct full paths for image assets
-    final imageAssetPaths = imageAssetFilenames
-        .map((filename) => 'assets/images/$filename')
-        .toList();
-
-    for (final assetPath in imageAssetPaths) {
-      if (imageExtensions.any((ext) => assetPath.endsWith(ext))) {
-        await precacheImage(AssetImage(assetPath), context);
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    LocalJsonLocalization.delegate.directories = ['lib/i18n'];
-
     return MaterialApp.router(
       routerConfig: router,
       debugShowCheckedModeBanner: false,
@@ -117,15 +101,6 @@ class AppState extends State<App> {
       darkTheme: _darkTheme,
       themeMode: ThemeMode.dark,
       builder: (context, child) {
-        if (!_assetsPreloaded) {
-          _assetsPreloaded = true;
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) {
-              _preloadAssets(context);
-            }
-          });
-        }
-
         var backgroundColor = Theme.of(context).colorScheme.surface;
 
         return Container(

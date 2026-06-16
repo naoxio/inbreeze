@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
@@ -18,29 +17,9 @@ void _finishTutorial(BuildContext context) async {
 }
 
 class _GuideStep3ScreenState extends State<GuideStep3Screen> {
-  Duration duration = Duration(seconds: 0);
-  late Timer timer;
-
-  @override
-  void initState() {
-    super.initState();
-    timer = Timer.periodic(Duration(milliseconds: 1), (Timer t) {
-      setState(() {
-        duration = duration + Duration(milliseconds: 1);
-      });
-    });
-  }
-
-
-  @override
-  void dispose() {
-    timer.cancel(); 
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return  PageLayout(
+    return PageLayout(
       titleText: 'guide_step3_title'.i18n(),
       backButtonText: 'back_button'.i18n(),
       backButtonPressed: () {
@@ -66,8 +45,6 @@ class _GuideStep3ScreenState extends State<GuideStep3Screen> {
             'guide_step3_description'.i18n(),
             style: BreezeStyle.body,
           ),
-       
-
         ],
       ),
     );

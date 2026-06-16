@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:inner_breeze/shared/breeze_style.dart';
 import 'package:inner_breeze/layouts/guide_page_layout.dart';
 import 'package:inner_breeze/widgets/stopwatch.dart';
-import 'package:localization/localization.dart'; 
+import 'package:localization/localization.dart';
 
 class GuideStep2Screen extends StatefulWidget {
   @override
@@ -14,13 +14,15 @@ class GuideStep2Screen extends StatefulWidget {
 class _GuideStep2ScreenState extends State<GuideStep2Screen> {
   Duration duration = Duration(seconds: 0);
   late Timer timer;
+  final Stopwatch _stopwatch = Stopwatch();
 
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(Duration(milliseconds: 1), (Timer t) {
+    _stopwatch.start();
+    timer = Timer.periodic(Duration(milliseconds: 100), (Timer t) {
       setState(() {
-        duration = duration + Duration(milliseconds: 1);
+        duration = _stopwatch.elapsed;
       });
     });
   }
@@ -28,14 +30,15 @@ class _GuideStep2ScreenState extends State<GuideStep2Screen> {
   @override
   void dispose() {
     timer.cancel();
+    _stopwatch.stop();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return  PageLayout(
+    return PageLayout(
       titleText: 'guide_step2_title'.i18n(),
-      backButtonText: 'back_button'.i18n(), 
+      backButtonText: 'back_button'.i18n(),
       backButtonPressed: () {
         context.go('/guide/step1');
       },
@@ -45,7 +48,7 @@ class _GuideStep2ScreenState extends State<GuideStep2Screen> {
       },
       column: Column(
         children: [
-          Text(      
+          Text(
             'guide_step2_description'.i18n(),
             style: BreezeStyle.body,
           ),
@@ -53,7 +56,7 @@ class _GuideStep2ScreenState extends State<GuideStep2Screen> {
           SizedBox(
             width: 300,
             height: 200,
-            child: CustomTimer(duration: duration),  
+            child: CustomTimer(duration: duration),
           ),
           SizedBox(height: 20),
         ],
