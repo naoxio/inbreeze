@@ -69,6 +69,9 @@ jobs:
       
     - name: Install Dependencies
       run: flutter pub get
+
+    - name: Disable dartjni build IDs
+      run: scripts/disable-dartjni-build-id.sh
       
     - name: Build APK
       run: |

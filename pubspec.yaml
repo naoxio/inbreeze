@@ -3,7 +3,7 @@ description: A meditation and breathing guide app
 
 publish_to: 'none'
 
-version: 1.5.2+42
+version: 1.5.3+43
 
 environment:
   sdk: '>=3.5.0 <4.0.0'

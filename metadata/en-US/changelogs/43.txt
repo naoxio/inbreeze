@@ -1,0 +1,2 @@
+* Disable dartjni build IDs for reproducible Android release builds
+

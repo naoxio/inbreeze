@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.3] - 2026-06-18
+- Disable dartjni build IDs for reproducible Android release builds
+
 ## [1.5.2] - 2026-06-13
 - Upgrade to Java 21 (OpenJDK) for improved performance and security
 - Update build configuration for Java 21 compatibility
